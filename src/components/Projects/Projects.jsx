@@ -13,6 +13,15 @@ export default function Projects() {
       git: "https://github.com/shireff/Puik-Bags-E-Commerce",
     },
     {
+      title: "Alert Components",
+      category: "React",
+      desc: `React component for customizable alerts, styled with SCSS. Alerts are categorized by types such as info, default, warning, error, and success, each with unique visual styles.`,
+      img: "./imgs/React/alert.png",
+      categ: "React",
+      // demo: "https://github.com/shireff/Puik-Bags-E-Commerce",
+      git: "https://github.com/shireff/Alert-Component",
+    },
+    {
       title: "AI-MAX",
       category: "ui",
       desc: `Explore the evolution and impact of Artificial Intelligence (AI)
@@ -80,8 +89,11 @@ export default function Projects() {
     },
     
   ];
+
   const [active, setActive] = useState("all");
+  
   const [arr, setArr] = useState(projects);
+
   const handleClick = (btnCat) => {
     setActive(btnCat);
     const newArr = projects.filter((item) => {
