@@ -16,7 +16,7 @@ export default function Projects() {
       title: "Alert Components",
       category: "React",
       desc: `React component for customizable alerts, styled with SCSS. Alerts are categorized by types such as info, default, warning, error, and success, each with unique visual styles.`,
-      img: "./imgs/React/alert.png",
+      img: "./imgs/React/alerts.png",
       categ: "React",
       // demo: "https://github.com/shireff/Puik-Bags-E-Commerce",
       git: "https://github.com/shireff/Alert-Component",
