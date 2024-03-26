@@ -155,7 +155,7 @@ export default function Projects() {
                         Demo
                       </a>
                     )}
-                    {!item.demo && <p>Private Repo</p>}
+                    {!item.demo && <p>No Demo</p>}
                     {item.git && (
                       <a rel="noreferrer" target="_blank" href={item.git}>
                         Show Code
