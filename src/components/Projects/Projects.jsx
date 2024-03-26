@@ -151,13 +151,13 @@ export default function Projects() {
                   <p className="subtitle">{item.desc}</p>
                   <div className="flex">
                     {item.demo && (
-                      <a rel="noreferrer" target="_blank" href={item.demo}>
+                      <a className="btn-4" rel="noreferrer" target="_blank" href={item.demo}>
                         Demo
                       </a>
                     )}
                     {!item.demo && <p>No Demo</p>}
                     {item.git && (
-                      <a rel="noreferrer" target="_blank" href={item.git}>
+                      <a className="btn-4"  rel="noreferrer" target="_blank" href={item.git}>
                         Show Code
                       </a>
                     )}

@@ -1,7 +1,7 @@
 import React from 'react'
 import "./Landing.css"
 // @ts-ignore
-import verified from './../../../public/bb.png'
+import verified from './../../../public/bb3.png'
 import { motion } from "framer-motion"
 import Lottie from "lottie-react";
 // @ts-ignore
