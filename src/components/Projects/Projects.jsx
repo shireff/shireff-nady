@@ -58,7 +58,7 @@ export default function Projects() {
       img: "./imgs/React/movies-app.png",
       categ: "React",
       git: "https://github.com/shireff/movies-app",
-      demo: "https://movies-app-rose-zeta.vercel.app/"
+      demo: "https://movies-app-rose-zeta.vercel.app/",
     },
     {
       title: "Capital-Shop",
@@ -87,11 +87,10 @@ export default function Projects() {
       git: "https://github.com/shireff/SHOPPE-E-Commerce",
       demo: "https://shireff.github.io/SHOPPE-E-Commerce/",
     },
-    
   ];
 
   const [active, setActive] = useState("all");
-  
+
   const [arr, setArr] = useState(projects);
 
   const handleClick = (btnCat) => {
@@ -139,45 +138,43 @@ export default function Projects() {
           {arr.map((item, key) => {
             return (
               <motion.article
-              layout
-              initial = {{transform : "scale(0.4)"}}
-              animate = {{transform : "scale(1)"}}
-              transition = {{type : "spring", damping: 8, stiffness:50}}
-               key={key} className="card">
+                layout
+                initial={{ transform: "scale(0.4)" }}
+                animate={{ transform: "scale(1)" }}
+                transition={{ type: "spring", damping: 8, stiffness: 50 }}
+                key={key}
+                className="card"
+              >
                 <img width={266} src={item.img} alt="" />
                 <div className="box">
                   <h1 className="title">{item.title}</h1>
                   <p className="subtitle">{item.desc}</p>
-
                   <div className="flex">
+                    {item.demo && (
+                      <a rel="noreferrer" target="_blank" href={item.demo}>
+                        Demo
+                      </a>
+                    )}
+                    {!item.demo && <p>Private Repo</p>}
+                    {item.git && (
+                      <a rel="noreferrer" target="_blank" href={item.git}>
+                        Show Code
+                      </a>
+                    )}
+                    {!item.git && <p>Private Code</p>}
+                  </div>
+                  {/* <div className="flex">
                     <a rel="noreferrer" target="_blank" href={item.demo}>
                       Demo
                     </a>
                     <a rel="noreferrer" target="_blank" href={item.git}>
                       Show Code
                     </a>
-                  </div>
+                  </div> */}
                 </div>
               </motion.article>
             );
           })}
-          {/* <article className="card">
-          <img width={266} src="./imgs/ui/AI-MAX.png" alt="" />
-          <div className="box">
-            <h1 className="title">AI-MAX</h1>
-            <p className="subtitle">
-              Explore the evolution and impact of Artificial Intelligence (AI)
-              from science fiction to current advancements, delving into its
-              past, present, potential future developments, and
-              societal/economic consequences in this page.
-            </p>
-
-            <div className="flex">
-              <a href="">Demo</a>
-              <a href="">Show Code</a>
-            </div>
-          </div>
-        </article> */}
         </AnimatePresence>
       </section>
     </main>
