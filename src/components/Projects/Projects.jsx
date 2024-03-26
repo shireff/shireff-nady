@@ -161,7 +161,7 @@ export default function Projects() {
                         Show Code
                       </a>
                     )}
-                    {!item.git && <p>Private Code</p>}
+                    {!item.git && <p>Private Repo</p>}
                   </div>
                   {/* <div className="flex">
                     <a rel="noreferrer" target="_blank" href={item.demo}>
