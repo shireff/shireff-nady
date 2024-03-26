@@ -9,7 +9,7 @@ export default function Projects() {
       desc: `Revolutionize your finances with our intuitive web app. Effortlessly manage expenses, create budgets, and set goals with real-time tracking. Personalized insights empower smart financial decisions for a stress-free and brighter future.`,
       img: "./imgs/React/Puik Bags E-Commerce.png",
       categ: "React",
-      // demo: "https://github.com/shireff/Puik-Bags-E-Commerce",
+      demo: "https://puik-bags.vercel.app/",
       git: "https://github.com/shireff/Puik-Bags-E-Commerce",
     },
     {
@@ -40,7 +40,7 @@ export default function Projects() {
       img: "./imgs/React/next e-commerce.png",
       categ: "React",
       git: "https://github.com/shireff/nextecommerce",
-      // demo: "#",
+      // demo: "",
     },
     {
       title: "Travel",
@@ -57,8 +57,8 @@ export default function Projects() {
       desc: `Explore films and entertainment effortlessly with our user-friendly platform. Discover the latest releases, classics, and hidden gems. Join our movie-loving community for personalized recommendations and an immersive cinematic experience.`,
       img: "./imgs/React/movies-app.png",
       categ: "React",
-      // git: "https://github.com/shireff/SHOPPE-E-Commerce",
-      // demo: "https://github.com/shireff/Puik-Bags-E-Commerce"
+      git: "https://github.com/shireff/movies-app",
+      demo: "https://movies-app-rose-zeta.vercel.app/"
     },
     {
       title: "Capital-Shop",
