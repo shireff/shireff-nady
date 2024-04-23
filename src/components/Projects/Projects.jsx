@@ -79,6 +79,15 @@ export default function Projects() {
       // demo: "https://github.com/shireff/Puik-Bags-E-Commerce"
     },
     {
+      title: "My Computer 2000",
+      category: "React",
+      desc: `MyComputer2000! Specializing in surveillance setup, swift internet fixes, and computer upkeep to ensure seamless digital operations.`,
+      img: "./imgs/React/mycomputer2000.png",
+      categ: "React",
+      // git: "https://github.com/shireff/mycomputer2000",
+      demo: "https://mycomputer2000.vercel.app/",
+    },
+    {
       title: "SHOPPE E-Commerce",
       category: "ui",
       desc: `Your one-stop for sustainable living: tips to cut your carbon footprint, eco-friendly products, and renewable energy info. Join our community, embark on a greener lifestyle, and impact the planet positively.`,
@@ -151,13 +160,23 @@ export default function Projects() {
                   <p className="subtitle">{item.desc}</p>
                   <div className="flex">
                     {item.demo && (
-                      <a className="btn-4" rel="noreferrer" target="_blank" href={item.demo}>
+                      <a
+                        className="btn-4"
+                        rel="noreferrer"
+                        target="_blank"
+                        href={item.demo}
+                      >
                         Demo
                       </a>
                     )}
                     {!item.demo && <p>No Demo</p>}
                     {item.git && (
-                      <a className="btn-4"  rel="noreferrer" target="_blank" href={item.git}>
+                      <a
+                        className="btn-4"
+                        rel="noreferrer"
+                        target="_blank"
+                        href={item.git}
+                      >
                         Show Code
                       </a>
                     )}
