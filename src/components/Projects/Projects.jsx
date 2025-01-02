@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./Projects.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+
 import { motion, AnimatePresence } from "framer-motion";
 export default function Projects() {
   let projects = [
@@ -96,6 +98,24 @@ export default function Projects() {
       git: "https://github.com/shireff/SHOPPE-E-Commerce",
       demo: "https://shireff.github.io/SHOPPE-E-Commerce/",
     },
+    {
+      title: "Shop API",
+      category: "node",
+      desc: `A robust back-end built with Node.js, Express, and MongoDB. It features an efficient product search API with regex-based filtering, error handling, and seamless integration with Redux Toolkit for front-end communication. Designed with a modular and scalable architecture.`,
+      //img: "./imgs/ui/SHOPPE-E.png",
+      categ: "node",
+      // git: "https://github.com/shireff/shoppy-ecommerce-server",
+      demo: "https://shoppy-server.vercel.app/api-docs/",
+    },
+    {
+      title: "Shop E-Commerce",
+      category: "React",
+      desc: `A full-stack e-commerce application featuring a React front-end with Redux Toolkit for state management and Tailwind CSS for responsive design. Users can search products with live results and skeleton loaders. The back-end is powered by Node.js, Express, and MongoDB, providing robust APIs for efficient data handling.`,
+      img: "./imgs/React/fullstackecommerce.png",
+      categ: "React",
+      // git: "https://github.com/shireff/shoppy-ecommerce-client",
+      demo: "https://shoppy-ochre.vercel.app/",
+    },
   ];
 
   const [active, setActive] = useState("all");
@@ -139,7 +159,14 @@ export default function Projects() {
         >
           React
         </button>
-        {/* <button></button> */}
+        <button
+          onClick={() => {
+            handleClick("node");
+          }}
+          className={active === "node" ? "active" : null}
+        >
+          NodeJs
+        </button>
       </section>
 
       <section className="pro-right flex">
@@ -154,10 +181,31 @@ export default function Projects() {
                 key={key}
                 className="card"
               >
-                <img width={266} src={item.img} alt="" />
+                {item.img ? (
+                  <img
+                    width={266}
+                    src={item.img}
+                    alt={item.title || "Project"}
+                  />
+                ) : (
+                  <div className="placeholder">
+                    <i
+                      className="fas fa-image"
+                      style={{ fontSize: "36px", color: "#888" }}
+                    ></i>
+                  </div>
+                )}
                 <div className="box">
                   <h1 className="title">{item.title}</h1>
-                  <p className="subtitle">{item.desc}</p>
+                  <p
+                    className="subtitle"
+                    title={item.desc.length > 215 ? item.desc : ""}
+                  >
+                    {item.desc.length > 215
+                      ? `${item.desc.slice(0, 215)}...`
+                      : item.desc}
+                  </p>
+
                   <div className="flex">
                     {item.demo && (
                       <a

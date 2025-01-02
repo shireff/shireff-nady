@@ -110,7 +110,36 @@ main.flex section.pro-right article.card .box .subtitle {
   font-size: 0.8rem;
   margin-top: 0.7rem;
   margin-bottom: 1.1rem;
+  position: relative;
 }
+
+main.flex section.pro-right article.card .box .subtitle::after {
+  content: attr(title);
+  position: absolute;
+  left: 0;
+  top: 120%;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 8px;
+  border-radius: 5px;
+  white-space: pre-wrap; 
+  z-index: 100;
+  max-width: 300px; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  visibility: hidden; 
+  transform: translateY(10px); 
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 100;
+
+}
+
+main.flex section.pro-right article.card .box .subtitle:hover::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
 
 main.flex section.pro-right article.card .box .flex {
   justify-content: space-around;
@@ -174,4 +203,26 @@ main.flex section.pro-right article.card .box .flex {
 .light .btn-4:hover:before,
 .light .btn-4:hover:after {
   border-color: #000;
+}
+
+.placeholder {
+  width: 266px;
+  height: 150px; /* Adjust size as needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0; /* Light gray */
+  border: 1px dashed #ccc; /* Optional border style */
+  color: #888; /* Text color */
+  font-size: 14px; /* Adjust font size */
+  font-weight: bold;
+  text-align: center;
+}
+
+.card img {
+  width: 100%; /* Ensures the image fills the container width */
+  height: auto; /* Maintains aspect ratio */
+  max-width: 266px; /* Optional: restrict maximum width */
+  max-height: 200px; /* Ensures all images are visually consistent */
+  object-fit: cover; /* Crop images to fit within the container */
 }
