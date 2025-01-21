@@ -41,7 +41,10 @@ html {
   --subtitle: rgb(161 161 170);
   --bgHeader: rgb(39, 39, 42);
   --blue: rgb(93, 188, 252);
-  --icon-hover: #d4d4d8;
+  --icon: rgb(244, 244, 245);
+  --icon-hover: #d4d4d8; 
+  --card-bg: rgb(39, 39, 42); 
+  --card-hover-bg: rgb(63, 63, 70); 
 }
 
 .light {
@@ -52,6 +55,10 @@ html {
   --subtitle: rgb(82, 82, 91);
   --bgHeader: rgb(253, 253, 253);
   --blue: rgb(0, 149, 245);
+  --icon: rgb(39, 39, 42);
+  --icon-hover: rgb(0, 149, 245);
+  --card-bg: rgb(255, 255, 255); 
+  --card-hover-bg: rgba(240, 240, 240, 1);
 } 
 
 body {

@@ -64,9 +64,14 @@ export default function Landing() {
           ></a>
         </div>
       </div>
-      <div className="right animation">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="right animation"
+      >
         <Lottie className="animat" animationData={landingAnimation} />
-      </div>
+      </motion.div>
     </section>
   );
 }
