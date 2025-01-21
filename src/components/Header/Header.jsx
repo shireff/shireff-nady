@@ -1,82 +1,111 @@
-import React, { useEffect, useState } from 'react'
-import "./Header.css"
+import React, { useEffect, useState } from "react";
+import "./Header.css";
+
 export default function Header() {
-  const [showModel, setShowMoldel] = useState(false)
-  const [mode, setMode] = useState(localStorage.getItem("currentMode") ?? "dark")
+  const [showModel, setShowModel] = useState(false);
+  const [mode, setMode] = useState(
+    localStorage.getItem("currentMode") ?? "dark"
+  );
+
   useEffect(() => {
     if (mode === "light") {
-      document.body.classList.remove("dark")
-      document.body.classList.add("light")
+      document.body.classList.remove("dark");
+      document.body.classList.add("light");
     } else {
-      document.body.classList.remove("light")
-      document.body.classList.add("dark")
+      document.body.classList.remove("light");
+      document.body.classList.add("dark");
     }
-  }, [mode])
+  }, [mode]);
+
+  const closeModal = () => {
+    setShowModel(false);
+  };
+
+  const handleOutsideClick = (e) => {
+    if (e.target.closest(".modal") === null) {
+      closeModal();
+    }
+  };
+
+  useEffect(() => {
+    if (showModel) {
+      document.addEventListener("mousedown", handleOutsideClick);
+    } else {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [showModel]);
+
   return (
-    <header id='header' className='flex'>
-      <div className='hide' />
+    <header id="header" className="flex">
+      <div className="hide" />
       <button
-        className='menu flex'
+        className="menu flex"
         onClick={() => {
-          setShowMoldel(true)
+          setShowModel(true);
         }}
       >
-        <span className='icon-menu' />
+        <span className="icon-menu" />
       </button>
 
       <nav>
-
-        <ul className='flex'>
-
-          <li><a href="#about">About</a></li>
-          <li><a href="#experience">Experience</a></li>
-          <li><a href="#projects">Projects</a></li>
-          {/* <li><a href="">Speaking</a></li> */}
-          <li><a href="#contact">Contact</a></li>
+        <ul className="flex">
+          <li>
+            <a href="#about">About</a>
+          </li>
+          <li>
+            <a href="#experience">Experience</a>
+          </li>
+          <li>
+            <a href="#projects">Projects</a>
+          </li>
+          <li>
+            <a href="#contact">Contact</a>
+          </li>
         </ul>
-
       </nav>
 
       <button
         onClick={() => {
-          localStorage.setItem("currentMode", mode === "dark" ? "light" : "dark")
-          setMode(localStorage.getItem("currentMode"))
-
-
-          // setMode( mode === "dark" ? "light" : "dark")
+          const newMode = mode === "dark" ? "light" : "dark";
+          localStorage.setItem("currentMode", newMode);
+          setMode(newMode);
         }}
-        className='mood flex'>
+        className="mood flex"
+      >
         {mode === "dark" ? (
-          <span className='icon-moon-o' />
+          <span className="icon-moon-o" />
         ) : (
-          <span className='icon-sun' />
-        )
-        }
+          <span className="icon-sun" />
+        )}
       </button>
-
 
       {showModel && (
         <div className="fixed">
-          <ul className='modal'>
+          <ul className="modal">
             <li>
-              <button
-                className='clear'
-                onClick={() => {
-                  setShowMoldel(false)
-                }}
-              >
-
-                <span className='icon-clear' />
+              <button className="clear" onClick={closeModal}>
+                <span className="icon-clear" />
               </button>
             </li>
-            {/* <li><a href="">About</a></li> */}
-            {/* <li><a href="">Articales</a></li> */}
-            <li><a href="#projects">Projects</a></li>
-            {/* <li><a href="">Speaking</a></li> */}
-            <li><a href="#contact">Contact</a></li>
+            <li onClick={closeModal}>
+              <a href="#about">About</a>
+            </li>
+            <li onClick={closeModal}>
+              <a href="#experience">Experience</a>
+            </li>
+            <li onClick={closeModal}>
+              <a href="#projects">Projects</a>
+            </li>
+            <li onClick={closeModal}>
+              <a href="#contact">Contact</a>
+            </li>
           </ul>
         </div>
       )}
     </header>
-  )
+  );
 }
