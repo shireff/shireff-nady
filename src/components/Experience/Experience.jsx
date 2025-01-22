@@ -14,7 +14,14 @@ const experiences = [
       "Led the testing process, including unit, integration, and end-to-end testing with Cypress.",
       "Delivered high-performance user experiences for large-scale projects.",
     ],
-    technologies: ["React", "Next.js", "Tailwind CSS", "TypeScript", "Cypress"],
+    technologies: [
+      "React",
+      "Next.js",
+      "Tailwind CSS",
+      "TypeScript",
+      "Jest",
+      "Cypress",
+    ],
   },
   {
     id: "2",
