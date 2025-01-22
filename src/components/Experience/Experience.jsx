@@ -7,7 +7,7 @@ const experiences = [
   {
     id: "3",
     company: "Appy - Poland",
-    position: "Senior Level Front-End Engineer",
+    position: "Senior Front-End Engineer",
     period: "November 2023 - Present",
     description: [
       "Created reusable components to optimize application efficiency using React and Next.js.",
