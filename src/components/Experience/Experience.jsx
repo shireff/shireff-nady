@@ -1,49 +1,42 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Briefcase } from "lucide-react";
+//import { Briefcase } from "lucide-react";
 import "./Experience.css";
 
 const experiences = [
   {
     id: "3",
     company: "Appy - Poland",
-    position: "Senior Front-End Developer",
-    period: "2022 - Present",
+    position: "Senior Level Front-End Engineer",
+    period: "November 2023 - Present",
     description: [
-      "Led the development of scalable and maintainable front-end architectures",
-      "Collaborated closely with cross-functional teams to deliver business-critical features",
-      "Optimized application performance and implemented modern best practices",
+      "Created reusable components to optimize application efficiency using React and Next.js.",
+      "Led the testing process, including unit, integration, and end-to-end testing with Cypress.",
+      "Delivered high-performance user experiences for large-scale projects.",
     ],
-    technologies: [
-      "React",
-      "Next.js",
-      "Tailwind CSS",
-      "TypeScript",
-      "Redux",
-      "Webpack",
-    ],
+    technologies: ["React", "Next.js", "Tailwind CSS", "TypeScript", "Cypress"],
   },
   {
     id: "2",
-    company: "Tech Solutions Inc.",
-    position: "Mid Front-End Developer",
-    period: "2021 - 2022",
+    company: "Instant",
+    position: "Mid Front-End Engineer",
+    period: "July 2021 - November 2022",
     description: [
-      "Developed and maintained multiple client websites",
-      "Implemented modern UI/UX designs with Tailwind CSS",
-      "Mentored junior developers and conducted code reviews",
+      "Developed and integrated APIs for seamless front-end and back-end communication.",
+      "Resolved technical issues adhering to coding standards.",
+      "Created reusable components to enhance application performance using React and TypeScript.",
     ],
-    technologies: ["React", "TypeScript", "Tailwind CSS", "Next.js"],
+    technologies: ["React", "TypeScript", "APIs", "Tailwind CSS"],
   },
   {
     id: "1",
     company: "Digital Innovations Ltd",
     position: "Front-End Developer",
-    period: "2020 - 2021",
+    period: "November 2020 - June 2021",
     description: [
-      "Developed and maintained multiple client websites",
-      "Implemented responsive designs and animations",
-      "Collaborated with design team for optimal user experiences",
+      "Developed responsive designs and animations.",
+      "Collaborated with the design team to ensure optimal user experiences.",
+      "Assisted in developing and maintaining multiple client websites.",
     ],
     technologies: ["React", "JavaScript", "SCSS", "Redux"],
   },
@@ -75,10 +68,10 @@ const Experience = () => {
             transition={{ duration: 0.5, delay: index * 0.2 }}
             className="experience-card"
           >
-            <div className="experience-header">
+            {/* <div className="experience-header">
               <Briefcase className="experience-icon" />
               <span className="experience-period">{exp.period}</span>
-            </div>
+            </div> */}
             <h3 className="experience-position">{exp.position}</h3>
             <h4 className="experience-company">{exp.company}</h4>
             <ul className="experience-description">
