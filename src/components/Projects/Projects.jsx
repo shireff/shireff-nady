@@ -37,10 +37,10 @@ export default function Projects() {
     },
     {
       title: "Next E-Commerce",
-      category: "React",
+      category: "next",
       desc: `Explore the future of e-commerce with our cutting-edge Next.js project. Seamlessly integrating HyperUi, Tailwind, Strapi, Stripe, Cloudinary, and React Mail, it delivers a robust and dynamic shopping experience`,
       img: "./imgs/React/next e-commerce.png",
-      categ: "React",
+      categ: "next",
       git: "https://github.com/shireff/nextecommerce",
       // demo: "",
     },
@@ -116,6 +116,24 @@ export default function Projects() {
       // git: "https://github.com/shireff/shoppy-ecommerce-client",
       demo: "https://shoppy-ochre.vercel.app/",
     },
+    {
+      title: "Inventory Management",
+      category: "next",
+      desc: `Inventory Management System built with Next.js, TypeScript, and Tailwind CSS This Inventory Management System is a modern, scalable web application designed to streamline the tracking, management, and organization of products within a business. Built with Next.js, TypeScript, and Tailwind CSS, the application leverages these powerful technologies to ensure an efficient, high-performance user experience.Users can search products with live results and skeleton loaders. The back-end is powered by Node.js, Express, and MongoDB, providing robust APIs for efficient data handling.`,
+      img: "./imgs/React/InventoryManagement.png",
+      categ: "next",
+      // git: "https://github.com/shireff/inventory-management-client",
+      demo: "https://inventory-management-client-bay.vercel.app/",
+    },
+    {
+      title: "Inventory Management API",
+      category: "node",
+      desc: `Inventory Management System built with Next.js, TypeScript, and Tailwind CSS This Inventory Management System is a modern, scalable web application designed to streamline the tracking, management, and organization of products within a business. Built with Next.js, TypeScript, and Tailwind CSS, the application leverages these powerful technologies to ensure an efficient, high-performance user experience.Users can search products with live results and skeleton loaders. The back-end is powered by Node.js, Express, and MongoDB, providing robust APIs for efficient data handling.`,
+     // img: "./imgs/React/InventoryManagement.png",
+      categ: "node",
+      // git: "https://github.com/shireff/inventory-management-server",
+      demo: "https://inventory-management-server-production.up.railway.app/api-docs/",
+    },
   ];
 
   const [active, setActive] = useState("all");
@@ -158,6 +176,14 @@ export default function Projects() {
           className={active === "React" ? "active" : null}
         >
           React
+        </button>
+        <button
+          onClick={() => {
+            handleClick("next");
+          }}
+          className={active === "next" ? "active" : null}
+        >
+          Next.Js
         </button>
         <button
           onClick={() => {
