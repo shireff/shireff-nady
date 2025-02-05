@@ -134,6 +134,15 @@ export default function Projects() {
       // git: "https://github.com/shireff/inventory-management-server",
       demo: "https://inventory-management-server-production.up.railway.app/api-docs/",
     },
+    {
+      title: "LMS Management API",
+      category: "node",
+      desc: `The LMS Management API is a backend system designed to manage online learning platforms. It provides essential functionalities for handling users, courses, enrollments, authentication, and content management. The API is structured using RESTful principles and documented using Swagger to ensure clarity and ease of integration`,
+     // img: "./imgs/React/InventoryManagement.png",
+      categ: "node",
+      // git: "https://github.com/shireff/inventory-management-server",
+      demo: "https://lms-server-production-589d.up.railway.app/api-docs/#/",
+    },
   ];
 
   const [active, setActive] = useState("all");
