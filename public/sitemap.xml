@@ -6,12 +6,22 @@
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>https://shireff-nady.vercel.app/about</loc>
+        <loc>https://shireff-nady.vercel.app/#about</loc>
         <lastmod>2024-02-27</lastmod>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://shireff-nady.vercel.app/projects</loc>
+        <loc>https://shireff-nady.vercel.app/#experience</loc>
+        <lastmod>2024-02-27</lastmod>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://shireff-nady.vercel.app/#projects</loc>
+        <lastmod>2024-02-27</lastmod>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://shireff-nady.vercel.app/#contact</loc>
         <lastmod>2024-02-27</lastmod>
         <priority>0.8</priority>
     </url>
