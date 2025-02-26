@@ -1,0 +1,226 @@
+main.flex {
+  gap: 2.64rem;
+  align-items: start;
+}
+
+main.flex section.pro-left {
+  flex-direction: column;
+  gap: 10px;
+}
+
+main.flex section.pro-left button {
+  background-color: rgba(36, 37, 46, 1);
+  width: 11rem;
+  padding: 0.75rem 0;
+  text-align: center;
+  font-size: 1.05rem;
+  opacity: 0.5;
+  border-radius: 5px;
+  transition: all 0.3s;
+}
+
+main.flex section.pro-left button:hover {
+  opacity: 1;
+}
+
+main.flex section.pro-left button.active {
+  font-weight: bold;
+  opacity: 1;
+  letter-spacing: 0.6px;
+  padding: 0.8rem 0;
+  border: 1px solid rgb(93, 188, 252);
+}
+
+.light main.flex section.pro-left button.active {
+  border: 1px solid #000;
+}
+
+main.flex section.pro-right {
+  flex-grow: 1;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+
+@media (max-width: 600px) {
+  main.flex {
+    flex-direction: column;
+    gap: 2.64rem;
+    align-items: center;
+  }
+  main.flex section.pro-left {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+  main.flex section.pro-left button {
+    width: 7rem;
+    padding: 0.8rem 0;
+    font-size: 0.9rem;
+  }
+}
+
+main.flex section.pro-right article.card {
+  border: 1px solid rgba(93, 188, 252, 0.3);
+  border-radius: 3px;
+  transition: all 0.2s;
+  background-image: linear-gradient(
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0.05)
+  );
+}
+
+.light main.flex section.pro-right article.card {
+  border: none;
+  background-image: linear-gradient(
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0.05)
+  );
+}
+
+main.flex section.pro-right article.card:hover {
+  border: 1px solid rgb(93, 188, 252);
+  scale: 1.01;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 10px 1px;
+}
+
+.light main.flex section.pro-right article.card:hover {
+  border: none;
+  background-color: rgba(248, 248, 248, 0.3);
+}
+
+main.flex section.pro-right article.card img {
+  width: 266px;
+  border-radius: 3px;
+}
+
+main.flex section.pro-right article.card .box {
+  padding: 1rem 0.4rem;
+  width: 266px;
+}
+
+main.flex section.pro-right article.card .box .title {
+  color: var(--title);
+  text-transform: capitalize;
+}
+
+main.flex section.pro-right article.card .box .subtitle {
+  color: var(--subtitle);
+  font-size: 0.8rem;
+  margin-top: 0.7rem;
+  margin-bottom: 1.1rem;
+  position: relative;
+}
+
+main.flex section.pro-right article.card .box .subtitle::after {
+  content: attr(title);
+  position: absolute;
+  left: 0;
+  top: 120%;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 8px;
+  border-radius: 5px;
+  white-space: pre-wrap;
+  z-index: 100;
+  max-width: 300px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 100;
+}
+
+main.flex section.pro-right article.card .box .subtitle:hover::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+main.flex section.pro-right article.card .box .flex {
+  justify-content: space-around;
+  font-size: 0.8rem;
+  color: var(--title);
+  cursor: pointer;
+}
+
+/*  */
+.btn-4 {
+  position: relative;
+  z-index: 2;
+  line-height: 40px;
+  padding: 0 15px;
+}
+.btn-4:hover {
+  border: none;
+}
+.btn-4:before,
+.btn-4:after {
+  position: absolute;
+  content: "";
+  width: 0%;
+  height: 0%;
+  border: 2px solid;
+  z-index: -1;
+  transition: all 0.3s ease;
+}
+.btn-4:before {
+  top: 0;
+  left: 0;
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+  border-top-color: white;
+  border-left-color: white;
+}
+.btn-4:after {
+  bottom: 0;
+  right: 0;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  border-bottom-color: white;
+  border-right-color: white;
+}
+.btn-4:hover:before,
+.btn-4:hover:after {
+  border-color: white;
+  height: 100%;
+  width: 100%;
+}
+
+.light .btn-4:before {
+  border-top-color: #000;
+  border-left-color: #000;
+}
+
+.light .btn-4:after {
+  border-bottom-color: #000;
+  border-right-color: #000;
+}
+.light .btn-4:hover:before,
+.light .btn-4:hover:after {
+  border-color: #000;
+}
+
+.placeholder {
+  width: 266px;
+  height: 150px; /* Adjust size as needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0; /* Light gray */
+  border: 1px dashed #ccc; /* Optional border style */
+  color: #888; /* Text color */
+  font-size: 14px; /* Adjust font size */
+  font-weight: bold;
+  text-align: center;
+}
+
+.card img {
+  width: 100%; /* Ensures the image fills the container width */
+  height: auto; /* Maintains aspect ratio */
+  max-width: 266px; /* Optional: restrict maximum width */
+  max-height: 200px; /* Ensures all images are visually consistent */
+  object-fit: cover; /* Crop images to fit within the container */
+}
