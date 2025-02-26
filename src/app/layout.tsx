@@ -58,12 +58,22 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <title>Shireff Nady | Front-End Developer</title>
+
         <link rel="icon" href="/head.jpeg" type="image/jpeg" sizes="32x32" />
         <link rel="apple-touch-icon" href="/head.jpeg" />
+        <meta name="author" content="Shireff Nady" />
+        <meta name="publisher" content="Shireff Nady" />
+        <meta name="application-name" content="Shireff Nady Portfolio" />
+        <meta
+          property="og:site_name"
+          content="Shireff Nady | Front-End Developer"
+        />
         <meta
           property="og:title"
           content="Shireff Nady | Front-End Developer"
         />
+
         <meta
           property="og:description"
           content="A Front-End Developer skilled in HTML, CSS, JavaScript, React, Tailwind, and more. View my projects."
@@ -71,10 +81,6 @@ export default function RootLayout({
         <meta property="og:image" content="/head.jpeg" />
         <meta property="og:url" content="https://shireff-nady.vercel.app/" />
         <meta property="og:type" content="website" />
-        <meta
-          property="og:site_name"
-          content="Shireff Nady | Front-End Developer"
-        />
 
         <link rel="stylesheet" href="/icons/icomoon/style.css" />
       </head>
