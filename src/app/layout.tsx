@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
+import { Metadata } from "next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -62,8 +62,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <title>Shireff Nady | Front-End Developer</title>
-
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://shireff-nady.vercel.app/" />
         <link rel="icon" href="/head.jpeg" type="image/jpeg" sizes="32x32" />
         <link rel="apple-touch-icon" href="/head.jpeg" />
         <meta name="author" content="Shireff Nady" />
@@ -77,7 +77,6 @@ export default function RootLayout({
           property="og:title"
           content="Shireff Nady | Front-End Developer"
         />
-
         <meta
           property="og:description"
           content="A Front-End Developer skilled in HTML, CSS, JavaScript, React, Tailwind, and more. View my projects."
@@ -85,7 +84,6 @@ export default function RootLayout({
         <meta property="og:image" content="/head.jpeg" />
         <meta property="og:url" content="https://shireff-nady.vercel.app/" />
         <meta property="og:type" content="website" />
-
         <link rel="stylesheet" href="/icons/icomoon/style.css" />
       </head>
       <body
@@ -94,7 +92,7 @@ export default function RootLayout({
         {children}
         <Script
           strategy="afterInteractive"
-          src={`https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXX`}
+          src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXX"
         />
         <Script id="google-analytics" strategy="afterInteractive">
           {`
