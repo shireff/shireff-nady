@@ -15,17 +15,19 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://shireff-nady.vercel.app"),
-  title: "Shireff Nady | Front-End Developer",
+  title: "Shireff Nady - Front-End Developer | Web Developer | JavaScript & React",
   description:
-    "Shireff Nady developer expertise in front-end development, including HTML, CSS, Tailwind, JavaScript, React, and more. View my projects in web development.",
+    "Shireff Nady is a front-end developer skilled in HTML, CSS, Tailwind, JavaScript, React, and more. Explore projects, coding insights, and development tips.",
   icons: {
     icon: "/head.jpeg",
     apple: "/head.jpeg",
     shortcut: "/head.jpeg",
   },
   keywords: [
+    "Shireff",
     "Shireff Nady",
     "Front-End Developer",
+    "Web Developer",
     "HTML",
     "CSS",
     "JavaScript",
@@ -33,11 +35,13 @@ export const metadata: Metadata = {
     "Tailwind",
     "Responsive Design",
     "Web Development",
+    "Next.js",
+    "TypeScript",
   ],
   openGraph: {
-    title: "Shireff Nady | Front-End Developer",
+    title: "Shireff Nady - Front-End Developer & Web Developer",
     description:
-      "Shireff Nady, front-end developer skilled in HTML, CSS, JavaScript, React, Tailwind, and more. View my work in web development.",
+      "Shireff Nady, front-end developer skilled in HTML, CSS, JavaScript, React, Tailwind, and more. Discover my projects in web development.",
     url: "https://shireff-nady.vercel.app/",
     siteName: "Shireff Nady | Front-End Developer",
     type: "website",
