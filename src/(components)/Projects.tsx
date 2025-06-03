@@ -3,7 +3,6 @@ import { useState } from "react";
 import "./Projects.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import Image from "next/image";
-
 import { motion, AnimatePresence } from "framer-motion";
 export default function Projects() {
   const projects = [
@@ -148,19 +147,41 @@ export default function Projects() {
   ];
 
   const [active, setActive] = useState("all");
-
   const [arr, setArr] = useState(projects);
+
+  // Modal state
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleClick = (btnCat: string) => {
     setActive(btnCat);
-    const newArr = projects.filter((item) => {
-      return item.categ === btnCat;
-    });
+    const newArr = projects.filter((item) => item.categ === btnCat);
     setArr(newArr);
+  };
+
+  interface Project {
+    title: string;
+    category: string;
+    desc: string;
+    img?: string;
+    categ: string;
+    demo?: string;
+    git?: string;
+  }
+
+  const openModal = (project: Project) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedProject(null);
   };
 
   return (
     <main id="projects" className="flex">
+      {/* Left filter buttons */}
       <section className="pro-left flex">
         <button
           onClick={() => {
@@ -169,121 +190,172 @@ export default function Projects() {
           }}
           className={active === "all" ? "active" : undefined}
         >
-          {" "}
           All Projects
         </button>
         <button
-          onClick={() => {
-            handleClick("ui");
-          }}
+          onClick={() => handleClick("ui")}
           className={active === "ui" ? "active" : undefined}
         >
           UI
         </button>
         <button
-          onClick={() => {
-            handleClick("React");
-          }}
+          onClick={() => handleClick("React")}
           className={active === "React" ? "active" : undefined}
         >
           React
         </button>
         <button
-          onClick={() => {
-            handleClick("next");
-          }}
+          onClick={() => handleClick("next")}
           className={active === "next" ? "active" : undefined}
         >
           Next.Js
         </button>
         <button
-          onClick={() => {
-            handleClick("node");
-          }}
+          onClick={() => handleClick("node")}
           className={active === "node" ? "active" : undefined}
         >
           NodeJs
         </button>
       </section>
 
+      {/* Projects grid */}
       <section className="pro-right flex">
         <AnimatePresence>
-          {arr.map((item, key) => {
-            return (
-              <motion.article
-                layout
-                initial={{ transform: "scale(0.4)" }}
-                animate={{ transform: "scale(1)" }}
-                transition={{ type: "spring", damping: 8, stiffness: 50 }}
-                key={key}
-                className="card"
-              >
-                {item.img ? (
-                  <Image
-                    src={item.img}
-                    alt={item.title || "Project"}
-                    width={266}
-                    height={150}
-                    priority
-                    //   unoptimized // Remove if using external images (Optional)
-                  />
-                ) : (
-                  <div className="placeholder">
-                    <i
-                      className="fas fa-image"
-                      style={{ fontSize: "36px", color: "#888" }}
-                    ></i>
-                  </div>
-                )}
-                <div className="box">
-                  <h1 className="title">{item.title}</h1>
-                  <p
-                    className="subtitle"
-                    title={item.desc.length > 215 ? item.desc : ""}
-                  >
-                    {item.desc.length > 215
-                      ? `${item.desc.slice(0, 215)}...`
-                      : item.desc}
-                  </p>
+          {arr.map((item, key) => (
+            <motion.article
+              layout
+              initial={{ transform: "scale(0.4)" }}
+              animate={{ transform: "scale(1)" }}
+              transition={{ type: "spring", damping: 8, stiffness: 50 }}
+              key={key}
+              className="card"
+              onClick={() => openModal(item)}
+              style={{ cursor: "pointer" }}
+            >
+              {item.img ? (
+                <Image
+                  src={item.img}
+                  alt={item.title || "Project"}
+                  width={266}
+                  height={150}
+                  priority
+                  style={{ borderRadius: "3px" }}
+                />
+              ) : (
+                <div className="placeholder">
+                  <i
+                    className="fas fa-image"
+                    style={{ fontSize: "36px", color: "#888" }}
+                  ></i>
+                </div>
+              )}
+              <div className="box">
+                <h1 className="title">{item.title}</h1>
+                <p
+                  className="subtitle"
+                  title={item.desc.length > 215 ? item.desc : ""}
+                >
+                  {item.desc.length > 215
+                    ? `${item.desc.slice(0, 215)}...`
+                    : item.desc}
+                </p>
 
-                  <div className="flex">
-                    {item.demo && (
-                      <a
-                        className="btn-4"
-                        rel="noreferrer"
-                        target="_blank"
-                        href={item.demo}
-                      >
-                        Demo
-                      </a>
-                    )}
-                    {!item.demo && <p>No Demo</p>}
-                    {item.git && (
-                      <a
-                        className="btn-4"
-                        rel="noreferrer"
-                        target="_blank"
-                        href={item.git}
-                      >
-                        Show Code
-                      </a>
-                    )}
-                    {!item.git && <p>Private Repo</p>}
-                  </div>
-                  {/* <div className="flex">
-                    <a rel="noreferrer" target="_blank" href={item.demo}>
+                <div className="flex">
+                  {item.demo && (
+                    <a
+                      className="btn-4"
+                      rel="noreferrer"
+                      target="_blank"
+                      href={item.demo}
+                      onClick={(e) => e.stopPropagation()} // prevent modal open when clicking links
+                    >
                       Demo
                     </a>
-                    <a rel="noreferrer" target="_blank" href={item.git}>
+                  )}
+                  {!item.demo && <p>No Demo</p>}
+                  {item.git && (
+                    <a
+                      className="btn-4"
+                      rel="noreferrer"
+                      target="_blank"
+                      href={item.git}
+                      onClick={(e) => e.stopPropagation()}
+                    >
                       Show Code
                     </a>
-                  </div> */}
+                  )}
+                  {!item.git && <p>Private Repo</p>}
                 </div>
-              </motion.article>
-            );
-          })}
+              </div>
+            </motion.article>
+          ))}
         </AnimatePresence>
       </section>
+
+      {/* Modal */}
+      <AnimatePresence>
+        {isModalOpen && selectedProject && (
+          <motion.div
+            className="modal-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closeModal}
+          >
+            <motion.div
+              className="modal-content"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <h2>{selectedProject.title}</h2>
+              {selectedProject.img && (
+                <Image
+                  src={selectedProject.img}
+                  alt={selectedProject.title}
+                  width={400}
+                  height={250}
+                  style={{ borderRadius: "6px", objectFit: "cover" }}
+                  priority
+                />
+              )}
+              <p style={{ marginTop: "1rem" }}>{selectedProject.desc}</p>
+
+              <div className="modal-links" style={{ marginTop: "1.5rem" }}>
+                {selectedProject.demo && (
+                  <a
+                    href={selectedProject.demo}
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{
+                      marginRight: "1.5rem",
+                      color: "#5dbcfc",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Demo
+                  </a>
+                )}
+                {selectedProject.git && (
+                  <a
+                    href={selectedProject.git}
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{ color: "#5dbcfc", cursor: "pointer" }}
+                  >
+                    Source Code
+                  </a>
+                )}
+              </div>
+
+              <button className="close-btn" onClick={closeModal}>
+                ×
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }
