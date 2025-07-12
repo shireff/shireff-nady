@@ -9,9 +9,11 @@ import { Briefcase } from "lucide-react";
 
 const Experience = () => {
   const [experience, setExperience] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    const fetchProjects = async () => {
+    const fetchExperience = async () => {
       try {
         const res = await experienceAPI.getExperience();
 
@@ -30,10 +32,14 @@ const Experience = () => {
 
         setExperience(sorted);
       } catch (error) {
-        console.error("Error fetching projects:", error);
+        console.error("Error fetching experience:", error);
+        setError("Failed to load experience. Please try again.");
+      } finally {
+        setLoading(false);
       }
     };
-    fetchProjects();
+
+    fetchExperience();
   }, []);
 
   return (
@@ -51,37 +57,45 @@ const Experience = () => {
         </p>
       </motion.div>
 
-      <div className="experience-container">
-        {experience.map((exp, index) => (
-          <motion.div
-            key={exp.id}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: index * 0.2 }}
-            className="experience-card"
-          >
-            <div className="experience-header">
-              <Briefcase className="experience-icon" />
-              <span className="experience-period">{exp.period}</span>
-            </div>
-            <h3 className="experience-position">{exp.position}</h3>
-            <h4 className="experience-company">{exp.company}</h4>
-            <ul className="experience-description">
-              {exp.description.map((desc: string[], i: number) => (
-                <li key={i}>{desc}</li>
-              ))}
-            </ul>
-            <div className="experience-technologies">
-              {exp.technologies.map((tech: string[], i: number) => (
-                <span key={i} className="technology-tag">
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </motion.div>
-        ))}
-      </div>
+      {loading ? (
+        <p className="status-text text-center mt-8">Loading experiences...</p>
+      ) : error ? (
+        <p className="error-text text-center mt-8 text-red-600">{error}</p>
+      ) : experience.length === 0 ? (
+        <p className="text-center mt-8">No experience added yet.</p>
+      ) : (
+        <div className="experience-container">
+          {experience.map((exp, index) => (
+            <motion.div
+              key={exp.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.2 }}
+              className="experience-card"
+            >
+              <div className="experience-header">
+                <Briefcase className="experience-icon" />
+                <span className="experience-period">{exp.period}</span>
+              </div>
+              <h3 className="experience-position">{exp.position}</h3>
+              <h4 className="experience-company">{exp.company}</h4>
+              <ul className="experience-description">
+                {exp.description.map((desc: string, i: number) => (
+                  <li key={i}>{desc}</li>
+                ))}
+              </ul>
+              <div className="experience-technologies">
+                {exp.technologies.map((tech: string, i: number) => (
+                  <span key={i} className="technology-tag">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      )}
     </section>
   );
 };
