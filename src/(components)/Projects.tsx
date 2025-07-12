@@ -30,6 +30,7 @@ export default function Projects() {
         const normalized = res.data.data.map((item: any) => ({
           ...item,
           categ: item.category,
+          img: item.img?.replace("http://", "https://"),
         }));
         setProjects(normalized);
       } catch (err) {
@@ -42,10 +43,18 @@ export default function Projects() {
     fetchProjects();
   }, []);
 
+  const categoryOrder = ["React", "next", "node", "ui"];
+
   const filteredProjects = useMemo(() => {
+    const sorted = [...projects].sort((a, b) => {
+      const indexA = categoryOrder.indexOf(a.categ);
+      const indexB = categoryOrder.indexOf(b.categ);
+      return indexA - indexB;
+    });
+
     return active === "all"
-      ? projects
-      : projects.filter((item) => item.categ === active);
+      ? sorted
+      : sorted.filter((item) => item.categ === active);
   }, [active, projects]);
 
   const openModal = (project: Project) => {

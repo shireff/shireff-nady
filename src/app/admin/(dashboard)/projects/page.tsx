@@ -66,11 +66,12 @@ const Dashboard = () => {
   }, []);
 
   const handleCreate = async () => {
-    if (!formData.img) {
-      alert("Please upload an image first.");
+    if (!formData.title || !formData.category || !formData.desc) {
+      alert("Please fill in all fields");
       return;
     }
 
+    
     try {
       setIsCreating(true);
       const res = await projectsAPI.createProject(formData);
