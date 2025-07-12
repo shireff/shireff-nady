@@ -1,55 +1,41 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { motion } from "framer-motion";
 //import { Briefcase } from "lucide-react";
 import "./Experience.css";
-
-const experiences = [
-  {
-    id: "3",
-    company: "Appy - Poland",
-    position: "Senior Front-End Engineer",
-    period: "November 2023 - Present",
-    description: [
-      "Created reusable components to optimize application efficiency using React and Next.js.",
-      "Led the testing process, including unit, integration, and end-to-end testing with Cypress.",
-      "Delivered high-performance user experiences for large-scale projects.",
-    ],
-    technologies: [
-      "React",
-      "Next.js",
-      "Tailwind CSS",
-      "TypeScript",
-      "Jest",
-      "Cypress",
-    ],
-  },
-  {
-    id: "2",
-    company: "Instant",
-    position: "Mid Front-End Engineer",
-    period: "July 2021 - November 2022",
-    description: [
-      "Developed and integrated APIs for seamless front-end and back-end communication.",
-      "Resolved technical issues adhering to coding standards.",
-      "Created reusable components to enhance application performance using React and TypeScript.",
-    ],
-    technologies: ["React", "TypeScript", "APIs", "Tailwind CSS"],
-  },
-  {
-    id: "1",
-    company: "Digital Innovations Ltd",
-    position: "Front-End Developer",
-    period: "November 2020 - June 2021",
-    description: [
-      "Developed responsive designs and animations.",
-      "Collaborated with the design team to ensure optimal user experiences.",
-      "Assisted in developing and maintaining multiple client websites.",
-    ],
-    technologies: ["React", "JavaScript", "SCSS", "Redux"],
-  },
-];
+import { useEffect, useState } from "react";
+import { experienceAPI } from "@/lib/api";
+import { Briefcase } from "lucide-react";
 
 const Experience = () => {
+  const [experience, setExperience] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const res = await experienceAPI.getExperience();
+
+        const normalized = res.data.data.map((item: any) => ({
+          ...item,
+          desc: item.description,
+        }));
+
+        const sorted = normalized.sort((a: any, b: any) => {
+          const getStartDate = (period: string) =>
+            new Date(period.split("-")[0].trim() + " 1");
+          return (
+            getStartDate(b.period).getTime() - getStartDate(a.period).getTime()
+          );
+        });
+
+        setExperience(sorted);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      }
+    };
+    fetchProjects();
+  }, []);
+
   return (
     <section id="experience" className="experience-section">
       <motion.div
@@ -66,7 +52,7 @@ const Experience = () => {
       </motion.div>
 
       <div className="experience-container">
-        {experiences.map((exp, index) => (
+        {experience.map((exp, index) => (
           <motion.div
             key={exp.id}
             initial={{ opacity: 0, y: 20 }}
@@ -75,19 +61,19 @@ const Experience = () => {
             transition={{ duration: 0.5, delay: index * 0.2 }}
             className="experience-card"
           >
-            {/* <div className="experience-header">
+            <div className="experience-header">
               <Briefcase className="experience-icon" />
               <span className="experience-period">{exp.period}</span>
-            </div> */}
+            </div>
             <h3 className="experience-position">{exp.position}</h3>
             <h4 className="experience-company">{exp.company}</h4>
             <ul className="experience-description">
-              {exp.description.map((desc, i) => (
+              {exp.description.map((desc: string[], i: number) => (
                 <li key={i}>{desc}</li>
               ))}
             </ul>
             <div className="experience-technologies">
-              {exp.technologies.map((tech, i) => (
+              {exp.technologies.map((tech: string[], i: number) => (
                 <span key={i} className="technology-tag">
                   {tech}
                 </span>
