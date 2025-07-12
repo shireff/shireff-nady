@@ -21,7 +21,8 @@ export default function Projects() {
   const [active, setActive] = useState("all");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
   useEffect(() => {
     const fetchProjects = async () => {
       try {
@@ -31,8 +32,11 @@ export default function Projects() {
           categ: item.category,
         }));
         setProjects(normalized);
-      } catch (error) {
-        console.error("Error fetching projects:", error);
+      } catch (err) {
+        console.error("Error fetching projects:", err);
+        setError("Failed to load projects. Please try again later.");
+      } finally {
+        setLoading(false);
       }
     };
     fetchProjects();
@@ -77,78 +81,88 @@ export default function Projects() {
 
       {/* Projects Grid */}
       <section className="pro-right flex">
-        <AnimatePresence>
-          {filteredProjects.map((item: Project, index: number) => (
-            <motion.article
-              layout
-              initial={{ scale: 0.4, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.4, opacity: 0 }}
-              transition={{ type: "spring", damping: 8, stiffness: 50 }}
-              key={index}
-              className="card"
-              onClick={() => openModal(item)}
-              style={{ cursor: "pointer" }}
-            >
-              {item.img ? (
-                <Image
-                  src={item.img}
-                  alt={item.title || "Project"}
-                  width={266}
-                  height={150}
-                  priority={index < 4}
-                  style={{ borderRadius: "3px", objectFit: "cover" }}
-                />
-              ) : (
-                <div className="placeholder">
-                  <i
-                    className="fas fa-image"
-                    style={{ fontSize: "36px", color: "#888" }}
-                  ></i>
+        {loading ? (
+          <p className="status-text text-center w-full">Loading projects...</p>
+        ) : error ? (
+          <p className="error-text text-center w-full text-red-600">{error}</p>
+        ) : filteredProjects.length === 0 ? (
+          <p className="text-center w-full">
+            No projects found for this category.
+          </p>
+        ) : (
+          <AnimatePresence>
+            {filteredProjects.map((item: Project, index: number) => (
+              <motion.article
+                layout
+                initial={{ scale: 0.4, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.4, opacity: 0 }}
+                transition={{ type: "spring", damping: 8, stiffness: 50 }}
+                key={index}
+                className="card"
+                onClick={() => openModal(item)}
+                style={{ cursor: "pointer" }}
+              >
+                {item.img ? (
+                  <Image
+                    src={item.img}
+                    alt={item.title || "Project"}
+                    width={266}
+                    height={150}
+                    priority={index < 4}
+                    style={{ borderRadius: "3px", objectFit: "cover" }}
+                  />
+                ) : (
+                  <div className="placeholder">
+                    <i
+                      className="fas fa-image"
+                      style={{ fontSize: "36px", color: "#888" }}
+                    ></i>
+                  </div>
+                )}
+                <div className="box">
+                  <h1 className="title">{item.title}</h1>
+                  <p
+                    className="subtitle"
+                    title={item.desc.length > 215 ? item.desc : ""}
+                  >
+                    {item.desc.length > 215
+                      ? `${item.desc.slice(0, 215)}...`
+                      : item.desc}
+                  </p>
+                  <div className="flex">
+                    {item.demo ? (
+                      <a
+                        className="btn-4"
+                        rel="noreferrer"
+                        target="_blank"
+                        href={item.demo}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        Demo
+                      </a>
+                    ) : (
+                      <p>No Demo</p>
+                    )}
+                    {item.git ? (
+                      <a
+                        className="btn-4"
+                        rel="noreferrer"
+                        target="_blank"
+                        href={item.git}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        Show Code
+                      </a>
+                    ) : (
+                      <p>Private Repo</p>
+                    )}
+                  </div>
                 </div>
-              )}
-              <div className="box">
-                <h1 className="title">{item.title}</h1>
-                <p
-                  className="subtitle"
-                  title={item.desc.length > 215 ? item.desc : ""}
-                >
-                  {item.desc.length > 215
-                    ? `${item.desc.slice(0, 215)}...`
-                    : item.desc}
-                </p>
-                <div className="flex">
-                  {item.demo ? (
-                    <a
-                      className="btn-4"
-                      rel="noreferrer"
-                      target="_blank"
-                      href={item.demo}
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      Demo
-                    </a>
-                  ) : (
-                    <p>No Demo</p>
-                  )}
-                  {item.git ? (
-                    <a
-                      className="btn-4"
-                      rel="noreferrer"
-                      target="_blank"
-                      href={item.git}
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      Show Code
-                    </a>
-                  ) : (
-                    <p>Private Repo</p>
-                  )}
-                </div>
-              </div>
-            </motion.article>
-          ))}
-        </AnimatePresence>
+              </motion.article>
+            ))}
+          </AnimatePresence>
+        )}
       </section>
 
       {/* Modal */}
