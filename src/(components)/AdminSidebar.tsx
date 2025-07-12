@@ -15,6 +15,7 @@ interface AdminSidebarProps {
   sidebarVisible: boolean;
   isMobile: boolean;
   setIsMobile: React.Dispatch<React.SetStateAction<boolean>>;
+  setSidebarVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function AdminSidebar({
@@ -22,6 +23,7 @@ export default function AdminSidebar({
   isMobile,
   sidebarVisible,
   setIsMobile,
+  setSidebarVisible,
 }: AdminSidebarProps) {
   const pathname = usePathname();
   useEffect(() => {
@@ -49,6 +51,7 @@ export default function AdminSidebar({
             key={item.href}
             href={item.href}
             className={`sidebar-link ${pathname === item.href ? "active" : ""}`}
+            onClick={() => isMobile && setSidebarVisible(false)}
           >
             <span className="sidebar-icon">{item.icon}</span>
             <span className="sidebar-label">{item.label}</span>

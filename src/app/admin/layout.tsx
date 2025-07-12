@@ -36,6 +36,7 @@ export default function AdminLayout({
         sidebarVisible={sidebarVisible}
         isMobile={isMobile}
         setIsMobile={setIsMobile}
+        setSidebarVisible={setSidebarVisible}
       />
       <div className={`main-area ${isCollapsed ? "collapsed" : ""}`}>
         <AdminHeader
