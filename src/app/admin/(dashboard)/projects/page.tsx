@@ -29,6 +29,7 @@ const Dashboard = () => {
   const [imageUpload, setImageUpload] = useState<File | null>(null);
   const [uploadImageUrl, setUploadImageUrl] = useState("");
   const [imageLoading, setImageLoading] = useState(false);
+  const [editId, setEditId] = useState<string | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -69,6 +70,20 @@ const Dashboard = () => {
     fetchProjects();
   }, []);
 
+  const clearForm = () => {
+    setFormData({
+      title: "",
+      category: "",
+      desc: "",
+      demo: "",
+      git: "",
+      img: "",
+    });
+    setUploadImageUrl("");
+    setImageUpload(null);
+    setEditId(null);
+  };
+
   const handleCreate = async () => {
     if (!formData.title || !formData.category || !formData.desc) {
       alert("Please fill in all fields");
@@ -79,14 +94,9 @@ const Dashboard = () => {
       setIsCreating(true);
       const res = await projectsAPI.createProject(formData);
       setProjects((prev) => [...prev, res.data.data]);
-      setFormData({
-        title: "",
-        category: "",
-        desc: "",
-        demo: "",
-        git: "",
-        img: "",
-      });
+      clearForm();
+      setUploadImageUrl("");
+      setImageUpload(null);
     } catch (err: any) {
       alert(err?.response?.data?.message || "Create failed");
     } finally {
@@ -104,14 +114,20 @@ const Dashboard = () => {
     }
   };
 
-  //   const handleUpdate = async (id: string, updatedTitle: string) => {
-  //     try {
-  //       await projectsAPI.updateProject(id, { title: updatedTitle });
-  //       fetchProjects();
-  //     } catch (err: any) {
-  //       alert(err?.response?.data?.message || "Update failed");
-  //     }
-  //   };
+  const handleUpdate = async () => {
+    if (!editId) return;
+
+    try {
+      setIsCreating(true);
+      await projectsAPI.updateProject(editId, formData);
+      fetchProjects();
+      clearForm();
+    } catch (err: any) {
+      alert(err?.response?.data?.message || "Update failed");
+    } finally {
+      setIsCreating(false);
+    }
+  };
 
   return (
     <main id="projects" className="flex">
@@ -119,7 +135,9 @@ const Dashboard = () => {
         <h1 className="dashboard-title">Projects Dashboard</h1>
 
         <div className="project-form">
-          <h2 className="form-title">Add New Project</h2>
+          <h2 className="form-title">
+            {editId ? "Edit Project" : "Add New Project"}
+          </h2>
 
           <input
             type="text"
@@ -180,15 +198,33 @@ const Dashboard = () => {
             uploadImageUrl={uploadImageUrl}
             setUploadImageUrl={setUploadImageUrl}
             isCustomStyle={true}
+            isEditMode={!!editId}
           />
 
-          <button
-            className="create-button mt-3"
-            onClick={handleCreate}
-            disabled={isCreating}
-          >
-            {isCreating ? "Creating..." : "Create Project"}
-          </button>
+          <div className="flex gap-4 mt-3">
+            <button
+              className="create-button"
+              onClick={editId ? handleUpdate : handleCreate}
+              disabled={isCreating}
+            >
+              {isCreating
+                ? editId
+                  ? "Updating..."
+                  : "Creating..."
+                : editId
+                ? "Update Project"
+                : "Create Project"}
+            </button>
+
+            {editId && (
+              <button
+                className="px-4 py-2 rounded-md bg-gray-500 text-white"
+                onClick={clearForm}
+              >
+                Cancel
+              </button>
+            )}
+          </div>
         </div>
 
         {loading && <p className="status-text">Loading...</p>}
@@ -237,16 +273,29 @@ const Dashboard = () => {
                   <div className="flex">
                     <button
                       className="w-fit px-5 py-3 rounded-md bg-red-600"
-                      onClick={() => handleDelete(item._id)}
+                      onClick={() => handleDelete(item.id)}
                     >
                       Delete
                     </button>
-                    {/* <button
-                      className="w-full"
-                      onClick={() => handleUpdate(item._id)}
+                    <button
+                      className="w-fit px-5 py-3 rounded-md bg-yellow-500 text-white ml-2"
+                      onClick={() => {
+                        setEditId(item.id);
+                        setFormData({
+                          title: item.title || "",
+                          category: item.category || "",
+                          desc: item.desc || "",
+                          demo: item.demo || "",
+                          git: item.git || "",
+                          img: item.img || "",
+                        });
+                        setUploadImageUrl(item.img || "");
+                        setImageUpload(null);
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                      }}
                     >
                       Edit
-                    </button> */}
+                    </button>
                   </div>
                 </div>
               </motion.article>

@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -28,6 +27,12 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
   isCustomStyle = false,
 }) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
+  useEffect(() => {
+    if (!imageUpload && inputRef.current) {
+      inputRef.current.value = "";
+    }
+  }, [imageUpload]);
+
   const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
