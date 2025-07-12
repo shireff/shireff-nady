@@ -94,3 +94,32 @@
   background-color: var(--primaryBg);
   color: var(--title);
 }
+
+.mobile-menu-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--title);
+  cursor: pointer;
+  margin-right: 1rem;
+}
+
+/* For mobile screens */
+
+@media (max-width: 768px) {
+  .mobile-menu-btn {
+    display: block;
+  }
+
+  .admin-title {
+    font-size: 1.1rem;
+  }
+
+  .admin-controls {
+    gap: 0.5rem;
+  }
+
+  .admin-email {
+    display: none;
+  }
+}

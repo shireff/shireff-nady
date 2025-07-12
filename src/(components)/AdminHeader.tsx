@@ -1,11 +1,17 @@
-"use client";
-
 import { useAuth } from "@/lib/auth";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import "./AdminHeader.css";
 
-export default function AdminHeader() {
+interface AdminHeaderProps {
+  onToggleSidebar: () => void;
+  collapsed: boolean;
+}
+
+export default function AdminHeader({
+  onToggleSidebar,
+  collapsed,
+}: AdminHeaderProps) {
   const { user, logout } = useAuth();
   const router = useRouter();
   const [mode, setMode] = useState("dark");
@@ -28,10 +34,13 @@ export default function AdminHeader() {
 
   return (
     <header className="admin-header">
+      <button onClick={onToggleSidebar} className="collapse-btn">
+        {collapsed ? "☰" : "×"}
+      </button>
+
       <h1 className="admin-title">Admin Panel</h1>
 
       <div className="admin-controls">
-        {/* Toggle theme */}
         <button
           onClick={() => setMode(mode === "dark" ? "light" : "dark")}
           className="theme-toggle"
@@ -44,10 +53,8 @@ export default function AdminHeader() {
           )}
         </button>
 
-        {/* Email */}
         <span className="admin-email">{user?.email}</span>
 
-        {/* Logout */}
         <button onClick={handleLogout} className="logout-button">
           Logout
         </button>
