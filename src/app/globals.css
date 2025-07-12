@@ -1,0 +1,154 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 1px;
+  scroll-behavior: smooth;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 8px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+:root {
+  --primaryBg: #000;
+  --secondary: rgb(24 24 27);
+  --border: rgba(63, 63, 70, 0.4);
+  --title: rgb(244 244 245);
+  --subtitle: rgb(161 161 170);
+  --bgHeader: rgb(39, 39, 42);
+  --blue: rgb(93, 188, 252);
+  --icon: rgb(244, 244, 245);
+  --icon-hover: #d4d4d8; 
+  --card-bg: rgb(39, 39, 42); 
+  --card-hover-bg: rgb(63, 63, 70); 
+}
+
+.light {
+  --primaryBg: rgb(250, 250, 250);
+  --secondary: rgba(255, 225, 255,0.16);
+  --border: rgba(202, 202, 202, 0.518);
+  --title: rgb(39, 39, 42);
+  --subtitle: rgb(82, 82, 91);
+  --bgHeader: rgb(253, 253, 253);
+  --blue: rgb(0, 149, 245);
+  --icon: rgb(39, 39, 42);
+  --icon-hover: rgb(0, 149, 245);
+  --card-bg: rgb(255, 255, 255); 
+  --card-hover-bg: rgba(240, 240, 240, 1);
+} 
+
+body {
+  background-color: var(--primaryBg);
+  color: #fff;
+}
+
+.contianer {
+  width: 80%;
+  margin: 0 auto;
+  padding: 0 4.8rem;
+  background-color: var(--secondary);
+  border: 1px solid var(--border);
+}
+
+.line {
+  border-bottom: 1px solid var(--border);
+  margin: 3rem 0;
+  /* width: calc(100% + 4.8rem + 4.8rem);
+    margin-left: -4.8rem; */
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  color: initial;
+  all: unset;
+  text-decoration: none;
+  transition: all 0.5s;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+button {
+  all: unset;
+  cursor: pointer;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+button:active {
+  scale: 0.9;
+}
+
+.scrollToTop {
+  background-color: rgba(25, 118, 210, 0.85);
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 50%;
+  position: fixed;
+  bottom: 2rem;
+  right: 3%;
+  text-align: center;
+  font-size: 1.3rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all .3s;
+}
+
+.scrollToTop:hover {
+  background-color: rgb(25, 118, 210);
+  
+}
+
+@media (max-width: 1000px) {
+  .contianer {
+    width: 90%;
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .contianer {
+    width: 98%;
+    padding: 0 1rem;
+  }
+
+  .scrollToTop {
+    width: 2rem;
+    height: 2rem;
+    opacity: 0.6;
+  }
+}
