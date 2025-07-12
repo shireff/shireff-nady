@@ -53,7 +53,11 @@ const Dashboard = () => {
   const fetchProjects = async () => {
     try {
       const res = await projectsAPI.getProjects();
-      setProjects(res.data.data);
+      const normalized = res.data.data.map((item: any) => ({
+        ...item,
+        img: item.img?.replace("http://", "https://"),
+      }));
+      setProjects(normalized);
     } catch (err: any) {
       setError(err?.response?.data?.message || "Failed to load projects");
     } finally {
@@ -71,7 +75,6 @@ const Dashboard = () => {
       return;
     }
 
-    
     try {
       setIsCreating(true);
       const res = await projectsAPI.createProject(formData);
