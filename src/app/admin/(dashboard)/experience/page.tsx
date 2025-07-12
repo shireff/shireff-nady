@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { experienceAPI } from "@/lib/api";
 import { motion, AnimatePresence } from "framer-motion";
 import "./Experiences.css";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/lib/auth";
 interface Experience {
   id?: string;
   company: string;
@@ -23,6 +25,14 @@ const ExperienceDashboard = () => {
   });
   const [descriptionInput, setDescriptionInput] = useState("");
   const [technologyInput, setTechnologyInput] = useState("");
+  const { isAuthenticated, isAdmin } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isAuthenticated && !isAdmin) {
+      router.push("/admin");
+    }
+  }, [isAuthenticated, isAdmin, router]);
 
   useEffect(() => {
     const fetchExperiences = async () => {

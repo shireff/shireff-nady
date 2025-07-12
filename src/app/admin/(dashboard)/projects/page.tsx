@@ -7,8 +7,13 @@ import "./Dashboard.css";
 import ImageUpload from "@/(components)/ImageUpload";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
+import { useAuth } from "@/lib/auth";
+import { useRouter } from "next/navigation";
 
 const Dashboard = () => {
+  const { isAuthenticated, isAdmin } = useAuth();
+  const router = useRouter();
+
   const [projects, setProjects] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -34,6 +39,12 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
+    if (!isAuthenticated && !isAdmin) {
+      router.push("/admin");
+    }
+  }, [isAuthenticated, isAdmin, router]);
+
+  useEffect(() => {
     if (uploadImageUrl) {
       setFormData((prev) => ({ ...prev, img: uploadImageUrl }));
     }
@@ -42,7 +53,6 @@ const Dashboard = () => {
   const fetchProjects = async () => {
     try {
       const res = await projectsAPI.getProjects();
-      console.log("res.data", res.data.data);
       setProjects(res.data.data);
     } catch (err: any) {
       setError(err?.response?.data?.message || "Failed to load projects");

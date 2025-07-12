@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import "./AdminSidebar.css"; // custom sidebar CSS
+import "./AdminSidebar.css";
+import { useEffect } from "react";
 
 const navItems = [
   { label: "Projects", href: "/admin/projects", icon: "📁" },
@@ -11,13 +12,36 @@ const navItems = [
 
 interface AdminSidebarProps {
   collapsed: boolean;
+  sidebarVisible: boolean;
+  isMobile: boolean;
+  setIsMobile: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function AdminSidebar({ collapsed }: AdminSidebarProps) {
+export default function AdminSidebar({
+  collapsed,
+  isMobile,
+  sidebarVisible,
+  setIsMobile,
+}: AdminSidebarProps) {
   const pathname = usePathname();
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    handleResize(); // initialize on mount
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const sidebarClass = `
+    admin-sidebar 
+    ${collapsed ? "collapsed" : ""} 
+    ${isMobile && sidebarVisible ? "show" : isMobile ? "hide" : ""}
+  `;
 
   return (
-    <aside className={`admin-sidebar ${collapsed ? "collapsed" : ""}`}>
+    <aside className={sidebarClass.trim()}>
       <h2 className="sidebar-title">Admin Panel</h2>
       <nav className="sidebar-nav">
         {navItems.map((item) => (

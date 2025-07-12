@@ -6,13 +6,17 @@ import "./AdminHeader.css";
 interface AdminHeaderProps {
   onToggleSidebar: () => void;
   collapsed: boolean;
+  isMobile: boolean;
+  sidebarVisible: boolean;
 }
 
 export default function AdminHeader({
   onToggleSidebar,
   collapsed,
+  isMobile,
+  sidebarVisible,
 }: AdminHeaderProps) {
-  const { user, logout } = useAuth();
+  const { user, logout, isAuthenticated } = useAuth();
   const router = useRouter();
   const [mode, setMode] = useState("dark");
 
@@ -35,7 +39,7 @@ export default function AdminHeader({
   return (
     <header className="admin-header">
       <button onClick={onToggleSidebar} className="collapse-btn">
-        {collapsed ? "☰" : "×"}
+        {isMobile ? (sidebarVisible ? "×" : "☰") : collapsed ? "☰" : "×"}
       </button>
 
       <h1 className="admin-title">Admin Panel</h1>
@@ -53,11 +57,14 @@ export default function AdminHeader({
           )}
         </button>
 
-        <span className="admin-email">{user?.email}</span>
-
-        <button onClick={handleLogout} className="logout-button">
-          Logout
-        </button>
+        {isAuthenticated && (
+          <>
+            <span className="admin-email">{user?.email}</span>
+            <button onClick={handleLogout} className="logout-button">
+              Logout
+            </button>
+          </>
+        )}
       </div>
     </header>
   );
