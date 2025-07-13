@@ -107,6 +107,11 @@ export default function RootLayout({
           property="og:image"
           content="https://shireff-nady.vercel.app/og-image.jpg"
         />
+        <link
+          rel="image_src"
+          href="https://shireff-nady.vercel.app/og-image.jpg"
+        />
+
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="fb:app_id" content="1669257420448613" />
