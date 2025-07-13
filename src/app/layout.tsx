@@ -21,9 +21,9 @@ export const metadata: Metadata = {
   description:
     "Shireff Nady is a front-end developer skilled in HTML, CSS, Tailwind, JavaScript, React, and more. Explore projects, coding insights, and development tips.",
   icons: {
-    icon: "https://avatars.githubusercontent.com/u/128305092?v=4",
-    apple: "https://avatars.githubusercontent.com/u/128305092?v=4",
-    shortcut: "https://avatars.githubusercontent.com/u/128305092?v=4",
+    icon: "https://shireff-nady.vercel.app/og-image.png",
+    apple: "https://shireff-nady.vercel.app/og-image.png",
+    shortcut: "https://shireff-nady.vercel.app/og-image.png",
   },
   keywords: [
     "Shireff",
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://avatars.githubusercontent.com/u/128305092?v=4",
+        url: "https://shireff-nady.vercel.app/og-image.png",
         width: 1200,
         height: 630,
         alt: "Shireff Nady Portfolio",
@@ -66,8 +66,16 @@ export default function RootLayout({
       <head>
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://shireff-nady.vercel.app/" />
-        <link rel="icon" href="https://avatars.githubusercontent.com/u/128305092?v=4" type="image/jpeg" sizes="32x32" />
-        <link rel="apple-touch-icon" href="https://avatars.githubusercontent.com/u/128305092?v=4" />
+        <link
+          rel="icon"
+          href="https://shireff-nady.vercel.app/og-image.png"
+          type="image/jpeg"
+          sizes="32x32"
+        />
+        <link
+          rel="apple-touch-icon"
+          href="https://shireff-nady.vercel.app/og-image.png"
+        />
         <meta name="author" content="Shireff Nady" />
         <meta name="publisher" content="Shireff Nady" />
         <meta name="application-name" content="Shireff Nady Portfolio" />
@@ -83,10 +91,16 @@ export default function RootLayout({
           property="og:description"
           content="A Front-End Developer skilled in HTML, CSS, JavaScript, React, Tailwind, and more. View my projects."
         />
-        <meta property="og:image" content="https://avatars.githubusercontent.com/u/128305092?v=4" />
+        <meta
+          property="og:image"
+          content="https://shireff-nady.vercel.app/og-image.png"
+        />
         <meta property="og:url" content="https://shireff-nady.vercel.app/" />
         <meta property="og:type" content="website" />
+        <meta property="fb:app_id" content="1669257420448613" />
+
         <link rel="stylesheet" href="/icons/icomoon/style.css" />
+
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
