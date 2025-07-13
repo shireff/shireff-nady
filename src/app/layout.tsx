@@ -133,24 +133,49 @@ export default function RootLayout({
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
-              "@context": "http://schema.org",
+              "@context": "https://schema.org",
               "@type": "Person",
               name: "Shireff Nady",
               jobTitle: "Front-End Developer",
+              description:
+                "Shireff Nady is a professional front-end developer with 3+ years of experience using React, Next.js, TypeScript, and modern web technologies to build responsive, high-performance applications.",
               url: "https://shireff-nady.vercel.app/",
+              image: "https://shireff-nady.vercel.app/og-image.jpg",
               sameAs: [
                 "https://www.linkedin.com/in/shireffnady/",
                 "https://github.com/shireff",
               ],
-              skills: [
-                "HTML",
-                "CSS",
+              worksFor: {
+                "@type": "Organization",
+                name: "Freelance / Open Source",
+                url: "https://shireff-nady.vercel.app/",
+              },
+              alumniOf: {
+                "@type": "EducationalOrganization",
+                name: "Digital Egypt Builders Initiative (DEBI)",
+              },
+              knowsAbout: [
+                "HTML5",
+                "CSS3",
                 "JavaScript",
-                "React",
-                "Tailwind CSS",
-                "Responsive Design",
-                "Git",
                 "TypeScript",
+                "React.js",
+                "Next.js",
+                "Redux",
+                "Redux Toolkit",
+                "Bootstrap",
+                "Tailwind CSS",
+                "Git",
+                "GitHub",
+                "jQuery",
+                "AJAX",
+                "JSON",
+                "Cypress",
+                "Unit Testing",
+                "E2E Testing",
+                "Integration Testing",
+                "Node.js",
+                "Express",
               ],
             }),
           }}
