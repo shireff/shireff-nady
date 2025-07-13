@@ -21,9 +21,9 @@ export const metadata: Metadata = {
   description:
     "Shireff Nady is a front-end developer skilled in HTML, CSS, Tailwind, JavaScript, React, and more. Explore projects, coding insights, and development tips.",
   icons: {
-    icon: "https://shireff-nady.vercel.app/og-image.png",
-    apple: "https://shireff-nady.vercel.app/og-image.png",
-    shortcut: "https://shireff-nady.vercel.app/og-image.png",
+    icon: "https://shireff-nady.vercel.app/og-image.jpg",
+    apple: "https://shireff-nady.vercel.app/og-image.jpg",
+    shortcut: "https://shireff-nady.vercel.app/og-image.jpg",
   },
   keywords: [
     "Shireff",
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://shireff-nady.vercel.app/og-image.png",
+        url: "https://shireff-nady.vercel.app/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Shireff Nady Portfolio",
@@ -66,23 +66,19 @@ export default function RootLayout({
       <head>
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://shireff-nady.vercel.app/" />
-        <link
-          rel="icon"
-          href="https://shireff-nady.vercel.app/og-image.png"
-          type="image/jpeg"
-          sizes="32x32"
+
+        <title>Shireff Nady | Front-End Developer</title>
+        <meta
+          name="description"
+          content="Shireff Nady is a front-end developer skilled in HTML, CSS, JavaScript, React, Tailwind, and more."
         />
-        <link
-          rel="apple-touch-icon"
-          href="https://shireff-nady.vercel.app/og-image.png"
-        />
+
         <meta name="author" content="Shireff Nady" />
         <meta name="publisher" content="Shireff Nady" />
         <meta name="application-name" content="Shireff Nady Portfolio" />
-        <meta
-          property="og:site_name"
-          content="Shireff Nady | Front-End Developer"
-        />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://shireff-nady.vercel.app/" />
         <meta
           property="og:title"
           content="Shireff Nady | Front-End Developer"
@@ -92,15 +88,27 @@ export default function RootLayout({
           content="A Front-End Developer skilled in HTML, CSS, JavaScript, React, Tailwind, and more. View my projects."
         />
         <meta
-          property="og:image"
-          content="https://shireff-nady.vercel.app/og-image.png"
+          property="og:site_name"
+          content="Shireff Nady | Front-End Developer"
         />
-        <meta property="og:url" content="https://shireff-nady.vercel.app/" />
-        <meta property="og:type" content="website" />
+        <meta
+          property="og:image"
+          content="https://shireff-nady.vercel.app/og-image.jpg"
+        />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
         <meta property="fb:app_id" content="1669257420448613" />
-
+        <link
+          rel="icon"
+          href="https://shireff-nady.vercel.app/og-image.jpg"
+          type="image/jpeg"
+          sizes="32x32"
+        />
+        <link
+          rel="apple-touch-icon"
+          href="https://shireff-nady.vercel.app/og-image.jpg"
+        />
         <link rel="stylesheet" href="/icons/icomoon/style.css" />
-
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
