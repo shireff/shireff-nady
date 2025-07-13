@@ -157,10 +157,10 @@ const Dashboard = () => {
             required
           >
             <option value="">Select Category</option>
-            <option value="UI">UI</option>
+            <option value="ui">UI</option>
             <option value="React">React</option>
-            <option value="Next.Js">Next.Js</option>
-            <option value="Nodejs">Nodejs</option>
+            <option value="next">Next.Js</option>
+            <option value="node">Nodejs</option>
           </select>
 
           <textarea
