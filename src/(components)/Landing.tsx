@@ -10,7 +10,7 @@ const verified = "/bb3.png";
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 
 export default function Landing() {
-  const [landingAnimation, setLandingAnimation] = useState<object| null>(null);
+  const [landingAnimation, setLandingAnimation] = useState<object | null>(null);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -22,6 +22,15 @@ export default function Landing() {
 
   return (
     <section className="landing flex">
+      {/* For SEO  */}
+      <img
+        src="https://shireff-nady.vercel.app/og-image.jpg"
+        alt="Shireff Nady Front-End Developer Portfolio"
+        width="1200"
+        height="630"
+        style={{ display: "none" }}
+      />
+
       <div className="left">
         <div className="p-avatar flex">
           <motion.img
