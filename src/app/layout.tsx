@@ -30,15 +30,27 @@ export const metadata: Metadata = {
     "Shireff Nady",
     "Front-End Developer",
     "Web Developer",
-    "HTML",
-    "CSS",
+    "HTML5",
+    "CSS3",
     "JavaScript",
-    "React",
-    "Tailwind",
-    "Responsive Design",
-    "Web Development",
-    "Next.js",
     "TypeScript",
+    "React.js",
+    "Next.js",
+    "Redux",
+    "Redux Toolkit",
+    "Bootstrap",
+    "Tailwind CSS",
+    "Git",
+    "GitHub",
+    "jQuery",
+    "AJAX",
+    "JSON",
+    "Cypress",
+    "Unit Testing",
+    "E2E Testing",
+    "Integration Testing",
+    "Node.js",
+    "Express",
   ],
   openGraph: {
     title: "Shireff Nady - Front-End Developer & Web Developer",
@@ -127,8 +139,9 @@ export default function RootLayout({
   `}
         </Script>
 
+        {/* Schema: Person */}
         <Script
-          id="json-ld"
+          id="json-ld-person"
           type="application/ld+json"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
@@ -177,6 +190,27 @@ export default function RootLayout({
                 "Node.js",
                 "Express",
               ],
+            }),
+          }}
+        />
+
+        {/* Schema: Website */}
+        <Script
+          id="json-ld-website"
+          type="application/ld+json"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "Shireff Nady Portfolio",
+              url: "https://shireff-nady.vercel.app",
+              potentialAction: {
+                "@type": "SearchAction",
+                target:
+                  "https://shireff-nady.vercel.app/?q={search_term_string}",
+                "query-input": "required name=search_term_string",
+              },
             }),
           }}
         />
