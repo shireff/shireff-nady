@@ -32,26 +32,31 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-100 to-gray-300 px-4 sm:px-6 lg:px-8">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-gray-200">
-        <h1 className="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-6">
+    <div className="flex items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8" style={{ backgroundColor: 'var(--primaryBg)' }}>
+      <div className="w-full max-w-md rounded-2xl p-6 sm:p-8 border shadow-xl" style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--border)', color: 'var(--title)' }}>
+        <h1 className="text-2xl sm:text-3xl font-bold text-center mb-6" style={{ color: 'var(--title)' }}>
           Admin Login
         </h1>
 
         {error && (
-          <div className="mb-4 px-4 py-2 text-sm text-red-700 bg-red-100 border border-red-200 rounded">
+          <div className="mb-4 px-4 py-2 text-sm rounded border" style={{ color: '#e63946', backgroundColor: 'rgba(230, 57, 70, 0.1)', borderColor: 'rgba(230, 57, 70, 0.3)' }}>
             {error}
           </div>
         )}
 
         <form onSubmit={handleLogin} className="space-y-5">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium mb-1" style={{ color: 'var(--title)' }}>
               Email
             </label>
             <input
               type="email"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm text-black focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-2 transition-colors"
+              style={{
+                borderColor: 'var(--border)',
+                backgroundColor: 'var(--card-bg)',
+                color: 'var(--title)'
+              }}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -61,12 +66,17 @@ export default function LoginPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium mb-1" style={{ color: 'var(--title)' }}>
               Password
             </label>
             <input
               type="password"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm text-black focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-2 transition-colors"
+              style={{
+                borderColor: 'var(--border)',
+                backgroundColor: 'var(--card-bg)',
+                color: 'var(--title)'
+              }}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -78,7 +88,8 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="block w-full py-2 bg-blue-600 text-white font-semibold rounded-md shadow-sm hover:bg-blue-700 transition duration-300 disabled:opacity-60 text-center"
+            className="block w-full py-2 font-semibold rounded-md shadow-sm hover:opacity-90 transition duration-300 disabled:opacity-60 text-center text-white"
+            style={{ backgroundColor: 'var(--blue)' }}
           >
             {loading ? "Logging in..." : "Login"}
           </button>
