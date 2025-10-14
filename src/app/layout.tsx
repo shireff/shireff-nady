@@ -25,6 +25,10 @@ export const metadata: Metadata = {
     apple: "https://shireff-nady.vercel.app/og-image.jpg",
     shortcut: "https://shireff-nady.vercel.app/og-image.jpg",
   },
+  authors: [{ name: "Shireff Nady" }],
+  creator: "Shireff Nady",
+  publisher: "Shireff Nady",
+
   keywords: [
     "Shireff",
     "Shireff Nady",
