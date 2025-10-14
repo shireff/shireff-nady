@@ -1,4 +1,5 @@
 import About from "@/(components)/About";
+import AIHelper from "@/(components)/AIHelper";
 import Contact from "@/(components)/Contact";
 import Experience from "@/(components)/Experience";
 import Footer from "@/(components)/Footer";
@@ -24,6 +25,8 @@ export default function Home() {
       <Contact />
       <div className="line" />
       <Footer />
+      <AIHelper />
+
       <ScrollToTop />
     </div>
   );

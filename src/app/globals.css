@@ -53,7 +53,7 @@ html {
 
 .light {
   --primaryBg: rgb(250, 250, 250);
-  --secondary: rgba(255, 225, 255,0.16);
+  --secondary: rgba(255, 225, 255, 0.16);
   --border: rgba(202, 202, 202, 0.518);
   --title: rgb(39, 39, 42);
   --subtitle: rgb(82, 82, 91);
@@ -125,12 +125,11 @@ button:active {
   text-align: center;
   font-size: 1.3rem;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: all .3s;
+  transition: all 0.3s;
 }
 
 .scrollToTop:hover {
   background-color: rgb(25, 118, 210);
-
 }
 
 @media (max-width: 1000px) {
@@ -151,9 +150,12 @@ button:active {
     height: 2rem;
     opacity: 0.6;
   }
+  .chat {
+    width: 2rem;
+    height: 2rem;
+    opacity: 0.6;
+  }
 }
-
-
 
 @layer base {
   :root {
@@ -210,8 +212,6 @@ button:active {
     --chart-5: 340 75% 55%;
   }
 }
-
-
 
 @layer base {
   * {
