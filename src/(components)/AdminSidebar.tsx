@@ -50,7 +50,9 @@ export default function AdminSidebar({
           <Link
             key={item.href}
             href={item.href}
-            className={`sidebar-link ${pathname === item.href ? "active" : ""}`}
+            className={`sidebar-link cursor-pointer ${
+              pathname === item.href ? "active" : ""
+            }`}
             onClick={() => isMobile && setSidebarVisible(false)}
           >
             <span className="sidebar-icon">{item.icon}</span>
