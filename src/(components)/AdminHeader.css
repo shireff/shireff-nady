@@ -5,8 +5,8 @@
   top: 0;
   z-index: 20;
   padding: 0 1.5rem;
-  background: linear-gradient(90deg, #111 0%, #1a1a1d 100%);
-  border-bottom: 1px solid rgba(63,63,70,0.4);
+  background: linear-gradient(90deg, var(--bg-secondary) 0%, var(--bg-card) 100%);
+  border-bottom: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: space-between;

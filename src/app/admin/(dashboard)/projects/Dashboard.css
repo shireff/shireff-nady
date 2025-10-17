@@ -18,9 +18,9 @@
 }
 
 .project-form {
-  background-color: #141416;
+  background-color: var(--bg-card);
   padding: 1.5rem;
-  border: 1px solid rgba(63,63,70,0.4);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   margin-bottom: 2rem;
   box-shadow: 0 0 15px rgba(120,60,255,0.08);
@@ -43,9 +43,9 @@
   width: 100%;
   padding: 0.75rem;
   border-radius: 6px;
-  border: 1px solid rgba(63,63,70,0.4);
+  border: 1px solid var(--border-color);
   margin-bottom: 1rem;
-  background-color: #141416;
+  background-color: var(--bg-card);
   color: rgb(230,230,235);
   font-size: 0.95rem;
   font-family: "Roboto", sans-serif;
@@ -130,8 +130,8 @@
 }
 
 .project-card {
-  background-color: #141416;
-  border: 1px solid rgba(63,63,70,0.4);
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
   padding: 1rem;
   border-radius: 8px;
   transition: all 0.3s ease;
