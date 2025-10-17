@@ -8,6 +8,24 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { useAuth } from "@/lib/auth";
 import { useRouter } from "next/navigation";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { AlertTriangle, Trash2 } from "lucide-react";
 
 const Dashboard = () => {
   const { isAuthenticated, isAdmin } = useAuth();
@@ -29,6 +47,9 @@ const Dashboard = () => {
   const [uploadImageUrl, setUploadImageUrl] = useState("");
   const [imageLoading, setImageLoading] = useState(false);
   const [editId, setEditId] = useState<string | null>(null);
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [projectToDelete, setProjectToDelete] = useState<string | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -81,6 +102,7 @@ const Dashboard = () => {
     setUploadImageUrl("");
     setImageUpload(null);
     setEditId(null);
+    setIsSheetOpen(false);
   };
 
   const handleCreate = async () => {
@@ -104,7 +126,6 @@ const Dashboard = () => {
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this project?")) return;
     try {
       await projectsAPI.deleteProject(id);
       setProjects((prev) => prev.filter((p) => p.id !== id));
@@ -142,138 +163,155 @@ const Dashboard = () => {
           Projects Dashboard
         </h1>
 
-        <div
-          className="mb-8 p-6 rounded-lg border shadow-lg"
-          style={{
-            backgroundColor: "var(--card-bg)",
-            borderColor: "var(--border)",
-          }}
-        >
-          <h2
-            className="text-xl font-semibold mb-4"
-            style={{ color: "var(--title)" }}
-          >
-            {editId ? "Edit Project" : "Add New Project"}
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-            <input
-              type="text"
-              name="title"
-              placeholder="Project Title"
-              className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 transition-colors"
-              style={{
-                backgroundColor: "var(--card-bg)",
-                borderColor: "var(--border)",
-                color: "var(--title)",
-              }}
-              value={formData.title}
-              onChange={handleChange}
-              required
-            />
-
-            <select
-              name="category"
-              className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 transition-colors"
-              style={{
-                backgroundColor: "var(--card-bg)",
-                borderColor: "var(--border)",
-                color: "var(--title)",
-              }}
-              value={formData.category}
-              onChange={handleChange}
-              required
+        <Sheet open={isSheetOpen} onOpenChange={(open) => { setIsSheetOpen(open); if (!open) clearForm(); }}>
+          <SheetTrigger asChild>
+            <button
+              className="px-6 py-3 rounded-lg font-semibold text-white transition-colors hover:opacity-90"
+              style={{ backgroundColor: "var(--blue)" }}
             >
-              <option value="">Select Category</option>
-              <option value="ui">UI</option>
-              <option value="React">React</option>
-              <option value="next">Next.Js</option>
-              <option value="node">Nodejs</option>
-            </select>
-          </div>
-
-          <textarea
-            name="desc"
-            placeholder="Project Description"
-            className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 transition-colors mb-4"
+              {editId ? "Edit Project" : "Add New Project"}
+            </button>
+          </SheetTrigger>
+          <SheetContent
             style={{
               backgroundColor: "var(--card-bg)",
-              borderColor: "var(--border)",
               color: "var(--title)",
-              minHeight: "100px",
+              borderColor: "var(--border)",
             }}
-            value={formData.desc}
-            onChange={handleChange}
-            required
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-            <input
-              type="url"
-              name="demo"
-              placeholder="Demo URL (optional)"
-              className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 transition-colors"
-              style={{
-                backgroundColor: "var(--card-bg)",
-                borderColor: "var(--border)",
-                color: "var(--title)",
-              }}
-              value={formData.demo}
-              onChange={handleChange}
-            />
-
-            <input
-              type="url"
-              name="git"
-              placeholder="GitHub Repo URL (optional)"
-              className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 transition-colors"
-              style={{
-                backgroundColor: "var(--card-bg)",
-                borderColor: "var(--border)",
-                color: "var(--title)",
-              }}
-              value={formData.git}
-              onChange={handleChange}
-            />
-          </div>
-
-          <ImageUpload
-            imageLoading={imageLoading}
-            setImageLoading={setImageLoading}
-            imageUpload={imageUpload}
-            setImageUpload={setImageUpload}
-            uploadImageUrl={uploadImageUrl}
-            setUploadImageUrl={setUploadImageUrl}
-            isCustomStyle={true}
-            isEditMode={!!editId}
-          />
-
-          <div className="flex flex-col sm:flex-row gap-4 mt-6">
-            <button
-              className="px-6 py-3 rounded-lg font-semibold text-white transition-colors hover:opacity-90 disabled:opacity-60"
-              style={{ backgroundColor: "var(--blue)" }}
-              onClick={editId ? handleUpdate : handleCreate}
-              disabled={isCreating}
-            >
-              {isCreating
-                ? editId
-                  ? "Updating..."
-                  : "Creating..."
-                : editId
-                ? "Update Project"
-                : "Create Project"}
-            </button>
-
-            {editId && (
-              <button
-                className="px-6 py-3 rounded-lg bg-gray-500 text-white hover:bg-gray-600 transition-colors"
-                onClick={clearForm}
+          >
+            <SheetHeader>
+              <SheetTitle
+                style={{ color: "var(--title)" }}
               >
-                Cancel
-              </button>
-            )}
-          </div>
-        </div>
+                {editId ? "Edit Project" : "Add New Project"}
+              </SheetTitle>
+              <SheetDescription
+                style={{ color: "var(--subtitle)" }}
+              >
+                Fill in the details below to {editId ? "update" : "create"} a project.
+              </SheetDescription>
+            </SheetHeader>
+            <div className="mt-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <input
+                  type="text"
+                  name="title"
+                  placeholder="Project Title"
+                  className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 transition-colors"
+                  style={{
+                    backgroundColor: "var(--card-bg)",
+                    borderColor: "var(--border)",
+                    color: "var(--title)",
+                  }}
+                  value={formData.title}
+                  onChange={handleChange}
+                  required
+                />
+
+                <select
+                  name="category"
+                  className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 transition-colors"
+                  style={{
+                    backgroundColor: "var(--card-bg)",
+                    borderColor: "var(--border)",
+                    color: "var(--title)",
+                  }}
+                  value={formData.category}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="">Select Category</option>
+                  <option value="ui">UI</option>
+                  <option value="React">React</option>
+                  <option value="next">Next.Js</option>
+                  <option value="node">Nodejs</option>
+                </select>
+              </div>
+
+              <textarea
+                name="desc"
+                placeholder="Project Description"
+                className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 transition-colors mb-4"
+                style={{
+                  backgroundColor: "var(--card-bg)",
+                  borderColor: "var(--border)",
+                  color: "var(--title)",
+                  minHeight: "100px",
+                }}
+                value={formData.desc}
+                onChange={handleChange}
+                required
+              />
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <input
+                  type="url"
+                  name="demo"
+                  placeholder="Demo URL (optional)"
+                  className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 transition-colors"
+                  style={{
+                    backgroundColor: "var(--card-bg)",
+                    borderColor: "var(--border)",
+                    color: "var(--title)",
+                  }}
+                  value={formData.demo}
+                  onChange={handleChange}
+                />
+
+                <input
+                  type="url"
+                  name="git"
+                  placeholder="GitHub Repo URL (optional)"
+                  className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 transition-colors"
+                  style={{
+                    backgroundColor: "var(--card-bg)",
+                    borderColor: "var(--border)",
+                    color: "var(--title)",
+                  }}
+                  value={formData.git}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <ImageUpload
+                imageLoading={imageLoading}
+                setImageLoading={setImageLoading}
+                imageUpload={imageUpload}
+                setImageUpload={setImageUpload}
+                uploadImageUrl={uploadImageUrl}
+                setUploadImageUrl={setUploadImageUrl}
+                isCustomStyle={true}
+                isEditMode={!!editId}
+              />
+
+              <div className="flex flex-col sm:flex-row gap-4 mt-6">
+                <button
+                  className="px-6 py-3 rounded-lg font-semibold text-white transition-colors hover:opacity-90 disabled:opacity-60"
+                  style={{ backgroundColor: "var(--blue)" }}
+                  onClick={editId ? handleUpdate : handleCreate}
+                  disabled={isCreating}
+                >
+                  {isCreating
+                    ? editId
+                      ? "Updating..."
+                      : "Creating..."
+                    : editId
+                    ? "Update Project"
+                    : "Create Project"}
+                </button>
+
+                {editId && (
+                  <button
+                    className="px-6 py-3 rounded-lg bg-gray-500 text-white hover:bg-gray-600 transition-colors"
+                    onClick={clearForm}
+                  >
+                    Cancel
+                  </button>
+                )}
+              </div>
+            </div>
+          </SheetContent>
+        </Sheet>
 
         {loading && (
           <p className="text-center py-8" style={{ color: "var(--subtitle)" }}>
@@ -346,13 +384,52 @@ const Dashboard = () => {
                       : item.desc}
                   </p>
                   <div className="flex flex-col sm:flex-row gap-2">
-                    <button
-                      className="flex-1 px-4 py-2 rounded-md text-white font-medium transition-colors hover:opacity-90"
-                      style={{ backgroundColor: "#e63946" }}
-                      onClick={() => handleDelete(item.id)}
-                    >
-                      Delete
-                    </button>
+                    <Dialog open={deleteDialogOpen && projectToDelete === item.id} onOpenChange={(open) => {
+                      setDeleteDialogOpen(open);
+                      if (!open) setProjectToDelete(null);
+                    }}>
+                      <DialogTrigger asChild>
+                        <button
+                          className="flex-1 px-4 py-2 rounded-md text-white font-medium transition-colors hover:opacity-90"
+                          style={{ backgroundColor: "#e63946" }}
+                          onClick={() => {
+                            setProjectToDelete(item.id);
+                            setDeleteDialogOpen(true);
+                          }}
+                        >
+                          <Trash2 className="w-4 h-4 mr-2" />
+                          Delete
+                        </button>
+                      </DialogTrigger>
+                      <DialogContent>
+                        <DialogHeader>
+                          <DialogTitle className="flex items-center gap-2">
+                            <AlertTriangle className="w-5 h-5 text-red-500" />
+                            Confirm Deletion
+                          </DialogTitle>
+                          <DialogDescription>
+                            Are you sure you want to delete the project &ldquo;{item.title}&rdquo;? This action cannot be undone.
+                          </DialogDescription>
+                        </DialogHeader>
+                        <DialogFooter>
+                          <button
+                            className="px-4 py-2 rounded-md bg-gray-500 text-white hover:bg-gray-600 transition-colors"
+                            onClick={() => setDeleteDialogOpen(false)}
+                          >
+                            Cancel
+                          </button>
+                          <button
+                            className="px-4 py-2 rounded-md bg-red-500 text-white hover:bg-red-600 transition-colors"
+                            onClick={() => {
+                              handleDelete(item.id);
+                              setDeleteDialogOpen(false);
+                            }}
+                          >
+                            Delete
+                          </button>
+                        </DialogFooter>
+                      </DialogContent>
+                    </Dialog>
                     <button
                       className="flex-1 px-4 py-2 rounded-md text-white font-medium transition-colors hover:opacity-90"
                       style={{ backgroundColor: "#f1c40f" }}
@@ -368,6 +445,7 @@ const Dashboard = () => {
                         });
                         setUploadImageUrl(item.img || "");
                         setImageUpload(null);
+                        setIsSheetOpen(true);
                         window.scrollTo({ top: 0, behavior: "smooth" });
                       }}
                     >

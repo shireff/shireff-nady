@@ -63,8 +63,8 @@ export const experienceAPI = {
   getExperienceById: (experienceId: string) =>
     api.get(`/experiences/${experienceId}`),
   createExperience: (data: any) => api.post(`/experiences`, data),
-  updateExperience: (experienceId: string) =>
-    api.put(`/experiences/${experienceId}`),
+  updateExperience: (experienceId: string, data: any) =>
+    api.put(`/experiences/${experienceId}`, data),
   deleteExperience: (experienceId: string) =>
     api.delete(`/experiences/${experienceId}`),
 };
@@ -76,7 +76,7 @@ export const projectsAPI = {
   uploadImageToCreateProject: (data: FormData) =>
     api.post(`/projects/upload-image`, data),
   createProject: (data: any) => api.post(`/projects`, data),
-  updateProject: (projectId: string, data: { title: string }) =>
+  updateProject: (projectId: string, data: any) =>
     api.put(`/projects/${projectId}`, data),
   deleteProject: (projectId: string) => api.delete(`/projects/${projectId}`),
 };
