@@ -8,10 +8,23 @@ import Landing from "@/(components)/Landing";
 import Projects from "@/(components)/Projects";
 import ScrollToTop from "@/(components)/ScrollToTop";
 //import Image from "next/image";
+import { Poppins, Roboto } from 'next/font/google';
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-poppins',
+});
+
+const roboto = Roboto({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+  variable: '--font-roboto',
+});
 
 export default function Home() {
   return (
-    <div id="app" className="contianer">
+    <div id="app" className={`container ${poppins.variable} ${roboto.variable}`}>
       <Header />
       {/* <div className="line" /> */}
       <Landing />

@@ -1,17 +1,75 @@
-/* Main layout container */
+/* Redefine CSS variables for admin panel */
+.admin-layout {
+  --bg-primary: #0b0b10;
+  --bg-card: #141416;
+  --border-color: rgba(63,63,70,0.4);
+  --text-main: rgb(230,230,235);
+  --text-secondary: rgb(160,160,170);
+  --text-muted: rgb(120,120,130);
+  --accent-blue: rgb(93,188,252);
+  --accent-violet: rgb(168,85,247);
+}
+
+/* Light mode overrides */
+.light .admin-layout {
+  --bg-primary: rgb(250,250,250);
+  --bg-card: rgb(255,255,255);
+  --border-color: rgba(202,202,202,0.518);
+  --text-main: rgb(39,39,42);
+  --text-secondary: rgb(82,82,91);
+  --text-muted: rgb(120,120,130);
+  --accent-blue: rgb(0,149,245);
+  --accent-violet: rgb(168,85,247);
+}
+
 .admin-layout {
   display: flex;
   min-height: 100vh;
+  background-color: var(--bg-primary);
+  font-family: "Roboto", sans-serif;
 }
 
-/* Main content area */
 .main-area {
-  margin-left: 16rem;
   width: calc(100% - 16rem);
   transition: margin-left 0.3s ease, width 0.3s ease;
+  background-color: var(--bg-primary);
 }
 
 .main-area.collapsed {
   margin-left: 4rem;
   width: calc(100% - 4rem);
+}
+
+.admin-layout header {
+  background: linear-gradient(90deg, #111 0%, #1a1a1d 100%);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+
+.admin-layout section {
+  margin-bottom: 3rem;
+}
+
+/* Card styles */
+.admin-layout .card {
+  background-color: var(--bg-card);
+  padding: 1.5rem;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 0 15px rgba(120,60,255,0.08);
+  transition: all 0.3s ease;
+}
+
+.admin-layout .card:hover {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 0 20px rgba(168,85,247,0.12);
+}
+
+/* Button hover animations */
+.admin-layout .btn:hover {
+  transform: translateY(-1px);
+  opacity: 0.95;
+}
+
+/* Dialog overlay blur */
+.admin-layout .dialog-overlay {
+  backdrop-filter: blur(4px);
 }

@@ -5,17 +5,19 @@
   top: 0;
   z-index: 20;
   padding: 0 1.5rem;
-  background-color: var(--bgHeader);
-  border-bottom: 1px solid var(--border);
+  background: linear-gradient(90deg, #111 0%, #1a1a1d 100%);
+  border-bottom: 1px solid rgba(63,63,70,0.4);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
 }
 
 .admin-title {
   font-size: 1.25rem;
   font-weight: 600;
-  color: var(--title);
+  color: rgb(230,230,235);
+  font-family: "Poppins", sans-serif;
 }
 
 .admin-controls {
@@ -28,18 +30,21 @@
   background: none;
   border: none;
   font-size: 1.2rem;
-  color: var(--icon);
-  transition: color 0.3s, background-color 0.3s;
+  color: rgb(230,230,235);
+  transition: color 0.3s, background-color 0.3s, filter 0.3s;
+  filter: drop-shadow(0 0 5px rgba(168,85,247,0.3));
 }
 
 .theme-toggle:hover {
-  color: var(--icon-hover);
+  color: rgb(168,85,247);
+  filter: drop-shadow(0 0 8px rgba(168,85,247,0.5));
 }
 
 .admin-email {
   font-size: 0.875rem;
-  color: var(--subtitle);
+  color: rgb(160,160,170);
   font-weight: 500;
+  font-family: "Roboto", sans-serif;
 }
 
 .logout-button {
@@ -48,69 +53,32 @@
   color: white;
   border-radius: 4px;
   font-size: 0.875rem;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  font-family: "Roboto", sans-serif;
 }
 
 .logout-button:hover {
   background-color: #dc2626;
-}
-.admin-layout {
-  display: flex;
-  min-height: 100vh;
+  transform: translateY(-1px);
 }
 
-.admin-sidebar {
-  width: 16rem;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 30;
-}
-
-.main-area {
-  margin-left: 16rem; /* same as sidebar width */
-  width: calc(100% - 16rem);
-  display: flex;
-  flex-direction: column;
-}
-
-.admin-header {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  height: 4rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 1.5rem;
-  background-color: var(--bgHeader);
-  border-bottom: 1px solid var(--border);
-}
-
-.main-content {
-  flex: 1;
-  padding: 2rem;
-  background-color: var(--primaryBg);
-  color: var(--title);
-}
-
-.mobile-menu-btn {
+.collapse-btn {
   background: none;
   border: none;
   font-size: 1.5rem;
-  color: var(--title);
+  color: rgb(230,230,235);
   cursor: pointer;
-  margin-right: 1rem;
+  transition: color 0.3s, filter 0.3s;
+  filter: drop-shadow(0 0 5px rgba(168,85,247,0.3));
+}
+
+.collapse-btn:hover {
+  color: rgb(168,85,247);
+  filter: drop-shadow(0 0 8px rgba(168,85,247,0.5));
 }
 
 /* For mobile screens */
-
 @media (max-width: 768px) {
-  .mobile-menu-btn {
-    display: block;
-  }
-
   .admin-title {
     font-size: 1.1rem;
   }

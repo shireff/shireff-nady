@@ -1,67 +1,89 @@
+/* Projects Dashboard Styles */
+
 .dashboard {
   padding: 2rem;
   max-width: 1000px;
   margin: 0 auto;
-  color: var(--title);
+  color: rgb(230,230,235);
+  font-family: "Roboto", sans-serif;
 }
 
 .dashboard-title {
-  font-size: 2rem;
-  font-weight: 700;
+  font-size: 1.8rem;
+  font-weight: bold;
   margin-bottom: 2rem;
+  color: rgb(168,85,247);
+  font-family: "Poppins", sans-serif;
+  text-align: center;
 }
 
 .project-form {
-  background-color: var(--card-bg);
+  background-color: #141416;
   padding: 1.5rem;
-  border: 1px solid var(--border);
+  border: 1px solid rgba(63,63,70,0.4);
   border-radius: 8px;
   margin-bottom: 2rem;
+  box-shadow: 0 0 15px rgba(120,60,255,0.08);
+  transition: all 0.3s ease;
+}
+
+.project-form:hover {
+  box-shadow: 0 0 20px rgba(168,85,247,0.12);
 }
 
 .form-title {
   font-size: 1.1rem;
   font-weight: 600;
   margin-bottom: 1rem;
+  color: rgb(230,230,235);
+  font-family: "Poppins", sans-serif;
 }
 
 .input {
   width: 100%;
   padding: 0.75rem;
   border-radius: 6px;
-  border: 1px solid var(--border);
+  border: 1px solid rgba(63,63,70,0.4);
   margin-bottom: 1rem;
-  background-color: var(--card-bg);
-  color: var(--title);
+  background-color: #141416;
+  color: rgb(230,230,235);
   font-size: 0.95rem;
-  transition: background-color 0.3s;
+  font-family: "Roboto", sans-serif;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .input:focus {
   outline: none;
-  border-color: var(--blue);
-  background-color: var(--card-hover-bg);
+  border-color: rgb(168,85,247);
+  box-shadow: 0 0 0 3px rgba(168,85,247,0.1);
 }
 
 .input option {
-  background-color: var(--card-bg);
-  color: var(--title);
+  background-color: #141416;
+  color: rgb(230,230,235);
 }
 
 .input::placeholder {
-  color: var(--subtitle);
+  color: rgb(160,160,170);
 }
 
 .upload-label {
   display: inline-block;
-  background-color: var(--blue);
-  color: white;
+  background-color: rgb(93,188,252);
+  color: #0b0b10;
   padding: 0.6rem 1.2rem;
   border-radius: 6px;
   font-weight: 500;
   cursor: pointer;
   margin-bottom: 1rem;
   text-align: center;
+  transition: background-color 0.3s, transform 0.3s;
+  font-family: "Roboto", sans-serif;
+}
+
+.upload-label:hover {
+  background-color: rgb(0,149,245);
+  transform: translateY(-1px);
 }
 
 .file-input {
@@ -74,24 +96,26 @@
   height: auto;
   border-radius: 6px;
   margin-bottom: 1rem;
-  border: 1px solid var(--border);
+  border: 1px solid rgba(63,63,70,0.4);
 }
 
 .create-button {
-  background-color: var(--blue);
-  color: white;
+  background-color: rgb(93,188,252);
+  color: #0b0b10;
   padding: 0.6rem 1.2rem;
   border-radius: 6px;
   font-weight: 500;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.3s;
+  font-family: "Roboto", sans-serif;
 }
 
 .create-button:hover {
-  background-color: #0984e3;
+  background-color: rgb(0,149,245);
+  transform: translateY(-1px);
 }
 
 .status-text {
-  color: var(--subtitle);
+  color: rgb(160,160,170);
 }
 
 .error-text {
@@ -106,26 +130,31 @@
 }
 
 .project-card {
-  background-color: var(--card-bg);
-  border: 1px solid var(--border);
+  background-color: #141416;
+  border: 1px solid rgba(63,63,70,0.4);
   padding: 1rem;
   border-radius: 8px;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(120,60,255,0.08);
+  font-family: "Roboto", sans-serif;
 }
 
 .project-card:hover {
-  background-color: var(--card-hover-bg);
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 0 20px rgba(168,85,247,0.12);
 }
 
 .project-title {
   font-size: 1.1rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
+  color: rgb(230,230,235);
+  font-family: "Poppins", sans-serif;
 }
 
 .project-desc {
   font-size: 0.9rem;
-  color: var(--subtitle);
+  color: rgb(160,160,170);
 }
 
 .card-actions {
@@ -140,14 +169,18 @@
   border-radius: 4px;
   color: white;
   font-weight: 500;
+  transition: transform 0.3s;
+  font-family: "Roboto", sans-serif;
 }
 
 .btn.edit {
   background-color: #f1c40f;
+  color: #0b0b10;
 }
 
 .btn.edit:hover {
   background-color: #d4ac0d;
+  transform: translateY(-1px);
 }
 
 .btn.delete {
@@ -156,6 +189,7 @@
 
 .btn.delete:hover {
   background-color: #c0392b;
+  transform: translateY(-1px);
 }
 
 main.flex {

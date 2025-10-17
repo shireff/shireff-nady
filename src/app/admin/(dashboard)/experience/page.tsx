@@ -23,6 +23,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { AlertTriangle, Edit, Plus, Trash2 } from "lucide-react";
+
 interface Experience {
   id?: string;
   company: string;
@@ -183,7 +184,7 @@ const ExperienceDashboard = () => {
       style={{ backgroundColor: "var(--primaryBg)", color: "var(--title)" }}
     >
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-3xl md:text-4xl font-bold mb-8 text-center" style={{ color: 'var(--title)' }}>
+        <h1 className="text-3xl md:text-4xl font-bold mb-12 text-center font-poppins" style={{ color: 'var(--title)' }}>
           Experience Dashboard
         </h1>
 

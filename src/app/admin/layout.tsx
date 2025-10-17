@@ -3,6 +3,21 @@ import AdminHeader from "@/(components)/AdminHeader";
 import AdminSidebar from "@/(components)/AdminSidebar";
 import { useEffect, useState } from "react";
 import "./Layout.css";
+
+// Import fonts
+import { Poppins, Roboto } from 'next/font/google';
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-poppins',
+});
+
+const roboto = Roboto({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+  variable: '--font-roboto',
+});
 export default function AdminLayout({
   children,
 }: {
@@ -30,7 +45,7 @@ export default function AdminLayout({
   };
 
   return (
-    <div className="admin-layout">
+    <div className={`admin-layout ${poppins.variable} ${roboto.variable}`}>
       <AdminSidebar
         collapsed={isCollapsed}
         sidebarVisible={sidebarVisible}

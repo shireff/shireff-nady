@@ -157,16 +157,22 @@ const Dashboard = () => {
     >
       <div className="max-w-6xl mx-auto">
         <h1
-          className="text-3xl md:text-4xl font-bold mb-8 text-center"
+          className="text-3xl md:text-4xl font-bold mb-12 text-center font-poppins"
           style={{ color: "var(--title)" }}
         >
           Projects Dashboard
         </h1>
 
-        <Sheet open={isSheetOpen} onOpenChange={(open) => { setIsSheetOpen(open); if (!open) clearForm(); }}>
+        <Sheet
+          open={isSheetOpen}
+          onOpenChange={(open) => {
+            setIsSheetOpen(open);
+            if (!open) clearForm();
+          }}
+        >
           <SheetTrigger asChild>
             <button
-              className="px-6 py-3 rounded-lg font-semibold text-white transition-colors hover:opacity-90"
+              className="px-6 py-3 mb-8 rounded-lg font-semibold text-white transition-colors hover:opacity-90"
               style={{ backgroundColor: "var(--blue)" }}
             >
               {editId ? "Edit Project" : "Add New Project"}
@@ -180,15 +186,12 @@ const Dashboard = () => {
             }}
           >
             <SheetHeader>
-              <SheetTitle
-                style={{ color: "var(--title)" }}
-              >
+              <SheetTitle style={{ color: "var(--title)" }}>
                 {editId ? "Edit Project" : "Add New Project"}
               </SheetTitle>
-              <SheetDescription
-                style={{ color: "var(--subtitle)" }}
-              >
-                Fill in the details below to {editId ? "update" : "create"} a project.
+              <SheetDescription style={{ color: "var(--subtitle)" }}>
+                Fill in the details below to {editId ? "update" : "create"} a
+                project.
               </SheetDescription>
             </SheetHeader>
             <div className="mt-6">
@@ -384,10 +387,13 @@ const Dashboard = () => {
                       : item.desc}
                   </p>
                   <div className="flex flex-col sm:flex-row gap-2">
-                    <Dialog open={deleteDialogOpen && projectToDelete === item.id} onOpenChange={(open) => {
-                      setDeleteDialogOpen(open);
-                      if (!open) setProjectToDelete(null);
-                    }}>
+                    <Dialog
+                      open={deleteDialogOpen && projectToDelete === item.id}
+                      onOpenChange={(open) => {
+                        setDeleteDialogOpen(open);
+                        if (!open) setProjectToDelete(null);
+                      }}
+                    >
                       <DialogTrigger asChild>
                         <button
                           className="flex-1 px-4 py-2 rounded-md text-white font-medium transition-colors hover:opacity-90"
@@ -408,7 +414,8 @@ const Dashboard = () => {
                             Confirm Deletion
                           </DialogTitle>
                           <DialogDescription>
-                            Are you sure you want to delete the project &ldquo;{item.title}&rdquo;? This action cannot be undone.
+                            Are you sure you want to delete the project &ldquo;
+                            {item.title}&rdquo;? This action cannot be undone.
                           </DialogDescription>
                         </DialogHeader>
                         <DialogFooter>
