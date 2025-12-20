@@ -60,7 +60,7 @@ export default function Header() {
         <span className="icon-menu" />
       </button>
 
-      <nav>
+      <nav className="glass">
         <ul className="flex">
           <li>
             <a href="#about">About</a>
@@ -94,7 +94,7 @@ export default function Header() {
 
       {showModel && (
         <div className="fixed">
-          <ul className="modal">
+          <ul className="modal glass">
             <li>
               <button className="clear" onClick={closeModal}>
                 <span className="icon-clear" />

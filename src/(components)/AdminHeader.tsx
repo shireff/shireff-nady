@@ -37,7 +37,7 @@ export default function AdminHeader({
   };
 
   return (
-    <header className="admin-header">
+    <header className="admin-header glass">
       <button onClick={onToggleSidebar} className="collapse-btn">
         {isMobile ? (sidebarVisible ? "×" : "☰") : collapsed ? "☰" : "×"}
       </button>

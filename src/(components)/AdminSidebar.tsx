@@ -8,6 +8,7 @@ import { useEffect } from "react";
 const navItems = [
   { label: "Projects", href: "/admin/projects", icon: "📁" },
   { label: "Experience", href: "/admin/experience", icon: "💼" },
+  { label: "State Comparisons", href: "/admin/state-comparisons", icon: "🔄" },
 ];
 
 interface AdminSidebarProps {
@@ -37,7 +38,7 @@ export default function AdminSidebar({
   }, []);
 
   const sidebarClass = `
-    admin-sidebar 
+    admin-sidebar glass
     ${collapsed ? "collapsed" : ""} 
     ${isMobile && sidebarVisible ? "show" : isMobile ? "hide" : ""}
   `;

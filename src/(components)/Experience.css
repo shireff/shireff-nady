@@ -18,8 +18,8 @@
 }
 
 .experience-card {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
+  /* background: var(--card-bg); Handled by glass */
+  /* border: 1px solid var(--border); Handled by glass */
   border-radius: 0.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;

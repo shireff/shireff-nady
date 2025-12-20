@@ -92,7 +92,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
         onDragOver={handleDragOver}
         onDrop={handleDrop}
         className={clsx(
-          "border border-dashed border-gray-300 rounded-lg p-4 h-[100px]",
+          "border border-dashed border-gray-300/40 rounded-lg p-4 h-[100px] bg-white/5 backdrop-blur-sm transition-all hover:bg-white/10",
           isEditMode && "opacity-50 cursor-not-allowed pointer-events-none"
         )}
       >
@@ -116,7 +116,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
             <span>Drag & Drop or Click to Upload</span>
           </Label>
         ) : imageLoading ? (
-          <Skeleton className="h-10 bg-gray-100" />
+          <Skeleton className="h-10 bg-white/10" />
         ) : (
           <div className="flex items-center justify-between">
             <div className="flex items-center">

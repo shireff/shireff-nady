@@ -141,7 +141,7 @@ export default function Projects() {
                   exit={{ scale: 0.4, opacity: 0 }}
                   transition={{ type: "spring", damping: 8, stiffness: 50 }}
                   key={index}
-                  className="card"
+                  className="card glass"
                   onClick={() => openModal(item)}
                   style={{ cursor: "pointer" }}
                 >

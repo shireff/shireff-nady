@@ -6,10 +6,10 @@ header.flex {
 }
 
 header.flex nav {
-    background-color: var(--bgHeader);
+    /* background-color: var(--bgHeader); Removed for glass effect */
     padding: .77rem 1.6rem;
     border-radius: 55px;
-    box-shadow: 1px 1px 40px rgba(35, 33, 33, 0.292);
+    /* box-shadow: 1px 1px 40px rgba(35, 33, 33, 0.292); Removed for glass effect */
 }
 
 header ul.flex {
@@ -42,9 +42,9 @@ header button.menu {
 header .fixed {
     position: fixed;
     inset: 0;
-    background-color: rgba(40, 40, 48, 0.91);
+    background-color: rgba(0, 0, 0, 0.5); /* Dimmed background only */
     z-index: 10;
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(4px);
 }
 
 header .fixed ul.modal {
@@ -53,7 +53,7 @@ header .fixed ul.modal {
     margin-top: 2rem;
     border-radius: 1rem;
     padding: 1rem 2rem;
-    background-color: var(--secondary);
+    /* background-color: var(--secondary); Removed for glass effect */
     animation: move 0.9s 1;
 }
 

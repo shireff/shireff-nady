@@ -1,7 +1,7 @@
 /* Base sidebar layout */
 .admin-sidebar {
   height: 100vh;
-  background-color: var(--bg-secondary);
+  /* background-color: var(--bg-secondary); Handled by glass */
   border-right: 1px solid var(--border-color);
   padding: 2rem 1.5rem;
   display: flex;
@@ -10,7 +10,7 @@
   width: 16rem;
   overflow-x: hidden;
   z-index: 40;
-  box-shadow: 0 0 15px rgba(120,60,255,0.08);
+  /* box-shadow: 0 0 15px rgba(120,60,255,0.08); Handled by glass */
 }
 
 /* Collapsed sidebar (desktop) */

@@ -1,0 +1,231 @@
+/**
+ * Theme System - Light & Dark Modes
+ * Semantic color tokens for portfolio SaaS platform
+ */
+
+/* ========================================
+   LIGHT THEME
+   ======================================== */
+[data-theme="light"],
+.light {
+  /* Backgrounds */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #e9ecef;
+  --bg-quaternary: #dee2e6;
+  --bg-gradient: 
+    radial-gradient(at 0% 0%, hsla(210, 100%, 96%, 1) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, hsla(220, 100%, 96%, 1) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, hsla(240, 100%, 96%, 1) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, hsla(260, 100%, 96%, 1) 0px, transparent 50%);
+
+  /* Surfaces (Glassmorphism) */
+  --surface-primary: rgba(255, 255, 255, 0.9);
+  --surface-secondary: rgba(248, 249, 250, 0.8);
+  --surface-tertiary: rgba(233, 236, 239, 0.7);
+  --surface-elevated: rgba(255, 255, 255, 0.95);
+  --surface-overlay: rgba(255, 255, 255, 0.6);
+
+  /* Text Colors */
+  --text-primary: #212529;
+  --text-secondary: #495057;
+  --text-tertiary: #6c757d;
+  --text-quaternary: #adb5bd;
+  --text-inverse: #ffffff;
+  --text-disabled: #ced4da;
+
+  /* Borders */
+  --border-primary: rgba(0, 0, 0, 0.1);
+  --border-secondary: rgba(0, 0, 0, 0.05);
+  --border-tertiary: rgba(0, 0, 0, 0.03);
+  --border-focus: rgba(59, 130, 246, 0.5);
+
+  /* Interactive States */
+  --interactive-hover: rgba(0, 0, 0, 0.05);
+  --interactive-active: rgba(0, 0, 0, 0.1);
+  --interactive-disabled: rgba(0, 0, 0, 0.03);
+
+  /* Accent Colors */
+  --accent-primary: #3b82f6;
+  --accent-primary-hover: #2563eb;
+  --accent-primary-active: #1d4ed8;
+  
+  --accent-secondary: #8b5cf6;
+  --accent-secondary-hover: #7c3aed;
+  --accent-secondary-active: #6d28d9;
+
+  /* Semantic Colors */
+  --color-success: #10b981;
+  --color-success-bg: rgba(16, 185, 129, 0.1);
+  --color-success-border: rgba(16, 185, 129, 0.3);
+
+  --color-warning: #f59e0b;
+  --color-warning-bg: rgba(245, 158, 11, 0.1);
+  --color-warning-border: rgba(245, 158, 11, 0.3);
+
+  --color-error: #ef4444;
+  --color-error-bg: rgba(239, 68, 68, 0.1);
+  --color-error-border: rgba(239, 68, 68, 0.3);
+
+  --color-info: #3b82f6;
+  --color-info-bg: rgba(59, 130, 246, 0.1);
+  --color-info-border: rgba(59, 130, 246, 0.3);
+
+  /* Glassmorphism Specific */
+  --glass-bg-light: rgba(255, 255, 255, 0.1);
+  --glass-border-light: rgba(255, 255, 255, 0.2);
+  --glass-shadow-light: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+}
+
+/* ========================================
+   DARK THEME
+   ======================================== */
+[data-theme="dark"],
+.dark {
+  /* Backgrounds */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #1a1a1a;
+  --bg-tertiary: #2a2a2a;
+  --bg-quaternary: #3a3a3a;
+  --bg-gradient: 
+    radial-gradient(at 0% 0%, hsla(253, 16%, 15%, 1) 0px, transparent 50%),
+    radial-gradient(at 50% 0%, hsla(225, 39%, 20%, 1) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, hsla(339, 49%, 20%, 1) 0px, transparent 50%);
+
+  /* Surfaces (Glassmorphism) */
+  --surface-primary: rgba(26, 26, 26, 0.8);
+  --surface-secondary: rgba(42, 42, 42, 0.7);
+  --surface-tertiary: rgba(58, 58, 58, 0.6);
+  --surface-elevated: rgba(58, 58, 58, 0.9);
+  --surface-overlay: rgba(26, 26, 26, 0.6);
+
+  /* Text Colors */
+  --text-primary: #f8f9fa;
+  --text-secondary: #e9ecef;
+  --text-tertiary: #adb5bd;
+  --text-quaternary: #6c757d;
+  --text-inverse: #212529;
+  --text-disabled: #495057;
+
+  /* Borders */
+  --border-primary: rgba(255, 255, 255, 0.1);
+  --border-secondary: rgba(255, 255, 255, 0.05);
+  --border-tertiary: rgba(255, 255, 255, 0.03);
+  --border-focus: rgba(96, 165, 250, 0.5);
+
+  /* Interactive States */
+  --interactive-hover: rgba(255, 255, 255, 0.05);
+  --interactive-active: rgba(255, 255, 255, 0.1);
+  --interactive-disabled: rgba(255, 255, 255, 0.03);
+
+  /* Accent Colors */
+  --accent-primary: #60a5fa;
+  --accent-primary-hover: #3b82f6;
+  --accent-primary-active: #2563eb;
+  
+  --accent-secondary: #a78bfa;
+  --accent-secondary-hover: #8b5cf6;
+  --accent-secondary-active: #7c3aed;
+
+  /* Semantic Colors */
+  --color-success: #34d399;
+  --color-success-bg: rgba(52, 211, 153, 0.1);
+  --color-success-border: rgba(52, 211, 153, 0.3);
+
+  --color-warning: #fbbf24;
+  --color-warning-bg: rgba(251, 191, 36, 0.1);
+  --color-warning-border: rgba(251, 191, 36, 0.3);
+
+  --color-error: #f87171;
+  --color-error-bg: rgba(248, 113, 113, 0.1);
+  --color-error-border: rgba(248, 113, 113, 0.3);
+
+  --color-info: #60a5fa;
+  --color-info-bg: rgba(96, 165, 250, 0.1);
+  --color-info-border: rgba(96, 165, 250, 0.3);
+
+  /* Glassmorphism Specific */
+  --glass-bg-dark: rgba(0, 0, 0, 0.3);
+  --glass-border-dark: rgba(255, 255, 255, 0.1);
+  --glass-shadow-dark: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* ========================================
+   LEGACY COMPATIBILITY
+   Maintain backward compatibility with existing CSS variables
+   ======================================== */
+:root {
+  /* Map old variables to new semantic tokens */
+  --primaryBg: var(--bg-primary);
+  --secondary: var(--bg-secondary);
+  --border: var(--border-primary);
+  --title: var(--text-primary);
+  --subtitle: var(--text-secondary);
+  --bgHeader: var(--surface-elevated);
+  --blue: var(--accent-primary);
+  --icon: var(--text-primary);
+  --icon-hover: var(--text-secondary);
+  --card-bg: var(--surface-primary);
+  --card-hover-bg: var(--surface-secondary);
+}
+
+.light {
+  --primaryBg: var(--bg-primary);
+  --secondary: var(--bg-secondary);
+  --border: var(--border-primary);
+  --title: var(--text-primary);
+  --subtitle: var(--text-secondary);
+  --bgHeader: var(--surface-elevated);
+  --blue: var(--accent-primary);
+  --icon: var(--text-primary);
+  --icon-hover: var(--accent-primary);
+  --card-bg: var(--surface-primary);
+  --card-hover-bg: var(--surface-secondary);
+}
+
+.dark {
+  --primaryBg: var(--bg-primary);
+  --secondary: var(--bg-secondary);
+  --border: var(--border-primary);
+  --title: var(--text-primary);
+  --subtitle: var(--text-secondary);
+  --bgHeader: var(--surface-elevated);
+  --blue: var(--accent-primary);
+  --icon: var(--text-primary);
+  --icon-hover: var(--text-secondary);
+  --card-bg: var(--surface-primary);
+  --card-hover-bg: var(--surface-secondary);
+}
+
+/* ========================================
+   THEME UTILITIES
+   ======================================== */
+
+/* Glassmorphism Effect */
+.glass {
+  background: var(--surface-primary);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--border-primary);
+  box-shadow: var(--shadow-lg);
+}
+
+.glass-heavy {
+  background: var(--surface-elevated);
+  backdrop-filter: blur(var(--glass-blur-lg));
+  -webkit-backdrop-filter: blur(var(--glass-blur-lg));
+  border: 1px solid var(--border-primary);
+  box-shadow: var(--shadow-xl);
+}
+
+/* Smooth theme transitions */
+* {
+  transition: background-color var(--transition-base),
+              border-color var(--transition-base),
+              color var(--transition-base);
+}
+
+/* Disable transitions during theme switch */
+.theme-transitioning * {
+  transition: none !important;
+}

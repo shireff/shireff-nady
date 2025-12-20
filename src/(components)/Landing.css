@@ -13,10 +13,12 @@ section.landing .p-avatar {
 
 section.landing .avatar {
   width: 88px;
-  border: 1px solid darkgoldenrod;
+  border: 2px solid var(--accent-primary);
   border-radius: 50%;
-  padding: 1px;
-  box-shadow: 2px 2px 40px rgba(203, 200, 200, 0.301) inset;
+  padding: 2px;
+  background: var(--surface-primary);
+  backdrop-filter: blur(var(--glass-blur));
+  box-shadow: var(--shadow-lg);
 }
 
 section.landing .icon-verified {

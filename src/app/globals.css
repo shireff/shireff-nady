@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Design System */
+@import "../styles/design-tokens.css";
+@import "../styles/theme.css";
+
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
 
 * {
@@ -66,7 +70,9 @@ html {
 }
 
 body {
-  background-color: var(--primaryBg);
+  background-color: var(--bg-primary);
+  background-image: var(--bg-gradient);
+  background-attachment: fixed;
   color: #fff;
 }
 
@@ -115,21 +121,31 @@ button:active {
 }
 
 .scrollToTop {
-  background-color: rgba(25, 118, 210, 0.85);
+  background: var(--surface-primary);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--border-primary);
+  color: var(--accent-primary);
   width: 2.6rem;
   height: 2.6rem;
   border-radius: 50%;
   position: fixed;
   bottom: 2rem;
   right: 3%;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 1.3rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
   transition: all 0.3s;
+  z-index: 50;
+  box-shadow: var(--shadow-md);
 }
 
 .scrollToTop:hover {
-  background-color: rgb(25, 118, 210);
+  background: var(--surface-secondary);
+  border-color: var(--accent-primary);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
 }
 
 @media (max-width: 1000px) {

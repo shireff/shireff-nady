@@ -161,7 +161,7 @@ export default function AIHelper() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.25 }}
-            className="bot"
+            className="bot glass"
           >
             {/* Header */}
             <div className="bot-header">

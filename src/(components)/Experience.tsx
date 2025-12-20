@@ -103,7 +103,7 @@ const Experience = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.2 }}
-                className="experience-card"
+                className="experience-card glass"
               >
                 <div className="experience-header">
                   <Briefcase className="experience-icon" />

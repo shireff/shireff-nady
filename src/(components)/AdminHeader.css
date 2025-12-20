@@ -5,12 +5,12 @@
   top: 0;
   z-index: 20;
   padding: 0 1.5rem;
-  background: linear-gradient(90deg, var(--bg-secondary) 0%, var(--bg-card) 100%);
+  /* background: linear-gradient(90deg, var(--bg-secondary) 0%, var(--bg-card) 100%); Handled by glass */
   border-bottom: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  /* box-shadow: 0 2px 8px rgba(0,0,0,0.25); Handled by glass */
 }
 
 .admin-title {

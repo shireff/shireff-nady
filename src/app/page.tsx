@@ -7,6 +7,7 @@ import Header from "@/(components)/Header";
 import Landing from "@/(components)/Landing";
 import Projects from "@/(components)/Projects";
 import ScrollToTop from "@/(components)/ScrollToTop";
+import StateComparisonSection from "@/(components)/StateComparisonSection";
 //import Image from "next/image";
 import { Poppins, Roboto } from 'next/font/google';
 
@@ -34,6 +35,8 @@ export default function Home() {
       <Experience />
       <div className="line" />
       <Projects />
+      <div className="line" />
+      <StateComparisonSection />
       <div className="line" />
       <Contact />
       <div className="line" />

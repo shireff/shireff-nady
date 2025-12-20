@@ -54,7 +54,7 @@ const About = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="skill-card"
+              className="skill-card glass"
             >
               <div className="skill-icon">{skill.icon}</div>
               <h3>{skill.title}</h3>
