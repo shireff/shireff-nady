@@ -35,7 +35,7 @@ export default function Home() {
       <Experience />
       <div className="line" />
       <Projects />
-      <div className="line" />
+      {/* <div className="line" /> */}
       <StateComparisonSection />
       <div className="line" />
       <Contact />

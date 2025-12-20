@@ -152,7 +152,12 @@ export default function Projects() {
                       width={266}
                       height={150}
                       priority={index < 4}
-                      style={{ borderRadius: "3px", objectFit: "cover" }}
+                      style={{
+                        borderRadius: "3px",
+                        objectFit: "cover",
+                        width: "100%",
+                        height: "auto",
+                      }}
                     />
                   ) : (
                     <div className="placeholder">

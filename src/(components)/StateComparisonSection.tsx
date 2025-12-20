@@ -67,7 +67,7 @@ export default function StateComparisonSection() {
   }
 
   return (
-    <section className="state-comparison-section">
+    <section id="state-comparison-section" className="state-comparison-section">
       <div className="container">
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
