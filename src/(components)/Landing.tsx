@@ -23,13 +23,7 @@ export default function Landing() {
   return (
     <section className="landing flex">
       {/* For SEO  */}
-      <img
-        src="https://shireff-nady.vercel.app/og-image.jpg"
-        alt="Shireff Nady Front-End Developer Portfolio"
-        width="1200"
-        height="630"
-        style={{ display: "none" }}
-      />
+      {/* SEO hidden image handled by metadata */}
 
       <div className="left">
         <div className="p-avatar flex">
@@ -64,18 +58,21 @@ export default function Landing() {
             target="_blank"
             href="https://github.com/shireff"
             className="icon icon-github"
+            aria-label="GitHub Profile"
           ></a>
           <a
             rel="noreferrer"
             target="_blank"
             href="https://www.linkedin.com/in/shireff-nady-5b7791340/"
             className="icon icon-linkedin-square"
+            aria-label="LinkedIn Profile"
           ></a>
           <a
             rel="noreferrer"
             target="_blank"
             href="https://wa.me/+201274068946"
             className="icon icon-whatsapp"
+            aria-label="WhatsApp Contact"
           ></a>
         </div>
       </div>

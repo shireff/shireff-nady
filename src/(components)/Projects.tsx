@@ -97,7 +97,7 @@ export default function Projects() {
 
   return (
     <>
-      <main id="projects" className="flex">
+      <section id="projects" className="flex">
         {/* Filter Buttons */}
         <section className="pro-left flex">
           {["all", "ui", "React", "next", "node"].map((cat) => (
@@ -269,7 +269,7 @@ export default function Projects() {
             </motion.div>
           )}
         </AnimatePresence>
-      </main>
+      </section>
         {structuredSchemas}
     </>
   );

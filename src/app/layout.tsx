@@ -56,6 +56,12 @@ export const metadata: Metadata = {
     "Node.js",
     "Express",
   ],
+  alternates: {
+    canonical: "https://shireff-nady.vercel.app/",
+  },
+  verification: {
+    google: "G-XXXXXXXXX",
+  },
   openGraph: {
     title: "Shireff Nady - Front-End Developer & Web Developer",
     description:
@@ -63,6 +69,7 @@ export const metadata: Metadata = {
     url: "https://shireff-nady.vercel.app/",
     siteName: "Shireff Nady | Front-End Developer",
     type: "website",
+    locale: "en_US",
     images: [
       {
         url: "https://shireff-nady.vercel.app/og-image.jpg",
@@ -72,6 +79,24 @@ export const metadata: Metadata = {
       },
     ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Shireff Nady | Front-End Developer",
+    description: "Front-End Developer skilled in React, Next.js, and modern web.",
+    images: ["https://shireff-nady.vercel.app/og-image.jpg"],
+    creator: "@shireffnady",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function RootLayout({
@@ -80,55 +105,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://shireff-nady.vercel.app/" />
-
-        <title>Shireff Nady | Front-End Developer</title>
-        <meta
-          name="description"
-          content="Shireff Nady is a front-end developer skilled in HTML, CSS, JavaScript, React, Tailwind, and more."
-        />
-
-        <meta name="author" content="Shireff Nady" />
-        <meta name="publisher" content="Shireff Nady" />
-        <meta name="application-name" content="Shireff Nady Portfolio" />
-
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://shireff-nady.vercel.app/" />
-        <meta
-          property="og:title"
-          content="Shireff Nady | Front-End Developer"
-        />
-        <meta
-          property="og:description"
-          content="A Front-End Developer skilled in HTML, CSS, JavaScript, React, Tailwind, and more. View my projects."
-        />
-        <meta
-          property="og:site_name"
-          content="Shireff Nady | Front-End Developer"
-        />
-        <meta
-          property="og:image"
-          content="https://shireff-nady.vercel.app/og-image.jpg"
-        />
-        <link
-          rel="image_src"
-          href="https://shireff-nady.vercel.app/og-image.jpg"
-        />
-
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="fb:app_id" content="1669257420448613" />
-        <link
-          rel="icon"
-          href="https://shireff-nady.vercel.app/og-image.jpg"
-          type="image/jpeg"
-          sizes="32x32"
-        />
-        <link
-          rel="apple-touch-icon"
-          href="https://shireff-nady.vercel.app/og-image.jpg"
-        />
         <link rel="stylesheet" href="/icons/icomoon/style.css" />
       </head>
       <body

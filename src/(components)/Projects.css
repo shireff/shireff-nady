@@ -1,14 +1,14 @@
-main.flex {
+section.flex {
   gap: 2.64rem;
   align-items: start;
 }
 
-main.flex section.pro-left {
+section.flex section.pro-left {
   flex-direction: column;
   gap: 10px;
 }
 
-main.flex section.pro-left button {
+section.flex section.pro-left button {
   background: var(--surface-primary);
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
@@ -23,11 +23,11 @@ main.flex section.pro-left button {
   color: var(--text-secondary);
 }
 
-main.flex section.pro-left button:hover {
+section.flex section.pro-left button:hover {
   opacity: 1;
 }
 
-main.flex section.pro-left button.active {
+section.flex section.pro-left button.active {
   font-weight: bold;
   opacity: 1;
   letter-spacing: 0.6px;
@@ -38,13 +38,13 @@ main.flex section.pro-left button.active {
   box-shadow: var(--shadow-sm);
 }
 
-.light main.flex section.pro-left button.active {
+.light section.flex section.pro-left button.active {
   /* Handled by variables above */
   border-color: var(--accent-primary);
   color: var(--accent-primary);
 }
 
-main.flex section.pro-right {
+section.flex section.pro-right {
   flex-grow: 1;
   flex-wrap: wrap;
   gap: 16px;
@@ -52,34 +52,34 @@ main.flex section.pro-right {
 }
 
 @media (max-width: 600px) {
-  main.flex {
+  section.flex {
     flex-direction: column;
     gap: 2.64rem;
     align-items: center;
   }
-  main.flex section.pro-left {
+  section.flex section.pro-left {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
   }
-  main.flex section.pro-left button {
+  section.flex section.pro-left button {
     width: 7rem;
     padding: 0.8rem 0;
     font-size: 0.9rem;
   }
 }
 
-main.flex section.pro-right article.card {
+section.flex section.pro-right article.card {
   /* border: 1px solid rgba(93, 188, 252, 0.3); Handled by glass */
   border-radius: 3px;
   transition: all 0.2s;
   /* background-image: ... Handled by glass */
 }
 
-/* .light main.flex section.pro-right article.card handled by glass */
+/* .light section.flex section.pro-right article.card handled by glass */
 
-main.flex section.pro-right article.card:hover {
+section.flex section.pro-right article.card:hover {
   border: 1px solid rgb(93, 188, 252);
   scale: 1.01;
   /* box-shadow: ... Handled by glass usually, but hover might need extra */
@@ -88,22 +88,22 @@ main.flex section.pro-right article.card:hover {
 
 /* .light hover handled by glass */
 
-main.flex section.pro-right article.card img {
+section.flex section.pro-right article.card img {
   width: 266px;
   border-radius: 3px;
 }
 
-main.flex section.pro-right article.card .box {
+section.flex section.pro-right article.card .box {
   padding: 1rem 0.4rem;
   width: 266px;
 }
 
-main.flex section.pro-right article.card .box .title {
+section.flex section.pro-right article.card .box .title {
   color: var(--title);
   text-transform: capitalize;
 }
 
-main.flex section.pro-right article.card .box .subtitle {
+section.flex section.pro-right article.card .box .subtitle {
   color: var(--subtitle);
   font-size: 0.8rem;
   margin-top: 0.7rem;
@@ -111,7 +111,7 @@ main.flex section.pro-right article.card .box .subtitle {
   position: relative;
 }
 
-main.flex section.pro-right article.card .box .subtitle::after {
+section.flex section.pro-right article.card .box .subtitle::after {
   content: attr(title);
   position: absolute;
   left: 0;
@@ -131,13 +131,13 @@ main.flex section.pro-right article.card .box .subtitle::after {
   z-index: 100;
 }
 
-main.flex section.pro-right article.card .box .subtitle:hover::after {
+section.flex section.pro-right article.card .box .subtitle:hover::after {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
 }
 
-main.flex section.pro-right article.card .box .flex {
+section.flex section.pro-right article.card .box .flex {
   justify-content: space-around;
   font-size: 0.8rem;
   color: var(--title);

@@ -25,7 +25,7 @@ const roboto = Roboto({
 
 export default function Home() {
   return (
-    <div id="app" className={`container ${poppins.variable} ${roboto.variable}`}>
+    <main id="app" className={`container ${poppins.variable} ${roboto.variable}`}>
       <Header />
       {/* <div className="line" /> */}
       <Landing />
@@ -44,6 +44,6 @@ export default function Home() {
       <AIHelper />
 
       <ScrollToTop />
-    </div>
+    </main>
   );
 }

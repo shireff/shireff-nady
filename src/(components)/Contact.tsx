@@ -22,10 +22,10 @@ export default function Contact() {
 
   return (
     <section id="contact" className="contact">
-      <h1 className="title">
+      <h2 className="title">
         <span className="icon-envelope" />
         Contact Me
-      </h1>
+      </h2>
       <p className="subtitle">
         Contact me for more information and get notified when I publish
         something new.
