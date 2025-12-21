@@ -13,7 +13,7 @@ const navItems = [
   { name: 'Projects', href: '/projects', icon: Code2 },
   { name: 'Skills', href: '/#skills', icon: Layers },
   { name: 'Experience', href: '/experiences', icon: Briefcase },
-  { name: 'Comparisons', href: '/state-comparisons', icon: Split },
+  // { name: 'Comparisons', href: '/state-comparisons', icon: Split },
   { name: 'Contact', href: '/contact', icon: MessageSquare },
 ];
 
@@ -60,15 +60,15 @@ export default function Navbar() {
               {item.name}
             </Link>
           ))}
-          
+
           <ThemeToggle />
-          
+
           {isLoggedIn ? (
             <div className="flex items-center gap-4">
               <Link href="/admin">
                 <Button variant="glass" size="sm">Dashboard</Button>
               </Link>
-              <button 
+              <button
                 onClick={handleLogout}
                 className="text-zinc-400 hover:text-red-400 transition-colors"
                 title="Logout"
@@ -77,9 +77,10 @@ export default function Navbar() {
               </button>
             </div>
           ) : (
-            <Link href="/admin/login">
-              <Button variant="outline" size="sm">Admin</Button>
-            </Link>
+            // <Link href="/admin/login">
+            //   <Button variant="outline" size="sm">Admin</Button>
+            // </Link>
+            <div></div>
           )}
         </div>
 

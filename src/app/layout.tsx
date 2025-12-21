@@ -16,10 +16,12 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://shireff-nady.vercel.app"),
-  title:
-    "Shireff Nady - Front-End Developer | Web Developer | JavaScript & React",
+  title: {
+    default: "Shireff Nady - Front-End Developer | Web Developer | JavaScript & React Expert",
+    template: "%s | Shireff Nady - Front-End Developer",
+  },
   description:
-    "Shireff Nady is a front-end developer skilled in HTML, CSS, Tailwind, JavaScript, React, and more. Explore projects, coding insights, and development tips.",
+    "Shireff Nady is a skilled front-end developer specializing in HTML5, CSS3, Tailwind CSS, JavaScript, TypeScript, React.js, Next.js, and modern web technologies. Explore innovative projects, coding insights, and professional web development solutions.",
   icons: {
     icon: [
       { url: '/fav/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
@@ -56,47 +58,76 @@ export const metadata: Metadata = {
     'msapplication-TileImage': '/fav/ms-icon-144x144.png',
     'msapplication-config': '/fav/browserconfig.xml',
   },
-  authors: [{ name: "Shireff Nady" }],
+  authors: [{ name: "Shireff Nady", url: "https://shireff-nady.vercel.app" }],
   creator: "Shireff Nady",
   publisher: "Shireff Nady",
-
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   keywords: [
-    "Shireff",
     "Shireff Nady",
     "Front-End Developer",
     "Web Developer",
+    "Full Stack Developer",
     "HTML5",
     "CSS3",
     "JavaScript",
     "TypeScript",
     "React.js",
+    "React Developer",
     "Next.js",
+    "Next.js Developer",
     "Redux",
     "Redux Toolkit",
+    "State Management",
     "Bootstrap",
     "Tailwind CSS",
+    "Responsive Design",
+    "Mobile-First Design",
     "Git",
     "GitHub",
+    "Version Control",
     "jQuery",
     "AJAX",
+    "REST API",
     "JSON",
     "Cypress",
     "Unit Testing",
     "E2E Testing",
     "Integration Testing",
+    "Test-Driven Development",
     "Node.js",
-    "Express",
+    "Express.js",
+    "Web Performance",
+    "SEO Optimization",
+    "Accessibility",
+    "WCAG",
+    "Progressive Web Apps",
+    "PWA",
+    "Single Page Applications",
+    "SPA",
+    "Web Components",
+    "Modern Web Development",
+    "Frontend Architecture",
+    "UI/UX Development",
+    "Portfolio",
+    "Egypt Developer",
+    "Freelance Developer",
   ],
   alternates: {
     canonical: "https://shireff-nady.vercel.app/",
   },
   verification: {
-    google: "G-XXXXXXXXX",
+    google: "G-XXXXXXXXX", // Replace with actual Google Search Console verification code
+    // yandex: "yandex-verification-code",
+    // bing: "bing-verification-code",
   },
   openGraph: {
     title: "Shireff Nady - Front-End Developer & Web Developer",
     description:
-      "Shireff Nady, front-end developer skilled in HTML, CSS, JavaScript, React, Tailwind, and more. Discover my projects in web development.",
+      "Shireff Nady, a skilled front-end developer specializing in HTML, CSS, JavaScript, React, Next.js, Tailwind CSS, and modern web technologies. Discover innovative web development projects and solutions.",
     url: "https://shireff-nady.vercel.app/",
     siteName: "Shireff Nady | Front-End Developer",
     type: "website",
@@ -106,20 +137,23 @@ export const metadata: Metadata = {
         url: "https://shireff-nady.vercel.app/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Shireff Nady Portfolio",
+        alt: "Shireff Nady Portfolio - Front-End Developer",
+        type: "image/jpeg",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Shireff Nady | Front-End Developer",
-    description: "Front-End Developer skilled in React, Next.js, and modern web.",
+    description: "Front-End Developer skilled in React, Next.js, TypeScript, and modern web technologies.",
     images: ["https://shireff-nady.vercel.app/og-image.jpg"],
     creator: "@shireffnady",
+    site: "@shireffnady",
   },
   robots: {
     index: true,
     follow: true,
+    nocache: false,
     googleBot: {
       index: true,
       follow: true,
@@ -128,6 +162,7 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  category: "technology",
 };
 
 export default function RootLayout({
@@ -135,30 +170,101 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Comprehensive structured data for SEO
   const personSchema = {
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Shireff Nady",
     "jobTitle": "Front-End Developer",
-    "description": "Shireff Nady is a front-end developer skilled in HTML, CSS, JavaScript, React, and modern web technologies.",
+    "description": "Shireff Nady is a skilled front-end developer specializing in HTML5, CSS3, JavaScript, TypeScript, React.js, Next.js, and modern web technologies.",
     "url": "https://shireff-nady.vercel.app",
     "image": "https://shireff-nady.vercel.app/og-image.jpg",
+    "email": "shireffn369@gmail.com",
+    "telephone": "+201274068946",
     "sameAs": [
       "https://www.linkedin.com/in/shireffnady",
-      "https://github.com/shireff"
+      "https://github.com/shireff",
+      "https://twitter.com/shireffnady"
     ],
     "worksFor": {
       "@type": "Organization",
       "name": "Freelance / Open Source"
     },
     "knowsAbout": [
-      "React",
-      "Next.js",
+      "HTML5",
+      "CSS3",
+      "JavaScript",
       "TypeScript",
-      "SEO",
-      "Performance",
+      "React.js",
+      "Next.js",
+      "Redux",
       "Tailwind CSS",
-      "Node.js"
+      "Node.js",
+      "Express.js",
+      "SEO Optimization",
+      "Web Performance",
+      "Responsive Design",
+      "Accessibility",
+      "Testing"
+    ],
+    "alumniOf": {
+      "@type": "EducationalOrganization",
+      "name": "Your University/College" // Update with actual education
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "EG",
+      "addressLocality": "Egypt"
+    }
+  };
+
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Shireff Nady - Front-End Developer Portfolio",
+    "url": "https://shireff-nady.vercel.app",
+    "description": "Professional portfolio showcasing web development projects, skills, and experience of Shireff Nady.",
+    "author": {
+      "@type": "Person",
+      "name": "Shireff Nady"
+    },
+    "inLanguage": "en-US",
+    "copyrightYear": new Date().getFullYear(),
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://shireff-nady.vercel.app/projects?search={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+  };
+
+  const professionalServiceSchema = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Shireff Nady - Web Development Services",
+    "description": "Professional front-end development services specializing in React, Next.js, and modern web technologies.",
+    "url": "https://shireff-nady.vercel.app",
+    "image": "https://shireff-nady.vercel.app/og-image.jpg",
+    "priceRange": "$$",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "EG"
+    },
+    "areaServed": {
+      "@type": "Place",
+      "name": "Worldwide"
+    },
+    "availableLanguage": ["English", "Arabic"],
+    "serviceType": [
+      "Web Development",
+      "Front-End Development",
+      "React Development",
+      "Next.js Development",
+      "UI/UX Implementation",
+      "Web Performance Optimization",
+      "SEO Optimization"
     ]
   };
 
@@ -181,6 +287,16 @@ export default function RootLayout({
           id="person-schema"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        />
+        <Script
+          id="website-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+        />
+        <Script
+          id="professional-service-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(professionalServiceSchema) }}
         />
       </head>
       <body className={`${inter.className} min-h-screen flex flex-col`}>

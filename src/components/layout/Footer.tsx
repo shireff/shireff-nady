@@ -14,16 +14,15 @@ export default function Footer() {
               Engineering high-performance digital systems with meticulous visual design and state-of-the-art architectures.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="p-2 glass-card hover:bg-white/10 text-zinc-400 hover:text-white transition-all">
+              <a href="https://github.com/shireff" target='_blank' className="p-2 glass-card hover:bg-white/10 text-zinc-400 hover:text-white transition-all">
                 <Github size={20} />
               </a>
-              <a href="#" className="p-2 glass-card hover:bg-white/10 text-zinc-400 hover:text-white transition-all">
+              <a href="https://www.linkedin.com/in/shireffnady/" target='_blank' className="p-2 glass-card hover:bg-white/10 text-zinc-400 hover:text-white transition-all">
                 <Linkedin size={20} />
               </a>
-              <a href="#" className="p-2 glass-card hover:bg-white/10 text-zinc-400 hover:text-white transition-all">
-                <Twitter size={20} />
-              </a>
-              <a href="#" className="p-2 glass-card hover:bg-white/10 text-zinc-400 hover:text-white transition-all">
+
+              <a href="mailto:shireffn369@gmail.com" target='_blank'
+                className="p-2 glass-card hover:bg-white/10 text-zinc-400 hover:text-white transition-all">
                 <Mail size={20} />
               </a>
             </div>
@@ -38,13 +37,13 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div>
+          {/* <div>
             <h4 className="text-white font-bold mb-6">Admin</h4>
             <ul className="space-y-4">
               <li><Link href="/admin/login" className="text-zinc-400 hover:text-blue-400 transition-colors">Login</Link></li>
               <li><Link href="/admin" className="text-zinc-400 hover:text-blue-400 transition-colors">Dashboard</Link></li>
             </ul>
-          </div>
+          </div> */}
         </div>
 
         <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
