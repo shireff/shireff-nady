@@ -1,238 +1,113 @@
-/* Design System */
-@import "../styles/design-tokens.css";
-@import "../styles/theme.css";
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+@import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  font-family: "Roboto", sans-serif;
-  letter-spacing: 1px;
-  scroll-behavior: smooth;
-}
-
-/* width */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 8px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  
+  --color-glass-bg: var(--glass-bg);
+  --color-glass-border: var(--glass-border);
+  --color-glass-bg-hover: var(--glass-bg-hover);
+  
+  --shadow-premium: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+  --shadow-glass-l1: 0 4px 12px 0 var(--glass-shadow-color);
+  --shadow-glass-l2: 0 8px 32px 0 var(--glass-shadow-color);
+  --shadow-glass-l3: 0 16px 48px 0 var(--glass-shadow-color);
+  
+  --radius-premium: 24px;
+  --radius-soft: 32px;
+  
+  --blur-std: 12px;
+  --blur-premium: 20px;
 }
 
 :root {
-  --primaryBg: #000;
-  --secondary: rgb(24 24 27);
-  --border: rgba(63, 63, 70, 0.4);
-  --title: rgb(244 244 245);
-  --subtitle: rgb(161 161 170);
-  --bgHeader: rgb(39, 39, 42);
-  --blue: rgb(93, 188, 252);
-  --icon: rgb(244, 244, 245);
-  --icon-hover: #d4d4d8;
-  --card-bg: rgb(39, 39, 42);
-  --card-hover-bg: rgb(63, 63, 70);
+  --background: #02040a;
+  --foreground: #f1f5f9;
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-bg-hover: rgba(255, 255, 255, 0.06);
+  --glass-shadow-color: rgba(0, 0, 0, 0.6);
+  --accent-glow: radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, transparent 70%);
 }
 
-.light {
-  --primaryBg: rgb(250, 250, 250);
-  --secondary: rgba(255, 225, 255, 0.16);
-  --border: rgba(202, 202, 202, 0.518);
-  --title: rgb(39, 39, 42);
-  --subtitle: rgb(82, 82, 91);
-  --bgHeader: rgb(253, 253, 253);
-  --blue: rgb(0, 149, 245);
-  --icon: rgb(39, 39, 42);
-  --icon-hover: rgb(0, 149, 245);
-  --card-bg: rgb(255, 255, 255);
-  --card-hover-bg: rgba(240, 240, 240, 1);
-}
-
-body {
-  background-color: var(--bg-primary);
-  background-image: var(--bg-gradient);
-  background-attachment: fixed;
-  color: #fff;
-}
-
-.container {
-  width: 80%;
-  margin: 0 auto;
-  padding: 0 4.8rem;
-  background-color: var(--secondary);
-  border: 1px solid var(--border);
-}
-
-.line {
-  border-bottom: 1px solid var(--border);
-  margin: 3rem 0;
-  /* width: calc(100% + 4.8rem + 4.8rem);
-    margin-left: -4.8rem; */
-}
-
-li {
-  list-style: none;
-}
-
-a {
-  color: initial;
-  all: unset;
-  text-decoration: none;
-  transition: all 0.5s;
-}
-
-.flex {
-  display: flex;
-  align-items: center;
-}
-
-button {
-  all: unset;
-  cursor: pointer;
-}
-
-button:hover {
-  cursor: pointer;
-}
-
-button:active {
-  scale: 0.9;
-}
-
-.scrollToTop {
-  background: var(--surface-primary);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--border-primary);
-  color: var(--accent-primary);
-  width: 2.6rem;
-  height: 2.6rem;
-  border-radius: 50%;
-  position: fixed;
-  bottom: 2rem;
-  right: 3%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.3rem;
-  transition: all 0.3s;
-  z-index: 50;
-  box-shadow: var(--shadow-md);
-}
-
-.scrollToTop:hover {
-  background: var(--surface-secondary);
-  border-color: var(--accent-primary);
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-2px);
-}
-
-@media (max-width: 1000px) {
-  .container {
-    width: 90%;
-    padding: 0 1rem;
-  }
-}
-
-@media (max-width: 600px) {
-  .container {
-    width: 98%;
-    padding: 0 1rem;
-  }
-
-  .scrollToTop {
-    width: 2rem;
-    height: 2rem;
-    opacity: 0.6;
-  }
-  .chat {
-    width: 2rem;
-    height: 2rem;
-    opacity: 0.6;
-  }
+[data-theme='light'] {
+  --background: #fafafa;
+  --foreground: #020617;
+  --glass-bg: rgba(0, 0, 0, 0.02);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-bg-hover: rgba(0, 0, 0, 0.04);
+  --glass-shadow-color: rgba(0, 0, 0, 0.05);
+  --accent-glow: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
 }
 
 @layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
-  }
-  .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
   body {
-    @apply bg-background text-foreground;
+    background: var(--background);
+    color: var(--foreground);
+    @apply antialiased selection:bg-blue-500/30 overflow-x-hidden;
+    background-image: var(--accent-glow);
+    background-attachment: fixed;
+  }
+}
+
+@layer components {
+  .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--blur-std));
+    -webkit-backdrop-filter: blur(var(--blur-std));
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-glass-l2);
+    border-radius: var(--radius-premium);
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .glass-card-premium {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--blur-premium));
+    -webkit-backdrop-filter: blur(var(--blur-premium));
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-glass-l3);
+    border-radius: var(--radius-soft);
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  [data-theme='light'] .glass-card-premium {
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+  }
+
+  .glass-nav {
+    background: rgba(var(--background-rgb, 3, 6, 16), 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--glass-border);
+  }
+  
+  .glass-input {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 1rem 1.25rem;
+    color: inherit;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  
+  .glass-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    background: var(--glass-bg-hover);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+  }
+
+  .noise-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0.015;
+    z-index: 9999;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   }
 }

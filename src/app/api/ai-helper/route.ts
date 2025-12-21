@@ -16,8 +16,19 @@ export async function POST(request: NextRequest) {
     }
 
     const language = decideLanguage(message, conversationHistory);
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) throw new Error("Missing GEMINI_API_KEY");
+    const apiKey = (process.env.GEMINI_API_KEY || "").trim();
+    
+    if (!apiKey) {
+      console.warn("[AIHelper] Missing GEMINI_API_KEY. Using local fallback.");
+      const local = buildResponse(message, language, conversationHistory);
+      return NextResponse.json({
+        response: local.text,
+        language,
+        topic: local.topic,
+        tone: local.tone,
+        source: "local",
+      });
+    }
 
     const formattedHistory = conversationHistory
       .map(
@@ -27,12 +38,12 @@ export async function POST(request: NextRequest) {
 
     let projectsData: any[] = [];
     try {
-      const res = await fetch(`${BACKEND_URL}/projects`);
-      console.log("res", res);
+      const res = await fetch(`${BACKEND_URL}/projects`, { next: { revalidate: 3600 } });
       if (res.ok) {
-        projectsData = await res.json();
+        const data = await res.json();
+        projectsData = Array.isArray(data) ? data : (data.projects || []);
       } else {
-        console.warn("⚠️ Could not fetch projects, status:", res.status);
+        console.warn("⚠️ Could not fetch live projects, status:", res.status);
       }
     } catch (err) {
       console.warn("⚠️ Error fetching backend projects:", err);
@@ -56,9 +67,10 @@ User message: "${message}"
 
 Rules:
 - Detect the user's language automatically.
-- Reply ONLY in that language (Arabic or English).
-- If a project includes a demo link, always mention it (demoUrl field).
+- Reply ONLY in that language (${language === 'ar' ? 'Arabic' : 'English'}).
+- If a project includes a demo link, always mention it (demoUrl or demo field).
 - Be concise, friendly, and natural.
+- Format your response clearly.
 `;
 
     let model = "gemini-2.0-flash";
@@ -78,7 +90,9 @@ Rules:
 
     // 🔁 Step 2: Fallback to Gemini 1.5 if 2.0 fails
     if (!geminiResponse.ok) {
-      console.warn("⚠️ Gemini 2.0 failed → trying 1.5 fallback...");
+      const err20 = await geminiResponse.json().catch(() => ({}));
+      console.warn(`[AIHelper] Gemini 2.0 failed (${geminiResponse.status}) → trying 1.5 fallback. Error:`, JSON.stringify(err20));
+      
       model = "gemini-1.5-flash-latest";
       geminiResponse = await fetch(
         `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
@@ -95,15 +109,17 @@ Rules:
     const data = await geminiResponse.json();
     const reply =
       data?.candidates?.[0]?.content?.parts?.[0]?.text ??
-      data?.promptFeedback?.blockReason ??
       null;
 
-    // 🩹 Step 3: Local fallback if Gemini gives no reply
+    // 🩹 Step 3: Local fallback if Gemini gives no reply or both failed
     let finalText = reply;
     let topic: string | undefined;
     let tone: string | undefined;
 
     if (!finalText) {
+      if (!geminiResponse.ok) {
+         console.error("[AIHelper] Both Gemini 2.0 and 1.5 failed. Falling back to knowledge base.");
+      }
       const local = buildResponse(message, language, conversationHistory);
       finalText = local.text;
       topic = local.topic;
@@ -111,16 +127,18 @@ Rules:
       source = "local";
     }
 
+    console.info(`[AIHelper] Response source: ${source} (Model: ${source === 'gemini' ? model : 'N/A'})`);
+
     return NextResponse.json({
       response: finalText,
       language,
       topic,
       tone,
       source,
-      fromBackend: projectsData.length > 0, // 🟢 useful debug flag
+      fromBackend: projectsData.length > 0,
     });
   } catch (err: any) {
-    console.error("AI API error:", err);
+    console.error("[AIHelper] Fatal error:", err);
     return NextResponse.json({ error: err.message }, { status: 500 });
   }
 }

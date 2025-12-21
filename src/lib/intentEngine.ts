@@ -1,24 +1,24 @@
-// lib/intentEngine.ts
 import type { Lang } from "./knowledge";
-import { knowledge, pick } from "./knowledge";
+import { projectsKnowledge, generalKnowledge, skillsKnowledge, pick } from "./knowledge";
 
 export interface Message {
   role: "user" | "assistant";
   content: string;
   language?: Lang;
   topic?: string;
+  projectId?: string;
 }
 
 export interface EngineResult {
   text: string;
   language: Lang;
   topic?: string;
-  tone?: "neutral" | "friendly" | "clarify";
-  followupHint?: string;
+  projectId?: string;
+  options?: string[];
+  tone?: "neutral" | "friendly" | "confident";
 }
 
-// Normalization helpers
-function normalizeArabic(s: string): string {
+function normalizeInput(s: string): string {
   return (s || "")
     .toLowerCase()
     .replace(/[إأآا]/g, "ا")
@@ -26,269 +26,158 @@ function normalizeArabic(s: string): string {
     .replace(/ؤ|ئ/g, "ء")
     .replace(/ة/g, "ه")
     .replace(/\s+/g, " ")
+    .replace(/[?؟]/g, "")
     .trim();
 }
 
 function hasArabic(text: string) {
   return /[اأإآء-ي]/.test(text);
 }
+
 function hasEnglish(text: string) {
   return /[a-zA-Z]/.test(text);
 }
 
-function arabiziHints(s: string): string {
-  return s
-    .replace(/mashari3/g, "مشاريع")
-    .replace(/khobrat(ak|ek)?/g, "خبره")
-    .replace(/brogect|broje[c|k]t|project/g, "مشروع")
-    .replace(/skills?/g, "مهاره")
-    .replace(/tawasol|tawasul/g, "تواصل")
-    .replace(/ai[- ]?max/g, "اي ماكس")
-    .replace(/funzone/g, "فنزون");
-}
-
 export function decideLanguage(input: string, history?: Message[]): Lang {
+  if (hasArabic(input) && !hasEnglish(input)) return "ar";
+  if (hasEnglish(input) && !hasArabic(input)) return "en";
   const recent = [...(history || [])].reverse().find((m) => m.language);
   if (recent?.language) return recent.language;
-  if (hasArabic(input)) return "ar";
-  if (hasEnglish(input)) return "en";
-  return "en";
+  return hasArabic(input) ? "ar" : "en";
 }
 
-function detectTone(s: string): "friendly" | "clarify" | "neutral" {
-  const msg = s.toLowerCase();
-  if (/(please|kindly|من فضلك|لو سمحت)/i.test(msg)) return "friendly";
-  if (/(مش فاهم|مش واضح|ازاي|ليه|explain|clarify|not clear|help)/i.test(msg))
-    return "clarify";
-  return "neutral";
-}
-
-// 💡 Improved buildResponse (v2.1)
 export function buildResponse(
   rawMessage: string,
   language: Lang,
   history?: Message[]
 ): EngineResult {
   const lang: Lang = language || "en";
-  const base = knowledge[lang];
+  const input = normalizeInput(rawMessage || "");
+  const base = generalKnowledge[lang];
+  const pK = projectsKnowledge[lang];
+  const sK = skillsKnowledge[lang];
 
-  const enriched = normalizeArabic(arabiziHints(rawMessage || ""));
-  const tone = detectTone(enriched);
-
-  // 1️⃣ Greetings
-  if (/(hello|hi|hey|مرحبا|اهلا|السلام|هاي|ازيك)/i.test(enriched)) {
-    return {
-      language: lang,
-      text: pick(base.greeting, base.greeting[0]),
-      topic: "greeting",
-      tone: "friendly",
-    };
-  }
-
-  // Extract last assistant topic (context)
   const lastAssistant = [...(history || [])]
     .reverse()
     .find((m) => m.role === "assistant" && m.topic);
-
   const lastTopic = lastAssistant?.topic || "";
+  const lastProjId = lastAssistant?.projectId || "";
 
-  // 2️⃣ Follow-up detection
-  const followUpRe = /(ايه كمان|وايه كمان|كمل|كمللي|تاني|more|continue|next)/i;
-  if (followUpRe.test(enriched)) {
-    // ---- Follow up on Projects ----
-    if (
-      lastTopic.includes("project") ||
-      /(مشروع|مشاريع|فنزون|oura|selva|inventory|اي ماكس)/i.test(enriched)
-    ) {
-      const text = [
-        pick(base.oura, base.oura[0]),
-        pick(base.selva, base.selva[0]),
-        pick(base.inventory, base.inventory[0]),
-        pick(base.aimax, base.aimax[0]),
-      ].join(lang === "ar" ? "\n\n" : "\n\n");
+  const list = (items: string[]) => items.map(i => `• ${i}`).join("\n");
+
+  const getOptions = (topic: string) => {
+    if (lang === "en") {
+      switch (topic) {
+        case "greeting": return ["View Projects", "Technical Skills", "Career Experience"];
+        case "skills_summary": return ["Technical Depth", "View Projects"];
+        case "project_details": return ["Live Demo", "Tech Challenges", "Another Project"];
+        case "experience": return ["Key Projects", "Technical Skills"];
+        default: return ["Latest Projects", "Full Stack Details"];
+      }
+    } else {
+      switch (topic) {
+        case "greeting": return ["عرض المشاريع", "المهارات التقنية", "الخبرة العملية"];
+        case "skills_summary": return ["التفاصيل العميقة", "عرض المشاريع"];
+        case "project_details": return ["الديمو الحي", "التحديات التقنية", "مشروع آخر"];
+        case "experience": return ["أهم المشاريع", "المهارات التقنية"];
+        default: return ["آخر المشاريع", "تفاصيل الفول ستاك"];
+      }
+    }
+  };
+
+  // 1️⃣ Greetings & Who is Shireff
+  if (/(hello|hi|hey|مرحبا|اهلا|السلام|ازيك|مين شريف|who is)/i.test(input)) {
+    const isWhoIs = /(مين شريف|who is|yourself|نفسك)/i.test(input);
+    const text = isWhoIs ? base.whoIs : base.intro;
+    const topic = isWhoIs ? "about" : "greeting";
+    return { language: lang, text, topic, options: getOptions(topic) };
+  }
+
+  // 2️⃣ Skills
+  if (/(skill|مهاره|شاطر|بيعرف|تعرف|تقنيات|tools|stack|تقني|بيستخدم)/i.test(input)) {
+    const isDeep = /(تفاصيل|deep|expert|architecture|how|details)/i.test(input);
+    if (isDeep) {
+      const text = lang === "en" 
+        ? `**Technical Depth:**\n\n**Frontend Architect:**\n${list(sK.frontend)}\n\n**Reliable Backend:**\n${list(sK.backend)}\n\n**Testing & Quality:**\n${list(sK.testing)}\n\n**Data Ops:**\n${list(sK.databases)}`
+        : `**التفاصيل التقنية:**\n\n**معمارية الواجهات:**\n${list(sK.frontend)}\n\n**الأنظمة الخلفية:**\n${list(sK.backend)}\n\n**الجودة والاختبارات:**\n${list(sK.testing)}\n\n**قواعد البيانات:**\n${list(sK.databases)}`;
+      return { language: lang, text, topic: "skills_deep", options: getOptions("skills_deep") };
+    }
+    const text = `${base.skills_intro}\n\n` + 
+      (lang === "en" 
+        ? `• **Frontend:** React, Next.js, TS\n• **Backend:** Node.js, Express\n• **Testing:** Jest, Cypress\n• **Databases:** MongoDB, Postgres`
+        : `• **الواجهات:** React, Next.js, TS\n• **الخلفية:** Node.js, Express\n• **الاختبارات:** Jest, Cypress\n• **البيانات:** MongoDB, Postgres`);
+    return { language: lang, text, topic: "skills_summary", options: getOptions("skills_summary") };
+  }
+
+  // 3️⃣ Project Context
+  let detectedProjId = "";
+  if (/(funzone|فنزون)/i.test(input)) detectedProjId = "funzone";
+  else if (/(oura|اورا)/i.test(input)) detectedProjId = "oura";
+  else if (/(selva|سيلفا)/i.test(input)) detectedProjId = "selva";
+
+  const currentProjId = detectedProjId || lastProjId;
+  const isAskingDemo = /(demo|ديمو|رابط|لينك|link|view|live)/i.test(input);
+  const isAskingChallenges = /(challenge|تحدي|صعب|problem|مشكله|solve)/i.test(input);
+
+  if (currentProjId && pK[currentProjId]) {
+    const p = pK[currentProjId];
+    if (isAskingDemo) {
+      const topic = "project_demo";
       return {
         language: lang,
-        text,
-        topic: "projects_followup",
-        tone: "friendly",
+        text: p.demo 
+          ? (lang === "en" ? `🔗 Live demo for **${p.title}**:\n${p.demo}` : `🔗 الديمو الحي لمشروع **${p.title}**:\n${p.demo}`)
+          : base.no_demo,
+        topic,
+        projectId: currentProjId,
+        options: getOptions(topic)
       };
     }
-
-    // ---- Follow up on Experience ----
-    if (lastTopic.includes("experience")) {
-      const text = [
-        pick(base.skills, base.skills[0]),
-        pick(base.contact, base.contact[0]),
-      ].join(lang === "ar" ? "\n\n" : "\n\n");
+    if (isAskingChallenges) {
+      const topic = "project_challenges";
       return {
         language: lang,
-        text,
-        topic: "experience_followup",
-        tone: "friendly",
+        text: (lang === "en" ? `**Key Challenges in ${p.title}:**\n` : `**أهم التحديات في ${p.title}:**\n`) + list(p.challenges),
+        topic,
+        projectId: currentProjId,
+        options: getOptions(topic)
       };
     }
-
-    // ---- Follow up on Skills ----
-    if (lastTopic.includes("skills")) {
-      const text = [
-        pick(base.funzone, base.funzone[0]),
-        pick(base.experience, base.experience[0]),
-      ].join(lang === "ar" ? "\n\n" : "\n\n");
+    if (detectedProjId) {
+      const topic = "project_details";
       return {
         language: lang,
-        text,
-        topic: "skills_followup",
-        tone: "friendly",
+        text: `**${p.title}**\n\n${p.description}\n\n**Stack:** ${p.techStack.join(", ")}\n**Role:** ${p.role}`,
+        topic,
+        projectId: currentProjId,
+        options: getOptions(topic)
       };
     }
-
-    // ---- Default follow-up ----
-    return {
-      language: lang,
-      text: pick(base.default, base.default[0]),
-      topic: "followup",
-      tone: "friendly",
-    };
   }
 
-  // 3️⃣ Comparison
-  const cmp =
-    /(فرق|مقارن|افضل|vs|compare).*(oura|اورا|funzone|فنزون|selva|سيلفا|inventory|المخزون)/i;
-  if (cmp.test(enriched)) {
-    const parts: string[] = [];
-    if (/(oura|اورا)/i.test(enriched))
-      parts.push(pick(base.oura, base.oura[0]));
-    if (/(funzone|فنزون)/i.test(enriched))
-      parts.push(pick(base.funzone, base.funzone[0]));
-    if (/(selva|سيلفا)/i.test(enriched))
-      parts.push(pick(base.selva, base.selva[0]));
-    if (/(inventory|المخزون)/i.test(enriched))
-      parts.push(pick(base.inventory, base.inventory[0]));
-    const header =
-      lang === "ar" ? "**مقارنة سريعة:**\n" : "**Quick comparison:**\n";
-    const text =
-      header + parts.join(lang === "ar" ? "\n\n---\n\n" : "\n\n---\n\n");
-    return { language: lang, text, topic: "comparison", tone };
+  // 4️⃣ Comparisons
+  if (/(compare|مقارنه|فرق|افضل|vs)/i.test(input)) {
+    const topic = "comparison";
+    const text = lang === "en"
+      ? "Shireff chooses tech based on scale:\n• **Next.js** for high SEO & performance.\n• **React** for complex SPAs.\n• **Postgres** for relational data, **MongoDB** for flexible schemas."
+      : "شريف بيختار التقنيات حسب احتياج المشروع:\n• **Next.js** للأداء العالي والـ SEO.\n• **React** للتطبيقات المعقدة (SPA).\n• **Postgres** للبيانات المترابطة، و **MongoDB** للمرونة.";
+    return { language: lang, text, topic, options: getOptions(topic) };
   }
 
-  // 4️⃣ Multi-intent
-  const hasProjects =
-    /(project|projects|work|مشاريع|اعمال|مشروع|بروجيكت|فنزون|oura|selva|inventory|ai[- ]?max)/i.test(
-      enriched
-    );
-  const hasExperience = /(experience|background|career|خبره|وظيفه|سابق)/i.test(
-    enriched
-  );
-  const hasSkills =
-    /(skills?|مهاره|قدرات|تقنيات|تكنولوجي|tools|framework)/i.test(enriched);
-  const hasContact = /(contact|reach|linkedin|github|تواصل|اتصال)/i.test(
-    enriched
-  );
-  const hasAbout = /(about|yourself|profile|من هو|من انت|تعريف|نفسك)/i.test(
-    enriched
-  );
-
-  if ([hasProjects, hasExperience, hasSkills].filter(Boolean).length > 1) {
-    const parts: string[] = [];
-    if (hasProjects) parts.push(pick(base.funzone, base.funzone[0]));
-    if (hasExperience) parts.push(pick(base.experience, base.experience[0]));
-    if (hasSkills) parts.push(pick(base.skills, base.skills[0]));
-    return {
-      language: lang,
-      text: parts.join(lang === "ar" ? "\n\n" : "\n\n"),
-      topic: "multi-intent",
-      tone,
-    };
+  // 5️⃣ Experience
+  if (/(experience|خبره|career|شغل|وظيفه|background)/i.test(input)) {
+    const topic = "experience";
+    return { language: lang, text: base.career, topic, options: getOptions(topic) };
   }
 
-  // 5️⃣ Single-topic
-  if (hasProjects)
-    return {
-      language: lang,
-      text: pick(base.funzone, base.funzone[0]),
-      topic: "projects",
-      tone,
-    };
-  if (hasExperience)
-    return {
-      language: lang,
-      text: pick(base.experience, base.experience[0]),
-      topic: "experience",
-      tone,
-    };
-  if (hasSkills)
-    return {
-      language: lang,
-      text: pick(base.skills, base.skills[0]),
-      topic: "skills",
-      tone,
-    };
-  if (hasContact)
-    return {
-      language: lang,
-      text: pick(base.contact, base.contact[0]),
-      topic: "contact",
-      tone,
-    };
-  if (hasAbout)
-    return {
-      language: lang,
-      text: pick(base.about, base.about[0]),
-      topic: "about",
-      tone,
-    };
-
-  // 6️⃣ Specific project names
-  if (/funzone|فنزون/i.test(enriched))
-    return {
-      language: lang,
-      text: pick(base.funzone, base.funzone[0]),
-      topic: "funzone",
-      tone,
-    };
-  if (/oura|اورا/i.test(enriched))
-    return {
-      language: lang,
-      text: pick(base.oura, base.oura[0]),
-      topic: "oura",
-      tone,
-    };
-  if (/selva|سيلفا|نيل/i.test(enriched))
-    return {
-      language: lang,
-      text: pick(base.selva, base.selva[0]),
-      topic: "selva",
-      tone,
-    };
-  if (/inventory|المخزون/i.test(enriched))
-    return {
-      language: lang,
-      text: pick(base.inventory, base.inventory[0]),
-      topic: "inventory",
-      tone,
-    };
-  if (/ai[- ]?max|الذكاء|اي ماكس/i.test(enriched))
-    return {
-      language: lang,
-      text: pick(base.aimax, base.aimax[0]),
-      topic: "aimax",
-      tone,
-    };
-
-  // 7️⃣ Clarify
-  if (tone === "clarify") {
-    const clarify =
-      lang === "ar"
-        ? "ممكن توضح قصدك أكثر؟ هل تقصد **المشاريع** ولا **الخبرات** ولا **المهارات**؟"
-        : "Could you clarify? Do you mean **projects**, **experience**, or **skills**?";
-    return { language: lang, text: clarify, topic: "clarify", tone };
-  }
-
-  // 8️⃣ Default
+  // 6️⃣ Fallback
+  const topic = "fallback";
   return {
     language: lang,
-    text: pick(base.default, base.default[0]),
-    topic: "default",
-    tone: "friendly",
+    text: lang === "en"
+      ? "I can help you dive into **projects**, check my **technical depth**, or discuss **experience**. What's next?"
+      : "أنا هنا عشان أساعدك تعرف أكتر عن **المشاريع**، **الخبرات العملية**، أو **مهاراتي التقنية**. تحب نبدأ بإيه؟",
+    topic,
+    options: getOptions(topic)
   };
 }
