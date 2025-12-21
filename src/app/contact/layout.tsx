@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Contact - Shireff Nady | Get in Touch',
+    title: 'Shireff Nady - Contact | Get in Touch',
     description: 'Get in touch with Shireff Nady for web development projects, collaborations, or inquiries. Available for freelance work and consulting.',
     keywords: [
         'contact Shireff Nady',

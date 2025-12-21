@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'State Comparisons - Shireff Nady | Interactive Demos',
+    title: 'Shireff Nady - State Comparisons | Interactive Demos',
     description: 'Explore interactive state comparison demonstrations and technical showcases by Shireff Nady.',
     keywords: [
         'state comparisons',
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
         'Shireff Nady demos',
     ],
     openGraph: {
-        title: 'State Comparisons - Shireff Nady',
+        title: 'Shireff Nady - State Comparisons | Interactive Demos',
         description: 'Interactive demonstrations and technical showcases.',
         url: 'https://shireff-nady.vercel.app/state-comparisons',
         siteName: 'Shireff Nady | Front-End Developer',

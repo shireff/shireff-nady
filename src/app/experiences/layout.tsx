@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Professional Experience - Shireff Nady | Career Timeline',
+    title: 'Shireff Nady - Professional Experience | Career Timeline',
     description: 'Explore Shireff Nady\'s professional journey, work experience, and career milestones in front-end development and web technologies.',
     keywords: [
         'Shireff Nady experience',
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
         'web development career',
     ],
     openGraph: {
-        title: 'Professional Experience - Shireff Nady',
+        title: 'Shireff Nady - Professional Experience | Career Timeline',
         description: 'Discover the professional journey and career milestones of front-end developer Shireff Nady.',
         url: 'https://shireff-nady.vercel.app/experiences',
         siteName: 'Shireff Nady | Front-End Developer',

@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Projects Portfolio - Shireff Nady | Front-End Developer',
+    title: 'Shireff Nady - Projects | Front-End Developer',
     description: 'Explore a curated collection of web applications, SaaS platforms, and digital solutions built by Shireff Nady using React, Next.js, TypeScript, and modern web technologies.',
     keywords: [
         'portfolio projects',
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
         'Shireff Nady projects',
     ],
     openGraph: {
-        title: 'Projects Portfolio - Shireff Nady',
+        title: 'Shireff Nady - Projects | Front-End Developer',
         description: 'A showcase of high-performance web applications and digital instruments built with modern technologies.',
         url: 'https://shireff-nady.vercel.app/projects',
         siteName: 'Shireff Nady | Front-End Developer',

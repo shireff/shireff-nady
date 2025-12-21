@@ -120,9 +120,7 @@ export const metadata: Metadata = {
     canonical: "https://shireff-nady.vercel.app/",
   },
   verification: {
-    google: "G-XXXXXXXXX", // Replace with actual Google Search Console verification code
-    // yandex: "yandex-verification-code",
-    // bing: "bing-verification-code",
+    google: "QajwK8zAMPQjckKLANrD_5YFHjDsCJRns24cWmLSMsE",
   },
   openGraph: {
     title: "Shireff Nady - Front-End Developer & Web Developer",
