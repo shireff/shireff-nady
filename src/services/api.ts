@@ -22,4 +22,35 @@ api.interceptors.request.use((config) => {
   return Promise.reject(error);
 });
 
+// Add a response interceptor to fix HTTP URLs to HTTPS (prevents mixed content warnings)
+api.interceptors.response.use((response) => {
+  // Recursively fix all HTTP URLs in the response data
+  const fixUrls = (obj: any): any => {
+    if (typeof obj === 'string') {
+      // Replace http:// with https:// for Cloudinary and other image URLs
+      return obj.replace(/^http:\/\//i, 'https://');
+    }
+    if (Array.isArray(obj)) {
+      return obj.map(fixUrls);
+    }
+    if (obj !== null && typeof obj === 'object') {
+      const fixed: any = {};
+      for (const key in obj) {
+        fixed[key] = fixUrls(obj[key]);
+      }
+      return fixed;
+    }
+    return obj;
+  };
+
+  if (response.data) {
+    response.data = fixUrls(response.data);
+  }
+
+  return response;
+}, (error) => {
+  return Promise.reject(error);
+});
+
 export default api;
+
