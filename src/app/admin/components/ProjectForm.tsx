@@ -11,7 +11,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 
 
-const DEFAULT_FALLBACK_IMAGE = "https://media.licdn.com/dms/image/v2/D4E03AQHI2emfkXdeXQ/profile-displayphoto-shrink_800_800/B4EZaI2FxCHMAc-/0/1746052604728?e=1767830400&v=beta&t=-l4A36ias3qpuV4uIKc7q7V1vcZqMwuIceuT8hkYwag";
+
 
 interface ProjectFormProps {
 
@@ -53,7 +53,7 @@ export default function ProjectForm({ initialData, existingProjects = [], onSucc
 
   // Sync uploadImageUrl with formData
   useEffect(() => {
-    if (uploadImageUrl && uploadImageUrl !== formData.img) {
+    if (uploadImageUrl !== formData.img) {
       setFormData(prev => ({ ...prev, img: uploadImageUrl }));
     }
   }, [uploadImageUrl]);
@@ -104,7 +104,7 @@ export default function ProjectForm({ initialData, existingProjects = [], onSucc
         title: formData.title || "",
         desc: formData.desc || "",
         category: formData.category || "React",
-        img: uploadImageUrl || formData.img || DEFAULT_FALLBACK_IMAGE,
+        img: uploadImageUrl,
         tags: formData.tags || [],
         demo: formData.demo || "",
         git: formData.git || "",
