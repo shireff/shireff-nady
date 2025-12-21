@@ -78,37 +78,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
         }
     };
 
-    //   const uploadImageToCloud = async () => {
-    //     if (!imageUpload) return;
-
-    //     setImageLoading(true);
-    //     const data = new FormData();
-
-    //     // Intelligent field selection based on route
-    //     const fieldName = uploadEndpoint.includes('settings') || uploadEndpoint.includes('home/image') ? 'image' : 'img';
-    //     data.append(fieldName, imageUpload);
-    //     console.log("fieldName",fieldName);
-    //     console.log("imageUpload",imageUpload);
-
-    //     try {
-    //       const response = await api.post(uploadEndpoint, data, {
-    //         headers: {
-    //           'Content-Type': 'multipart/form-data',
-    //         },
-    //       });
-
-    //       // Handle different backend response formats
-    //       const finalUrl = response.data.result?.secure_url || response.data.result?.url || response.data.url;
-
-    //       if (finalUrl) {
-    //         setUploadImageUrl(finalUrl);
-    //       }
-    //     } catch (error) {
-    //       console.error("Failed to upload image:", error);
-    //     } finally {
-    //       setImageLoading(false);
-    //     }
-    //   };
+  
 
     const uploadImageToCloud = async (): Promise<string | null> => {
         if (!imageUpload) return null;

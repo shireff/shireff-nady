@@ -87,31 +87,6 @@ export default function ProjectForm({ initialData, existingProjects = [], onSucc
   };
 
 
-  // const uploadImage = async (file: File): Promise<string> => {
-  //   const formData = new FormData();
-  //   formData.append('file', file);
-
-  //   try {
-  //     setImageLoading(true);
-  //     const res = await fetch('/projects/upload-image', {
-  //       method: 'POST',
-  //       body: formData,
-  //     });
-
-  //     if (!res.ok) throw new Error('Image upload failed');
-
-  //     const data = await res.json();
-  //     setUploadImageUrl(data.url);
-  //     return data.url;
-  //   } catch (err) {
-  //     console.error(err);
-  //     alert('Image upload failed.');
-  //     return '';
-  //   } finally {
-  //     setImageLoading(false);
-  //   }
-  // };
-
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -291,7 +266,7 @@ export default function ProjectForm({ initialData, existingProjects = [], onSucc
                     onClick={() => handleAddTag(tagInput)}
                     className="w-full text-left px-3 py-2 mt-2 border-t border-white/5 text-[10px] font-black text-blue-400 uppercase tracking-widest"
                   >
-                    + Initialize "{tagInput}"
+                    + Initialize &quot;{tagInput}&quot;
                   </button>
                 )}
               </motion.div>

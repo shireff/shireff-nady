@@ -359,7 +359,7 @@ export default function Home() {
           >
             <Rocket size={64} className="mx-auto text-blue-400" />
           </motion.div>
-          <h2 className="text-4xl md:text-6xl font-black italic">LET'S BUILD THE FUTURE.</h2>
+          <h2 className="text-4xl md:text-6xl font-black italic">LET&apos;S BUILD THE FUTURE.</h2>
           <p className="text-zinc-400 text-xl max-w-2xl mx-auto">
             Currently open for select freelance opportunities and full-time senior roles.
           </p>
