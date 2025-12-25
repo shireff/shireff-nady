@@ -368,7 +368,7 @@ export default function RootLayout({
 
         <div className="noise-overlay" />
         <Navbar />
-        <main className="flex-grow pt-24">
+        <main className="flex-grow pt-20">
           {children}
         </main>
         <Footer />

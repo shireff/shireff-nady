@@ -39,7 +39,7 @@ export default function Navbar() {
   return (
     <nav className={cn(
       'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-      scrolled ? 'bg-[var(--background)]/80 backdrop-blur-[var(--blur-std)] border-b border-[var(--glass-border)] py-4 px-6' : 'py-6 px-6'
+      scrolled ? 'bg-[var(--background)]/80 backdrop-blur-[var(--blur-std)] border-b border-[var(--glass-border)] py-5 px-6' : 'py-4 px-6'
     )}>
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <Link href="/" className="text-3xl font-black bg-gradient-to-r from-blue-400 via-emerald-400 to-indigo-400 bg-clip-text text-transparent italic tracking-tighter">
