@@ -3,8 +3,18 @@ import Script from 'next/script';
 import ProjectList from '@/components/features/projects/ProjectList';
 import { projectService } from '@/services/projects';
 
+import { Metadata } from 'next';
+
 // Force dynamic rendering to ensure fresh data for search engines
 export const dynamic = 'force-dynamic';
+
+export const metadata: Metadata = {
+  title: 'Projects | Shireff Nady - Portfolio',
+  description: 'Explore a collection of high-performance web applications, SaaS platforms, and digital instruments built by Shireff Nady.',
+  alternates: {
+    canonical: 'https://shireff-nady.vercel.app/projects',
+  }
+};
 
 export default async function ProjectsPage() {
   let projects: import('@/types').Project[] = [];

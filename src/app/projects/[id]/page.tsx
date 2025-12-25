@@ -24,6 +24,9 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
         images: project.img ? [project.img] : [],
         url: `https://shireff-nady.vercel.app/projects/${project.id}`,
       },
+      alternates: {
+        canonical: `https://shireff-nady.vercel.app/projects/${project.id}`,
+      },
       twitter: {
         card: 'summary_large_image',
         title: project.title,

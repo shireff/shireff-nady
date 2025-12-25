@@ -119,7 +119,7 @@ export const metadata: Metadata = {
     "Freelance Developer",
   ],
   alternates: {
-    canonical: "https://shireff-nady.vercel.app/",
+    canonical: "./",
   },
   verification: {
     google: "QajwK8zAMPQjckKLANrD_5YFHjDsCJRns24cWmLSMsE",

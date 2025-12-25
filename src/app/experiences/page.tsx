@@ -3,7 +3,17 @@ import Script from 'next/script';
 import ExperienceList from '@/components/features/experiences/ExperienceList';
 import { experienceService } from '@/services/experiences';
 
+import { Metadata } from 'next';
+
 export const dynamic = 'force-dynamic';
+
+export const metadata: Metadata = {
+  title: 'Experience | Shireff Nady - Portfolio',
+  description: 'A detailed timeline of Shireff Nady’s professional journey, technical contributions, and career growth as a Front-End Developer.',
+  alternates: {
+    canonical: 'https://shireff-nady.vercel.app/experiences',
+  }
+};
 
 export default async function ExperiencesPage() {
   let experiences: import('@/types').Experience[] = [];
