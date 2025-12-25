@@ -5,14 +5,16 @@ import { projectService } from '@/services/projects';
 
 import { Metadata } from 'next';
 
-// Force dynamic rendering to ensure fresh data for search engines
-export const dynamic = 'force-dynamic';
+import { siteConfig } from '@/config/site';
+
+// Use ISR (Incremental Static Regeneration) to balance performance and freshness
+export const revalidate = 3600; // Revalidate every hour
 
 export const metadata: Metadata = {
-  title: 'Projects | Shireff Nady - Portfolio',
-  description: 'Explore a collection of high-performance web applications, SaaS platforms, and digital instruments built by Shireff Nady.',
+  title: `Projects | ${siteConfig.name} - Portfolio`,
+  description: siteConfig.description,
   alternates: {
-    canonical: 'https://shireff-nady.vercel.app/projects',
+    canonical: `${siteConfig.url}/projects`,
   }
 };
 

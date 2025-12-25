@@ -6,13 +6,16 @@ import { Mail, MessageSquare, Send, CheckCircle, Smartphone, AlertCircle } from 
 import { useForm, ValidationError } from "@formspree/react";
 import Button from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
+import ContactQRCode from '@/components/features/contact/ContactQRCode';
 
+
+import { siteConfig } from '@/config/site';
 
 export default function ContactPage() {
   const [state, handleSubmit] = useForm("xqkrawrb");
 
-  const whatsappNumber = "+201274068946";
-  const whatsappUrl = `https://wa.me/${whatsappNumber.replace('+', '')}`;
+  const whatsappUrl = siteConfig.links.whatsapp;
+  const whatsappDisplay = siteConfig.author.whatsapp;
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-20 space-y-20">
@@ -51,19 +54,19 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="text-[10px] text-emerald-500 uppercase font-black tracking-widest mb-1">WhatsApp Instant</p>
-                    <p className="font-bold text-white text-2xl tracking-tight">{whatsappNumber}</p>
+                    <p className="font-bold text-white text-2xl tracking-tight">{whatsappDisplay}</p>
                   </div>
                 </div>
               </a>
 
-              <a href="mailto:shireffn369@gmail.com" className="block group">
+              <a href={`mailto:${siteConfig.author.email}`} className="block group">
                 <div className="glass-card p-8 flex items-center gap-6 border-white/5 group-hover:border-blue-500/30 transition-all bg-blue-500/5 group-hover:bg-blue-500/10">
                   <div className="p-4 rounded-2xl bg-blue-500/20 text-blue-400 border border-blue-500/20">
                     <Mail size={32} />
                   </div>
                   <div>
                     <p className="text-[10px] text-blue-500 uppercase font-black tracking-widest mb-1">Email Node</p>
-                    <p className="font-bold text-white text-2xl tracking-tight">shireffn369@gmail.com</p>
+                    <p className="font-bold text-white text-2xl tracking-tight">{siteConfig.author.email}</p>
                   </div>
                 </div>
               </a>
@@ -73,11 +76,10 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="glass-card p-10 border-white/5 space-y-6">
               <h3 className="text-xl font-black italic uppercase tracking-widest text-zinc-300">Availability</h3>
-              {/* <div className="grid grid-cols-1 gap-6"> */}
               <div className="grid grid-cols-2 gap-6">
                 <div>
                   <p className="text-[10px] text-zinc-500 uppercase font-black tracking-widest mb-2">Timezone</p>
-                  <p className="text-white font-bold">GMT+2 (Egypt)</p>
+                  <p className="text-white font-bold">{siteConfig.author.location === 'Egypt' ? 'GMT+2 (Egypt)' : siteConfig.author.location}</p>
                 </div>
                 <div>
                   <p className="text-[10px] text-zinc-500 uppercase font-black tracking-widest mb-2">Status</p>
@@ -89,7 +91,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* <ContactQRCode /> */}
+            <ContactQRCode />
           </div>
         </div>
 

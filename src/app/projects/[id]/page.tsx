@@ -8,6 +8,19 @@ import { projectService } from '@/services/projects';
 import { formatDate } from '@/lib/utils';
 import Link from 'next/link';
 
+import { siteConfig } from '@/config/site';
+
+// Use ISR (Incremental Static Regeneration)
+export const revalidate = 3600; // Revalidate every hour
+
+// Pre-render existing projects at build time
+export async function generateStaticParams() {
+  const projects = await projectService.getAll();
+  return projects.map((project) => ({
+    id: project.id,
+  }));
+}
+
 // SEO: Generate dynamic metadata for each project
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -16,22 +29,22 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     if (!project) return { title: 'Project Not Found' };
 
     return {
-      title: `${project.title} | Shireff Nady Projects`,
+      title: `${project.title} | ${siteConfig.name} Projects`,
       description: project.desc.substring(0, 160),
       openGraph: {
         title: project.title,
         description: project.desc,
-        images: project.img ? [project.img] : [],
-        url: `https://shireff-nady.vercel.app/projects/${project.id}`,
+        images: project.img ? [project.img] : [siteConfig.ogImage],
+        url: `${siteConfig.url}/projects/${project.id}`,
       },
       alternates: {
-        canonical: `https://shireff-nady.vercel.app/projects/${project.id}`,
+        canonical: `${siteConfig.url}/projects/${project.id}`,
       },
       twitter: {
         card: 'summary_large_image',
         title: project.title,
         description: project.desc,
-        images: project.img ? [project.img] : [],
+        images: project.img ? [project.img] : [siteConfig.ogImage],
       }
     };
   } catch (error) {
@@ -69,14 +82,14 @@ export default async function ProjectDetailsPage({ params }: { params: Promise<{
     "@type": "SoftwareApplication",
     "name": project.title,
     "description": project.desc,
-    "image": project.img || "https://shireff-nady.vercel.app/og-image.jpg",
+    "image": project.img || siteConfig.ogImage,
     "applicationCategory": project.category,
     "operatingSystem": "Web",
-    "url": `https://shireff-nady.vercel.app/projects/${project.id}`,
+    "url": `${siteConfig.url}/projects/${project.id}`,
     ...(project.git && { "codeRepository": project.git }),
     "author": {
       "@type": "Person",
-      "name": "Shireff Nady"
+      "name": siteConfig.author.name
     },
     "offers": {
       "@type": "Offer",

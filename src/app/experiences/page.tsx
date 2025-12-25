@@ -5,13 +5,16 @@ import { experienceService } from '@/services/experiences';
 
 import { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
+import { siteConfig } from '@/config/site';
+
+// Use ISR (Incremental Static Regeneration)
+export const revalidate = 3600; // Revalidate every hour
 
 export const metadata: Metadata = {
-  title: 'Experience | Shireff Nady - Portfolio',
-  description: 'A detailed timeline of Shireff Nady’s professional journey, technical contributions, and career growth as a Front-End Developer.',
+  title: `Experience | ${siteConfig.name} - Portfolio`,
+  description: `A detailed timeline of ${siteConfig.name}’s professional journey, technical contributions, and career growth as a Front-End Developer.`,
   alternates: {
-    canonical: 'https://shireff-nady.vercel.app/experiences',
+    canonical: `${siteConfig.url}/experiences`,
   }
 };
 

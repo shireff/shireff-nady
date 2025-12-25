@@ -4,12 +4,14 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { MessageSquare, Smartphone, Linkedin, Github, ArrowRight, ExternalLink } from 'lucide-react';
 
+import { siteConfig } from '@/config/site';
+
 export default function ContactHub() {
     const contactLinks = [
         {
             name: 'WhatsApp',
-            handle: '+201274068946',
-            url: 'https://wa.me/201274068946',
+            handle: siteConfig.author.whatsapp,
+            url: siteConfig.links.whatsapp,
             icon: MessageSquare,
             color: 'from-emerald-600/20 to-emerald-400/20',
             border: 'border-emerald-500/20',
@@ -17,8 +19,8 @@ export default function ContactHub() {
         },
         {
             name: 'LinkedIn',
-            handle: 'Shireff Nady',
-            url: 'https://www.linkedin.com/in/shireffnady/',
+            handle: siteConfig.author.name,
+            url: siteConfig.author.linkedin,
             icon: Linkedin,
             color: 'from-blue-600/20 to-blue-400/20',
             border: 'border-blue-500/20',
@@ -27,7 +29,7 @@ export default function ContactHub() {
         {
             name: 'GitHub',
             handle: 'Shireff',
-            url: 'https://github.com/shireff',
+            url: siteConfig.author.github,
             icon: Github,
             color: 'from-zinc-600/20 to-zinc-400/20',
             border: 'border-zinc-500/20',
@@ -35,8 +37,8 @@ export default function ContactHub() {
         },
         {
             name: 'Phone Call',
-            handle: '+201274068946',
-            url: 'tel:+201274068946',
+            handle: siteConfig.author.phone,
+            url: `tel:${siteConfig.author.phone}`,
             icon: Smartphone,
             color: 'from-sky-600/20 to-sky-400/20',
             border: 'border-sky-500/20',
@@ -70,7 +72,7 @@ export default function ContactHub() {
                         animate={{ opacity: 1, y: 0 }}
                         className="space-y-1"
                     >
-                        <h1 className="text-3xl font-black italic tracking-tighter uppercase">Shireff Nady</h1>
+                        <h1 className="text-3xl font-black italic tracking-tighter uppercase">{siteConfig.author.name}</h1>
                         <p className="text-zinc-500 font-bold uppercase tracking-[0.3em] text-[10px]">Senior Front-End Engineer</p>
                     </motion.div>
                 </div>
