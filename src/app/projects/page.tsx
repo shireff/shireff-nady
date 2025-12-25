@@ -3,17 +3,17 @@ import Script from 'next/script';
 import ProjectList from '@/components/features/projects/ProjectList';
 import { projectService } from '@/services/projects';
 
-// Force dynamic rendering if the API response is not static
+// Force dynamic rendering to ensure fresh data for search engines
 export const dynamic = 'force-dynamic';
 
 export default async function ProjectsPage() {
   let projects: import('@/types').Project[] = [];
+
   try {
+    // Server-side fetch: Content available immediately in initial HTML
     projects = await projectService.getAll();
   } catch (error) {
     console.error("Failed to fetch projects on server:", error);
-    // Even if it fails, we render the page with empty list or whatever fallback is appropriate.
-    // Ideally we would trigger a not-found or error boundary, but let's be graceful.
   }
 
   const collectionSchema = {
@@ -25,7 +25,14 @@ export default async function ProjectsPage() {
     "publisher": {
       "@type": "Person",
       "name": "Shireff Nady"
-    }
+    },
+    "hasPart": projects.map(p => ({
+      "@type": "SoftwareApplication",
+      "name": p.title,
+      "url": `https://shireff-nady.vercel.app/projects/${p.id}`,
+      "description": p.desc,
+      "image": p.img
+    }))
   };
 
   return (
@@ -43,6 +50,7 @@ export default async function ProjectsPage() {
         </p>
       </div>
 
+      {/* Pass initial data to client component for interactivity */}
       <ProjectList initialProjects={projects} />
     </div>
   );

@@ -8,7 +8,7 @@ import { projectService } from '@/services/projects';
 import { formatDate } from '@/lib/utils';
 import Link from 'next/link';
 
-// Generate metadata for SEO including specific project details
+// SEO: Generate dynamic metadata for each project
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   try {
@@ -19,6 +19,13 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
       title: `${project.title} | Shireff Nady Projects`,
       description: project.desc.substring(0, 160),
       openGraph: {
+        title: project.title,
+        description: project.desc,
+        images: project.img ? [project.img] : [],
+        url: `https://shireff-nady.vercel.app/projects/${project.id}`,
+      },
+      twitter: {
+        card: 'summary_large_image',
         title: project.title,
         description: project.desc,
         images: project.img ? [project.img] : [],
@@ -53,6 +60,7 @@ export default async function ProjectDetailsPage({ params }: { params: Promise<{
     notFound();
   }
 
+  // Schema for rich product/software result
   const projectSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -66,6 +74,11 @@ export default async function ProjectDetailsPage({ params }: { params: Promise<{
     "author": {
       "@type": "Person",
       "name": "Shireff Nady"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
     }
   };
 
@@ -81,7 +94,7 @@ export default async function ProjectDetailsPage({ params }: { params: Promise<{
       <section className="relative h-[70vh] min-h-[500px] flex items-end overflow-hidden">
         <div className="absolute inset-0 z-0">
           {project.img ? (
-            <img src={project.img} alt="" className="w-full h-full object-cover" />
+            <img src={project.img} alt={project.title} className="w-full h-full object-cover" />
           ) : (
             <div className="w-full h-full bg-gradient-to-br from-blue-900 to-emerald-900" />
           )}

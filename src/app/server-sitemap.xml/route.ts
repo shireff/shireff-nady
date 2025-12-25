@@ -1,8 +1,15 @@
-import { getServerSideSitemap } from 'next-sitemap';
+import { getServerSideSitemap, ISitemapField } from 'next-sitemap';
 import { projectService } from '@/services/projects';
 import { Project } from '@/types';
 
 export const dynamic = 'force-dynamic';
+
+function normalizeImage(url: string | undefined | null, baseUrl: string) {
+  if (!url || url === 'undefined' || url === 'null') return null;
+  if (url.startsWith('http')) return url;
+  if (url.startsWith('/')) return `${baseUrl}${url}`;
+  return `${baseUrl}/${url}`;
+}
 
 export async function GET(request: Request) {
   const baseUrl = 'https://shireff-nady.vercel.app';
@@ -11,10 +18,10 @@ export async function GET(request: Request) {
   try {
     projects = await projectService.getAll();
   } catch (error) {
-    console.error('Sitemap Error:', error);
+    console.error('Sitemap Error: Failed to fetch projects', error);
   }
 
-  // Define Personal Images for SEO (attached to Homepage)
+  // 1. Personal Images (Hardcoded to ensure validity)
   const personalImages = [
     {
       loc: `${baseUrl}/personal/shireff-1.jpg`,
@@ -39,7 +46,7 @@ export async function GET(request: Request) {
   ];
 
   const fields = [
-    // --- Homepage with Personal Images ---
+    // --- Homepage with attached Personal Images ---
     {
       loc: `${baseUrl}/`,
       lastmod: new Date().toISOString(),
@@ -72,16 +79,29 @@ export async function GET(request: Request) {
       changefreq: 'monthly',
       priority: 0.7,
     },
-    // --- Dynamic Project Pages ---
-    ...projects.map((project) => ({
+  ];
+
+  // --- Dynamic Project Pages with Validated Images ---
+  for (const project of projects) {
+    const imageUrl = normalizeImage(project.img, baseUrl);
+    
+    const entry: any = {
       loc: `${baseUrl}/projects/${project.id}`,
       lastmod: project.createdAt || new Date().toISOString(),
       changefreq: 'weekly',
       priority: 0.8,
-      images: project.img ? [{ loc: project.img, title: project.title }] : undefined,
-    })),
-  ];
+    };
 
-  // Cast fields to any to bypass strict ISitemapField type checks for the custom image structure
+    if (imageUrl) {
+      entry.images = [{
+        loc: imageUrl,
+        title: project.title || 'Project Image',
+      }];
+    }
+
+    fields.push(entry);
+  }
+
+  // Cast to any to handle custom image structure if strict typing complains
   return getServerSideSitemap(fields as any);
 }
