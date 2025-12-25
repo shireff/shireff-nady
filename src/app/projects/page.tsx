@@ -24,7 +24,6 @@ export default async function ProjectsPage() {
   try {
     // Server-side fetch: Content available immediately in initial HTML
     projects = await projectService.getAll();
-    console.log("projects", projects);
   } catch (error) {
     console.error("Failed to fetch projects on server:", error);
   }
