@@ -24,3 +24,4 @@ Host: https://shireff-nady.vercel.app
 
 # Sitemaps
 Sitemap: https://shireff-nady.vercel.app/sitemap.xml
+Sitemap: https://shireff-nady.vercel.app/server-sitemap.xml

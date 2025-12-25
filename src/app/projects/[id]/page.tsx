@@ -1,15 +1,33 @@
-'use client';
-
-import React, { useState, useEffect } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import React from 'react';
 import Script from 'next/script';
-import { motion } from 'framer-motion';
-import { Github, Globe, ArrowLeft, ChevronRight, Calendar, Tag, ExternalLink } from 'lucide-react';
+import { notFound } from 'next/navigation';
+import { Github, ArrowLeft, Calendar, Tag, ExternalLink } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import { projectService } from '@/services/projects';
-import { Project } from '@/types';
 import { formatDate } from '@/lib/utils';
+import Link from 'next/link';
+
+// Generate metadata for SEO including specific project details
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  try {
+    const project = await projectService.getById(id);
+    if (!project) return { title: 'Project Not Found' };
+
+    return {
+      title: `${project.title} | Shireff Nady Projects`,
+      description: project.desc.substring(0, 160),
+      openGraph: {
+        title: project.title,
+        description: project.desc,
+        images: project.img ? [project.img] : [],
+      }
+    };
+  } catch (error) {
+    return { title: 'Project Details' };
+  }
+}
 
 const getDefaultTags = (category: string): string[] => {
   const cat = category.toLowerCase();
@@ -21,36 +39,21 @@ const getDefaultTags = (category: string): string[] => {
   return ['JavaScript', 'HTML5', 'CSS3', 'Git'];
 };
 
-export default function ProjectDetailsPage() {
-  const { id } = useParams();
-  const router = useRouter();
-  const [project, setProject] = useState<Project | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+export default async function ProjectDetailsPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  let project = null;
 
-  useEffect(() => {
-    if (id) {
-      projectService.getById(id as string)
-        .then(setProject)
-        .catch(() => {
-          // Fallback for demo
-          setProject({
-            id: id as string,
-            title: 'Quantum Dashboard',
-            desc: 'Quantum Dashboard is a futuristic, high-performance administrative interface designed for deep-tech analytics. It features a fully responsive glassmorphism UI, real-time data visualization using Three.js and D3, and a robust state management system.\n\nThe project involved architecting a scalable frontend that could handle massive data streams without compromising on FPS or user experience. By utilizing Web Workers for data processing and React Server Components for initial rendering, we achieved a 40% improvement in perceived load times.',
-            category: 'Web App',
-            img: 'https://images.unsplash.com/photo-1614850523296-d8c1af93d400?w=1200&q=80',
-            tags: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Three.js'],
-            isFeatured: true,
-            createdAt: new Date().toISOString(),
-            git: 'https://github.com',
-            demo: 'https://example.com'
-          });
-        })
-        .finally(() => setIsLoading(false));
-    }
-  }, [id]);
+  try {
+    project = await projectService.getById(id);
+  } catch (error) {
+    console.error(`Failed to fetch project ${id}:`, error);
+  }
 
-  const projectSchema = project ? {
+  if (!project) {
+    notFound();
+  }
+
+  const projectSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": project.title,
@@ -64,20 +67,16 @@ export default function ProjectDetailsPage() {
       "@type": "Person",
       "name": "Shireff Nady"
     }
-  } : null;
-
-  if (isLoading) return <div className="min-h-screen flex items-center justify-center"><div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" /></div>;
-  if (!project) return <div className="min-h-screen flex items-center justify-center text-zinc-400">Project not found</div>;
+  };
 
   return (
     <div className="pb-24">
-      {projectSchema && (
-        <Script
-          id="project-schema"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(projectSchema) }}
-        />
-      )}
+      <Script
+        id="project-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectSchema) }}
+      />
+
       {/* Hero Header */}
       <section className="relative h-[70vh] min-h-[500px] flex items-end overflow-hidden">
         <div className="absolute inset-0 z-0">
@@ -90,32 +89,26 @@ export default function ProjectDetailsPage() {
         </div>
 
         <div className="max-w-7xl mx-auto px-6 w-full relative z-10 pb-16">
-          <motion.button 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            onClick={() => router.back()} 
-            className="flex items-center gap-3 text-zinc-400 hover:text-white transition-all mb-10 group bg-white/5 w-fit px-4 py-2 rounded-full border border-white/5"
-          >
-            <ArrowLeft size={18} className="transition-transform group-hover:-translate-x-1" /> 
-            <span className="text-[10px] font-black uppercase tracking-[0.2em]">Return to Lab</span>
-          </motion.button>
-          
+          <Link href="/projects">
+            <button
+              className="flex items-center gap-3 text-zinc-400 hover:text-white transition-all mb-10 group bg-white/5 w-fit px-4 py-2 rounded-full border border-white/5"
+            >
+              <ArrowLeft size={18} className="transition-transform group-hover:-translate-x-1" />
+              <span className="text-[10px] font-black uppercase tracking-[0.2em]">Return to Lab</span>
+            </button>
+          </Link>
+
           <div className="space-y-6">
-            <motion.span 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+            <span
               className="px-4 py-1.5 rounded-full bg-blue-600/20 border border-blue-600/30 text-blue-400 text-[10px] font-black uppercase tracking-[0.3em]"
             >
               {project.category}
-            </motion.span>
-            <motion.h1 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
+            </span>
+            <h1
               className="text-5xl md:text-8xl font-black italic tracking-tighter"
             >
               {project.title}
-            </motion.h1>
+            </h1>
           </div>
         </div>
       </section>
@@ -159,7 +152,7 @@ export default function ProjectDetailsPage() {
                     <p className="font-bold text-white text-lg">{formatDate(project.createdAt)}</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center gap-5">
                   <div className="p-4 rounded-2xl bg-black/40 text-zinc-400 border border-white/5">
                     <Tag size={22} />
@@ -174,7 +167,7 @@ export default function ProjectDetailsPage() {
                   {project.demo && (
                     <a href={project.demo} target="_blank" rel="noreferrer" className="block">
                       <Button className="w-full gap-3 py-6 rounded-2xl font-black italic shadow-xl shadow-blue-600/20" size="lg">
-                         INSTANTIATE DEMO <ExternalLink size={20} />
+                        INSTANTIATE DEMO <ExternalLink size={20} />
                       </Button>
                     </a>
                   )}

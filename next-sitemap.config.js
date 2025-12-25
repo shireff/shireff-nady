@@ -84,9 +84,9 @@ module.exports = {
       },
     ],
     additionalSitemaps: [
-      // Add additional sitemaps here if you have dynamic server-side generated sitemaps
-      // 'https://shireff-nady.vercel.app/server-sitemap.xml',
+      'https://shireff-nady.vercel.app/server-sitemap.xml',
     ],
   },
-}
+};
+
 
