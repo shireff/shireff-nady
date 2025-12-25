@@ -5,14 +5,26 @@ import { Project } from '@/types';
 export const dynamic = 'force-dynamic';
 
 /**
- * Normalizes image URLs to ensure they are absolute.
- * Handles undefined/null checks and relative paths.
+ * Normalizes image URLs to ensure they are absolute strings.
  */
-function normalizeImage(url: string | undefined | null, baseUrl: string): string | null {
+function getAbsoluteImageUrl(url: string | undefined | null, baseUrl: string): string | null {
   if (!url || url === 'undefined' || url === 'null') return null;
   if (url.startsWith('http')) return url;
   if (url.startsWith('/')) return `${baseUrl}${url}`;
   return `${baseUrl}/${url}`;
+}
+
+/**
+ * Safely creates a URL object. Returns undefined if invalid.
+ */
+function safeUrl(urlStr: string | null): URL | undefined {
+  if (!urlStr) return undefined;
+  try {
+    return new URL(urlStr);
+  } catch (e) {
+    console.error('Sitemap Error: Invalid URL', urlStr);
+    return undefined;
+  }
 }
 
 export async function GET(request: Request) {
@@ -25,26 +37,32 @@ export async function GET(request: Request) {
     console.error('Sitemap Error: Failed to fetch projects', error);
   }
 
-  // 1. Personal Images (Hardcoded for SEO)
-  // These are explicitly added to the homepage entry
-const personalImages = [
-  { loc: 'https://shireff-nady.vercel.app/personal/shireff-1.jpg', title: 'Shireff Nady - Front-End Engineer' },
-  { loc: 'https://shireff-nady.vercel.app/personal/shireff-2.jpg', title: 'Shireff Nady - Web Developer' },
-  { loc: 'https://shireff-nady.vercel.app/personal/shireff-3.jpg', title: 'Shireff - Senior Front-End Engineer' },
-  { loc: 'https://shireff-nady.vercel.app/personal/shireff-4.jpg', title: 'Shireff Nady - React Specialist' },
-  { loc: 'https://shireff-nady.vercel.app/personal/shireff-5.jpg', title: 'Shireff Nady - Full Stack Developer' },
-];
-  // We define fields array without strict strict ISitemapField[] typing initially 
-  // to avoid "Type string is not assignable to type URL" errors on 'loc'.
-  // We cast to 'any' at the end for next-sitemap.
-  const fields: any[] = [
+  // 1. Personal Images
+  // Ensure we use URL objects for 'loc' to satisfy next-sitemap strict types if required
+  // and explicit string paths for clarity.
+  const personalImageUrls = [
+    { url: `${baseUrl}/personal/shireff-1.jpg`, title: 'Shireff Nady - Front-End Engineer' },
+    { url: `${baseUrl}/personal/shireff-2.jpg`, title: 'Shireff Nady - Web Developer' },
+    { url: `${baseUrl}/personal/shireff-3.jpg`, title: 'Shireff - Senior Front-End Engineer' },
+    { url: `${baseUrl}/personal/shireff-4.jpg`, title: 'Shireff Nady - React Specialist' },
+    { url: `${baseUrl}/personal/shireff-5.jpg`, title: 'Shireff Nady - Full Stack Developer' },
+  ];
+
+  const personalImages = personalImageUrls
+    .map((img) => ({
+      loc: safeUrl(img.url),
+      title: img.title
+    }))
+    .filter((img): img is { loc: URL; title: string } => !!img.loc);
+
+  const fields: ISitemapField[] = [
     // --- Homepage with attached Personal Images ---
     {
       loc: `${baseUrl}/`,
       lastmod: new Date().toISOString(),
       changefreq: 'daily',
       priority: 1.0,
-      images: personalImages,
+      images: personalImages, // Typescript accepts this if ISitemapField expects URL in loc
     },
     // --- Static Core Pages ---
     {
@@ -75,19 +93,20 @@ const personalImages = [
 
   // --- Dynamic Project Pages with Validated Images ---
   for (const project of projects) {
-    const imageUrl = normalizeImage(project.img, baseUrl);
+    const absUrl = getAbsoluteImageUrl(project.img, baseUrl);
+    const urlObj = safeUrl(absUrl);
     
-    const entry: any = {
+    // Explicitly define entry with a broader type to allow 'images' manipulation
+    const entry: ISitemapField = {
       loc: `${baseUrl}/projects/${project.id}`,
       lastmod: project.createdAt ? new Date(project.createdAt).toISOString() : new Date().toISOString(),
       changefreq: 'weekly',
       priority: 0.8,
     };
 
-    // Only add images array if a valid image exists
-    if (imageUrl) {
+    if (urlObj) {
       entry.images = [{
-        loc: imageUrl,
+        loc: urlObj,
         title: project.title || 'Project Detail',
       }];
     }
@@ -95,6 +114,5 @@ const personalImages = [
     fields.push(entry);
   }
 
-  // Return the XML response
   return getServerSideSitemap(fields);
 }
