@@ -27,29 +27,13 @@ export async function GET(request: Request) {
 
   // 1. Personal Images (Hardcoded for SEO)
   // These are explicitly added to the homepage entry
-  const personalImages = [
-    {
-      loc: `${baseUrl}/personal/shireff-1.jpg`,
-      title: 'Shireff Nady - Front-End Engineer',
-    },
-    {
-      loc: `${baseUrl}/personal/shireff-2.jpg`,
-      title: 'Shireff Nady - Web Developer',
-    },
-    {
-      loc: `${baseUrl}/personal/shireff-3.jpg`,
-      title: 'Shireff - Senior Front-End Engineer',
-    },
-    {
-      loc: `${baseUrl}/personal/shireff-4.jpg`,
-      title: 'Shireff Nady - React Specialist',
-    },
-    {
-      loc: `${baseUrl}/personal/shireff-5.jpg`,
-      title: 'Shireff Nady - Full Stack Developer',
-    },
-  ];
-
+const personalImages = [
+  { loc: 'https://shireff-nady.vercel.app/personal/shireff-1.jpg', title: 'Shireff Nady - Front-End Engineer' },
+  { loc: 'https://shireff-nady.vercel.app/personal/shireff-2.jpg', title: 'Shireff Nady - Web Developer' },
+  { loc: 'https://shireff-nady.vercel.app/personal/shireff-3.jpg', title: 'Shireff - Senior Front-End Engineer' },
+  { loc: 'https://shireff-nady.vercel.app/personal/shireff-4.jpg', title: 'Shireff Nady - React Specialist' },
+  { loc: 'https://shireff-nady.vercel.app/personal/shireff-5.jpg', title: 'Shireff Nady - Full Stack Developer' },
+];
   // We define fields array without strict strict ISitemapField[] typing initially 
   // to avoid "Type string is not assignable to type URL" errors on 'loc'.
   // We cast to 'any' at the end for next-sitemap.
