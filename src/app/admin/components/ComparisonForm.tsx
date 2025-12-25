@@ -15,7 +15,12 @@ interface ComparisonFormProps {
 }
 
 
+// Redux
+import { useAppDispatch } from '@/store/hooks';
+import { addComparison, updateComparison } from '@/store/slices/dataSlice';
+
 export default function ComparisonForm({ initialData, onSuccess, onCancel }: ComparisonFormProps) {
+  const dispatch = useAppDispatch();
   const [formData, setFormData] = useState<Partial<StateComparison>>({
     title: initialData?.title || '',
     desc: initialData?.desc || '',
@@ -25,7 +30,7 @@ export default function ComparisonForm({ initialData, onSuccess, onCancel }: Com
     isActive: initialData?.isActive ?? true,
     ...initialData
   });
-  
+
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Before Image States
@@ -60,8 +65,10 @@ export default function ComparisonForm({ initialData, onSuccess, onCancel }: Com
       let result;
       if (initialData?.id) {
         result = await comparisonService.update(initialData.id, formData);
+        dispatch(updateComparison(result as StateComparison));
       } else {
         result = await comparisonService.create(formData);
+        dispatch(addComparison(result as StateComparison));
       }
       onSuccess(result as StateComparison);
     } catch (error) {
@@ -115,7 +122,7 @@ export default function ComparisonForm({ initialData, onSuccess, onCancel }: Com
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-4">
           <label className="text-xs font-bold uppercase tracking-widest text-zinc-500">Legacy State (Before)</label>
-          <ImageUpload 
+          <ImageUpload
             imageUpload={imageUploadBefore}
             setImageUpload={setImageUploadBefore}
             imageLoading={imageLoadingBefore}
@@ -129,7 +136,7 @@ export default function ComparisonForm({ initialData, onSuccess, onCancel }: Com
 
         <div className="space-y-4">
           <label className="text-xs font-bold uppercase tracking-widest text-zinc-500">Next-Gen Evolution (After)</label>
-          <ImageUpload 
+          <ImageUpload
             imageUpload={imageUploadAfter}
             setImageUpload={setImageUploadAfter}
             imageLoading={imageLoadingAfter}
@@ -160,9 +167,9 @@ export default function ComparisonForm({ initialData, onSuccess, onCancel }: Com
 
       <div className="flex justify-end gap-3 pt-6 border-t border-white/5">
         <Button type="button" variant="ghost" onClick={onCancel}>Cancel</Button>
-        <Button 
-          type="submit" 
-          isLoading={isSubmitting} 
+        <Button
+          type="submit"
+          isLoading={isSubmitting}
           disabled={imageLoadingBefore || imageLoadingAfter}
           className="min-w-[140px]"
         >

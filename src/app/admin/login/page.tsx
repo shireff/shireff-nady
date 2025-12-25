@@ -7,7 +7,13 @@ import Button from '@/components/ui/Button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card';
 import { authService } from '@/services/auth';
 
+// Redux
+import { useAppDispatch } from '@/store/hooks';
+import { setAuth } from '@/store/slices/authSlice';
+import { addNotification } from '@/store/slices/uiSlice';
+
 export default function LoginPage() {
+  const dispatch = useAppDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -21,10 +27,20 @@ export default function LoginPage() {
     setError('');
 
     try {
-      await authService.login(email, password);
+      const response = await authService.login(email, password);
+      dispatch(setAuth({ user: response.user, token: response.token }));
+      dispatch(addNotification({
+        type: 'success',
+        message: 'Access Granted. Welcome back, Commander.',
+      }));
       router.push('/admin');
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Invalid credentials. Please try again.');
+      const msg = err.response?.data?.message || 'Invalid credentials. Please try again.';
+      setError(msg);
+      dispatch(addNotification({
+        type: 'error',
+        message: `Access Denied: ${msg}`,
+      }));
     } finally {
       setIsLoading(false);
     }
@@ -56,7 +72,7 @@ export default function LoginPage() {
                 />
               </div>
             </div>
-            
+
             <div className="space-y-2">
               <label className="text-sm font-medium text-zinc-400">Password</label>
               <div className="relative">

@@ -7,6 +7,8 @@ import Footer from "@/components/layout/Footer";
 import AIHelper from "@/components/ui/AIHelper";
 
 import { siteConfig } from "@/config/site";
+import { StoreProvider } from "@/store/Provider";
+import NotificationManager from "@/components/ui/NotificationManager";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -312,12 +314,15 @@ export default function RootLayout({
         </div>
 
         <div className="noise-overlay" />
-        <Navbar />
-        <main className="flex-grow pt-20">
-          {children}
-        </main>
-        <Footer />
-        <AIHelper />
+        <StoreProvider>
+          <NotificationManager />
+          <Navbar />
+          <main className="flex-grow pt-20">
+            {children}
+          </main>
+          <Footer />
+          <AIHelper />
+        </StoreProvider>
       </body>
     </html>
   );

@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@formspree/react": "^3.0.0",
+    "@reduxjs/toolkit": "^2.11.2",
     "axios": "^1.13.2",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.26",
@@ -19,6 +20,7 @@
     "qrcode.react": "^4.2.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "react-redux": "^9.2.0",
     "tailwind-merge": "^3.4.0",
     "tailwindcss-animate": "^1.0.7"
   },

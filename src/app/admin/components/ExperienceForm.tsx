@@ -12,7 +12,12 @@ interface ExperienceFormProps {
   onCancel: () => void;
 }
 
+// Redux
+import { useAppDispatch } from '@/store/hooks';
+import { addExperience, updateExperience } from '@/store/slices/dataSlice';
+
 export default function ExperienceForm({ initialData, onSuccess, onCancel }: ExperienceFormProps) {
+  const dispatch = useAppDispatch();
   const [formData, setFormData] = useState<Partial<Experience>>(initialData || {
     company: '',
     position: '',
@@ -57,8 +62,10 @@ export default function ExperienceForm({ initialData, onSuccess, onCancel }: Exp
       let result;
       if (initialData?.id) {
         result = await experienceService.update(initialData.id, formData);
+        dispatch(updateExperience(result as Experience));
       } else {
         result = await experienceService.create(formData);
+        dispatch(addExperience(result as Experience));
       }
       onSuccess(result as Experience);
     } catch (error) {
@@ -102,15 +109,15 @@ export default function ExperienceForm({ initialData, onSuccess, onCancel }: Exp
       <div className="space-y-2">
         <label className="text-xs font-bold uppercase tracking-widest text-zinc-500">Employment Period</label>
         <div className="relative">
-           <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500" size={16} />
-           <input
-             type="text"
-             className="w-full glass-input pl-10"
-             value={formData.period}
-             onChange={e => setFormData({ ...formData, period: e.target.value })}
-             placeholder="e.g. June 2021 - Present"
-             required
-           />
+          <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500" size={16} />
+          <input
+            type="text"
+            className="w-full glass-input pl-10"
+            value={formData.period}
+            onChange={e => setFormData({ ...formData, period: e.target.value })}
+            placeholder="e.g. June 2021 - Present"
+            required
+          />
         </div>
       </div>
 
@@ -121,7 +128,7 @@ export default function ExperienceForm({ initialData, onSuccess, onCancel }: Exp
             <div key={i} className="flex gap-3 group">
               <div className="flex-grow glass-input text-sm text-zinc-300 py-2">{point}</div>
               <button type="button" onClick={() => removeBullet(i)} className="p-2 text-zinc-500 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity">
-                 <X size={16} />
+                <X size={16} />
               </button>
             </div>
           ))}

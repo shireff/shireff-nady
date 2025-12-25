@@ -21,7 +21,12 @@ interface ProjectFormProps {
   onCancel: () => void;
 }
 
+// Redux
+import { useAppDispatch } from '@/store/hooks';
+import { addProject, updateProject as updateProjectAction } from '@/store/slices/dataSlice';
+
 export default function ProjectForm({ initialData, existingProjects = [], onSuccess, onCancel }: ProjectFormProps) {
+  const dispatch = useAppDispatch();
   // Extract unique tags and categories from existing projects
   const uniqueTags = Array.from(new Set(existingProjects.flatMap(p => p.tags || []))).sort();
   const uniqueCategories = Array.from(new Set(existingProjects.map(p => p.category))).filter((c): c is string => !!c).sort();
@@ -114,6 +119,12 @@ export default function ProjectForm({ initialData, existingProjects = [], onSucc
       const result = initialData?.id
         ? await projectService.update(initialData.id, submissionData)
         : await projectService.create(submissionData);
+
+      if (initialData?.id) {
+        dispatch(updateProjectAction(result as Project));
+      } else {
+        dispatch(addProject(result as Project));
+      }
 
       onSuccess(result as Project);
     } catch (err) {

@@ -17,22 +17,27 @@ const navItems = [
   { name: 'Contact', href: '/contact', icon: MessageSquare },
 ];
 
+// Redux
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { clearAuth } from '@/store/slices/authSlice';
+
 export default function Navbar() {
+  const dispatch = useAppDispatch();
+  const { isAuthenticated: isLoggedIn } = useAppSelector((state) => state.auth);
+
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
-    setIsLoggedIn(authService.isAuthenticated());
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const handleLogout = () => {
     authService.logout();
-    setIsLoggedIn(false);
+    dispatch(clearAuth());
     window.location.href = '/';
   };
 

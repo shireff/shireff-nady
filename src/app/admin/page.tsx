@@ -26,19 +26,23 @@ import SettingsForm from './components/SettingsForm';
 
 // Services & Types
 import { authService } from '@/services/auth';
-import { projectService } from '@/services/projects';
-import { experienceService } from '@/services/experiences';
-import { comparisonService } from '@/services/comparisons';
 import { Project, Experience, StateComparison } from '@/types';
 
 type Tab = 'overview' | 'projects' | 'experiences' | 'comparisons' | 'settings';
 
+// Redux
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { setActiveTab } from "@/store/slices/adminSlice";
+
+// Hooks
+import { useDashboardData } from '@/hooks/useDashboardData';
+
 export default function AdminDashboard() {
-  const [activeTab, setActiveTab] = useState<Tab>('overview');
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [experiences, setExperiences] = useState<Experience[]>([]);
-  const [comparisons, setComparisons] = useState<StateComparison[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useAppDispatch();
+  const { fetchData, deleteItem } = useDashboardData();
+  const activeTab = useAppSelector((state) => state.admin.activeTab);
+  const { projects, experiences, comparisons, isLoading: dataLoading } = useAppSelector((state) => state.data);
+  const isLoading = dataLoading.projects || dataLoading.experiences || dataLoading.comparisons;
 
   const [modalState, setModalState] = useState<{
     isOpen: boolean;
@@ -54,24 +58,6 @@ export default function AdminDashboard() {
 
   const router = useRouter();
 
-  const fetchData = async () => {
-    setIsLoading(true);
-    try {
-      const [proj, exp, comp] = await Promise.all([
-        projectService.getAll(),
-        experienceService.getAll(),
-        comparisonService.getAll(),
-      ]);
-      setProjects(proj);
-      setExperiences(exp || []);
-      setComparisons(comp || []);
-    } catch (error) {
-      console.error('Failed to fetch dashboard data', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   useEffect(() => {
     if (!authService.isAuthenticated()) {
       router.push('/admin/login');
@@ -84,14 +70,9 @@ export default function AdminDashboard() {
     const { id, type } = deleteState;
     if (!id || !type) return;
 
-    try {
-      if (type === 'projects') await projectService.delete(id);
-      if (type === 'experiences') await experienceService.delete(id);
-      if (type === 'comparisons') await comparisonService.delete(id);
-      fetchData();
+    const success = await deleteItem(id, type);
+    if (success) {
       setDeleteState({ isOpen: false, id: null, type: null });
-    } catch (error) {
-      console.error('Delete failed', error);
     }
   };
 
@@ -113,7 +94,7 @@ export default function AdminDashboard() {
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-12 flex flex-col lg:flex-row gap-12">
-      <DashboardSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+      <DashboardSidebar activeTab={activeTab} setActiveTab={(tab: any) => dispatch(setActiveTab(tab))} />
 
       <main className="flex-grow min-h-[70vh]">
         <div className="mb-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
@@ -177,7 +158,7 @@ export default function AdminDashboard() {
           <ProjectForm
             initialData={modalState.editingData}
             existingProjects={projects}
-            onSuccess={() => { setModalState({ ...modalState, isOpen: false }); fetchData(); }}
+            onSuccess={() => setModalState({ ...modalState, isOpen: false })}
             onCancel={() => setModalState({ ...modalState, isOpen: false })}
           />
         )}
@@ -185,14 +166,14 @@ export default function AdminDashboard() {
         {modalState.type === 'experiences' && (
           <ExperienceForm
             initialData={modalState.editingData}
-            onSuccess={() => { setModalState({ ...modalState, isOpen: false }); fetchData(); }}
+            onSuccess={() => setModalState({ ...modalState, isOpen: false })}
             onCancel={() => setModalState({ ...modalState, isOpen: false })}
           />
         )}
         {modalState.type === 'comparisons' && (
           <ComparisonForm
             initialData={modalState.editingData}
-            onSuccess={() => { setModalState({ ...modalState, isOpen: false }); fetchData(); }}
+            onSuccess={() => setModalState({ ...modalState, isOpen: false })}
             onCancel={() => setModalState({ ...modalState, isOpen: false })}
           />
         )}

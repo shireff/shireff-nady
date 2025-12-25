@@ -16,10 +16,19 @@ import CTA from '@/components/sections/cta/CTA';
 
 const DEFAULT_HERO_IMAGE = "https://media.licdn.com/dms/image/v2/D4E03AQHI2emfkXdeXQ/profile-displayphoto-shrink_800_800/B4EZaI2FxCHMAc-/0/1746052604728?e=1767830400&v=beta&t=-l4A36ias3qpuV4uIKc7q7V1vcZqMwuIceuT8hkYwag";
 
+// Redux
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { setProjects, setLoadingState } from '@/store/slices/dataSlice';
+
 export default function Home() {
-  const [featuredProjects, setFeaturedProjects] = useState<Project[]>([]);
+  const dispatch = useAppDispatch();
+  const { projects, isLoading: dataLoading } = useAppSelector((state) => state.data);
   const [heroImage, setHeroImage] = useState(DEFAULT_HERO_IMAGE);
   const [isImageLoading, setIsImageLoading] = useState(true);
+
+  const featuredProjects = projects.filter(p => p.isFeatured).length > 0
+    ? projects.filter(p => p.isFeatured).slice(0, 3)
+    : projects.slice(0, 3);
 
   const websiteSchema = {
     "@context": "https://schema.org",
@@ -54,13 +63,15 @@ export default function Home() {
   };
 
   useEffect(() => {
-    projectService.getAll().then(projects => {
-      const featured = projects.filter(p => p.isFeatured);
-      setFeaturedProjects(featured.length > 0 ? featured.slice(0, 3) : projects.slice(0, 3));
-    }).catch((error) => {
-      console.error("Failed to fetch featured projects:", error);
-      // Fallback data handled by state initialization if needed
-    });
+    if (projects.length === 0) {
+      dispatch(setLoadingState({ type: 'projects', loading: true }));
+      projectService.getAll().then(data => {
+        dispatch(setProjects(data));
+      }).catch((error) => {
+        console.error("Failed to fetch featured projects:", error);
+        dispatch(setLoadingState({ type: 'projects', loading: false }));
+      });
+    }
 
     // Fetch Home Hero Image
     settingsService.getHomeImage().then(data => {
@@ -70,7 +81,7 @@ export default function Home() {
     }).finally(() => {
       setIsImageLoading(false);
     });
-  }, []);
+  }, [dispatch, projects.length]);
 
   return (
     <div className="space-y-32 pb-24">
