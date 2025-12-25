@@ -4,7 +4,11 @@ import { Project } from '@/types';
 
 export const dynamic = 'force-dynamic';
 
-function normalizeImage(url: string | undefined | null, baseUrl: string) {
+/**
+ * Normalizes image URLs to ensure they are absolute.
+ * Handles undefined/null checks and relative paths.
+ */
+function normalizeImage(url: string | undefined | null, baseUrl: string): string | null {
   if (!url || url === 'undefined' || url === 'null') return null;
   if (url.startsWith('http')) return url;
   if (url.startsWith('/')) return `${baseUrl}${url}`;
@@ -21,7 +25,8 @@ export async function GET(request: Request) {
     console.error('Sitemap Error: Failed to fetch projects', error);
   }
 
-  // 1. Personal Images (Hardcoded to ensure validity)
+  // 1. Personal Images (Hardcoded for SEO)
+  // These are explicitly added to the homepage entry
   const personalImages = [
     {
       loc: `${baseUrl}/personal/shireff-1.jpg`,
@@ -45,7 +50,10 @@ export async function GET(request: Request) {
     },
   ];
 
-  const fields = [
+  // We define fields array without strict strict ISitemapField[] typing initially 
+  // to avoid "Type string is not assignable to type URL" errors on 'loc'.
+  // We cast to 'any' at the end for next-sitemap.
+  const fields: any[] = [
     // --- Homepage with attached Personal Images ---
     {
       loc: `${baseUrl}/`,
@@ -87,21 +95,22 @@ export async function GET(request: Request) {
     
     const entry: any = {
       loc: `${baseUrl}/projects/${project.id}`,
-      lastmod: project.createdAt || new Date().toISOString(),
+      lastmod: project.createdAt ? new Date(project.createdAt).toISOString() : new Date().toISOString(),
       changefreq: 'weekly',
       priority: 0.8,
     };
 
+    // Only add images array if a valid image exists
     if (imageUrl) {
       entry.images = [{
         loc: imageUrl,
-        title: project.title || 'Project Image',
+        title: project.title || 'Project Detail',
       }];
     }
 
     fields.push(entry);
   }
 
-  // Cast to any to handle custom image structure if strict typing complains
-  return getServerSideSitemap(fields as any);
+  // Return the XML response
+  return getServerSideSitemap(fields);
 }
