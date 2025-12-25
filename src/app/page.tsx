@@ -108,7 +108,7 @@ export default function Home() {
 
       <Skills />
 
-      <FeaturedProjects projects={featuredProjects} />
+      <FeaturedProjects projects={featuredProjects} isLoading={dataLoading.projects} />
 
       <CTA />
     </div>

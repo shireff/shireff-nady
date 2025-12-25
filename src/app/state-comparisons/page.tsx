@@ -13,6 +13,7 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setComparisons, setLoadingState } from '@/store/slices/dataSlice';
 import TechComparisonCard from './components/TechComparisonCard';
 import ComparisonCard from './components/ComparisonCard';
+import ComparisonSkeleton from './components/ComparisonSkeleton';
 
 export default function ComparisonsPage() {
   const dispatch = useAppDispatch();
@@ -50,9 +51,10 @@ export default function ComparisonsPage() {
 
       <div className="space-y-48">
         {isLoading && comparisons.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-40 gap-6">
-            <div className="w-20 h-20 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
-            <p className="text-zinc-600 font-black uppercase tracking-[0.5em] text-[10px]">Synchronizing nodes...</p>
+          <div className="space-y-32">
+            {[1, 2].map((i) => (
+              <ComparisonSkeleton key={i} />
+            ))}
           </div>
         ) : (
           <div className="space-y-32">
