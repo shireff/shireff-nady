@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextRequest, NextResponse } from "next/server";
-import { knowledge } from "@/lib/knowledge";
 import { buildResponse, decideLanguage } from "@/lib/intentEngine";
+import { generateAIResponse } from "@/lib/aiHelper";
 
 const BACKEND_URL =
   process.env.NEXT_PUBLIC_API_URL ||
@@ -15,130 +14,76 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Invalid message" }, { status: 400 });
     }
 
+    // 1. Determine language and detect intent
     const language = decideLanguage(message, conversationHistory);
-    const apiKey = (process.env.GEMINI_API_KEY || "").trim();
-    
-    if (!apiKey) {
-      console.warn("[AIHelper] Missing GEMINI_API_KEY. Using local fallback.");
-      const local = buildResponse(message, language, conversationHistory);
-      return NextResponse.json({
-        response: local.text,
-        language,
-        topic: local.topic,
-        tone: local.tone,
-        source: "local",
-      });
-    }
+    const intent = buildResponse(message, language, conversationHistory);
 
-    const formattedHistory = conversationHistory
-      .map(
-        (m: any) => `${m.role === "user" ? "User" : "Assistant"}: ${m.content}`
-      )
-      .join("\n");
-
+    // 2. Priority: Fetch Context for AI
     let projectsData: any[] = [];
+    let experiencesData: any[] = [];
+    
     try {
-      const res = await fetch(`${BACKEND_URL}/projects`, { next: { revalidate: 3600 } });
-      if (res.ok) {
-        const data = await res.json();
+      const [projectsRes, experiencesRes] = await Promise.all([
+        fetch(`${BACKEND_URL}/projects`, { next: { revalidate: 3600 } }),
+        fetch(`${BACKEND_URL}/experiences`, { next: { revalidate: 3600 } })
+      ]);
+
+      if (projectsRes.ok) {
+        const data = await projectsRes.json();
         projectsData = Array.isArray(data) ? data : (data.projects || []);
-      } else {
-        console.warn("⚠️ Could not fetch live projects, status:", res.status);
+      }
+      
+      if (experiencesRes.ok) {
+        const data = await experiencesRes.json();
+        experiencesData = Array.isArray(data) ? data : (data.experiences || []);
       }
     } catch (err) {
-      console.warn("⚠️ Error fetching backend projects:", err);
+      console.warn("⚠️ Error fetching backend data for context:", err);
     }
 
-    const context = `
-You are **Shireff's AI Assistant** 🤖.
-You know everything about Shireff’s portfolio, projects, experience, and skills.
-
-Use both sources of knowledge:
-1️⃣ Static portfolio knowledge:
-${JSON.stringify(knowledge[language], null, 2)}
-
-2️⃣ Live project data from backend:
-${JSON.stringify(projectsData, null, 2)}
-
-Conversation so far:
-${formattedHistory}
-
-User message: "${message}"
-
-Rules:
-- Detect the user's language automatically.
-- Reply ONLY in that language (${language === 'ar' ? 'Arabic' : 'English'}).
-- If a project includes a demo link, always mention it (demoUrl or demo field).
-- Be concise, friendly, and natural.
-- Format your response clearly.
-`;
-
-    let model = "gemini-2.0-flash";
-    let source: "gemini" | "local" = "gemini";
-
-    // 🧩 Step 1: Try Gemini 2.0
-    let geminiResponse = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          contents: [{ role: "user", parts: [{ text: context }] }],
-        }),
-      }
+    // 3. Try AIHelper to generate a "Smart" and "Varied" response
+    // Maintain more context (last 10 messages)
+    const aiResponse = await generateAIResponse(
+      message,
+      language,
+      conversationHistory.slice(-10),
+      projectsData,
+      experiencesData,
+      intent.topic !== "fallback" ? intent.text : undefined
     );
 
-    // 🔁 Step 2: Fallback to Gemini 1.5 if 2.0 fails
-    if (!geminiResponse.ok) {
-      const err20 = await geminiResponse.json().catch(() => ({}));
-      console.warn(`[AIHelper] Gemini 2.0 failed (${geminiResponse.status}) → trying 1.5 fallback. Error:`, JSON.stringify(err20));
-      
-      model = "gemini-1.5-flash-latest";
-      geminiResponse = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            contents: [{ role: "user", parts: [{ text: context }] }],
-          }),
-        }
-      );
+    let finalResponse = "";
+    let source = "ai";
+    let topic = intent.topic;
+    const options = intent.options;
+
+    if (aiResponse && aiResponse.trim() !== "") {
+      finalResponse = aiResponse;
+    } else {
+      // 4. Fallback to Intent/Knowledge if AI fails
+      finalResponse = intent.text;
+      source = "knowledge_fallback";
     }
 
-    const data = await geminiResponse.json();
-    const reply =
-      data?.candidates?.[0]?.content?.parts?.[0]?.text ??
-      null;
-
-    // 🩹 Step 3: Local fallback if Gemini gives no reply or both failed
-    let finalText = reply;
-    let topic: string | undefined;
-    let tone: string | undefined;
-
-    if (!finalText) {
-      if (!geminiResponse.ok) {
-         console.error("[AIHelper] Both Gemini 2.0 and 1.5 failed. Falling back to knowledge base.");
-      }
-      const local = buildResponse(message, language, conversationHistory);
-      finalText = local.text;
-      topic = local.topic;
-      tone = local.tone;
-      source = "local";
-    }
-
-    console.info(`[AIHelper] Response source: ${source} (Model: ${source === 'gemini' ? model : 'N/A'})`);
+    // 5. Final Formatting Pass: Remove any lingering markdown-like bolding **
+    const cleanResponse = finalResponse.replace(/\*\*/g, "");
 
     return NextResponse.json({
-      response: finalText,
+      response: cleanResponse,
       language,
-      topic,
-      tone,
+      topic: source === "ai" ? "smart_ai" : topic,
+      options,
       source,
       fromBackend: projectsData.length > 0,
     });
+
   } catch (err: any) {
-    console.error("[AIHelper] Fatal error:", err);
-    return NextResponse.json({ error: err.message }, { status: 500 });
+    console.error("[AIHelper Route] Fatal error:", err);
+    return NextResponse.json({
+      response: "I'm having a bit of trouble right now. Feel free to check my projects or contact me directly!",
+      language: "en",
+      source: "error_fallback",
+    });
   }
 }
+
