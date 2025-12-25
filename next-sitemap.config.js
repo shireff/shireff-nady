@@ -2,8 +2,8 @@
 module.exports = {
   siteUrl: process.env.SITE_URL || 'https://shireff-nady.vercel.app',
   generateRobotsTxt: true,
-  generateIndexSitemap: false,
-  sitemapSize: 7000,
+  generateIndexSitemap: true,
+  sitemapSize: 5000,
   
   // Default values for all pages
   changefreq: 'weekly',
@@ -69,17 +69,17 @@ module.exports = {
     policies: [
       {
         userAgent: '*',
-        allow: '/',
+        allow: ['/', '/personal/*'],
         disallow: ['/admin', '/api'],
       },
       {
         userAgent: 'Googlebot',
-        allow: '/',
+        allow: ['/', '/personal/*'],
         disallow: ['/admin', '/api'],
       },
       {
         userAgent: 'Bingbot',
-        allow: '/',
+        allow: ['/', '/personal/*'],
         disallow: ['/admin', '/api'],
       },
     ],

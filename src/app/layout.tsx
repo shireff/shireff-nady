@@ -67,7 +67,9 @@ export const metadata: Metadata = {
     telephone: false,
   },
   keywords: [
+    "Shireff",
     "Shireff Nady",
+    "Shireff Nady Front End",
     "Front-End Developer",
     "Web Developer",
     "Full Stack Developer",
@@ -138,6 +140,41 @@ export const metadata: Metadata = {
         alt: "Shireff Nady Portfolio - Front-End Developer",
         type: "image/jpeg",
       },
+      {
+        url: "https://shireff-nady.vercel.app/personal/shireff-1.jpg",
+        width: 800,
+        height: 800,
+        alt: "Shireff Nady - Front-End Engineer",
+        type: "image/jpeg",
+      },
+      {
+        url: "https://shireff-nady.vercel.app/personal/shireff-2.jpg",
+        width: 800,
+        height: 800,
+        alt: "Shireff Nady - Web Developer",
+        type: "image/jpeg",
+      },
+      {
+        url: "https://shireff-nady.vercel.app/personal/shireff-3.jpg",
+        width: 800,
+        height: 800,
+        alt: "Shireff - Senior Front-End Engineer",
+        type: "image/jpeg",
+      },
+      {
+        url: "https://shireff-nady.vercel.app/personal/shireff-4.jpg",
+        width: 800,
+        height: 800,
+        alt: "Shireff Nady - React Specialist",
+        type: "image/jpeg",
+      },
+      {
+        url: "https://shireff-nady.vercel.app/personal/shireff-5.jpg",
+        width: 800,
+        height: 800,
+        alt: "Shireff Nady - Full Stack Developer",
+        type: "image/jpeg",
+      },
     ],
   },
   twitter: {
@@ -173,10 +210,18 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Shireff Nady",
+    "alternateName": "Shireff",
     "jobTitle": "Front-End Developer",
     "description": "Shireff Nady is a skilled front-end developer specializing in HTML5, CSS3, JavaScript, TypeScript, React.js, Next.js, and modern web technologies.",
     "url": "https://shireff-nady.vercel.app",
-    "image": "https://shireff-nady.vercel.app/og-image.jpg",
+    "image": [
+      "https://shireff-nady.vercel.app/og-image.jpg",
+      "https://shireff-nady.vercel.app/personal/shireff-1.jpg",
+      "https://shireff-nady.vercel.app/personal/shireff-2.jpg",
+      "https://shireff-nady.vercel.app/personal/shireff-3.jpg",
+      "https://shireff-nady.vercel.app/personal/shireff-4.jpg",
+      "https://shireff-nady.vercel.app/personal/shireff-5.jpg"
+    ],
     "email": "shireffn369@gmail.com",
     "telephone": "+201274068946",
     "sameAs": [
@@ -298,6 +343,29 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className} min-h-screen flex flex-col`}>
+        {/* Semantic Image Injection for SEO - Visually Hidden */}
+        <div
+          className="sr-only"
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            width: '1px',
+            height: '1px',
+            padding: '0',
+            margin: '-1px',
+            overflow: 'hidden',
+            clip: 'rect(0, 0, 0, 0)',
+            whiteSpace: 'nowrap',
+            borderWidth: '0'
+          }}
+        >
+          <img src="/personal/shireff-1.jpg" alt="Shireff Nady - Front-End Engineer" width="800" height="800" />
+          <img src="/personal/shireff-2.jpg" alt="Shireff Nady - Web Developer" width="800" height="800" />
+          <img src="/personal/shireff-3.jpg" alt="Shireff - Senior Front-End Engineer" width="800" height="800" />
+          <img src="/personal/shireff-4.jpg" alt="Shireff Nady - React Specialist" width="800" height="800" />
+          <img src="/personal/shireff-5.jpg" alt="Shireff Nady - Full Stack Developer" width="800" height="800" />
+        </div>
+
         <div className="noise-overlay" />
         <Navbar />
         <main className="flex-grow pt-24">

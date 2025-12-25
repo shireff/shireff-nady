@@ -1,0 +1,26 @@
+# *
+User-agent: *
+Allow: /
+Allow: /personal/*
+Disallow: /admin
+Disallow: /api
+
+# Googlebot
+User-agent: Googlebot
+Allow: /
+Allow: /personal/*
+Disallow: /admin
+Disallow: /api
+
+# Bingbot
+User-agent: Bingbot
+Allow: /
+Allow: /personal/*
+Disallow: /admin
+Disallow: /api
+
+# Host
+Host: https://shireff-nady.vercel.app
+
+# Sitemaps
+Sitemap: https://shireff-nady.vercel.app/sitemap.xml
