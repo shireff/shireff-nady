@@ -48,7 +48,7 @@ export default function Footer() {
 
         <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-zinc-500 text-sm">
-            © {new Date().getFullYear()} Portfolio. All rights reserved.
+            © {new Date().getFullYear()} Shireff. All rights reserved.
           </p>
           <p className="text-zinc-500 text-sm">
             Designed and built with Next.js & Tailwind CSS
