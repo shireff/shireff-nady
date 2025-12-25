@@ -8,6 +8,7 @@ export interface ProjectDetails {
   git?: string;
   role: string;
   challenges: string[];
+  story?: string;
 }
 
 export const projectsKnowledge: Record<Lang, Record<string, ProjectDetails & { story?: string }>> = {
@@ -145,7 +146,15 @@ export const projectsKnowledge: Record<Lang, Record<string, ProjectDetails & { s
 
 
 
-export const skillsKnowledge: Record<Lang, any> = {
+export interface SkillsKnowledge {
+  frontend: string[];
+  backend: string[];
+  testing: string[];
+  databases: string[];
+  tools: string[];
+}
+
+export const skillsKnowledge: Record<Lang, SkillsKnowledge> = {
   en: {
     frontend: ["React", "Next.js", "Redux", "TypeScript", "JavaScript", "HTML5", "CSS3", "Sass", "Tailwind", "Bootstrap"],
     backend: ["Node.js", "Express", "Firebase"],
@@ -162,7 +171,17 @@ export const skillsKnowledge: Record<Lang, any> = {
   }
 };
 
-export const generalKnowledge: Record<Lang, any> = {
+export interface GeneralKnowledge {
+  intro: string;
+  whoIs: string;
+  no_demo: string;
+  career: string;
+  skills_intro: string;
+  skills: string[];
+  funFact: string;
+}
+
+export const generalKnowledge: Record<Lang, GeneralKnowledge> = {
   en: {
     intro: "👋 Hello! I'm Shireff’s digital assistant. Dive in to explore his projects, skills, or even technical comparisons with ease.",
     whoIs: "Shireff is a Senior Front-End Engineer & UI/UX Architect with 6+ years of experience delivering high-performance, scalable digital systems for global brands. He specializes in React, Next.js, and modern TypeScript-driven architectures.",
@@ -202,7 +221,13 @@ export function pick(variants: string[]): string {
   return variants[Math.floor(Math.random() * variants.length)];
 }
 
-export const knowledge: Record<Lang, any> = {
+export interface FullKnowledge {
+  general: GeneralKnowledge;
+  projects: Record<string, ProjectDetails>;
+  skills: SkillsKnowledge;
+}
+
+export const knowledge: Record<Lang, FullKnowledge> = {
   en: {
     general: generalKnowledge.en,
     projects: projectsKnowledge.en,

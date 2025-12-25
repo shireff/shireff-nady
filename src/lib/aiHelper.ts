@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { knowledge } from "./knowledge";
 import { Message } from "./intentEngine";
 
@@ -10,15 +9,15 @@ export async function generateAIResponse(
   message: string,
   language: "ar" | "en",
   conversationHistory: Message[] = [],
-  projectsData: any[] = [],
-  experiencesData: any[] = [],
+  projectsData: Record<string, unknown>[] = [],
+  experiencesData: Record<string, unknown>[] = [],
   referenceKnowledge?: string
 ): Promise<string | null> {
   const apiKey = (process.env.GEMINI_API_KEY || "").trim();
   if (!apiKey) return null;
 
   const formattedHistory = conversationHistory
-    .map((m: any) => `${m.role === "user" ? "User" : "Assistant"}: ${m.content}`)
+    .map((m: Message) => `${m.role === "user" ? "User" : "Assistant"}: ${m.content}`)
     .join("\n");
 
   const context = `
@@ -81,7 +80,13 @@ Rules:
 
     if (!geminiResponse.ok) return null;
 
-    const data = await geminiResponse.json();
+    const data = (await geminiResponse.json()) as { 
+      candidates?: { 
+        content?: { 
+          parts?: { text?: string }[] 
+        } 
+      }[] 
+    };
     return data?.candidates?.[0]?.content?.parts?.[0]?.text ?? null;
   } catch (error) {
     console.error("[AIHelper] Error generating AI response:", error);

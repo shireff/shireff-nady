@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { buildResponse, decideLanguage } from "@/lib/intentEngine";
+import { buildResponse, decideLanguage, Message, EngineResult } from "@/lib/intentEngine";
 import { generateAIResponse } from "@/lib/aiHelper";
 
 const BACKEND_URL =
@@ -8,7 +8,11 @@ const BACKEND_URL =
 
 export async function POST(request: NextRequest) {
   try {
-    const { message, conversationHistory = [] } = await request.json();
+    const body = (await request.json()) as { 
+      message?: string; 
+      conversationHistory?: Message[];
+    };
+    const { message, conversationHistory = [] } = body;
 
     if (!message || typeof message !== "string") {
       return NextResponse.json({ error: "Invalid message" }, { status: 400 });
@@ -16,11 +20,11 @@ export async function POST(request: NextRequest) {
 
     // 1. Determine language and detect intent
     const language = decideLanguage(message, conversationHistory);
-    const intent = buildResponse(message, language, conversationHistory);
+    const intent: EngineResult = buildResponse(message, language, conversationHistory);
 
     // 2. Priority: Fetch Context for AI
-    let projectsData: any[] = [];
-    let experiencesData: any[] = [];
+    let projectsData: unknown[] = [];
+    let experiencesData: unknown[] = [];
     
     try {
       const [projectsRes, experiencesRes] = await Promise.all([
@@ -29,16 +33,16 @@ export async function POST(request: NextRequest) {
       ]);
 
       if (projectsRes.ok) {
-        const data = await projectsRes.json();
+        const data = (await projectsRes.json()) as unknown[] | { projects?: unknown[] };
         projectsData = Array.isArray(data) ? data : (data.projects || []);
       }
       
       if (experiencesRes.ok) {
-        const data = await experiencesRes.json();
+        const data = (await experiencesRes.json()) as unknown[] | { experiences?: unknown[] };
         experiencesData = Array.isArray(data) ? data : (data.experiences || []);
       }
-    } catch (err) {
-      console.warn("⚠️ Error fetching backend data for context:", err);
+    } catch (fetchError) {
+      console.warn("⚠️ Error fetching backend data for context:", fetchError);
     }
 
     // 3. Try AIHelper to generate a "Smart" and "Varied" response
@@ -47,8 +51,8 @@ export async function POST(request: NextRequest) {
       message,
       language,
       conversationHistory.slice(-10),
-      projectsData,
-      experiencesData,
+      projectsData as Record<string, unknown>[],
+      experiencesData as Record<string, unknown>[],
       intent.topic !== "fallback" ? intent.text : undefined
     );
 
@@ -77,8 +81,8 @@ export async function POST(request: NextRequest) {
       fromBackend: projectsData.length > 0,
     });
 
-  } catch (err: any) {
-    console.error("[AIHelper Route] Fatal error:", err);
+  } catch (fatalError: unknown) {
+    console.error("[AIHelper Route] Fatal error:", fatalError);
     return NextResponse.json({
       response: "I'm having a bit of trouble right now. Feel free to check my projects or contact me directly!",
       language: "en",
