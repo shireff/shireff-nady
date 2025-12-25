@@ -166,6 +166,21 @@ export function buildResponse(
         options: getOptions(topic)
       };
     }
+
+    if (currentProjId && pK[currentProjId]) {
+  const p = pK[currentProjId];
+  if (/(story|قصة|details)/i.test(input)) {
+    const topic = "project_story";
+    return {
+      language: lang,
+      text: p.story || (lang === "en" ? "No story available for this project." : "لا توجد قصة لهذا المشروع حالياً."),
+      topic,
+      projectId: currentProjId,
+      options: getOptions(topic)
+    };
+  }
+}
+
   }
 
   // 5️⃣ Comparisons

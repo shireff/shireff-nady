@@ -10,7 +10,7 @@ export interface ProjectDetails {
   challenges: string[];
 }
 
-export const projectsKnowledge: Record<Lang, Record<string, ProjectDetails>> = {
+export const projectsKnowledge: Record<Lang, Record<string, ProjectDetails & { story?: string }>> = {
   en: {
     funzoneFrontend: {
       title: "FunZone Booking System",
@@ -18,7 +18,8 @@ export const projectsKnowledge: Record<Lang, Record<string, ProjectDetails>> = {
       techStack: ["Next.js 14", "React", "Redux Toolkit", "TailwindCSS", "Shadcn/UI", "Firebase", "Axios"],
       demo: "https://funzone-frontend.vercel.app/",
       role: "Lead Front-End Developer",
-      challenges: ["Building multi-role dashboards", "Optimizing LCP and FID", "Implementing real-time notifications and bilingual support"]
+      challenges: ["Building multi-role dashboards", "Optimizing LCP and FID", "Implementing real-time notifications and bilingual support"],
+      story: "We had to design dashboards for Admin, Manager, Employee, and Customer with different permissions. The challenge was to keep the UI consistent while handling role-specific logic. I implemented a dynamic component loader and optimized React rendering to ensure fast LCP and smooth UX."
     },
     funzoneBackend: {
       title: "FunZone Backend API",
@@ -26,7 +27,8 @@ export const projectsKnowledge: Record<Lang, Record<string, ProjectDetails>> = {
       techStack: ["Node.js", "TypeScript", "Express", "MongoDB", "Redis", "Swagger"],
       demo: "https://funzone-backend.vercel.app/api-docs/",
       role: "Lead Backend Developer",
-      challenges: ["Designing scalable REST APIs", "Implementing multi-role RBAC", "Optimizing database queries for high traffic"]
+      challenges: ["Designing scalable REST APIs", "Implementing multi-role RBAC", "Optimizing database queries for high traffic"],
+      story: "Implemented scalable REST APIs with multi-role RBAC. Optimized MongoDB queries for high traffic while integrating real-time notifications and loyalty systems."
     },
     oura: {
       title: "ŌURA – Full Stack E-Commerce Platform",
@@ -34,7 +36,8 @@ export const projectsKnowledge: Record<Lang, Record<string, ProjectDetails>> = {
       techStack: ["Next.js 14", "TypeScript", "Node.js", "Express", "MongoDB", "Redis", "TailwindCSS", "Shadcn/UI", "React Query", "Zod", "React Hook Form"],
       demo: "https://oura-frontend.vercel.app/",
       role: "Senior Full-Stack Architect",
-      challenges: ["Dynamic high-speed search engine", "Multi-layered payment gateway integration", "Full-stack e-commerce scalability and security"]
+      challenges: ["Dynamic high-speed search engine", "Multi-layered payment gateway integration", "Full-stack e-commerce scalability and security"],
+      story: "The main challenge was integrating multiple payment gateways while keeping the search engine lightning fast. Designed a layered architecture using React Query and Redis to handle thousands of concurrent users."
     },
     selvaFrontend: {
       title: "Selva Nail Shop",
@@ -42,7 +45,8 @@ export const projectsKnowledge: Record<Lang, Record<string, ProjectDetails>> = {
       techStack: ["React", "Next.js", "TailwindCSS", "Directus CMS"],
       demo: "https://selva-nail-shop.vercel.app/",
       role: "Front-End Developer",
-      challenges: ["Synchronizing online bookings with in-store inventory", "Designing high-conversion checkout flows"]
+      challenges: ["Synchronizing online bookings with in-store inventory", "Designing high-conversion checkout flows"],
+      story: "Implemented a responsive frontend for Selva with real-time booking updates. Focused on high-conversion UX flows for seamless checkout and product browsing."
     },
     selvaBackend: {
       title: "Selva Nail Shop API",
@@ -50,7 +54,8 @@ export const projectsKnowledge: Record<Lang, Record<string, ProjectDetails>> = {
       techStack: ["Node.js", "Express", "MongoDB", "Swagger"],
       demo: "https://selva-server.vercel.app/api-docs/",
       role: "Backend Developer",
-      challenges: ["Implementing secure RESTful endpoints", "CRUD operations with role-based access", "Scalable architecture for growing e-commerce demands"]
+      challenges: ["Implementing secure RESTful endpoints", "CRUD operations with role-based access", "Scalable architecture for growing e-commerce demands"],
+      story: "Built REST APIs for Selva managing inventory, users, and admin tasks. Used JWT for secure access control and optimized MongoDB queries for fast operations."
     },
     hardNonaFrontend: {
       title: "Hard Nona",
@@ -58,7 +63,8 @@ export const projectsKnowledge: Record<Lang, Record<string, ProjectDetails>> = {
       techStack: ["Next.js", "React", "TailwindCSS", "Axios"],
       demo: "https://hardnona.vercel.app/",
       role: "Front-End Developer",
-      challenges: ["High-performance rendering for product galleries", "Dynamic content updates without affecting UX"]
+      challenges: ["High-performance rendering for product galleries", "Dynamic content updates without affecting UX"],
+      story: "Developed a highly interactive frontend with smooth product gallery rendering and dynamic updates, ensuring premium UX for luxury nail services."
     },
     hardNonaBackend: {
       title: "Hard Nona API",
@@ -66,7 +72,8 @@ export const projectsKnowledge: Record<Lang, Record<string, ProjectDetails>> = {
       techStack: ["Node.js", "Express", "MongoDB", "Swagger"],
       demo: "https://hardnona-backend.vercel.app/api-docs",
       role: "Backend Developer",
-      challenges: ["Designing high-performance APIs for luxury services", "Ensuring data security and scalability"]
+      challenges: ["Designing high-performance APIs for luxury services", "Ensuring data security and scalability"],
+      story: "Implemented secure and scalable backend for Hard Nona, handling bookings and inventory updates in real-time while maintaining luxury service standards."
     }
   },
   ar: {
@@ -76,7 +83,8 @@ export const projectsKnowledge: Record<Lang, Record<string, ProjectDetails>> = {
       techStack: ["Next.js 14", "React", "Redux Toolkit", "TailwindCSS", "Shadcn/UI", "Firebase", "Axios"],
       demo: "https://funzone-frontend.vercel.app/",
       role: "مطور واجهات أمامية رئيسي",
-      challenges: ["بناء لوحات تحكم متعددة الأدوار", "تحسين سرعة تحميل الصفحات (LCP & FID)", "تطبيق إشعارات لحظية ودعم ثنائي اللغة"]
+      challenges: ["بناء لوحات تحكم متعددة الأدوار", "تحسين سرعة تحميل الصفحات (LCP & FID)", "تطبيق إشعارات لحظية ودعم ثنائي اللغة"],
+      story: "واجهنا تحدي تصميم لوحات تحكم لكل دور مع الحفاظ على واجهة مستخدم موحدة. نفذت تحميل مكونات ديناميكي وتحسينات على React لضمان تجربة مستخدم سلسة وسرعة تحميل عالية."
     },
     funzoneBackend: {
       title: "FunZone API الخلفي",
@@ -84,7 +92,8 @@ export const projectsKnowledge: Record<Lang, Record<string, ProjectDetails>> = {
       techStack: ["Node.js", "TypeScript", "Express", "MongoDB", "Redis", "Swagger"],
       demo: "https://funzone-backend.vercel.app/api-docs/",
       role: "مطور خلفي رئيسي",
-      challenges: ["تصميم REST APIs قابلة للتوسع", "تطبيق نظام RBAC متعدد الأدوار", "تحسين أداء قاعدة البيانات للحمل العالي"]
+      challenges: ["تصميم REST APIs قابلة للتوسع", "تطبيق نظام RBAC متعدد الأدوار", "تحسين أداء قاعدة البيانات للحمل العالي"],
+      story: "تم تنفيذ REST APIs قابلة للتوسع مع نظام RBAC متعدد الأدوار. تحسين استعلامات MongoDB لدعم الحمل العالي مع دمج الإشعارات اللحظية وبرامج الولاء."
     },
     oura: {
       title: "ŌURA – منصة تجارة إلكترونية متكاملة",
@@ -92,7 +101,8 @@ export const projectsKnowledge: Record<Lang, Record<string, ProjectDetails>> = {
       techStack: ["Next.js 14", "TypeScript", "Node.js", "Express", "MongoDB", "Redis", "TailwindCSS", "Shadcn/UI", "React Query", "Zod", "React Hook Form"],
       demo: "https://oura-frontend.vercel.app/",
       role: "معماري فول ستاك أول",
-      challenges: ["محرك بحث ديناميكي سريع", "تكامل بوابات دفع متعددة", "أمان وقابلية توسع النظام"]
+      challenges: ["محرك بحث ديناميكي سريع", "تكامل بوابات دفع متعددة", "أمان وقابلية توسع النظام"],
+      story: "التحدي الرئيسي كان دمج بوابات دفع متعددة مع الحفاظ على سرعة البحث. صممت بنية طبقية باستخدام React Query وRedis لضمان التعامل مع آلاف المستخدمين بالتوازي."
     },
     selvaFrontend: {
       title: "Selva – متجر الأظافر",
@@ -100,7 +110,8 @@ export const projectsKnowledge: Record<Lang, Record<string, ProjectDetails>> = {
       techStack: ["React", "Next.js", "TailwindCSS", "Directus CMS"],
       demo: "https://selva-nail-shop.vercel.app/",
       role: "مطور واجهات أمامية",
-      challenges: ["مزامنة الحجوزات أونلاين مع المخزون الفعلي", "تصميم تجربة شراء سلسة عالية التحويل"]
+      challenges: ["مزامنة الحجوزات أونلاين مع المخزون الفعلي", "تصميم تجربة شراء سلسة عالية التحويل"],
+      story: "نفذت واجهة تفاعلية مع تحديث الحجوزات لحظيًا. ركزت على تجربة مستخدم سلسة لتحسين معدلات التحويل وتصفح المنتجات."
     },
     selvaBackend: {
       title: "Selva API",
@@ -108,7 +119,8 @@ export const projectsKnowledge: Record<Lang, Record<string, ProjectDetails>> = {
       techStack: ["Node.js", "Express", "MongoDB", "Swagger"],
       demo: "https://selva-server.vercel.app/api-docs/",
       role: "مطور خلفي",
-      challenges: ["إنشاء RESTful API آمنة", "إدارة CRUD مع تحكم بالدور", "تصميم معماري قابل للتوسع"]
+      challenges: ["إنشاء RESTful API آمنة", "إدارة CRUD مع تحكم بالدور", "تصميم معماري قابل للتوسع"],
+      story: "تم بناء REST APIs لإدارة المخزون والمستخدمين والمهام الإدارية. استخدمت JWT للتحكم الأمني وتحسين استعلامات MongoDB للأداء العالي."
     },
     hardNonaFrontend: {
       title: "Hard Nona",
@@ -116,7 +128,8 @@ export const projectsKnowledge: Record<Lang, Record<string, ProjectDetails>> = {
       techStack: ["Next.js", "React", "TailwindCSS", "Axios"],
       demo: "https://hardnona.vercel.app/",
       role: "مطور واجهات أمامية",
-      challenges: ["عرض منتجات بسرعة عالية دون التأثير على تجربة المستخدم", "تحديث المحتوى ديناميكيًا"]
+      challenges: ["عرض منتجات بسرعة عالية دون التأثير على تجربة المستخدم", "تحديث المحتوى ديناميكيًا"],
+      story: "تم تطوير واجهة تفاعلية مع عرض منتجات سلس وتحديثات ديناميكية لضمان تجربة مستخدم ممتازة لخدمات الأظافر الفاخرة."
     },
     hardNonaBackend: {
       title: "Hard Nona API",
@@ -124,10 +137,12 @@ export const projectsKnowledge: Record<Lang, Record<string, ProjectDetails>> = {
       techStack: ["Node.js", "Express", "MongoDB", "Swagger"],
       demo: "https://hardnona-backend.vercel.app/api-docs",
       role: "مطور خلفي",
-      challenges: ["تصميم API عالي الأداء", "ضمان أمان البيانات وقابلية التوسع"]
+      challenges: ["تصميم API عالي الأداء", "ضمان أمان البيانات وقابلية التوسع"],
+      story: "تم تنفيذ Backend آمن وقابل للتوسع لإدارة الحجوزات وتحديثات المخزون في الوقت الفعلي مع الحفاظ على جودة الخدمات الفاخرة."
     }
   }
 };
+
 
 
 export const skillsKnowledge: Record<Lang, any> = {
