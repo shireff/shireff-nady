@@ -33,16 +33,26 @@ export async function POST(request: Request) {
       '/state-comparisons',
     ];
 
-    // Combine all URLs
+    // List of personal images to index
+    const personalImages = [
+      '/personal/shireff-1.jpg',
+      '/personal/shireff-2.jpg',
+      '/personal/shireff-3.jpg',
+      '/personal/shireff-4.jpg',
+      '/personal/shireff-5.jpg',
+    ];
+
+    // Combine all URLs (pages, projects, and images)
     const urls = [
       ...staticPages.map(p => `${baseUrl}${p === '/' ? '' : p}`),
-      ...projects.map(p => `${baseUrl}/projects/${p.id}`)
+      ...projects.map(p => `${baseUrl}/projects/${p.id}`),
+      ...personalImages.map(img => `${baseUrl}${img}`)
     ];
 
     // Filter out duplicates and ensure valid URLs
     const uniqueUrls = Array.from(new Set(urls));
 
-    console.log(`Starting indexing for ${uniqueUrls.length} URLs...`);
+    console.log(`Starting indexing for ${uniqueUrls.length} URLs (including ${personalImages.length} images)...`);
     
     // Trigger bulk indexing
     const results = await indexAllPages(uniqueUrls);

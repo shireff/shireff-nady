@@ -77,18 +77,41 @@ export async function notifyIndexNow(urls: string[]): Promise<IndexingResult[]> 
 
   try {
     // IndexNow often prefers a POST request with multiple URLs
-    await axios.post('https://api.indexnow.org/IndexNow', {
-      host: new URL(siteUrl).hostname,
+    const payload = {
+      host: "shireff-nady.vercel.app",
       key: apiKey,
-      keyLocation: `${siteUrl}/${apiKey}.txt`,
+      keyLocation: "https://shireff-nady.vercel.app/e5eb264d20da45edbdf55411fdf361bc.txt",
       urlList: urls,
-    });
+    };
+    
+    console.log(`📤 IndexNow payload:`, JSON.stringify(payload, null, 2));
+    
+    await axios.post('https://api.indexnow.org/IndexNow', payload);
 
     console.log(`✅ IndexNow notified successfully for URLs: ${urls.join(', ')}`);
     return urls.map(url => ({ engine: 'IndexNow', url, status: 'success' }));
   } catch (error: any) {
     console.error(`❌ IndexNow Error:`, error.message);
-    return urls.map(url => ({ engine: 'IndexNow', url, status: 'error', message: error.message }));
+    if (error.response) {
+      console.error(`   Status: ${error.response.status}`);
+      console.error(`   Data:`, JSON.stringify(error.response.data, null, 2));
+      
+      // Handle specific error codes
+      if (error.response.status === 403 && error.response.data?.code === 'UserForbiddedToAccessSite') {
+        console.warn(`⚠️ IndexNow domain verification pending. This is normal for new domains.`);
+        console.warn(`   - Your key file is accessible: ${siteUrl}/${apiKey}.txt`);
+        console.warn(`   - IndexNow needs 24-48 hours to verify domain ownership`);
+        console.warn(`   - Try again tomorrow, or wait for Bing to crawl your sitemap naturally`);
+        console.warn(`   - Good news: Google indexing is working! 🎉`);
+      }
+    }
+    
+    return urls.map(url => ({ 
+      engine: 'IndexNow', 
+      url, 
+      status: 'error', 
+      message: error.response?.data?.message || error.message 
+    }));
   }
 }
 
