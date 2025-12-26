@@ -193,19 +193,44 @@ export default async function ProjectDetailsPage({ params }: { params: Promise<{
                 </div>
 
                 <div className="pt-8 space-y-4">
-                  {project.demo && (
+                  {project.demo ? (
                     <a href={project.demo} target="_blank" rel="noreferrer" className="block">
                       <Button className="w-full gap-3 py-6 rounded-2xl font-black italic shadow-xl shadow-blue-600/20" size="lg">
                         INSTANTIATE DEMO <ExternalLink size={20} />
                       </Button>
                     </a>
+                  ) : (
+                    <div className="glass-card border-amber-500/20 bg-amber-500/5 p-6 rounded-2xl">
+                      <div className="flex items-center gap-3">
+                        <div className="w-2 h-2 rounded-full bg-amber-500 shadow-[0_0_10px_rgba(245,158,11,0.5)]" />
+                        <p className="text-amber-400 font-bold uppercase tracking-widest text-xs">
+                          No Demo Available
+                        </p>
+                      </div>
+                      <p className="text-amber-300/60 text-sm mt-3 font-medium">
+                        This project doesn't have a live demo at the moment.
+                      </p>
+                    </div>
                   )}
-                  {project.git && (
+
+                  {project.git ? (
                     <a href={project.git} target="_blank" rel="noreferrer" className="block">
                       <Button variant="outline" className="w-full gap-3 py-6 rounded-2xl font-black italic border-white/10 hover:bg-white/5" size="lg">
                         SOURCE CODE <Github size={20} />
                       </Button>
                     </a>
+                  ) : (
+                    <div className="glass-card border-purple-500/20 bg-purple-500/5 p-6 rounded-2xl">
+                      <div className="flex items-center gap-3">
+                        <div className="w-2 h-2 rounded-full bg-purple-500 shadow-[0_0_10px_rgba(168,85,247,0.5)]" />
+                        <p className="text-purple-400 font-bold uppercase tracking-widest text-xs">
+                          Private Repository
+                        </p>
+                      </div>
+                      <p className="text-purple-300/60 text-sm mt-3 font-medium">
+                        This repo is private for a client.
+                      </p>
+                    </div>
                   )}
                 </div>
               </CardContent>
