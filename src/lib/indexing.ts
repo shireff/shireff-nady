@@ -36,7 +36,8 @@ export async function notifyGoogle(url: string, type: 'URL_UPDATED' | 'URL_DELET
       throw new Error('Google Indexing credentials not found.');
     }
 
-    const credentials = JSON.parse(credentialsJson);
+    const credentials = typeof credentialsJson === 'string' ? JSON.parse(credentialsJson) : credentialsJson;
+
     const auth = new google.auth.JWT({
       email: credentials.client_email,
       key: credentials.private_key.replace(/\\n/g, '\n'),
