@@ -5,6 +5,7 @@ import { Plus, X, Briefcase, Calendar, Terminal } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import { Experience } from '@/types';
 import { experienceService } from '@/services/experiences';
+import { indexingService } from '@/services/indexing';
 
 interface ExperienceFormProps {
   initialData?: Experience;
@@ -67,6 +68,15 @@ export default function ExperienceForm({ initialData, onSuccess, onCancel }: Exp
         result = await experienceService.create(formData);
         dispatch(addExperience(result as Experience));
       }
+
+      // Trigger indexing for the experiences page
+      try {
+        const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://shireff-nady.vercel.app';
+        indexingService.indexUrl(`${baseUrl}/experiences`).catch(console.error);
+      } catch (e) {
+        console.error('Failed to trigger indexing:', e);
+      }
+
       onSuccess(result as Experience);
     } catch (error) {
       console.error('Submit failed', error);

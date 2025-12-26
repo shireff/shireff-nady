@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Settings, Save, RotateCcw, CheckCircle, AlertCircle } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import { settingsService } from '@/services/settings';
+import { indexingService } from '@/services/indexing';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Settings, Save, RotateCcw, CheckCircle, AlertCircle, Search, Zap, Globe } from 'lucide-react';
 import ImageUpload from '@/components/ui/ImageUpload';
 
 const DEFAULT_HERO_IMAGE = "https://media.licdn.com/dms/image/v2/D4E03AQHI2emfkXdeXQ/profile-displayphoto-shrink_800_800/B4EZaI2FxCHMAc-/0/1746052604728?e=1767830400&v=beta&t=-l4A36ias3qpuV4uIKc7q7V1vcZqMwuIceuT8hkYwag";
@@ -13,7 +14,13 @@ export default function SettingsForm() {
   const [heroUrl, setHeroUrl] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const [isIndexing, setIsIndexing] = useState(false);
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [indexStatus, setIndexStatus] = useState<{
+    isLoading: boolean;
+    success?: boolean;
+    stats?: { total: number; successful: number; failed: number };
+  }>({ isLoading: false });
 
   // Image Upload Lifted States
   const [imageUpload, setImageUpload] = useState<File | null>(null);
@@ -77,6 +84,26 @@ export default function SettingsForm() {
 
   const handleReset = () => {
     setHeroUrl(DEFAULT_HERO_IMAGE);
+  };
+
+  const handleBulkIndexing = async () => {
+    setIndexStatus({ isLoading: true });
+    try {
+      const response = await indexingService.indexAllPages();
+      if (response.success) {
+        setIndexStatus({
+          isLoading: false,
+          success: true,
+          stats: response.stats
+        });
+        setTimeout(() => setIndexStatus({ isLoading: false }), 5000);
+      } else {
+        throw new Error(response.error);
+      }
+    } catch (error) {
+      console.error('Indexing failed', error);
+      setIndexStatus({ isLoading: false, success: false });
+    }
   };
 
   if (isLoading) {
@@ -189,6 +216,84 @@ export default function SettingsForm() {
           </Button>
 
         </form>
+      </div>
+
+      <div className="glass-card-premium p-8 md:p-12 space-y-10 border-white/5">
+        <div className="flex items-center gap-4 border-b border-white/10 pb-6">
+          <div className="p-3 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            <Globe size={24} />
+          </div>
+          <div>
+            <h2 className="text-2xl font-black italic uppercase tracking-tight">Search Indexing Strategy</h2>
+            <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest mt-1">Accelerate content discovery via Google & IndexNow APIs</p>
+          </div>
+        </div>
+
+        <div className="space-y-8">
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="p-6 rounded-2xl bg-white/5 border border-white/10 space-y-4">
+              <div className="flex items-center gap-2 text-blue-400">
+                <Search size={18} />
+                <h3 className="font-bold text-xs uppercase tracking-widest">Google Indexing</h3>
+              </div>
+              <p className="text-[11px] text-zinc-400 leading-relaxed">
+                Directly notifies Google when a page is updated or created. Ideal for portfolio updates and new case studies.
+              </p>
+            </div>
+            <div className="p-6 rounded-2xl bg-white/5 border border-white/10 space-y-4">
+              <div className="flex items-center gap-2 text-purple-400">
+                <Zap size={18} />
+                <h3 className="font-bold text-xs uppercase tracking-widest">IndexNow Pulse</h3>
+              </div>
+              <p className="text-[11px] text-zinc-400 leading-relaxed">
+                Instant notification to Bing, Yandex, and other search engines. Ensures your latest work is crawled immediately.
+              </p>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <Button
+              onClick={handleBulkIndexing}
+              isLoading={indexStatus.isLoading}
+              variant="outline"
+              className="w-full py-8 rounded-2xl font-black italic text-lg border-white/10 hover:bg-white/5 gap-3 group"
+            >
+              <Zap size={20} className="text-yellow-400 group-hover:scale-125 transition-transform" />
+              TRIGGER GLOBAL RE-INDEX
+            </Button>
+
+            <AnimatePresence>
+              {indexStatus.success && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-center"
+                >
+                  <p className="text-xs font-bold uppercase tracking-widest mb-1">Indexing Sequence Complete</p>
+                  <p className="text-[10px] font-medium opacity-80">
+                    Processed {indexStatus.stats?.total} URLs: {indexStatus.stats?.successful} Success, {indexStatus.stats?.failed} Errors.
+                  </p>
+                </motion.div>
+              )}
+              {indexStatus.success === false && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-center"
+                >
+                  <p className="text-xs font-bold uppercase tracking-widest">Protocol Failure</p>
+                  <p className="text-[10px] font-medium opacity-80">Check server logs and API credentials.</p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          <p className="text-[9px] text-zinc-600 font-bold uppercase tracking-[0.2em] text-center">
+            Note: Rate limits apply (Google: 200/day). Use sparingly.
+          </p>
+        </div>
       </div>
     </div>
   );

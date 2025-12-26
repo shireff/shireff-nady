@@ -6,6 +6,7 @@ import { Upload, X, Split } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import { StateComparison } from '@/types';
 import { comparisonService } from '@/services/comparisons';
+import { indexingService } from '@/services/indexing';
 import ImageUpload from '@/components/ui/ImageUpload';
 
 interface ComparisonFormProps {
@@ -70,6 +71,15 @@ export default function ComparisonForm({ initialData, onSuccess, onCancel }: Com
         result = await comparisonService.create(formData);
         dispatch(addComparison(result as StateComparison));
       }
+
+      // Trigger indexing for the state-comparisons page
+      try {
+        const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://shireff-nady.vercel.app';
+        indexingService.indexUrl(`${baseUrl}/state-comparisons`).catch(console.error);
+      } catch (e) {
+        console.error('Failed to trigger indexing:', e);
+      }
+
       onSuccess(result as StateComparison);
     } catch (error) {
       console.error('Submit failed', error);

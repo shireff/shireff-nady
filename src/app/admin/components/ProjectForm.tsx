@@ -6,6 +6,7 @@ import { Upload, X, Terminal, Link as LinkIcon, Github, Globe } from 'lucide-rea
 import Button from '@/components/ui/Button';
 import { Project } from '@/types';
 import { projectService } from '@/services/projects';
+import { indexingService } from '@/services/indexing';
 import ImageUpload from '@/components/ui/ImageUpload';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -124,6 +125,14 @@ export default function ProjectForm({ initialData, existingProjects = [], onSucc
         dispatch(updateProjectAction(result as Project));
       } else {
         dispatch(addProject(result as Project));
+      }
+
+      // Trigger search engine indexing for the new/updated project
+      try {
+        const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://shireff-nady.vercel.app';
+        indexingService.indexUrl(`${baseUrl}/projects/${result.id}`).catch(console.error);
+      } catch (e) {
+        console.error('Failed to trigger indexing:', e);
       }
 
       onSuccess(result as Project);
