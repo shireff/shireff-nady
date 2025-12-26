@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Button from '@/components/ui/Button';
 import { settingsService } from '@/services/settings';
 import { indexingService } from '@/services/indexing';
+import { revalidateHome } from '@/actions/revalidate';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Settings, Save, RotateCcw, CheckCircle, AlertCircle, Search, Zap, Globe } from 'lucide-react';
 import ImageUpload from '@/components/ui/ImageUpload';
@@ -40,12 +41,9 @@ export default function SettingsForm() {
     }
   }, [uploadImageUrl, isLoading]);
 
-
-
   useEffect(() => {
     fetchSettings();
   }, []);
-
 
   const fetchSettings = async () => {
     setIsLoading(true);
@@ -63,7 +61,6 @@ export default function SettingsForm() {
     }
   };
 
-
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!heroUrl.trim()) return;
@@ -72,6 +69,7 @@ export default function SettingsForm() {
     setStatus('idle');
     try {
       await settingsService.updateHomeImage(heroUrl);
+      await revalidateHome(); // Force revalidation of the home page
       setStatus('success');
       setTimeout(() => setStatus('idle'), 3000);
     } catch (error) {
@@ -94,7 +92,10 @@ export default function SettingsForm() {
       setUploadImageUrl(DEFAULT_HERO_IMAGE);
       setImageUpload(null);
 
-      // 3. Success Feedback
+      // 3. Force Revalidation
+      await revalidateHome();
+
+      // 4. Success Feedback
       setStatus('success');
       setTimeout(() => setStatus('idle'), 3000);
     } catch (error) {
@@ -106,22 +107,25 @@ export default function SettingsForm() {
   };
 
   const handleBulkIndexing = async () => {
-    setIndexStatus({ isLoading: true });
+    setIsIndexing(true);
+    setIndexStatus(prev => ({ ...prev, success: undefined })); // Reset status but keep structure
     try {
       const response = await indexingService.indexAllPages();
       if (response.success) {
         setIndexStatus({
-          isLoading: false,
+          isLoading: false, // Legacy support if needed
           success: true,
           stats: response.stats
         });
-        setTimeout(() => setIndexStatus({ isLoading: false }), 5000);
+        setTimeout(() => setIndexStatus(prev => ({ ...prev, success: undefined })), 5000);
       } else {
         throw new Error(response.error);
       }
     } catch (error) {
       console.error('Indexing failed', error);
       setIndexStatus({ isLoading: false, success: false });
+    } finally {
+      setIsIndexing(false);
     }
   };
 
@@ -273,7 +277,7 @@ export default function SettingsForm() {
           <div className="space-y-4">
             <Button
               onClick={handleBulkIndexing}
-              isLoading={indexStatus.isLoading}
+              isLoading={isIndexing}
               variant="outline"
               className="w-full py-8 rounded-2xl font-black italic text-lg border-white/10 hover:bg-white/5 gap-3 group"
             >
@@ -317,4 +321,3 @@ export default function SettingsForm() {
     </div>
   );
 }
-
