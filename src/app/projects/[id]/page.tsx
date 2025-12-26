@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import Script from 'next/script';
 import { notFound } from 'next/navigation';
 import { Github, ArrowLeft, Calendar, Tag, ExternalLink } from 'lucide-react';
@@ -110,7 +111,14 @@ export default async function ProjectDetailsPage({ params }: { params: Promise<{
       <section className="relative h-[70vh] min-h-[500px] flex items-end overflow-hidden">
         <div className="absolute inset-0 z-0">
           {project.img ? (
-            <img src={project.img} alt={project.title} className="w-full h-full object-cover" />
+            <Image
+              src={project.img}
+              alt={project.title}
+              fill
+              priority
+              className="object-cover"
+              sizes="100vw"
+            />
           ) : (
             <div className="w-full h-full bg-gradient-to-br from-blue-900 to-emerald-900" />
           )}

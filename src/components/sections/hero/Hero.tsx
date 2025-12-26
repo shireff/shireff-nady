@@ -1,27 +1,35 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ArrowRight, Rocket, Download } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import { siteConfig } from '@/config/site';
 
 interface HeroProps {
-    heroImage: string;
-    isImageLoading: boolean;
-    setIsImageLoading: (val: boolean) => void;
+    initialHeroImage: string;
     defaultHeroImage: string;
-    setHeroImage: (val: string) => void;
 }
 
 const Hero: React.FC<HeroProps> = ({
-    heroImage,
-    isImageLoading,
-    setIsImageLoading,
-    defaultHeroImage,
-    setHeroImage
+    initialHeroImage,
+    defaultHeroImage
 }) => {
+    // Internal state management for image fallback and loading
+    const [heroImage, setHeroImage] = useState<string>(initialHeroImage || defaultHeroImage);
+    const [isImageLoading, setIsImageLoading] = useState<boolean>(true);
+    const [hasError, setHasError] = useState<boolean>(false);
+
+    const handleImageError = () => {
+        if (!hasError) {
+            setHeroImage(defaultHeroImage);
+            setHasError(true);
+            setIsImageLoading(false);
+        }
+    };
+
     return (
         <section className="relative min-h-[90vh] flex items-center px-6 overflow-hidden">
             {/* Background Ambient Elements */}
@@ -66,6 +74,7 @@ const Hero: React.FC<HeroProps> = ({
                     </div>
 
                     <motion.div
+
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.3 }}
@@ -121,19 +130,16 @@ const Hero: React.FC<HeroProps> = ({
                                             </div>
                                         </div>
                                     )}
-                                    <motion.img
+                                    <Image
                                         key={heroImage}
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: isImageLoading ? 0 : 1 }}
-                                        transition={{ duration: 0.5 }}
                                         src={heroImage}
                                         alt={siteConfig.name}
+                                        fill
+                                        sizes="(max-width: 1024px) 100vw, 50vw"
+                                        priority
                                         onLoad={() => setIsImageLoading(false)}
-                                        onError={() => {
-                                            setHeroImage(defaultHeroImage);
-                                            setIsImageLoading(false);
-                                        }}
-                                        className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 scale-110 group-hover:scale-100"
+                                        onError={handleImageError}
+                                        className={`object-cover transition-all duration-700 scale-110 group-hover:scale-100 ${isImageLoading ? 'opacity-0' : 'opacity-100 grayscale hover:grayscale-0'}`}
                                     />
                                 </div>
                             </motion.div>

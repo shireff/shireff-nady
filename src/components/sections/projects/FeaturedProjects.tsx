@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ArrowRight, Github, ExternalLink } from 'lucide-react';
 import Button from '@/components/ui/Button';
@@ -44,10 +45,12 @@ const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ projects, isLoading
                                     <CardContent className="p-0">
                                         <div className="relative aspect-video overflow-hidden rounded-lg mb-6">
                                             {project.img ? (
-                                                <img
+                                                <Image
                                                     src={project.img}
                                                     alt={project.title}
-                                                    className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
+                                                    fill
+                                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                                    className="object-cover transition-transform duration-500 group-hover:scale-110"
                                                 />
                                             ) : (
                                                 <div className="w-full h-full bg-gradient-to-br from-blue-600/20 to-emerald-600/20 flex items-center justify-center p-6 text-center">

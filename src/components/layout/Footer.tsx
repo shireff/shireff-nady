@@ -14,14 +14,14 @@ export default function Footer() {
               Engineering high-performance digital systems with meticulous visual design and state-of-the-art architectures.
             </p>
             <div className="flex gap-4">
-              <a href="https://github.com/shireff" target='_blank' className="p-2 glass-card hover:bg-white/10 text-zinc-400 hover:text-white transition-all">
+              <a href="https://github.com/shireff" target='_blank' aria-label="GitHub Profile" className="p-2 glass-card hover:bg-white/10 text-zinc-400 hover:text-white transition-all">
                 <Github size={20} />
               </a>
-              <a href="https://www.linkedin.com/in/shireffnady/" target='_blank' className="p-2 glass-card hover:bg-white/10 text-zinc-400 hover:text-white transition-all">
+              <a href="https://www.linkedin.com/in/shireffnady/" target='_blank' aria-label="LinkedIn Profile" className="p-2 glass-card hover:bg-white/10 text-zinc-400 hover:text-white transition-all">
                 <Linkedin size={20} />
               </a>
 
-              <a href="mailto:shireffn369@gmail.com" target='_blank'
+              <a href="mailto:shireffn369@gmail.com" target='_blank' aria-label="Email Contact"
                 className="p-2 glass-card hover:bg-white/10 text-zinc-400 hover:text-white transition-all">
                 <Mail size={20} />
               </a>

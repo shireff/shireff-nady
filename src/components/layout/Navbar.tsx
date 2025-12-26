@@ -77,6 +77,7 @@ export default function Navbar() {
                 onClick={handleLogout}
                 className="text-zinc-400 hover:text-red-400 transition-colors"
                 title="Logout"
+                aria-label="Logout"
               >
                 <LogOut size={20} />
               </button>
@@ -90,7 +91,11 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Menu Button */}
-        <button className="md:hidden text-zinc-400" onClick={() => setIsOpen(!isOpen)}>
+        <button
+          className="md:hidden text-zinc-400"
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label={isOpen ? "Close menu" : "Open menu"}
+        >
           {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
