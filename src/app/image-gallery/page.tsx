@@ -3,52 +3,47 @@ import { Metadata } from 'next';
 import Script from 'next/script';
 import { siteConfig } from '@/config/site';
 
-// Configured Portfolio Images for Indexing
-const indexedImages = [
+// Personal images configuration
+const personalImages = [
     {
         url: '/personal/shireff-1.jpg',
         title: 'Shireff Nady - Professional Portfolio Photo 1',
-        description: 'Shireff Nady professional headshot and portfolio photo showcasing web development expertise.',
-        type: 'Portrait'
+        alt: 'Shireff Nady professional headshot and portfolio photo showcasing web development expertise',
     },
     {
         url: '/personal/shireff-2.jpg',
         title: 'Shireff Nady - Professional Portfolio Photo 2',
-        description: 'Shireff Nady software engineer and full-stack developer portrait.',
-        type: 'Professional'
+        alt: 'Shireff Nady software engineer and full-stack developer portrait',
     },
     {
         url: '/personal/shireff-3.jpg',
         title: 'Shireff Nady - Professional Portfolio Photo 3',
-        description: 'Shireff Nady web developer and software engineer professional photo.',
-        type: 'Candid'
+        alt: 'Shireff Nady web developer and software engineer professional photo',
     },
     {
         url: '/personal/shireff-4.jpg',
         title: 'Shireff Nady - Professional Portfolio Photo 4',
-        description: 'Shireff Nady full-stack developer and software architect portrait.',
-        type: 'Studio'
+        alt: 'Shireff Nady full-stack developer and software architect portrait',
     },
     {
         url: '/personal/shireff-5.jpg',
         title: 'Shireff Nady - Professional Portfolio Photo 5',
-        description: 'Shireff Nady professional developer and technology consultant photo.',
-        type: 'Workspace'
+        alt: 'Shireff Nady professional developer and technology consultant photo',
     },
 ];
 
+// SEO Metadata
 export const metadata: Metadata = {
-    title: `Digital Asset Index | ${siteConfig.name}`,
-    description: 'Verified digital portfolio assets and professional identity verification for Shireff Nady. Technical index of portfolio imagery.',
+    title: `Image Gallery | ${siteConfig.name}`,
+    description: 'Professional portfolio images and photography of Shireff Nady - Full-Stack Developer, Software Engineer, and Web Development Expert',
     openGraph: {
-        title: `Digital Asset Index | ${siteConfig.name}`,
-        description: 'Digital asset verification and portfolio index for Shireff Nady.',
-        images: indexedImages.map(img => ({
+        title: `Image Gallery | ${siteConfig.name}`,
+        description: 'Professional portfolio images and photography showcasing web development projects and expertise',
+        images: personalImages.map(img => ({
             url: `${siteConfig.url}${img.url}`,
-            alt: img.description,
+            alt: img.alt,
         })),
         url: `${siteConfig.url}/image-gallery`,
-        type: 'profile',
     },
     alternates: {
         canonical: `${siteConfig.url}/image-gallery`,
@@ -60,130 +55,132 @@ export const metadata: Metadata = {
             index: true,
             follow: true,
             'max-image-preview': 'large',
-            'max-snippet': -1,
         },
     },
 };
 
+/**
+ * Hidden Image Gallery Page
+ * 
+ * This page exists solely for SEO purposes to help Google Images index
+ * our personal portfolio photos. The images are hidden from users but
+ * remain in the DOM with proper semantic markup for search engines.
+ * 
+ * Why this works:
+ * - Images are in the DOM (crawlable)
+ * - Proper alt and title attributes (SEO)
+ * - Structured data for rich results
+ * - Included in sitemap
+ */
 export default function ImageGalleryPage() {
-    // Schema.org ImageGallery for Rich Results
+    // Structured data for images
     const imageSchema = {
         '@context': 'https://schema.org',
         '@type': 'ImageGallery',
-        name: 'Shireff Nady Portfolio Assets',
-        description: 'Collection of professional portfolio images for Shireff Nady.',
+        name: 'Shireff Nady Portfolio Image Gallery',
+        description: 'Professional portfolio images of Shireff Nady - Full-Stack Developer',
         url: `${siteConfig.url}/image-gallery`,
         author: {
             '@type': 'Person',
             name: siteConfig.author.name,
             url: siteConfig.url,
         },
-        image: indexedImages.map(img => ({
+        image: personalImages.map(img => ({
             '@type': 'ImageObject',
             url: `${siteConfig.url}${img.url}`,
             caption: img.title,
-            description: img.description,
+            description: img.alt,
             contentUrl: `${siteConfig.url}${img.url}`,
-            name: img.title
         })),
     };
 
     return (
-        <div className="min-h-screen bg-[#02040a] text-gray-300 font-mono p-8 md:p-12 relative overflow-hidden">
+        <>
+            {/* Structured Data for Google */}
             <Script
                 id="image-gallery-schema"
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(imageSchema) }}
             />
 
-            {/* Background Tech Elements */}
-            <div className="absolute top-0 right-0 p-8 opacity-20 pointer-events-none select-none">
-                <div className="border border-green-500/30 w-32 h-32 rounded-full border-dashed animate-spin-slow"></div>
-            </div>
+            {/* Hidden SEO-optimized images */}
+            <div
+                className="sr-only"
+                aria-hidden="true"
+                style={{
+                    position: 'absolute',
+                    width: '1px',
+                    height: '1px',
+                    padding: 0,
+                    margin: '-1px',
+                    overflow: 'hidden',
+                    clip: 'rect(0, 0, 0, 0)',
+                    whiteSpace: 'nowrap',
+                    border: 0,
+                }}
+            >
+                <h1>Shireff Nady Professional Portfolio Images</h1>
+                <p>
+                    Professional photography and portfolio images of Shireff Nady, showcasing
+                    expertise in full-stack web development, software engineering, and modern
+                    web technologies.
+                </p>
 
-            <div className="max-w-4xl mx-auto space-y-12 relative z-10">
+                {personalImages.map((image, index) => (
+                    <figure key={image.url}>
+                        <img
+                            src={image.url}
+                            alt={image.alt}
+                            title={image.title}
+                            loading="lazy"
+                            width={1200}
+                            height={1200}
+                            itemProp="image"
+                        />
+                        <figcaption>{image.title}</figcaption>
+                    </figure>
+                ))}
 
-                {/* Header: High Quality Content for Page Relevance */}
-                <header className="space-y-4 border-b border-gray-800 pb-8">
-                    <div className="inline-flex items-center space-x-2 text-green-500/80 mb-2">
-                        <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                        <span className="text-xs tracking-widest uppercase">System Online</span>
-                    </div>
-                    <h1 className="text-3xl md:text-5xl font-bold text-white tracking-tight">
-                        Digital Identity Verification
-                    </h1>
-                    <p className="text-lg text-gray-400 max-w-2xl leading-relaxed">
-                        This repository serves as the authoritative source for the digital presence of <strong className="text-white">Shireff Nady</strong>.
-                        It contains verified metadata and asset references used by search engines for entity resolution and portfolio indexing.
+                {/* Additional semantic context for search engines */}
+                <article itemScope itemType="https://schema.org/Person">
+                    <h2 itemProp="name">Shireff Nady</h2>
+                    <p itemProp="description">
+                        Full-Stack Developer specializing in Next.js, React, Node.js, and modern
+                        web technologies. Professional portfolio showcasing cutting-edge web
+                        development projects and expertise.
                     </p>
-                </header>
-
-                {/* Main Content: Detailed Professional Profile (For 'Page Quality') */}
-                <section className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    <div className="space-y-6">
-                        <h2 className="text-xl font-semibold text-white/90 border-l-2 border-blue-500 pl-4">Professional Abstract</h2>
-                        <p className="leading-relaxed">
-                            Shireff Nady is a distinguished <strong>Full-Stack Engineer</strong> and <strong>Web Architect</strong> specializing in high-performance React and Next.js ecosystems.
-                            With deep expertise in modern frontend delivery, he builds enterprise-grade applications that prioritize speed, accessibility, and visual fidelity.
-                        </p>
-                        <p className="leading-relaxed">
-                            This verification page confirms the authenticity of his portfolio assets across the web, ensuring that all indexed imagery correctly attributes to his professional profile.
-                        </p>
-                    </div>
-
-                    <div className="bg-white/5 border border-white/10 rounded-lg p-6 space-y-4">
-                        <h2 className="text-sm font-bold text-gray-500 uppercase tracking-wider">Asset Registry Status</h2>
-                        <div className="space-y-3">
-                            {indexedImages.map((img, idx) => (
-                                <div key={idx} className="flex items-center justify-between text-sm py-2 border-b border-white/5 last:border-0">
-                                    <span className="text-blue-400 truncate max-w-[200px]">{img.url.split('/').pop()}</span>
-                                    <span className="flex items-center space-x-2">
-                                        <span className="text-xs text-gray-500">{img.type}</span>
-                                        <span className="text-green-500 text-xs px-2 py-0.5 bg-green-500/10 rounded">Indexed</span>
-                                    </span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-
-                {/* Technical Crawler Area: The Actual Images (Hidden from User View) */}
-                <div
-                    aria-hidden="true"
-                    style={{
-                        position: 'absolute',
-                        width: '1px',
-                        height: '1px',
-                        padding: 0,
-                        margin: '-1px',
-                        overflow: 'hidden',
-                        clip: 'rect(0, 0, 0, 0)',
-                        whiteSpace: 'nowrap',
-                        border: 0,
-                        opacity: 0.01 // Ensures rendering but invisible
-                    }}
-                >
-                    <h3>Crawled Assets</h3>
-                    {indexedImages.map((image) => (
-                        <div key={image.url}>
-                            <img
-                                src={image.url}
-                                alt={image.description}
-                                title={image.title}
-                                width={1200}
-                                height={1200}
-                                loading="eager" // Force load for bot
-                            />
-                            <p>{image.description}</p>
-                        </div>
-                    ))}
-                </div>
-
-                <footer className="pt-12 text-xs text-gray-600 font-mono">
-                    <p>UUID: {siteConfig.url}-GALLERY-INDEX</p>
-                    <p>Generated: {new Date().toISOString()}</p>
-                </footer>
+                    <meta itemProp="url" content={siteConfig.url} />
+                </article>
             </div>
-        </div>
+
+            {/* Visible content for users who somehow land here */}
+            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-gray-900 to-black overflow-hidden relative">
+                {/* Background Blobs for depth */}
+                <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/30 rounded-full blur-[128px] pointer-events-none" />
+                <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600/30 rounded-full blur-[128px] pointer-events-none" />
+
+                <div className="relative z-10 p-12 max-w-2xl mx-auto text-center space-y-8 bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl">
+                    <div className="space-y-2">
+                        <h1 className="text-5xl md:text-6xl font-black italic text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 drop-shadow-lg">
+                            Nothing to See Here
+                        </h1>
+                        <div className="h-1 w-32 mx-auto bg-gradient-to-r from-blue-500 to-purple-500 rounded-full" />
+                    </div>
+
+                    <p className="text-lg md:text-xl text-gray-300 leading-relaxed font-light">
+                        This page exists for <span className="text-blue-400 font-medium">search engine optimization</span> purposes.
+                        Please visit the main site to view the portfolio.
+                    </p>
+
+                    <a
+                        href="/"
+                        className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl transition-all duration-300 border border-white/10 hover:border-white/20 hover:scale-105 active:scale-95 overflow-hidden"
+                    >
+                        <span className="relative z-10">Go to Homepage</span>
+                        <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </a>
+                </div>
+            </div>
+        </>
     );
 }
