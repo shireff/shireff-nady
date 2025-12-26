@@ -82,8 +82,27 @@ export default function SettingsForm() {
     }
   };
 
-  const handleReset = () => {
-    setHeroUrl(DEFAULT_HERO_IMAGE);
+  const handleReset = async () => {
+    setIsSaving(true);
+    setStatus('idle');
+    try {
+      // 1. Reset Backend
+      await settingsService.updateHomeImage(DEFAULT_HERO_IMAGE);
+
+      // 2. Reset Local State
+      setHeroUrl(DEFAULT_HERO_IMAGE);
+      setUploadImageUrl(DEFAULT_HERO_IMAGE);
+      setImageUpload(null);
+
+      // 3. Success Feedback
+      setStatus('success');
+      setTimeout(() => setStatus('idle'), 3000);
+    } catch (error) {
+      console.error('Reset failed', error);
+      setStatus('error');
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   const handleBulkIndexing = async () => {
