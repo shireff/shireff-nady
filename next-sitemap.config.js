@@ -29,6 +29,10 @@ module.exports = {
         priority: 0.9,
         changefreq: 'weekly',
       },
+      '/image-gallery': {
+        priority: 0.85,
+        changefreq: 'weekly',
+      },
       '/experiences': {
         priority: 0.8,
         changefreq: 'monthly',

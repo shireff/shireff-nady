@@ -31,6 +31,7 @@ export async function POST(request: Request) {
       '/experiences',
       '/contact',
       '/state-comparisons',
+      '/image-gallery',
     ];
 
     // List of personal images to index
