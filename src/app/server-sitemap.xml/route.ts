@@ -89,6 +89,14 @@ export async function GET(request: Request) {
       changefreq: 'monthly',
       priority: 0.7,
     },
+    // --- Image Gallery Page (Hidden but Indexed) ---
+    {
+      loc: `${baseUrl}/image-gallery`,
+      lastmod: new Date().toISOString(),
+      changefreq: 'weekly',
+      priority: 0.8,
+      images: personalImages,
+    },
   ];
 
   // --- Dynamic Project Pages with Validated Images ---

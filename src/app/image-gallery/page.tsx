@@ -154,20 +154,30 @@ export default function ImageGalleryPage() {
             </div>
 
             {/* Visible content for users who somehow land here */}
-            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-black">
-                <div className="text-center space-y-8 px-6">
-                    <h1 className="text-6xl font-black italic text-white">
-                        Nothing to See Here
-                    </h1>
-                    <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-                        This page exists for search engine optimization purposes. Please visit
-                        the main site to view the portfolio.
+            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-gray-900 to-black overflow-hidden relative">
+                {/* Background Blobs for depth */}
+                <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/30 rounded-full blur-[128px] pointer-events-none" />
+                <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600/30 rounded-full blur-[128px] pointer-events-none" />
+
+                <div className="relative z-10 p-12 max-w-2xl mx-auto text-center space-y-8 bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl">
+                    <div className="space-y-2">
+                        <h1 className="text-5xl md:text-6xl font-black italic text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 drop-shadow-lg">
+                            Nothing to See Here
+                        </h1>
+                        <div className="h-1 w-32 mx-auto bg-gradient-to-r from-blue-500 to-purple-500 rounded-full" />
+                    </div>
+
+                    <p className="text-lg md:text-xl text-gray-300 leading-relaxed font-light">
+                        This page exists for <span className="text-blue-400 font-medium">search engine optimization</span> purposes.
+                        Please visit the main site to view the portfolio.
                     </p>
+
                     <a
                         href="/"
-                        className="inline-block px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition-all shadow-lg shadow-blue-600/50"
+                        className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl transition-all duration-300 border border-white/10 hover:border-white/20 hover:scale-105 active:scale-95 overflow-hidden"
                     >
-                        Go to Homepage
+                        <span className="relative z-10">Go to Homepage</span>
+                        <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </a>
                 </div>
             </div>
