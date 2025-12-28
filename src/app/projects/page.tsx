@@ -8,7 +8,7 @@ import { Metadata } from 'next';
 import { siteConfig } from '@/config/site';
 
 // Use ISR (Incremental Static Regeneration) to balance performance and freshness
-export const revalidate = 3600; // Revalidate every hour
+export const revalidate = 60; // Revalidate every minute
 
 export const metadata: Metadata = {
   title: `Projects | ${siteConfig.name} - Portfolio`,
@@ -23,9 +23,11 @@ export default async function ProjectsPage() {
 
   try {
     // Server-side fetch: Content available immediately in initial HTML
+    console.log(`[ProjectsPage] Fetching all projects from ${process.env.NEXT_PUBLIC_API_URL || 'default endpoint'}...`);
     projects = await projectService.getAll();
+    console.log(`[ProjectsPage] Fetched ${projects.length} projects.`);
   } catch (error) {
-    console.error("Failed to fetch projects on server:", error);
+    console.error(`[ProjectsPage] Failed to fetch projects on server (API: ${process.env.NEXT_PUBLIC_API_URL}):`, error);
   }
 
   const collectionSchema = {

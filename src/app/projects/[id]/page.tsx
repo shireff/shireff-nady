@@ -12,7 +12,7 @@ import Link from 'next/link';
 import { siteConfig } from '@/config/site';
 
 // Use ISR (Incremental Static Regeneration)
-export const revalidate = 3600; // Revalidate every hour
+export const revalidate = 60; // Revalidate every minute instead of every hour
 
 // Pre-render existing projects at build time
 export async function generateStaticParams() {
@@ -68,9 +68,11 @@ export default async function ProjectDetailsPage({ params }: { params: Promise<{
   let project = null;
 
   try {
+    console.log(`[ProjectDetail] Fetching project ${id} from provider...`);
     project = await projectService.getById(id);
+    console.log(`[ProjectDetail] Successfully fetched project: ${project?.title}`);
   } catch (error) {
-    console.error(`Failed to fetch project ${id}:`, error);
+    console.error(`[ProjectDetail] Failed to fetch project ${id} from ${process.env.NEXT_PUBLIC_API_URL || 'LOCALHOST'}:`, error);
   }
 
   if (!project) {
