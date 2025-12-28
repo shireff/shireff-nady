@@ -9,6 +9,7 @@ import EmptyState from "@/components/ui/EmptyState";
 import { Project } from "@/types";
 import Link from "next/link";
 import Script from "next/script";
+import { normalizeCategory, getUniqueCategories } from "@/lib/utils";
 
 interface ProjectListProps {
     initialProjects: Project[];
@@ -44,11 +45,7 @@ export default function ProjectList({ initialProjects }: ProjectListProps) {
     useEffect(() => {
         const sourceData = projects.length > 0 ? projects : initialProjects;
 
-        const cats = Array.from(
-            new Set(sourceData.map((p) => p.category))
-        )
-            .filter((c): c is string => !!c)
-            .sort();
+        const cats = getUniqueCategories(sourceData);
         setDynamicCategories(["All", ...cats]);
 
         const tags = Array.from(
@@ -60,7 +57,7 @@ export default function ProjectList({ initialProjects }: ProjectListProps) {
     const activeData = projects.length > 0 ? projects : initialProjects;
 
     const filteredProjects = activeData.filter((project) => {
-        if (selectedCategory !== "All" && project.category !== selectedCategory) return false;
+        if (selectedCategory !== "All" && normalizeCategory(project.category) !== selectedCategory) return false;
         if (searchTerm && !project.title.toLowerCase().includes(searchTerm.toLowerCase()) && !project.desc.toLowerCase().includes(searchTerm.toLowerCase())) return false;
         if (selectedTag && !project.tags?.includes(selectedTag)) return false;
         return true;

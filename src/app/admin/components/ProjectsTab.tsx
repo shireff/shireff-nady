@@ -4,6 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Edit, Trash2 } from 'lucide-react';
 import { Project } from '@/types';
+import { normalizeCategory, getUniqueCategories } from "@/lib/utils";
 
 interface ProjectsTabProps {
     projects: Project[];
@@ -20,11 +21,11 @@ const ProjectsTab: React.FC<ProjectsTabProps> = ({ projects, onEdit, onDelete })
     const filteredProjects = projects.filter((proj) => {
         const matchesSearch = proj.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
             proj.desc.toLowerCase().includes(searchQuery.toLowerCase());
-        const matchesCategory = category === 'all' || proj.category === category;
+        const matchesCategory = category === 'all' || normalizeCategory(proj.category) === category;
         return matchesSearch && matchesCategory;
     });
 
-    const categories = Array.from(new Set(projects.map(p => p.category)));
+    const categories = getUniqueCategories(projects);
 
     return (
         <div className="space-y-6">
@@ -63,7 +64,7 @@ const ProjectsTab: React.FC<ProjectsTabProps> = ({ projects, onEdit, onDelete })
                                     </div>
                                 </td>
                                 <td className="px-8 py-6">
-                                    <span className="text-[10px] font-black uppercase tracking-widest text-zinc-400 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5">{proj.category}</span>
+                                    <span className="text-[10px] font-black uppercase tracking-widest text-zinc-400 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5">{normalizeCategory(proj.category)}</span>
                                 </td>
                                 <td className="px-8 py-6">
                                     {proj.isFeatured ? (

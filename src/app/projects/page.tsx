@@ -23,9 +23,7 @@ export default async function ProjectsPage() {
 
   try {
     // Server-side fetch: Content available immediately in initial HTML
-    console.log(`[ProjectsPage] Fetching all projects from ${process.env.NEXT_PUBLIC_API_URL || 'default endpoint'}...`);
     projects = await projectService.getAll();
-    console.log(`[ProjectsPage] Fetched ${projects.length} projects.`);
   } catch (error) {
     console.error(`[ProjectsPage] Failed to fetch projects on server (API: ${process.env.NEXT_PUBLIC_API_URL}):`, error);
   }

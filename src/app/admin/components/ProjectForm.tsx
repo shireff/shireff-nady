@@ -9,6 +9,7 @@ import { projectService } from '@/services/projects';
 import { indexingService } from '@/services/indexing';
 import ImageUpload from '@/components/ui/ImageUpload';
 import { motion, AnimatePresence } from 'framer-motion';
+import { normalizeCategory, getUniqueCategories } from "@/lib/utils";
 
 
 
@@ -30,11 +31,11 @@ export default function ProjectForm({ initialData, existingProjects = [], onSucc
   const dispatch = useAppDispatch();
   // Extract unique tags and categories from existing projects
   const uniqueTags = Array.from(new Set(existingProjects.flatMap(p => p.tags || []))).sort();
-  const uniqueCategories = Array.from(new Set(existingProjects.map(p => p.category))).filter((c): c is string => !!c).sort();
+  const uniqueCategories = getUniqueCategories(existingProjects);
 
   // Hardcoded defaults to ensure we always have some base options
-  const defaultCategories = ['Next', 'Node', 'React', 'UI', 'Mobile'];
-  const categories = Array.from(new Set([...defaultCategories, ...uniqueCategories]));
+  const defaultCategories = ['Next.js', 'Node.js', 'React', 'UI/UX', 'Mobile'];
+  const categories = Array.from(new Set([...defaultCategories, ...uniqueCategories])).sort();
 
   const [formData, setFormData] = useState<Partial<Project>>({
     title: initialData?.title || '',
@@ -187,7 +188,10 @@ export default function ProjectForm({ initialData, existingProjects = [], onSucc
               placeholder="Enter custom category name..."
               autoFocus
               onBlur={(e) => {
-                if (e.target.value) setFormData(prev => ({ ...prev, category: e.target.value }));
+                if (e.target.value) {
+                  const normalized = normalizeCategory(e.target.value);
+                  setFormData(prev => ({ ...prev, category: normalized }));
+                }
                 else setFormData(prev => ({ ...prev, category: 'React' }));
               }}
             />
