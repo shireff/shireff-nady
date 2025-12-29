@@ -1,10 +1,15 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, createEntityAdapter, EntityState } from '@reduxjs/toolkit';
 import { Project, Experience, StateComparison } from '@/types';
+import { RootState } from '../index';
+
+const projectsAdapter = createEntityAdapter<Project>();
+const experiencesAdapter = createEntityAdapter<Experience>();
+const comparisonsAdapter = createEntityAdapter<StateComparison>();
 
 interface DataState {
-  projects: Project[];
-  experiences: Experience[];
-  comparisons: StateComparison[];
+  projects: EntityState<Project, string>;
+  experiences: EntityState<Experience, string>;
+  comparisons: EntityState<StateComparison, string>;
   lastUpdated: {
     projects: string | null;
     experiences: string | null;
@@ -18,9 +23,9 @@ interface DataState {
 }
 
 const initialState: DataState = {
-  projects: [],
-  experiences: [],
-  comparisons: [],
+  projects: projectsAdapter.getInitialState(),
+  experiences: experiencesAdapter.getInitialState(),
+  comparisons: comparisonsAdapter.getInitialState(),
   lastUpdated: {
     projects: null,
     experiences: null,
@@ -38,17 +43,17 @@ const dataSlice = createSlice({
   initialState,
   reducers: {
     setProjects: (state, action: PayloadAction<Project[]>) => {
-      state.projects = action.payload;
+      projectsAdapter.setAll(state.projects, action.payload);
       state.lastUpdated.projects = new Date().toISOString();
       state.isLoading.projects = false;
     },
     setExperiences: (state, action: PayloadAction<Experience[]>) => {
-      state.experiences = action.payload;
+      experiencesAdapter.setAll(state.experiences, action.payload);
       state.lastUpdated.experiences = new Date().toISOString();
       state.isLoading.experiences = false;
     },
     setComparisons: (state, action: PayloadAction<StateComparison[]>) => {
-      state.comparisons = action.payload;
+      comparisonsAdapter.setAll(state.comparisons, action.payload);
       state.lastUpdated.comparisons = new Date().toISOString();
       state.isLoading.comparisons = false;
     },
@@ -56,40 +61,40 @@ const dataSlice = createSlice({
       state.isLoading[action.payload.type] = action.payload.loading;
     },
     addProject: (state, action: PayloadAction<Project>) => {
-      state.projects.unshift(action.payload);
+      projectsAdapter.addOne(state.projects, action.payload);
     },
     updateProject: (state, action: PayloadAction<Project>) => {
-      const index = state.projects.findIndex(p => p.id === action.payload.id);
-      if (index !== -1) {
-        state.projects[index] = action.payload;
-      }
+      projectsAdapter.updateOne(state.projects, {
+        id: action.payload.id,
+        changes: action.payload
+      });
     },
     deleteProject: (state, action: PayloadAction<string>) => {
-      state.projects = state.projects.filter(p => p.id !== action.payload);
+      projectsAdapter.removeOne(state.projects, action.payload);
     },
     addExperience: (state, action: PayloadAction<Experience>) => {
-      state.experiences.unshift(action.payload);
+      experiencesAdapter.addOne(state.experiences, action.payload);
     },
     updateExperience: (state, action: PayloadAction<Experience>) => {
-      const index = state.experiences.findIndex(e => e.id === action.payload.id);
-      if (index !== -1) {
-        state.experiences[index] = action.payload;
-      }
+      experiencesAdapter.updateOne(state.experiences, {
+        id: action.payload.id,
+        changes: action.payload
+      });
     },
     deleteExperience: (state, action: PayloadAction<string>) => {
-      state.experiences = state.experiences.filter(e => e.id !== action.payload);
+      experiencesAdapter.removeOne(state.experiences, action.payload);
     },
     addComparison: (state, action: PayloadAction<StateComparison>) => {
-      state.comparisons.unshift(action.payload);
+      comparisonsAdapter.addOne(state.comparisons, action.payload);
     },
     updateComparison: (state, action: PayloadAction<StateComparison>) => {
-      const index = state.comparisons.findIndex(c => c.id === action.payload.id);
-      if (index !== -1) {
-        state.comparisons[index] = action.payload;
-      }
+      comparisonsAdapter.updateOne(state.comparisons, {
+        id: action.payload.id,
+        changes: action.payload
+      });
     },
     deleteComparison: (state, action: PayloadAction<string>) => {
-      state.comparisons = state.comparisons.filter(c => c.id !== action.payload);
+      comparisonsAdapter.removeOne(state.comparisons, action.payload);
     },
   },
 });
@@ -109,5 +114,21 @@ export const {
   updateComparison,
   deleteComparison
 } = dataSlice.actions;
+
+// Selectors
+export const {
+  selectAll: selectAllProjects,
+  selectById: selectProjectById,
+} = projectsAdapter.getSelectors((state: RootState) => state.data.projects);
+
+export const {
+  selectAll: selectAllExperiences,
+  selectById: selectExperienceById,
+} = experiencesAdapter.getSelectors((state: RootState) => state.data.experiences);
+
+export const {
+  selectAll: selectAllComparisons,
+  selectById: selectComparisonById,
+} = comparisonsAdapter.getSelectors((state: RootState) => state.data.comparisons);
 
 export default dataSlice.reducer;

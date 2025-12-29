@@ -1,4 +1,5 @@
 import React from 'react';
+import ProjectDetailHero from '@/components/features/projects/ProjectDetailHero';
 import Image from 'next/image';
 import Script from 'next/script';
 import { notFound } from 'next/navigation';
@@ -108,24 +109,15 @@ export default async function ProjectDetailsPage({ params }: { params: Promise<{
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(projectSchema) }}
       />
-
       {/* Hero Header */}
       <section className="relative h-[70vh] min-h-[500px] flex items-end overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          {project.img ? (
-            <Image
-              src={project.img}
-              alt={project.title}
-              fill
-              priority
-              className="object-cover"
-              sizes="100vw"
-            />
-          ) : (
-            <div className="w-full h-full bg-gradient-to-br from-blue-900 to-emerald-900" />
-          )}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/60 to-transparent" />
-        </div>
+        {project.img ? (
+          <ProjectDetailHero src={project.img} alt={project.title} />
+        ) : (
+          <div className="absolute inset-0 z-0 bg-gradient-to-br from-blue-900 to-emerald-900">
+            <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/60 to-transparent" />
+          </div>
+        )}
 
         <div className="max-w-7xl mx-auto px-6 w-full relative z-10 pb-16">
           <Link href="/projects">

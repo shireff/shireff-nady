@@ -57,3 +57,12 @@ export interface AuthResponse {
     role: string;
   };
 }
+
+export enum EntityType {
+  PROJECTS = 'projects',
+  EXPERIENCES = 'experiences',
+  COMPARISONS = 'comparisons',
+  SETTINGS = 'settings'
+}
+
+export type Entity = Project | Experience | StateComparison;

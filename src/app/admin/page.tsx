@@ -33,6 +33,7 @@ type Tab = 'overview' | 'projects' | 'experiences' | 'comparisons' | 'settings';
 // Redux
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setActiveTab } from "@/store/slices/adminSlice";
+import { selectAllProjects, selectAllExperiences, selectAllComparisons } from "@/store/slices/dataSlice";
 
 // Hooks
 import { useDashboardData } from '@/hooks/useDashboardData';
@@ -41,7 +42,11 @@ export default function AdminDashboard() {
   const dispatch = useAppDispatch();
   const { fetchData, deleteItem } = useDashboardData();
   const activeTab = useAppSelector((state) => state.admin.activeTab);
-  const { projects, experiences, comparisons, isLoading: dataLoading } = useAppSelector((state) => state.data);
+
+  const projects = useAppSelector(selectAllProjects);
+  const experiences = useAppSelector(selectAllExperiences);
+  const comparisons = useAppSelector(selectAllComparisons);
+  const dataLoading = useAppSelector((state) => state.data.isLoading);
   const isLoading = dataLoading.projects || dataLoading.experiences || dataLoading.comparisons;
 
   const [modalState, setModalState] = useState<{
@@ -59,12 +64,8 @@ export default function AdminDashboard() {
   const router = useRouter();
 
   useEffect(() => {
-    if (!authService.isAuthenticated()) {
-      router.push('/admin/login');
-      return;
-    }
     fetchData();
-  }, [router]);
+  }, [fetchData]);
 
   const handleDelete = async () => {
     const { id, type } = deleteState;

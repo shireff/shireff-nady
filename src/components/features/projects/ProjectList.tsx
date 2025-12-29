@@ -17,7 +17,7 @@ interface ProjectListProps {
 
 // Redux
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { setProjects } from "@/store/slices/dataSlice";
+import { setProjects, selectAllProjects } from "@/store/slices/dataSlice";
 
 // Modules
 import ProjectFilters from "./ProjectFilters";
@@ -25,7 +25,7 @@ import ProjectCard from "./ProjectCard";
 
 export default function ProjectList({ initialProjects }: ProjectListProps) {
     const dispatch = useAppDispatch();
-    const { projects } = useAppSelector((state) => state.data);
+    const projects = useAppSelector(selectAllProjects);
 
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("All");

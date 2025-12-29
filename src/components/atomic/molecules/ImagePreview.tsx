@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { X as XIcon } from 'lucide-react';
+import Image from 'next/image';
 
 interface ImagePreviewProps {
     url: string;
@@ -11,7 +12,13 @@ interface ImagePreviewProps {
 const ImagePreview: React.FC<ImagePreviewProps> = ({ url, onRemove }) => {
     return (
         <div className="relative aspect-video rounded-xl overflow-hidden border border-white/10 shadow-xl group/preview">
-            <img src={url} alt="Preview" className="w-full h-full object-cover transition-all duration-700 group-hover/preview:scale-105" />
+            <Image
+                src={url}
+                alt="Preview"
+                fill
+                sizes="(max-width: 768px) 100vw, 300px"
+                className="object-cover transition-all duration-700 group-hover/preview:scale-105"
+            />
             <div className="absolute inset-0 bg-black/80 opacity-0 group-hover/preview:opacity-100 transition-all duration-300 flex items-center justify-center flex-col gap-3">
                 <button
                     type="button"

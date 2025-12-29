@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Edit, Trash2 } from 'lucide-react';
+import Image from 'next/image';
 import { Project } from '@/types';
 import { normalizeCategory, getUniqueCategories } from "@/lib/utils";
 
@@ -14,6 +15,28 @@ interface ProjectsTabProps {
 
 import AdminFilterBar from './AdminFilterBar';
 import { useAppSelector } from '@/store/hooks';
+import { useState } from 'react';
+
+const ImageWithLoader: React.FC<{ src: string, alt: string }> = ({ src, alt }) => {
+    const [isLoading, setIsLoading] = useState(true);
+    return (
+        <div className="w-full h-full relative">
+            {isLoading && (
+                <div className="absolute inset-0 z-10 bg-zinc-800 animate-pulse flex items-center justify-center">
+                    <div className="w-4 h-4 border-2 border-blue-500/20 border-t-blue-500 rounded-full animate-spin" />
+                </div>
+            )}
+            <Image
+                src={src}
+                alt={alt}
+                fill
+                sizes="56px"
+                className={`object-cover transition-all duration-500 ${isLoading ? 'opacity-0 scale-110' : 'opacity-100 scale-100'}`}
+                onLoad={() => setIsLoading(false)}
+            />
+        </div>
+    );
+};
 
 const ProjectsTab: React.FC<ProjectsTabProps> = ({ projects, onEdit, onDelete }) => {
     const { searchQuery, category } = useAppSelector((state) => state.admin.filters);
@@ -50,9 +73,9 @@ const ProjectsTab: React.FC<ProjectsTabProps> = ({ projects, onEdit, onDelete })
                             <tr key={proj.id} className="hover:bg-white/[0.02] transition-colors group">
                                 <td className="px-8 py-6">
                                     <div className="flex items-center gap-4">
-                                        <div className="w-14 h-14 rounded-xl overflow-hidden border border-white/10 shadow-lg">
+                                        <div className="w-14 h-14 rounded-xl overflow-hidden border border-white/10 shadow-lg relative">
                                             {proj.img ? (
-                                                <img src={proj.img} alt="" className="w-full h-full object-cover transition-transform group-hover:scale-110" />
+                                                <ImageWithLoader src={proj.img} alt={proj.title} />
                                             ) : (
                                                 <div className="w-full h-full bg-zinc-800 flex items-center justify-center text-[10px] font-bold text-zinc-500">NO IMG</div>
                                             )}

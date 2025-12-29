@@ -1,9 +1,10 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Github, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { Project } from '@/types';
@@ -14,6 +15,8 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project, index }: ProjectCardProps) {
+    const [isLoading, setIsLoading] = useState(true);
+
     return (
         <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -25,11 +28,24 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                 <CardContent className="p-0 flex flex-col h-full">
                     <div className="relative aspect-video overflow-hidden rounded-lg mb-6">
                         {project.img ? (
-                            <img
-                                src={project.img}
-                                alt={project.title}
-                                className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
-                            />
+                            <>
+                                {isLoading && (
+                                    <div className="absolute inset-0 z-10 flex items-center justify-center bg-zinc-900/40 backdrop-blur-[2px]">
+                                        <div className="w-full h-full animate-pulse bg-gradient-to-br from-blue-500/5 via-zinc-800/20 to-emerald-500/5" />
+                                        <div className="absolute inset-0 flex items-center justify-center">
+                                            <div className="w-6 h-6 border-2 border-blue-500/20 border-t-blue-500 rounded-full animate-spin" />
+                                        </div>
+                                    </div>
+                                )}
+                                <Image
+                                    src={project.img}
+                                    alt={project.title}
+                                    fill
+                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                    className={`object-cover transition-all duration-700 group-hover:scale-110 ${isLoading ? 'opacity-0 scale-105' : 'opacity-100 scale-100'}`}
+                                    onLoad={() => setIsLoading(false)}
+                                />
+                            </>
                         ) : (
                             <div className="w-full h-full bg-gradient-to-br from-blue-900/40 to-emerald-900/40 flex items-center justify-center p-6 text-center">
                                 <span className="text-xl font-bold text-zinc-300">

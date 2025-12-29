@@ -1,5 +1,6 @@
 'use client';
 
+import { useCallback } from 'react';
 import { useAppDispatch } from '@/store/hooks';
 import { 
   setProjects, 
@@ -15,10 +16,12 @@ import { projectService } from '@/services/projects';
 import { experienceService } from '@/services/experiences';
 import { comparisonService } from '@/services/comparisons';
 
+import { EntityType } from '@/types';
+
 export function useDashboardData() {
   const dispatch = useAppDispatch();
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     dispatch(setLoadingState({ type: 'projects', loading: true }));
     dispatch(setLoadingState({ type: 'experiences', loading: true }));
     dispatch(setLoadingState({ type: 'comparisons', loading: true }));
@@ -29,7 +32,7 @@ export function useDashboardData() {
         experienceService.getAll(),
         comparisonService.getAll(),
       ]);
-      dispatch(setProjects(proj));
+      dispatch(setProjects(proj)); 
       dispatch(setExperiences(exp || []));
       dispatch(setComparisons(comp || []));
     } catch (error) {
@@ -42,24 +45,24 @@ export function useDashboardData() {
         message: 'Failed to synchronize dashboard data.'
       }));
     }
-  };
+  }, [dispatch]);
 
-  const deleteItem = async (id: string, type: 'projects' | 'experiences' | 'comparisons' | string) => {
+  const deleteItem = useCallback(async (id: string, type: EntityType | string) => {
     try {
-      if (type === 'projects') {
+      if (type === EntityType.PROJECTS) {
         await projectService.delete(id);
         dispatch(deleteProject(id));
-      } else if (type === 'experiences') {
+      } else if (type === EntityType.EXPERIENCES) {
         await experienceService.delete(id);
         dispatch(deleteExperience(id));
-      } else if (type === 'comparisons') {
+      } else if (type === EntityType.COMPARISONS) {
         await comparisonService.delete(id);
         dispatch(deleteComparison(id));
       }
 
       dispatch(addNotification({
         type: 'success',
-        message: `${type.slice(0, -1)} decommissioned successfully.`,
+        message: `${String(type).slice(0, -1)} decommissioned successfully.`,
       }));
       return true;
     } catch (error) {
@@ -70,7 +73,7 @@ export function useDashboardData() {
       }));
       return false;
     }
-  };
+  }, [dispatch]);
 
   return { fetchData, deleteItem };
 }
