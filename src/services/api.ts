@@ -49,6 +49,16 @@ api.interceptors.response.use((response) => {
 
   return response;
 }, (error) => {
+  if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+    if (typeof window !== 'undefined') {
+      // Prevent infinite loop if already on login
+      if (!window.location.pathname.includes('/admin/login')) {
+         localStorage.removeItem('token');
+         localStorage.removeItem('user');
+         window.location.href = '/admin/login?expired=true';
+      }
+    }
+  }
   return Promise.reject(error);
 });
 
