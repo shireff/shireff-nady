@@ -4,6 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Briefcase, Calendar, Terminal } from "lucide-react";
 import { Experience } from "@/types";
+import GlassEmptyState from "@/components/ui/GlassEmptyState";
 
 interface ExperienceListProps {
     experiences: Experience[];
@@ -12,10 +13,12 @@ interface ExperienceListProps {
 export default function ExperienceList({ experiences }: ExperienceListProps) {
     if (experiences.length === 0) {
         return (
-            <div className="text-center py-20 glass-card bg-white/5 border-white/5 rounded-3xl">
-                <p className="text-zinc-500 font-medium">
-                    Your professional history is being prepared.
-                </p>
+            <div className="py-20">
+                <GlassEmptyState
+                    title="History in Progress"
+                    description="Our professional trajectory data is currently being synchronized with the primary database."
+                    icon={Briefcase}
+                />
             </div>
         );
     }

@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Search, Filter, Github, ExternalLink } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
-import EmptyState from "@/components/ui/EmptyState";
+import GlassEmptyState from "@/components/ui/GlassEmptyState";
 import Pagination from "@/components/ui/Pagination";
 import { Project, PaginationMeta } from "@/types";
 import Link from "next/link";
@@ -220,11 +220,17 @@ export default function ProjectList({ initialProjects, initialPagination }: Proj
                         <ProjectCard key={project.id} project={project} index={i} />
                     ))
                 ) : (
-                    <div className="col-span-full">
-                        <EmptyState
+                    <div className="col-span-full py-20">
+                        <GlassEmptyState
                             title="No projects found"
-                            description={`We couldn't find any projects matching your criteria.`}
-                            icon={<Filter size={48} className="text-zinc-600" />}
+                            description={`We couldn't find any digital instruments matching your current search.`}
+                            icon={Filter}
+                            actionLabel="Reset Parameters"
+                            onAction={() => {
+                                setSearchTerm("");
+                                setSelectedCategory("All");
+                                setSelectedTag(null);
+                            }}
                         />
                     </div>
                 )}

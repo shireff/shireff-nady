@@ -1,11 +1,12 @@
 import React from 'react';
-import { Cpu } from 'lucide-react';
+import { Cpu, Database } from 'lucide-react';
 import { comparisonService } from '@/services/comparisons';
 import { StateComparison } from '@/types';
 import { MOCK_TECH_COMPARISONS } from '@/mocks/comparisons';
 
 import TechComparisonCard from './components/TechComparisonCard';
 import ComparisonCard from './components/ComparisonCard';
+import GlassEmptyState from '@/components/ui/GlassEmptyState';
 
 // ISR
 export const revalidate = 3600;
@@ -51,9 +52,11 @@ export default async function ComparisonsPage() {
         </div>
 
         {!hasContent && (
-          <div className="text-center py-40 glass-card border-white/5 bg-white/5">
-            <p className="text-zinc-600 font-black uppercase tracking-[0.3em] text-[10px]">No comparison snapshots detected in this repository.</p>
-          </div>
+          <GlassEmptyState
+            title="No snapshots detected"
+            description="Our repository currently contains no architectural evolution snapshots for this sector."
+            icon={Database}
+          />
         )}
       </div>
     </div>

@@ -16,6 +16,8 @@ interface ProjectsTabProps {
 import AdminFilterBar from './AdminFilterBar';
 import { useAppSelector } from '@/store/hooks';
 import { useState } from 'react';
+import GlassEmptyState from '@/components/ui/GlassEmptyState';
+import { Filter } from 'lucide-react';
 
 const ImageWithLoader: React.FC<{ src: string, alt: string }> = ({ src, alt }) => {
     const [isLoading, setIsLoading] = useState(true);
@@ -122,7 +124,14 @@ const ProjectsTab: React.FC<ProjectsTabProps> = ({ projects, onEdit, onDelete })
                         ))}
                         {filteredProjects.length === 0 && (
                             <tr>
-                                <td colSpan={4} className="px-8 py-20 text-center text-zinc-500 uppercase tracking-[0.3em] text-[10px] font-black">No infrastructure matches the current scan parameters.</td>
+                                <td colSpan={4} className="px-8 py-20">
+                                    <GlassEmptyState
+                                        title="No scan results"
+                                        description="No digital infrastructure matches the current scan parameters in our repository."
+                                        icon={Filter}
+                                        className="bg-transparent border-none shadow-none p-0"
+                                    />
+                                </td>
                             </tr>
                         )}
                     </tbody>
