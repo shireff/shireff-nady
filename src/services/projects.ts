@@ -1,10 +1,11 @@
 import api from './api';
-import { Project } from '@/types';
+import { Project, ProjectsResponse } from '@/types';
 
 export const projectService = {
-  getAll: async (params?: { category?: string; search?: string }): Promise<Project[]> => {
+  getAll: async (params?: { category?: string; search?: string; page?: number; limit?: number }): Promise<ProjectsResponse> => {
     const response = await api.get('/projects', { params });
-    return response.data.data || response.data;
+    // If the API returns the structure directly (based on user logs)
+    return response.data;
   },
 
   getById: async (id: string): Promise<Project> => {

@@ -17,7 +17,8 @@ export const revalidate = 60; // Revalidate every minute instead of every hour
 
 // Pre-render existing projects at build time
 export async function generateStaticParams() {
-  const projects = await projectService.getAll();
+  const response = await projectService.getAll();
+  const projects = response.data;
   return projects.map((project) => ({
     id: project.id,
   }));

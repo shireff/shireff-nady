@@ -21,12 +21,12 @@ export default async function Home() {
   let heroImageUrl = DEFAULT_HERO_IMAGE;
 
   try {
-    const [fetchedProjects, homeSettings] = await Promise.all([
+    const [projectsResponse, homeSettings] = await Promise.all([
       projectService.getAll(),
       settingsService.getHomeImage()
     ]);
 
-    projects = fetchedProjects || [];
+    projects = projectsResponse?.data || [];
 
     // Fallback to default if no image is returned or null
     if (homeSettings?.heroImageUrl) {

@@ -18,7 +18,8 @@ export async function POST(request: Request) {
     // Fetch all projects to include their dynamic routes
     let projects: Project[] = [];
     try {
-      projects = await projectService.getAll();
+      const response = await projectService.getAll();
+      projects = response.data;
     } catch (e) {
       console.error('Indexing API: Failed to fetch projects:', e);
       // Continue with static pages even if project fetch fails

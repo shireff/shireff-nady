@@ -27,12 +27,12 @@ export function useDashboardData() {
     dispatch(setLoadingState({ type: 'comparisons', loading: true }));
 
     try {
-      const [proj, exp, comp] = await Promise.all([
+      const [projResponse, exp, comp] = await Promise.all([
         projectService.getAll(),
         experienceService.getAll(),
         comparisonService.getAll(),
       ]);
-      dispatch(setProjects(proj)); 
+      dispatch(setProjects(projResponse.data)); 
       dispatch(setExperiences(exp || []));
       dispatch(setComparisons(comp || []));
     } catch (error) {

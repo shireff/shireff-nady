@@ -11,6 +11,23 @@ export interface Project {
   createdAt: string;
 }
 
+export interface PaginationMeta {
+  page: number;
+  limit: number;
+  total: number;
+  totalPages: number;
+  count: number;
+}
+
+export interface ProjectsResponse {
+  success: boolean;
+  count: number;
+  total: number;
+  page: number;
+  totalPages: number;
+  data: Project[];
+}
+
 export interface Experience {
   id: string;
   company: string;

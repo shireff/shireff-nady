@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { Project } from '@/types';
+import { normalizeCategory } from '@/lib/utils';
 
 interface ProjectCardProps {
     project: Project;
@@ -65,7 +66,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                     <div className="flex-grow space-y-4">
                         <div className="flex justify-between items-start">
                             <span className="text-[10px] font-bold text-blue-400 uppercase tracking-widest px-2 py-1 rounded bg-blue-400/10 border border-blue-400/20">
-                                {project.category}
+                                {normalizeCategory(project.category)}
                             </span>
                             <div className="flex gap-2">
                                 {project.git && (

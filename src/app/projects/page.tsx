@@ -20,10 +20,19 @@ export const metadata: Metadata = {
 
 export default async function ProjectsPage() {
   let projects: import('@/types').Project[] = [];
+  let pagination: import('@/types').PaginationMeta | undefined;
 
   try {
     // Server-side fetch: Content available immediately in initial HTML
-    projects = await projectService.getAll();
+    const response = await projectService.getAll();
+    projects = response.data;
+    pagination = {
+      page: response.page,
+      totalPages: response.totalPages,
+      total: response.total,
+      limit: 10, // Assuming default
+      count: response.count
+    };
   } catch (error) {
     console.error(`[ProjectsPage] Failed to fetch projects on server (API: ${process.env.NEXT_PUBLIC_API_URL}):`, error);
   }
@@ -63,7 +72,7 @@ export default async function ProjectsPage() {
       </div>
 
       {/* Pass initial data to client component for interactivity */}
-      <ProjectList initialProjects={projects} />
+      <ProjectList initialProjects={projects} initialPagination={pagination} />
     </div>
   );
 }

@@ -32,7 +32,8 @@ export async function GET(request: Request) {
   let projects: Project[] = [];
 
   try {
-    projects = await projectService.getAll();
+    const response = await projectService.getAll();
+    projects = response.data;
   } catch (error) {
     console.error('Sitemap Error: Failed to fetch projects', error);
   }
