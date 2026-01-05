@@ -4,6 +4,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Edit, Trash2 } from 'lucide-react';
 import { StateComparison } from '@/types';
+import GlassEmptyState from '@/components/ui/GlassEmptyState';
+import { Database } from 'lucide-react';
 
 interface ComparisonsTabProps {
     comparisons: StateComparison[];
@@ -73,7 +75,14 @@ const ComparisonsTab: React.FC<ComparisonsTabProps> = ({ comparisons, onEdit, on
                         ))}
                         {filteredComparisons.length === 0 && (
                             <tr>
-                                <td colSpan={3} className="px-8 py-20 text-center text-zinc-500 uppercase tracking-[0.3em] text-[10px] font-black">No infrastructure matches searched criteria.</td>
+                                <td colSpan={3} className="px-8 py-20">
+                                    <GlassEmptyState
+                                        title="No nodes detected"
+                                        description="No architectural comparison nodes match the current search parameters."
+                                        icon={Database}
+                                        className="bg-transparent border-none shadow-none p-0"
+                                    />
+                                </td>
                             </tr>
                         )}
                     </tbody>

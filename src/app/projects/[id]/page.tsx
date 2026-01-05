@@ -17,11 +17,18 @@ export const revalidate = 60; // Revalidate every minute instead of every hour
 
 // Pre-render existing projects at build time
 export async function generateStaticParams() {
-  const response = await projectService.getAll();
-  const projects = response.data;
-  return projects.map((project) => ({
-    id: project.id,
-  }));
+  try {
+    const response = await projectService.getAll();
+    const projects = response.data || [];
+    return projects.map((project: { id: string }) => ({
+      id: project.id.toString(),
+    }));
+  } catch (error) {
+    console.error('[generateStaticParams] Failed to fetch projects:', error);
+    // Return empty array to skip pre-rendering projects that fail to fetch
+    // They will be rendered on-demand during request time (ISR)
+    return [];
+  }
 }
 
 // SEO: Generate dynamic metadata for each project
