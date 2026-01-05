@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, Code2, Briefcase, Split, User, LogOut, MessageSquare, Layers } from 'lucide-react';
+import { Menu, X, Code2, Briefcase, Split, User, LogOut, MessageSquare, Award } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Button from '../ui/Button';
 import ThemeToggle from '../ui/ThemeToggle';
@@ -11,7 +11,7 @@ import { authService } from '@/services/auth';
 
 const navItems = [
   { name: 'Projects', href: '/projects', icon: Code2 },
-  { name: 'Skills', href: '/#skills', icon: Layers },
+  { name: 'Recommendations', href: '/recommendations', icon: Award },
   { name: 'Experience', href: '/experiences', icon: Briefcase },
   // { name: 'Comparisons', href: '/state-comparisons', icon: Split },
   { name: 'Contact', href: '/contact', icon: MessageSquare },

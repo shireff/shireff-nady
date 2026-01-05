@@ -11,6 +11,20 @@ export interface Project {
   createdAt: string;
 }
 
+export interface Testimonial {
+  id: string;
+  externalId: string;
+  name: string;
+  role: string;
+  company: string;
+  relationship: string;
+  content: string;
+  avatar: string;
+  linkedinUrl: string;
+  date: string;
+  isVerified: boolean;
+}
+
 export interface PaginationMeta {
   page: number;
   limit: number;
@@ -79,7 +93,8 @@ export enum EntityType {
   PROJECTS = 'projects',
   EXPERIENCES = 'experiences',
   COMPARISONS = 'comparisons',
+  TESTIMONIALS = 'testimonials',
   SETTINGS = 'settings'
 }
 
-export type Entity = Project | Experience | StateComparison;
+export type Entity = Project | Experience | StateComparison | Testimonial;

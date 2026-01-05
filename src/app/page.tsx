@@ -9,6 +9,7 @@ import Hero from '@/components/sections/hero/Hero';
 import Stats from '@/components/sections/stats/Stats';
 import Skills from '@/components/sections/Skills';
 import FeaturedProjects from '@/components/sections/projects/FeaturedProjects';
+import Recommendations from '@/components/sections/testimonials/Recommendations';
 import CTA from '@/components/sections/cta/CTA';
 
 const DEFAULT_HERO_IMAGE = "https://media.licdn.com/dms/image/v2/D4E03AQHI2emfkXdeXQ/profile-displayphoto-shrink_800_800/B4EZaI2FxCHMAc-/0/1746052604728?e=1767830400&v=beta&t=-l4A36ias3qpuV4uIKc7q7V1vcZqMwuIceuT8hkYwag";
@@ -68,6 +69,8 @@ export default async function Home() {
       <Skills />
 
       <FeaturedProjects projects={featuredProjects} isLoading={false} />
+
+      <Recommendations />
 
       <CTA />
     </div>

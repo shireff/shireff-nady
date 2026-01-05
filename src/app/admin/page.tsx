@@ -17,6 +17,7 @@ import OverviewTab from './components/OverviewTab';
 import ProjectsTab from './components/ProjectsTab';
 import ExperiencesTab from './components/ExperiencesTab';
 import ComparisonsTab from './components/ComparisonsTab';
+import TestimonialsTab from './components/TestimonialsTab';
 
 // Form Components
 import ProjectForm from './components/ProjectForm';
@@ -28,7 +29,7 @@ import SettingsForm from './components/SettingsForm';
 import { authService } from '@/services/auth';
 import { Project, Experience, StateComparison } from '@/types';
 
-type Tab = 'overview' | 'projects' | 'experiences' | 'comparisons' | 'settings';
+type Tab = 'overview' | 'projects' | 'experiences' | 'comparisons' | 'testimonials' | 'settings';
 
 // Redux
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
@@ -141,6 +142,10 @@ export default function AdminDashboard() {
               onEdit={(comp) => openEditModal('comparisons', comp)}
               onDelete={(id) => openDeleteConfirm('comparisons', id)}
             />
+          )}
+
+          {activeTab === 'testimonials' && (
+            <TestimonialsTab />
           )}
 
           {activeTab === 'settings' && (

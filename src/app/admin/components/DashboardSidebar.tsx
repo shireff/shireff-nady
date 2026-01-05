@@ -10,11 +10,12 @@ import {
     Settings,
     Eye,
     LogOut,
-    ChevronRight
+    ChevronRight,
+    Award
 } from 'lucide-react';
 import { authService } from '@/services/auth';
 
-type Tab = 'overview' | 'projects' | 'experiences' | 'comparisons' | 'settings';
+type Tab = 'overview' | 'projects' | 'experiences' | 'comparisons' | 'testimonials' | 'settings';
 
 interface SidebarProps {
     activeTab: Tab;
@@ -29,6 +30,7 @@ const DashboardSidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) =
         { id: 'projects', name: 'Projects', icon: Code2 },
         { id: 'experiences', name: 'Experiences', icon: Briefcase },
         { id: 'comparisons', name: 'Comparisons', icon: Split },
+        { id: 'testimonials', name: 'Testimonials', icon: Award },
         { id: 'settings', name: 'Settings', icon: Settings },
     ];
 
@@ -43,8 +45,8 @@ const DashboardSidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) =
                     key={item.id}
                     onClick={() => setActiveTab(item.id as Tab)}
                     className={`w-full flex items-center justify-between px-6 py-4 rounded-2xl transition-all group ${activeTab === item.id
-                            ? 'bg-blue-600 text-white shadow-2xl shadow-blue-600/40'
-                            : 'text-zinc-500 hover:bg-white/5 hover:text-white border border-transparent hover:border-white/5'
+                        ? 'bg-blue-600 text-white shadow-2xl shadow-blue-600/40'
+                        : 'text-zinc-500 hover:bg-white/5 hover:text-white border border-transparent hover:border-white/5'
                         }`}
                 >
                     <div className="flex items-center gap-4">
