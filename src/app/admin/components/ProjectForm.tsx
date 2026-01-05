@@ -335,13 +335,13 @@ export default function ProjectForm({ initialData, existingProjects = [], onSucc
         <input
           type="checkbox"
           id="isFeatured"
-          className="w-6 h-6 rounded-lg border-white/10 bg-black text-blue-600 focus:ring-blue-500/50"
-          checked={formData.isFeatured}
+          className="w-5 h-5 rounded border-white/20 bg-black/40 text-blue-500 focus:ring-blue-500/40 focus:ring-offset-0"
+          checked={!!formData.isFeatured}
           onChange={e => setFormData(prev => ({ ...prev, isFeatured: e.target.checked }))}
         />
 
         <div className="space-y-0.5">
-          <label htmlFor="isFeatured" className="text-sm font-bold text-white uppercase tracking-wider">Feature Project</label>
+          <label htmlFor="isFeatured" className="text-sm font-bold text-white uppercase tracking-wider cursor-pointer select-none">Feature Project</label>
           <p className="text-[10px] text-zinc-500 uppercase tracking-widest">Pin this project to the home page carousel</p>
         </div>
       </div>

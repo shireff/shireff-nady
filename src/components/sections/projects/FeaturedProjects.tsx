@@ -16,6 +16,7 @@ interface FeaturedProjectsProps {
 }
 
 const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ projects, isLoading }) => {
+    if (!isLoading && projects.length === 0) return null;
     return (
         <section className="px-6">
             <div className="max-w-7xl mx-auto space-y-12">

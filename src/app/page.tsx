@@ -36,9 +36,7 @@ export default async function Home() {
     console.error("Failed to fetch home data:", error);
   }
 
-  const featuredProjects = projects.filter(p => p.isFeatured).length > 0
-    ? projects.filter(p => p.isFeatured).slice(0, 3)
-    : projects.slice(0, 3);
+  const featuredProjects = projects.filter(p => p.isFeatured);
 
   const webpageSchema = {
     "@context": "https://schema.org",
