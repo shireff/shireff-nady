@@ -84,10 +84,7 @@ export default function Recommendations() {
 
                                             {/* Top Bar with Stars & Quote */}
                                             <div className="flex justify-between items-start mb-10">
-                                                <div className="bg-white/5 p-4 rounded-2xl group-hover:bg-blue-600 transition-all duration-500 shadow-xl shadow-black/20">
-                                                    <Quote size={24} className="text-blue-400 group-hover:text-white fill-current/10" />
-                                                </div>
-                                                <div className="flex flex-col items-end gap-1">
+                                                <div className="flex flex-col items-start    gap-1 mt-4">
                                                     <div className="flex gap-1">
                                                         {[...Array(5)].map((_, starI) => (
                                                             <Star key={starI} size={12} className="text-amber-400 fill-amber-400" />
@@ -95,6 +92,10 @@ export default function Recommendations() {
                                                     </div>
                                                     <span className="text-[8px] font-black text-zinc-600 uppercase tracking-widest">Verified Endorsement</span>
                                                 </div>
+                                                <div className="bg-white/5 p-4 rounded-2xl group-hover:bg-blue-600 transition-all duration-500 shadow-xl shadow-black/20">
+                                                    <Quote size={24} className="text-blue-400 group-hover:text-white fill-current/10" />
+                                                </div>
+
                                             </div>
 
                                             {/* Content */}
