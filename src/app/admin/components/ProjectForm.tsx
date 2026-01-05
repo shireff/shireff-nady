@@ -40,7 +40,7 @@ export default function ProjectForm({ initialData, existingProjects = [], onSucc
   const [formData, setFormData] = useState<Partial<Project>>({
     title: initialData?.title || '',
     desc: initialData?.desc || '',
-    category: initialData?.category || categories[0],
+    category: initialData?.category ? normalizeCategory(initialData.category) : categories[0],
     img: initialData?.img || '',
     tags: initialData?.tags || [],
     demo: initialData?.demo || '',
