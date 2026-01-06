@@ -4,27 +4,25 @@ import type { NextRequest } from 'next/server';
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Define admin paths that require authentication
-  const isAdminPath = pathname.startsWith('/admin');
-  const isLoginPage = pathname === '/admin/login';
+  // li_at is our persistent admin cookie
+  const liAt = request.cookies.get('li_at')?.value;
+  const isAuthenticated = request.cookies.get('isAuthenticated')?.value === 'true';
 
-  if (isAdminPath && !isLoginPage) {
-    const token = request.cookies.get('token')?.value;
+  // Protect all /admin routes except /admin/login
+  if (pathname.startsWith('/admin')) {
+    if (pathname === '/admin/login') {
+      // If already authenticated, redirect to dashboard
+      if (liAt && isAuthenticated) {
+        return NextResponse.redirect(new URL('/admin/dashboard', request.url));
+      }
+      return NextResponse.next();
+    }
 
-    if (!token) {
-      // Not authenticated, redirect to login
+    // If no li_at cookie, redirect to login
+    if (!liAt) {
       const loginUrl = new URL('/admin/login', request.url);
-      // Pass the original URL as a callback if needed
       loginUrl.searchParams.set('from', pathname);
       return NextResponse.redirect(loginUrl);
-    }
-  }
-
-  // If already authenticated and trying to access login page, redirect to dashboard
-  if (isLoginPage) {
-    const token = request.cookies.get('token')?.value;
-    if (token) {
-      return NextResponse.redirect(new URL('/admin', request.url));
     }
   }
 

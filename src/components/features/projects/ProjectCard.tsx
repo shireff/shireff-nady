@@ -63,7 +63,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                         </div>
                     </div>
 
-                    <div className="flex-grow space-y-4">
+                    <div className="flex-grow space-y-4 px-6 pb-6">
                         <div className="flex justify-between items-start">
                             <span className="text-[10px] font-bold text-blue-400 uppercase tracking-widest px-2 py-1 rounded bg-blue-400/10 border border-blue-400/20">
                                 {normalizeCategory(project.category)}

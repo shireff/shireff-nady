@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Github, Linkedin, Twitter, Mail } from 'lucide-react';
+import { Github, Linkedin, Mail, ShieldCheck } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -33,23 +33,22 @@ export default function Footer() {
             <ul className="space-y-4">
               <li><Link href="/projects" className="text-zinc-400 hover:text-blue-400 transition-colors">Projects</Link></li>
               <li><Link href="/experiences" className="text-zinc-400 hover:text-blue-400 transition-colors">Experience</Link></li>
-              {/* <li><Link href="/state-comparisons" className="text-zinc-400 hover:text-blue-400 transition-colors">Comparisons</Link></li> */}
+              <li><Link href="/verification" className="text-zinc-400 hover:text-blue-400 transition-colors flex items-center gap-2">
+                Verification Hub <span className="bg-blue-500/10 text-blue-400 text-[8px] px-1.5 py-0.5 rounded border border-blue-500/20 font-black">PRO</span>
+              </Link></li>
             </ul>
           </div>
-
-          {/* <div>
-            <h4 className="text-white font-bold mb-6">Admin</h4>
-            <ul className="space-y-4">
-              <li><Link href="/admin/login" className="text-zinc-400 hover:text-blue-400 transition-colors">Login</Link></li>
-              <li><Link href="/admin" className="text-zinc-400 hover:text-blue-400 transition-colors">Dashboard</Link></li>
-            </ul>
-          </div> */}
         </div>
 
         <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-zinc-500 text-sm">
-            © {new Date().getFullYear()} Shireff. All rights reserved.
-          </p>
+          <div className="flex items-center gap-4 text-zinc-500 text-sm">
+            <span>© {new Date().getFullYear()} Shireff. All rights reserved.</span>
+            <div className="h-3 w-[1px] bg-white/10" />
+            <Link href="/verification" className="flex items-center gap-2 hover:text-blue-400 transition-all text-[10px] font-black uppercase tracking-widest">
+              <ShieldCheck size={12} className="text-blue-500" />
+              Evidence-Based Portfolio
+            </Link>
+          </div>
           <p className="text-zinc-500 text-sm">
             Designed and built with Next.js & Tailwind CSS
           </p>

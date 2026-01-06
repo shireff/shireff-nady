@@ -9,6 +9,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import { projectService } from '@/services/projects';
 import { formatDate } from '@/lib/utils';
 import Link from 'next/link';
+import ProjectADR from '@/components/features/ProjectADR';
 
 import { siteConfig } from '@/config/site';
 
@@ -174,6 +175,9 @@ export default async function ProjectDetailsPage({ params }: { params: Promise<{
                 ))}
               </div>
             </div>
+
+            {/* Architectural Decisions Section */}
+            <ProjectADR project={project} />
           </div>
 
           <aside className="space-y-10">

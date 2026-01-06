@@ -66,7 +66,7 @@ export default async function Home() {
 
       <Stats />
 
-      <Skills />
+      <Skills projects={projects} />
 
       <FeaturedProjects projects={featuredProjects} isLoading={false} />
 

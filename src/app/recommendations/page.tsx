@@ -95,21 +95,26 @@ export default function RecommendationsPage() {
 
                                         {/* Top Bar with Stars & Quote */}
                                         <div className="flex justify-between items-start mb-10 relative z-10">
-                                            <div className="flex flex-col items-end gap-1.5 mt-4">
+                                            <div className="flex flex-col items-start gap-1.5 mt-4">
                                                 <div className="flex gap-1">
                                                     {[...Array(5)].map((_, starI) => (
                                                         <Star key={starI} size={14} className="text-amber-400 fill-amber-400" />
                                                     ))}
                                                 </div>
-                                                <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20">
-                                                    <ShieldCheck size={10} className="text-blue-400" />
-                                                    <span className="text-[8px] font-black text-blue-400 uppercase tracking-widest leading-none">Verified</span>
+                                                <div className="flex flex-col items-start gap-1.5">
+                                                    <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20">
+                                                        <ShieldCheck size={10} className="text-blue-400" />
+                                                        <span className="text-[8px] font-black text-blue-400 uppercase tracking-widest leading-none">Verified</span>
+                                                    </div>
+                                                    <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-white/[0.03] border border-white/5">
+                                                        <Linkedin size={8} className="text-zinc-500" />
+                                                        <span className="text-[7px] font-black text-zinc-500 uppercase tracking-[0.2em]">Synced from LinkedIn</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div className="bg-white/5 p-5 rounded-3xl group-hover:bg-blue-600 transition-all duration-500 shadow-2xl shadow-black/40">
                                                 <Quote size={28} className="text-blue-400 group-hover:text-white fill-current/10" />
                                             </div>
-
                                         </div>
 
                                         {/* Content */}
