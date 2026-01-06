@@ -16,9 +16,10 @@ export interface ADR {
 
 type ADRRule = {
   name: string;
-  matchKeywords: string[];  
+  matchKeywords: string[];
   createADR: (project: Project) => ADR;
-  priority?: number; 
+  priority?: number;
+  excludeIfKeywords?: string[]; 
 };
 
 function createADR(
@@ -41,18 +42,18 @@ const ADR_RULES: ADRRule[] = [
     matchKeywords: ['api', 'node', 'backend'],
     createADR: (project) => {
       const desc = project.desc.toLowerCase();
-      const changeToday = desc.includes('saas') 
+      const changeToday = desc.includes('saas')
         ? 'Consider using tRPC or GraphQL for automatic contract safety between frontend and backend.'
         : 'I’d likely use tRPC now for contract safety between frontend and backend automatically.';
-      
-      const pastRationale = desc.includes('saas') 
+
+      const pastRationale = desc.includes('saas')
         ? 'Previously used REST, worked fine but state sync was manual.'
         : 'REST was perfect to keep backend flexible while frontend was still evolving.';
-      
-      const learning = desc.includes('saas') 
+
+      const learning = desc.includes('saas')
         ? 'How you manage API contracts and data flow is key for SaaS applications.'
         : 'How you structure your data models (domain design) is way more important than which protocol you use to send it.';
-      
+
       return createADR(
         'Building a simple, solid API',
         'I needed a way for different parts of the system to talk to each other without getting tangled up.',
@@ -89,11 +90,11 @@ const ADR_RULES: ADRRule[] = [
       const changeToday = desc.includes('saas')
         ? 'Use ISR more to optimize dashboards and dynamic pages.'
         : 'Use ISR and image optimization to improve premium UI performance.';
-      
+
       const pastRationale = desc.includes('saas')
         ? 'Server-side fetching helped dashboards but required caching.'
         : 'SSR ensured fast load and consistent layout for high-end pages.';
-      
+
       const learning = desc.includes('saas')
         ? 'Focus on state management and caching for dynamic dashboards.'
         : 'UI/UX quality and rendering consistency are crucial for premium brands.';
@@ -120,11 +121,11 @@ const ADR_RULES: ADRRule[] = [
       const changeToday = desc.includes('saas')
         ? 'Adopt advanced state management patterns (Redux Toolkit, Zustand).'
         : 'Adopt headless UI pattern (like Radix) for logic/presentation separation.';
-      
+
       const pastRationale = desc.includes('saas')
         ? 'Component-driven design helped with dashboards state isolation.'
         : 'Using hooks to isolate component state was enough for project scope.';
-      
+
       const learning = desc.includes('saas')
         ? 'Proper state isolation is crucial for SaaS apps with dynamic components.'
         : 'Consistent prop interfaces matter as much as the component code itself.';
@@ -146,16 +147,17 @@ const ADR_RULES: ADRRule[] = [
   {
     name: 'Native UI',
     matchKeywords: ['ui'],
+    excludeIfKeywords: ['react', 'next'],
     createADR: (project) => {
       const desc = project.desc.toLowerCase();
       const changeToday = desc.includes('luxury')
         ? 'Invest more in reusable design components for consistent premium feel.'
         : 'Introduce reusable components and a lightweight utility library.';
-      
+
       const pastRationale = desc.includes('luxury')
         ? 'Native approach ensured fast delivery but needed careful UI planning.'
         : 'Native approach allowed fastest delivery with minimal dependencies.';
-      
+
       const learning = desc.includes('luxury')
         ? 'Even small visual inconsistencies can hurt user perception in luxury apps.'
         : 'Even small native UIs benefit from modularity; separate structure, style, behavior.';
@@ -182,16 +184,20 @@ export function generateADR(project: Project, maxResults = 3): ADR[] {
   const category = project.category.toLowerCase();
 
   const scoredRules = ADR_RULES.map((rule) => {
+    const shouldExclude = rule.excludeIfKeywords?.some((kw) => title.includes(kw) || desc.includes(kw) || category.includes(kw));
+    if (shouldExclude) return null;
+
     let score = 0;
     for (const kw of rule.matchKeywords) {
       if (title.includes(kw) || desc.includes(kw) || category.includes(kw)) {
         score += 1;
       }
     }
-    return { rule, score };
+    return score > 0 ? { rule, score } : null;
   })
-  .filter(({ score }) => score > 0)
-  .sort((a, b) => {
+  .filter(Boolean) as { rule: ADRRule; score: number }[];
+
+  scoredRules.sort((a, b) => {
     const priorityA = a.rule.priority ?? 99;
     const priorityB = b.rule.priority ?? 99;
     return priorityA - priorityB || b.score - a.score;
