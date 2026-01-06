@@ -24,7 +24,7 @@ export default async function ProjectFlowPage({ params }: { params: Promise<{ id
     const adrs = generateADR(project);
 
     return (
-        <main className="min-h-screen bg-[#030712] pt-32 pb-24 relative overflow-hidden">
+        <main className="min-h-screen bg-background pt-32 pb-24 relative overflow-hidden transition-colors duration-500">
             {/* Background Decorative Elements */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[600px] bg-blue-600/5 blur-[120px] rounded-full -z-10" />
             <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-emerald-600/5 blur-[120px] rounded-full -z-10" />
@@ -32,26 +32,26 @@ export default async function ProjectFlowPage({ params }: { params: Promise<{ id
             <div className="max-w-7xl mx-auto px-6">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-20">
                     <Link href={`/projects/${id}`}>
-                        <button className="flex items-center gap-3 text-zinc-400 hover:text-white transition-all group bg-white/5 px-5 py-2.5 rounded-full border border-white/10 backdrop-blur-sm">
+                        <button className="flex items-center gap-3 text-zinc-500 dark:text-zinc-400 hover:text-foreground transition-all group bg-glass-bg px-5 py-2.5 rounded-full border border-glass-border backdrop-blur-sm">
                             <ArrowLeft size={18} className="transition-transform group-hover:-translate-x-1" />
                             <span className="text-[10px] font-black uppercase tracking-[0.2em]">Return to Project</span>
                         </button>
                     </Link>
 
                     <div className="flex items-center gap-4">
-                        <div className="h-[1px] w-12 bg-white/10 hidden md:block" />
-                        <h1 className="text-zinc-500 font-bold text-sm uppercase tracking-[0.3em]">
-                            Documentation / <span className="text-white">Architecture Flow</span>
+                        <div className="h-[1px] w-12 bg-zinc-100 dark:bg-white/10 hidden md:block" />
+                        <h1 className="text-zinc-400 dark:text-zinc-500 font-bold text-sm uppercase tracking-[0.3em]">
+                            Documentation / <span className="text-foreground">Architecture Flow</span>
                         </h1>
                     </div>
                 </div>
 
                 <ProjectVisualFlow adrs={adrs} projectTitle={project.title} />
 
-                <div className="mt-32 p-12 glass-card-premium border-white/5 rounded-[32px] text-center space-y-8 relative overflow-hidden">
+                <div className="mt-32 p-12 glass-card-premium border-glass-border rounded-[32px] text-center space-y-8 relative overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-emerald-500/5 -z-10" />
-                    <h3 className="text-3xl font-black italic tracking-tighter text-white">READY TO AUDIT THIS CODE?</h3>
-                    <p className="max-w-xl mx-auto text-zinc-500 font-medium">
+                    <h3 className="text-3xl font-black italic tracking-tighter text-foreground">READY TO AUDIT THIS CODE?</h3>
+                    <p className="max-w-xl mx-auto text-zinc-600 dark:text-zinc-500 font-medium">
                         This flow is derived directly from production metadata. You can explore the source code or initiate a live demo to verify these architectural patterns.
                     </p>
                     <div className="flex flex-wrap justify-center gap-4 pt-4">
@@ -64,7 +64,7 @@ export default async function ProjectFlowPage({ params }: { params: Promise<{ id
                         )}
                         {project.demo && (
                             <a href={project.demo} target="_blank" rel="noreferrer">
-                                <Button variant="outline" className="rounded-full px-8 py-6 font-black italic uppercase tracking-widest text-xs border-white/10">
+                                <Button variant="outline" className="rounded-full px-8 py-6 font-black italic uppercase tracking-widest text-xs border-zinc-200 dark:border-white/10">
                                     Launch Environment
                                 </Button>
                             </a>

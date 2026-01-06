@@ -26,13 +26,13 @@ export default function RecommendationsPage() {
     }, []);
 
     return (
-        <main className="min-h-screen bg-[#030712] pt-32 pb-24 overflow-hidden relative">
+        <main className="min-h-screen bg-background pt-32 pb-24 overflow-hidden relative transition-colors duration-500">
             {/* Background Decor */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-blue-600/5 blur-[120px] rounded-full -z-10" />
 
             <div className="max-w-7xl mx-auto px-6">
                 <div className="mb-16">
-                    <Link href="/" className="inline-flex items-center gap-2 text-zinc-500 hover:text-white transition-colors group mb-8">
+                    <Link href="/" className="inline-flex items-center gap-2 text-zinc-500 hover:text-foreground transition-colors group mb-8">
                         <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
                         <span className="text-[10px] font-black uppercase tracking-widest">Back to Overview</span>
                     </Link>
@@ -46,7 +46,7 @@ export default function RecommendationsPage() {
                             >
                                 Feedback & Praises
                             </motion.div>
-                            <h1 className="text-5xl md:text-8xl font-black italic tracking-tighter text-white">
+                            <h1 className="text-5xl md:text-8xl font-black italic tracking-tighter text-foreground">
                                 RECOMMENDATIONS
                             </h1>
                             <p className="max-w-xl text-zinc-500 font-medium text-lg italic">
@@ -55,8 +55,8 @@ export default function RecommendationsPage() {
                         </div>
 
                         {!isLoading && (
-                            <div className="bg-white/[0.03] border border-white/5 px-8 py-6 rounded-[32px] backdrop-blur-xl">
-                                <div className="text-3xl font-black text-white italic tracking-tighter mb-1">
+                            <div className="bg-zinc-100 dark:bg-white/[0.03] border border-zinc-200 dark:border-white/5 px-8 py-6 rounded-[32px] backdrop-blur-xl">
+                                <div className="text-3xl font-black text-foreground italic tracking-tighter mb-1">
                                     {testimonials.length} REVIEWS
                                 </div>
                                 <div className="text-[10px] text-blue-500 font-black uppercase tracking-[0.3em]">
@@ -87,7 +87,7 @@ export default function RecommendationsPage() {
                                     className="relative group h-full"
                                 >
                                     {/* Premium Card Container */}
-                                    <div className="h-full glass-card-premium p-10 border-white/10 bg-white/[0.01] backdrop-blur-3xl group-hover:border-blue-500/40 transition-all duration-700 relative flex flex-col overflow-hidden rounded-[40px]">
+                                    <div className="h-full glass-card-premium p-10 border-glass-border backdrop-blur-3xl group-hover:border-blue-500/40 transition-all duration-700 relative flex flex-col overflow-hidden rounded-[40px]">
 
                                         {/* Decorative Background Elements */}
                                         <div className="absolute -top-16 -right-16 w-48 h-48 bg-blue-600/10 blur-[80px] rounded-full group-hover:bg-blue-600/20 transition-all duration-700" />
@@ -106,31 +106,31 @@ export default function RecommendationsPage() {
                                                         <ShieldCheck size={10} className="text-blue-400" />
                                                         <span className="text-[8px] font-black text-blue-400 uppercase tracking-widest leading-none">Verified</span>
                                                     </div>
-                                                    <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-white/[0.03] border border-white/5">
-                                                        <Linkedin size={8} className="text-zinc-500" />
-                                                        <span className="text-[7px] font-black text-zinc-500 uppercase tracking-[0.2em]">Synced from LinkedIn</span>
+                                                    <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-white/[0.03] border border-zinc-200 dark:border-white/5">
+                                                        <Linkedin size={8} className="text-zinc-400 dark:text-zinc-500" />
+                                                        <span className="text-[7px] font-black text-zinc-400 dark:text-zinc-500 uppercase tracking-[0.2em]">Synced from LinkedIn</span>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="bg-white/5 p-5 rounded-3xl group-hover:bg-blue-600 transition-all duration-500 shadow-2xl shadow-black/40">
-                                                <Quote size={28} className="text-blue-400 group-hover:text-white fill-current/10" />
+                                            <div className="bg-glass-bg p-5 rounded-3xl group-hover:bg-blue-600 transition-all duration-500 shadow-2xl shadow-glass-l1">
+                                                <Quote size={28} className="text-blue-500 dark:text-blue-400 group-hover:text-white fill-current/10" />
                                             </div>
                                         </div>
 
                                         {/* Content */}
                                         <div className="flex-grow relative z-10">
-                                            <p className="text-zinc-300 text-lg leading-relaxed font-medium mb-12 italic group-hover:text-white transition-colors">
+                                            <p className="text-zinc-500 dark:text-zinc-300 text-lg leading-relaxed font-medium mb-12 italic group-hover:text-foreground transition-colors">
                                                 &ldquo;{test.content}&rdquo;
                                             </p>
                                         </div>
 
                                         {/* Footer with Avatar & Info */}
-                                        <div className="pt-10 border-t border-white/5 flex items-center justify-between mt-auto relative z-10">
+                                        <div className="pt-10 border-t border-glass-border flex items-center justify-between mt-auto relative z-10">
                                             <div className="flex items-center gap-6">
                                                 {/* Avatar with Glow */}
                                                 <div className="relative">
                                                     <div className="absolute inset-0 bg-blue-500/40 blur-xl rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                                                    <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-zinc-800 to-zinc-900 border border-white/10 flex items-center justify-center text-zinc-400 overflow-hidden relative z-10">
+                                                    <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-zinc-800 to-zinc-900 border border-zinc-100 dark:border-white/10 flex items-center justify-center text-zinc-400 overflow-hidden relative z-10">
                                                         {test.avatar ? (
                                                             <Image
                                                                 src={test.avatar.replace(/^http:\/\//, 'https://')}
@@ -146,7 +146,7 @@ export default function RecommendationsPage() {
                                                 </div>
 
                                                 <div className="space-y-1.5">
-                                                    <h4 className="font-black text-white text-base uppercase tracking-wider group-hover:text-blue-400 transition-colors">
+                                                    <h4 className="font-black text-foreground text-base uppercase tracking-wider group-hover:text-blue-500 transition-colors">
                                                         {test.name}
                                                     </h4>
                                                     <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest leading-tight">
@@ -165,14 +165,14 @@ export default function RecommendationsPage() {
                                                 href={test.linkedinUrl}
                                                 target="_blank"
                                                 rel="noreferrer"
-                                                className="p-4 rounded-3xl bg-white/5 border border-white/5 text-zinc-600 hover:text-white hover:bg-[#0077b5] hover:border-blue-400 transition-all group/link"
+                                                className="p-4 rounded-3xl bg-glass-bg border border-glass-border text-zinc-400 dark:text-zinc-600 hover:text-white hover:bg-[#0077b5] hover:border-blue-400 transition-all group/link"
                                             >
                                                 <Linkedin size={24} className="group-hover/link:scale-110 transition-transform" />
                                             </a>
                                         </div>
 
                                         <div className="mt-8 flex items-center justify-between opacity-50 group-hover:opacity-100 transition-opacity">
-                                            <span className="text-[9px] text-zinc-700 font-black uppercase tracking-widest">
+                                            <span className="text-[9px] text-zinc-600 dark:text-zinc-700 font-black uppercase tracking-widest">
                                                 Certified: {new Date(test.date).toLocaleDateString()}
                                             </span>
                                             <div className="h-0.5 w-12 bg-gradient-to-r from-blue-500/50 to-transparent rounded-full" />
@@ -183,10 +183,10 @@ export default function RecommendationsPage() {
                         </AnimatePresence>
                     </div>
                 ) : (
-                    <div className="text-center py-40 rounded-[64px] border border-dashed border-white/10 bg-white/[0.01]">
-                        <RefreshCw size={48} className="mx-auto text-zinc-800 mb-6" />
+                    <div className="text-center py-40 rounded-[64px] border border-dashed border-glass-border bg-glass-bg">
+                        <RefreshCw size={48} className="mx-auto text-zinc-300 dark:text-zinc-800 mb-6" />
                         <h3 className="text-xl font-black text-zinc-600 uppercase tracking-widest">Nothing here yet</h3>
-                        <p className="text-zinc-700 font-bold uppercase tracking-widest text-[10px] mt-2">I&apos;m currently pulling my latest recommendations from LinkedIn!</p>
+                        <p className="text-zinc-500 dark:text-zinc-700 font-bold uppercase tracking-widest text-[10px] mt-2">I&apos;m currently pulling my latest recommendations from LinkedIn!</p>
                     </div>
                 )}
             </div>

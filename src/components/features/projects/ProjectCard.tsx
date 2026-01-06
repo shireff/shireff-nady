@@ -31,8 +31,8 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                         {project.img ? (
                             <>
                                 {isLoading && (
-                                    <div className="absolute inset-0 z-10 flex items-center justify-center bg-zinc-900/40 backdrop-blur-[2px]">
-                                        <div className="w-full h-full animate-pulse bg-gradient-to-br from-blue-500/5 via-zinc-800/20 to-emerald-500/5" />
+                                    <div className="absolute inset-0 z-10 flex items-center justify-center bg-background/40 backdrop-blur-[2px]">
+                                        <div className="w-full h-full animate-pulse bg-gradient-to-br from-blue-500/5 via-foreground/5 to-emerald-500/5" />
                                         <div className="absolute inset-0 flex items-center justify-center">
                                             <div className="w-6 h-6 border-2 border-blue-500/20 border-t-blue-500 rounded-full animate-spin" />
                                         </div>
@@ -54,7 +54,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                                 </span>
                             </div>
                         )}
-                        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
+                        <div className="absolute inset-0 bg-background/60 opacity-0 group-hover:opacity-100 transition-opacity backdrop-blur-[2px] flex items-center justify-center gap-4">
                             <Link href={`/projects/${project.id}`}>
                                 <Button variant="glass" size="sm">
                                     Explore
@@ -92,8 +92,8 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                             </div>
                         </div>
 
-                        <h3 className="text-2xl font-bold">{project.title}</h3>
-                        <p className="text-zinc-400 text-sm leading-relaxed line-clamp-3">
+                        <h3 className="text-2xl font-black text-foreground uppercase italic tracking-tighter leading-none">{project.title}</h3>
+                        <p className="text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed line-clamp-3">
                             {project.desc}
                         </p>
 

@@ -28,7 +28,7 @@ export default function Recommendations() {
     }, []);
 
     return (
-        <section className="relative py-32 overflow-hidden bg-[#030712]">
+        <section className="relative py-32 overflow-hidden bg-background">
             {/* Background Decor */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-blue-500/20 to-transparent" />
             <div className="absolute -top-[20%] -left-[10%] w-[40%] h-[60%] bg-blue-500/5 blur-[120px] rounded-full" />
@@ -49,7 +49,7 @@ export default function Recommendations() {
                         <div className="h-4 w-[1px] bg-blue-500/30 relative z-10" />
                         <span className="text-white text-[9px] font-black bg-blue-600 px-2 py-0.5 rounded italic relative z-10">PRO</span>
                     </motion.div>
-                    <h2 className="text-5xl md:text-7xl font-black italic tracking-tighter text-white uppercase">
+                    <h2 className="text-5xl md:text-7xl font-black italic tracking-tighter text-foreground uppercase leading-none">
                         Reviews.
                     </h2>
                     <p className="max-w-2xl text-zinc-500 font-medium text-lg leading-relaxed">
@@ -76,7 +76,7 @@ export default function Recommendations() {
                                         className="relative group h-full"
                                     >
                                         {/* Premium Card Container */}
-                                        <div className="h-full glass-card-premium p-10 border-white/10 bg-white/[0.01] backdrop-blur-3xl group-hover:border-blue-500/40 transition-all duration-700 relative flex flex-col overflow-hidden rounded-[32px]">
+                                        <div className="h-full glass-card-premium p-10 border-glass-border backdrop-blur-3xl group-hover:border-blue-500/40 transition-all duration-700 relative flex flex-col overflow-hidden rounded-[32px]">
 
                                             {/* Decorative Background Elements */}
                                             <div className="absolute -top-12 -right-12 w-32 h-32 bg-blue-600/10 blur-3xl rounded-full group-hover:bg-blue-600/20 transition-all duration-700" />
@@ -98,25 +98,25 @@ export default function Recommendations() {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="bg-white/5 p-4 rounded-2xl group-hover:bg-blue-600 transition-all duration-500 shadow-xl shadow-black/20">
-                                                    <Quote size={24} className="text-blue-400 group-hover:text-white fill-current/10" />
+                                                <div className="bg-glass-bg p-4 rounded-2xl group-hover:bg-blue-600 transition-all duration-500 shadow-xl shadow-glass-l2">
+                                                    <Quote size={24} className="text-blue-500 group-hover:text-white fill-current/10" />
                                                 </div>
                                             </div>
 
                                             {/* Content */}
                                             <div className="flex-grow relative z-10">
-                                                <p className="text-zinc-300 text-lg leading-relaxed font-medium mb-10 italic line-clamp-5 group-hover:text-white transition-colors">
+                                                <p className="text-zinc-500 dark:text-zinc-300 text-lg leading-relaxed font-medium mb-10 italic line-clamp-5 group-hover:text-foreground transition-colors">
                                                     &ldquo;{test.content}&rdquo;
                                                 </p>
                                             </div>
 
                                             {/* Footer with Avatar & Info */}
-                                            <div className="pt-8 border-t border-white/5 flex items-center justify-between mt-auto">
+                                            <div className="pt-8 border-t border-glass-border flex items-center justify-between mt-auto">
                                                 <div className="flex items-center gap-5">
                                                     {/* Avatar with Glow */}
                                                     <div className="relative">
-                                                        <div className="absolute inset-0 bg-blue-500/30 blur-md rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                                                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-zinc-800 to-zinc-900 border border-white/10 flex items-center justify-center text-zinc-400 overflow-hidden relative z-10">
+                                                        <div className="absolute inset-0 bg-blue-500/40 blur-xl rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                                                        <div className="w-16 h-16 rounded-3xl bg-glass-bg border border-glass-border flex items-center justify-center text-zinc-400 overflow-hidden relative z-10">
                                                             {test.avatar ? (
                                                                 <Image
                                                                     src={test.avatar.replace(/^http:\/\//, 'https://')}
@@ -131,7 +131,7 @@ export default function Recommendations() {
                                                     </div>
 
                                                     <div className="space-y-1">
-                                                        <h4 className="font-black text-white text-sm uppercase tracking-wider line-clamp-1 group-hover:text-blue-400 transition-colors">
+                                                        <h4 className="font-black text-foreground text-sm uppercase tracking-wider line-clamp-1 group-hover:text-blue-500 transition-colors">
                                                             {test.name}
                                                         </h4>
                                                         <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest leading-tight line-clamp-1">
@@ -150,7 +150,7 @@ export default function Recommendations() {
                                                     href={test.linkedinUrl}
                                                     target="_blank"
                                                     rel="noreferrer"
-                                                    className="p-3 rounded-2xl bg-white/5 border border-white/5 text-zinc-600 hover:text-white hover:bg-blue-600 hover:border-blue-400 transition-all group/link"
+                                                    className="p-3 rounded-2xl bg-glass-bg border border-glass-border text-zinc-500 hover:text-white hover:bg-blue-600 hover:border-blue-400 transition-all group/link"
                                                 >
                                                     <Linkedin size={20} className="group-hover/link:scale-110 transition-transform" />
                                                 </a>
@@ -169,9 +169,9 @@ export default function Recommendations() {
                             >
                                 <Link
                                     href="/recommendations"
-                                    className="group relative inline-flex items-center gap-3 px-10 py-4 bg-white/5 border border-white/10 rounded-full hover:bg-blue-600 transition-all duration-500"
+                                    className="group relative inline-flex items-center gap-3 px-10 py-4 bg-glass-bg border border-glass-border rounded-full hover:bg-blue-600 transition-all duration-500"
                                 >
-                                    <span className="text-xs font-black uppercase tracking-[0.3em] text-white">Read More</span>
+                                    <span className="text-xs font-black uppercase tracking-[0.3em] text-foreground group-hover:text-white">Read More</span>
                                     <Award className="w-4 h-4 text-blue-500 group-hover:text-white group-hover:rotate-12 transition-all" />
 
                                     {/* Badge for count */}
@@ -183,7 +183,7 @@ export default function Recommendations() {
                         )}
                     </>
                 ) : (
-                    <div className="text-center py-20 px-10 rounded-[40px] border border-dashed border-white/10 bg-white/5">
+                    <div className="text-center py-20 px-10 rounded-[40px] border border-dashed border-glass-border bg-glass-bg">
                         <p className="text-zinc-500 font-bold uppercase tracking-widest text-sm">Nothing here yet!</p>
                     </div>
                 )}

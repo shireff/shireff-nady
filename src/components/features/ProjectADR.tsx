@@ -22,11 +22,11 @@ export default function ProjectADR({ project }: ProjectADRProps) {
                 onClick={() => setIsOpen(!isOpen)}
                 className="flex items-center gap-4 group transition-all duration-300 w-full"
             >
-                <h2 className="text-2xl font-black italic border-l-4 border-blue-500 pl-6 uppercase tracking-wider text-zinc-300 group-hover:text-white transition-colors">
+                <h2 className="text-2xl font-black italic border-l-4 border-blue-500 pl-6 uppercase tracking-wider text-foreground transition-colors">
                     Behind the Build
                 </h2>
-                <div className="flex-grow h-[1px] bg-white/5" />
-                <div className={`p-2 rounded-lg ${isOpen ? 'bg-blue-600 text-white' : 'bg-white/5 text-zinc-500'} group-hover:bg-blue-600 group-hover:text-white transition-all`}>
+                <div className="flex-grow h-[1px] bg-glass-border" />
+                <div className={`p-2 rounded-lg ${isOpen ? 'bg-blue-600 text-white' : 'bg-glass-bg text-zinc-500'} group-hover:bg-blue-600 group-hover:text-white transition-all border border-glass-border`}>
                     <ChevronDown
                         size={20}
                         className={`transition-transform duration-500 ${isOpen ? 'rotate-180' : ''}`}
@@ -50,7 +50,7 @@ export default function ProjectADR({ project }: ProjectADRProps) {
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: index * 0.1 }}
-                                    className="glass-card p-8 border-white/5 space-y-6 relative overflow-hidden group/adr"
+                                    className="glass-card-premium p-8 border-glass-border space-y-6 relative overflow-hidden group/adr"
                                 >
                                     <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/10 blur-3xl rounded-full" />
 
@@ -59,7 +59,7 @@ export default function ProjectADR({ project }: ProjectADRProps) {
                                             <div className="p-1.5 rounded-md bg-blue-500/10 text-blue-400">
                                                 <FileText size={14} />
                                             </div>
-                                            <h4 className="text-sm font-black text-white uppercase tracking-wider">
+                                            <h4 className="text-sm font-black text-foreground uppercase tracking-wider">
                                                 {adr.decision}
                                             </h4>
                                         </div>
@@ -73,7 +73,7 @@ export default function ProjectADR({ project }: ProjectADRProps) {
                                             <span className="text-[10px] font-black text-zinc-600 uppercase tracking-[0.2em] block">Other paths I considered</span>
                                             <div className="flex flex-wrap gap-2">
                                                 {adr.alternatives.map((alt, i) => (
-                                                    <span key={i} className="px-3 py-1 rounded-full bg-white/5 text-[9px] text-zinc-400 border border-white/5 font-bold">
+                                                    <span key={i} className="px-3 py-1 rounded-full bg-glass-bg text-[9px] text-zinc-500 border border-glass-border font-bold">
                                                         {alt}
                                                     </span>
                                                 ))}
@@ -102,7 +102,7 @@ export default function ProjectADR({ project }: ProjectADRProps) {
                                         </div>
 
                                         {/* NEW: What I'm learned Insights Layer */}
-                                        <div className="pt-6 border-t border-white/5 space-y-4">
+                                        <div className="pt-6 border-t border-glass-border space-y-4">
                                             <div className="flex items-center gap-3">
                                                 <div className="h-[1px] flex-grow bg-blue-500/20" />
                                                 <span className="text-[8px] font-black text-blue-500 uppercase tracking-[0.3em]">The Retrospective</span>
@@ -112,7 +112,7 @@ export default function ProjectADR({ project }: ProjectADRProps) {
                                             <div className="space-y-4">
                                                 <div className="space-y-1.5">
                                                     <span className="text-[9px] font-black text-zinc-500 uppercase tracking-widest block">If I did it again</span>
-                                                    <p className="text-[10px] text-zinc-300 leading-relaxed font-medium italic border-l-2 border-blue-500/30 pl-3">
+                                                    <p className="text-[10px] text-foreground leading-relaxed font-medium italic border-l-2 border-blue-500/30 pl-3">
                                                         &ldquo;{adr.changeToday}&rdquo;
                                                     </p>
                                                 </div>
