@@ -9,6 +9,9 @@ export interface ADR {
     positive: string;
     tradeoffs: string;
   };
+  changeToday: string;
+  pastRationale: string;
+  learning: string;
 }
 
 export function generateADR(project: Project): ADR[] {
@@ -21,6 +24,7 @@ export function generateADR(project: Project): ADR[] {
   const isAPI = title.includes('api') || category.includes('node');
   const isNext = category.includes('next');
   const isReact = category.includes('react');
+  const isUI = category.includes('ui') && !isReact && !isNext; // Native UI
   const isSaaS =
     desc.includes('saas') ||
     desc.includes('dashboard') ||
@@ -43,23 +47,29 @@ export function generateADR(project: Project): ADR[] {
    */
   if (isAPI) {
     adrs.push({
-      decision: 'REST-first API with explicit domain boundaries',
+      decision: 'REST-first API with clear boundaries',
       context:
-        'As the product evolved beyond a single interface, the backend needed to serve multiple consumers such as dashboards, admin panels, and potential future clients. Tight coupling between backend logic and frontend needs would have slowed down iteration and increased coordination costs.',
-      alternatives: ['GraphQL', 'tRPC', 'Single-purpose serverless endpoints'],
+        'The backend needs to serve multiple consumers like dashboards, admin panels, or apps. Tight coupling with frontend would slow things down.',
+      alternatives: ['GraphQL', 'tRPC', 'Serverless single-purpose endpoints'],
       rationale:
-        'REST was chosen to keep the mental model simple and familiar for both current and future developers. Resource-oriented endpoints aligned naturally with the business language of the domain, while avoiding early complexity around schema governance and client-server coupling that alternatives like GraphQL or tRPC would introduce at this stage.',
+        'REST is simple, familiar, and lets future developers understand endpoints easily without over-complicating things.',
       consequences: {
         positive:
-          'Clear and predictable API contracts, straightforward documentation via Swagger, and low onboarding friction for new team members or external integrators.',
+          'Clear API contracts, easy documentation via Swagger, predictable integration for multiple clients.',
         tradeoffs:
-          'Some level of over-fetching is accepted. This is treated as a conscious tradeoff to preserve simplicity, instead of introducing additional abstraction layers prematurely.'
-      }
+          'Some over-fetching may happen compared to GraphQL, but simplicity is prioritized over micro-optimizations.'
+      },
+      changeToday:
+        'Add type-safe RPC layer (like tRPC) to keep frontend and backend contracts in sync automatically.',
+      pastRationale:
+        'At the time, REST was standard and allowed maximum flexibility for unknown future clients.',
+      learning:
+        'Focusing on domain-driven design in API endpoints matters more than early over-optimization.'
     });
   }
 
   /**
-   * 2️⃣ Frontend Rendering / Framework
+   * 2️⃣ Frontend Rendering / Next.js Strategy
    */
   if (isNext) {
     let context = '';
@@ -67,77 +77,145 @@ export function generateADR(project: Project): ADR[] {
 
     if (isSaaS) {
       context =
-        'The product includes both public-facing entry points and authenticated dashboards with frequent state changes and evolving requirements. Performance expectations differ significantly between these areas.',
+        'The product has public pages and multi-role dashboards with frequent updates and dynamic data.';
       rationale =
-        'Next.js enabled a pragmatic hybrid approach: server-rendered pages for fast first paint and SEO where it matters, while keeping complex dashboards client-driven to preserve flexibility and developer velocity as features evolve.';
+        'Next.js gives hybrid rendering: server-rendered pages for SEO and client-driven dashboards for flexibility.';
     } else if (isLuxuryBrand) {
       context =
-        'First impressions and visual stability were critical for the brand, especially for users arriving through marketing campaigns on a wide range of devices.',
+        'Brand image is crucial; visuals must be consistent for marketing campaigns.';
       rationale =
-        'Server-side rendering was prioritized to ensure consistent layout, predictable loading behavior, and reduced visual shifts, all of which directly support a premium brand perception.';
+        'Server-side rendering ensures stable layouts, fast first paint, and premium feel.';
     } else {
       context =
-        'The application required strong initial load performance without committing too early to a single rendering strategy.',
+        'We needed good initial load without committing to only SPA or static site.';
       rationale =
-        'Next.js provided a balanced foundation that allows the rendering model to evolve per route as the product matures, without forcing a full architectural rewrite.';
+        'Next.js allows evolving the rendering strategy per route without full rewrites.';
     }
 
     adrs.push({
-      decision: 'Hybrid rendering strategy using Next.js',
+      decision: 'Hybrid rendering using Next.js',
       context,
       alternatives: ['Pure SPA (React)', 'Static Site Generation only'],
       rationale,
       consequences: {
         positive:
-          'Good performance characteristics combined with the flexibility to choose the right rendering strategy per feature or page.',
+          'Good performance and flexibility to pick the right rendering per page.',
         tradeoffs:
-          'Introduces a server runtime and requires more deliberate decisions around caching, deployment, and failure handling compared to static-only solutions.'
-      }
+          'Server runtime adds complexity in caching, deployment, and handling failures.'
+      },
+      changeToday:
+        'Move towards Incremental Static Regeneration (ISR) for pages that rarely change to save server compute.',
+      pastRationale:
+        'Dynamic dashboards required server-side fetching for consistent data at that time.',
+      learning:
+        'Mixing Server and Client components requires clear data flow to avoid hydration issues.'
     });
   }
 
   /**
-   * 3️⃣ State & Data Strategy (Dashboards / SaaS)
+   * 3️⃣ React SPA Strategy
+   */
+  if (isReact && !isNext) {
+    adrs.push({
+      decision: 'Component-driven architecture with isolated state',
+      context:
+        'The project is a React SPA needing reusable components and predictable state boundaries.',
+      alternatives: ['Monolithic components', 'Global state only', 'Ad-hoc logic'],
+      rationale:
+        'Component-driven design improves maintainability, encourages reuse, and reduces bugs in complex UI.',
+      consequences: {
+        positive:
+          'Easier testing, consistent UI, faster onboarding for frontend devs.',
+        tradeoffs:
+          'Initial setup overhead and discipline to keep state/props clean.'
+      },
+      changeToday:
+        'Adopt a headless UI pattern (like Radix) to separate logic from presentation for more flexibility.',
+      pastRationale:
+        'Using hooks to isolate component state was enough for project scope then.',
+      learning:
+        'Consistent prop interfaces matter as much as the component code itself for long-term health.'
+    });
+  }
+
+  /**
+   * 4️⃣ Native UI Strategy
+   */
+  if (isUI) {
+    adrs.push({
+      decision: 'Focus on accessibility, responsiveness, and visual consistency',
+      context:
+        'UI is native (non-framework) and needs to be clear, responsive, and maintainable.',
+      alternatives: ['Fixed layouts', 'Minimal accessibility', 'Ad-hoc styling'],
+      rationale:
+        'Consistency and accessibility improve user trust and adoption, especially for public-facing projects.',
+      consequences: {
+        positive:
+          'Better UX, works on all devices, easier to enhance in future.',
+        tradeoffs:
+          'Needs careful CSS/JS organization; may need a simple design system for maintainability.'
+      },
+      changeToday:
+        'Introduce minimal reusable components and consider a lightweight utility library (Tailwind or Alpine.js) to standardize UI patterns.',
+      pastRationale:
+        'Native approach allowed fastest delivery with minimal dependencies.',
+      learning:
+        'Even small native UIs benefit from modularity; separating structure, style, and behavior early pays off.'
+    });
+  }
+
+  /**
+   * 5️⃣ SaaS / State Strategy
    */
   if (isSaaS) {
     adrs.push({
-      decision: 'Explicit client-side state layer for server data',
+      decision: 'Central client-side state layer for server data',
       context:
-        'Multiple user roles interact with shared datasets such as users, reports, and bookings, often in parallel. Changes in one area of the UI can have cascading effects across the system.',
-      alternatives: ['Prop drilling', 'Context-only state', 'Ad-hoc fetch logic'],
+        'Multiple roles interact with shared datasets; predictable and synchronized state is critical.',
+      alternatives: ['Prop drilling', 'Context only', 'Ad-hoc fetch logic'],
       rationale:
-        'Introducing a dedicated client-side server-state layer helped clarify data ownership, reduce duplicated network requests, and make complex UI flows easier to reason about as the application scaled.',
+        'Centralized client state avoids duplicated network calls and clarifies data ownership.',
       consequences: {
         positive:
-          'More predictable data flow, fewer synchronization bugs, and improved perceived performance during frequent interactions.',
+          'Fewer sync bugs, better perceived performance, predictable flow.',
         tradeoffs:
-          'Additional upfront setup and the need for clear conventions to prevent the state layer from becoming a dumping ground.'
-      }
+          'Extra setup; must enforce conventions to prevent misuse.'
+      },
+      changeToday:
+        'Use Server Actions and cache revalidation to reduce client-side complexity and simplify state management.',
+      pastRationale:
+        'Redux/centralized state was needed for multi-user dashboards at the time.',
+      learning:
+        'Local state is sufficient for simple interactions; global state is for cross-cutting shared data.'
     });
   }
 
   /**
-   * 4️⃣ Product Simplicity Decision (Business Tools)
+   * 6️⃣ Business Tool / Simplicity
    */
   if (isBusinessTool) {
     adrs.push({
-      decision: 'Intentional feature restraint with simplified domain language',
+      decision: 'Limit features and simplify domain language',
       context:
-        'The primary users were non-technical business owners who valued clarity and speed over exhaustive feature sets.',
-      alternatives: ['Full accounting workflows', 'Highly configurable enterprise-style systems'],
+        'Target users are small business owners needing clarity and speed, not full accounting systems.',
+      alternatives: ['Full accounting', 'Highly configurable enterprise tools'],
       rationale:
-        'By limiting scope and simplifying terminology, the product reduces cognitive load and encourages consistent daily usage, which was more valuable than supporting every edge case.',
+        'Simplifying terminology reduces cognitive load and increases daily use.',
       consequences: {
         positive:
-          'Faster onboarding, higher user confidence, and fewer support requests related to misunderstood features.',
+          'Faster onboarding, higher confidence, fewer support requests.',
         tradeoffs:
-          'Some advanced use cases are intentionally unsupported to protect overall simplicity and usability.'
-      }
+          'Some advanced use cases are unsupported to maintain simplicity.'
+      },
+      changeToday:
+        'Add optional "Advanced Mode" for power users without cluttering main interface.',
+      pastRationale:
+        '80/20 rule applied to ensure usability for target non-technical users.',
+      learning:
+        'Feature restraint is a skill; avoiding complexity is harder than adding it.'
     });
   }
 
-  /**
-   * Limit noise: max 3 ADRs per project
-   */
+  // Limit noise: max 3 ADRs per project
   return adrs.slice(0, 3);
 }

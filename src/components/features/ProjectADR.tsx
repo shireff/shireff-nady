@@ -100,6 +100,36 @@ export default function ProjectADR({ project }: ProjectADRProps) {
                                                 </p>
                                             </div>
                                         </div>
+
+                                        {/* NEW: What I'm learned Insights Layer */}
+                                        <div className="pt-6 border-t border-white/5 space-y-4">
+                                            <div className="flex items-center gap-3">
+                                                <div className="h-[1px] flex-grow bg-blue-500/20" />
+                                                <span className="text-[8px] font-black text-blue-500 uppercase tracking-[0.3em]">What I'm learned</span>
+                                                <div className="h-[1px] flex-grow bg-blue-500/20" />
+                                            </div>
+
+                                            <div className="space-y-4">
+                                                <div className="space-y-1.5">
+                                                    <span className="text-[9px] font-black text-zinc-500 uppercase tracking-widest block">What I would change today</span>
+                                                    <p className="text-[10px] text-zinc-300 leading-relaxed font-medium italic border-l-2 border-blue-500/30 pl-3">
+                                                        &ldquo;{adr.changeToday}&rdquo;
+                                                    </p>
+                                                </div>
+                                                <div className="space-y-1.5">
+                                                    <span className="text-[9px] font-black text-zinc-500 uppercase tracking-widest block">Why it was reasonable at the time</span>
+                                                    <p className="text-[10px] text-zinc-400 leading-relaxed font-medium pl-3">
+                                                        {adr.pastRationale}
+                                                    </p>
+                                                </div>
+                                                <div className="space-y-1.5">
+                                                    <span className="text-[9px] font-black text-zinc-500 uppercase tracking-widest block">What I learned from it</span>
+                                                    <p className="text-[10px] text-emerald-400/80 leading-relaxed font-bold bg-emerald-500/5 px-3 py-2 rounded-lg border border-emerald-500/10">
+                                                        {adr.learning}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </motion.div>
                             ))}
