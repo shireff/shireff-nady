@@ -47,24 +47,24 @@ export function generateADR(project: Project): ADR[] {
    */
   if (isAPI) {
     adrs.push({
-      decision: 'REST-first API with clear boundaries',
+      decision: 'Building a simple, solid API',
       context:
-        'The backend needs to serve multiple consumers like dashboards, admin panels, or apps. Tight coupling with frontend would slow things down.',
+        'I needed a way for different parts of the system—like the dashboard and the mobile app—to talk to each other without getting tangled up.',
       alternatives: ['GraphQL', 'tRPC', 'Serverless single-purpose endpoints'],
       rationale:
-        'REST is simple, familiar, and lets future developers understand endpoints easily without over-complicating things.',
+        'I went with REST because it’s a reliable, industry-standard way to keep things predictable. It makes it much easier for anyone else joining the project to jump right in.',
       consequences: {
         positive:
-          'Clear API contracts, easy documentation via Swagger, predictable integration for multiple clients.',
+          'The API is easy to document and integrates perfectly with almost any tool.',
         tradeoffs:
-          'Some over-fetching may happen compared to GraphQL, but simplicity is prioritized over micro-optimizations.'
+          'Sometimes it sends a bit more data than needed, but I prioritized simplicity and consistency over micro-optimizing every bytes.'
       },
       changeToday:
-        'Add type-safe RPC layer (like tRPC) to keep frontend and backend contracts in sync automatically.',
+        'I’d likely use tRPC now to get that extra layer of "contract" safety between the frontend and the backend automatically.',
       pastRationale:
-        'At the time, REST was standard and allowed maximum flexibility for unknown future clients.',
+        'REST was the perfect choice for keeping the backend flexible while the frontend was still being figured out.',
       learning:
-        'Focusing on domain-driven design in API endpoints matters more than early over-optimization.'
+        'How you structure your data models (domain design) is way more important than which protocol you use to send it.'
     });
   }
 
@@ -93,22 +93,22 @@ export function generateADR(project: Project): ADR[] {
     }
 
     adrs.push({
-      decision: 'Hybrid rendering using Next.js',
+      decision: 'Next.js for a blend of speed and power',
       context,
       alternatives: ['Pure SPA (React)', 'Static Site Generation only'],
       rationale,
       consequences: {
         positive:
-          'Good performance and flexibility to pick the right rendering per page.',
+          'Everything feels incredibly fast, and I had the freedom to decide how each specific page should be rendered.',
         tradeoffs:
-          'Server runtime adds complexity in caching, deployment, and handling failures.'
+          'Running a real server adds a few more moving parts to the deployment and caching strategy.'
       },
       changeToday:
-        'Move towards Incremental Static Regeneration (ISR) for pages that rarely change to save server compute.',
+        'I would lean more into Incremental Static Regeneration (ISR) to keep the speed high while keeping the server costs low.',
       pastRationale:
-        'Dynamic dashboards required server-side fetching for consistent data at that time.',
+        'The dashboards needed real-time-ish data, so server-side fetching was the most straightforward way to keep things fresh.',
       learning:
-        'Mixing Server and Client components requires clear data flow to avoid hydration issues.'
+        'Managing how data flows between the server and the client is a balancing act—get it wrong, and you deal with hydration errors.'
     });
   }
 
@@ -195,24 +195,24 @@ export function generateADR(project: Project): ADR[] {
    */
   if (isBusinessTool) {
     adrs.push({
-      decision: 'Limit features and simplify domain language',
+      decision: 'Choosing simplicity over "cool" features',
       context:
-        'Target users are small business owners needing clarity and speed, not full accounting systems.',
+        'These users are usually busy running their businesses; they don’t have time to learn a complex accounting tool.',
       alternatives: ['Full accounting', 'Highly configurable enterprise tools'],
       rationale:
-        'Simplifying terminology reduces cognitive load and increases daily use.',
+        'I intentionally limited the features and kept the language simple to make the app feel accessible and fast to use every day.',
       consequences: {
         positive:
-          'Faster onboarding, higher confidence, fewer support requests.',
+          'Users get up to speed in minutes, and there’s almost zero need for support manuals.',
         tradeoffs:
-          'Some advanced use cases are unsupported to maintain simplicity.'
+          'I had to say "no" to some advanced features to keep the overall experience clean.'
       },
       changeToday:
-        'Add optional "Advanced Mode" for power users without cluttering main interface.',
+        'I might add a "Pro Mode" that stays hidden until you actually need it, keeping the UI clean for new users.',
       pastRationale:
-        '80/20 rule applied to ensure usability for target non-technical users.',
+        'I applied the 80/20 rule: focusing on the 20% of features that 80% of people use every day.',
       learning:
-        'Feature restraint is a skill; avoiding complexity is harder than adding it.'
+        'It’s actually much harder to keep a product simple than it is to keep adding features.'
     });
   }
 

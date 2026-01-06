@@ -3,7 +3,7 @@ import ProjectDetailHero from '@/components/features/projects/ProjectDetailHero'
 import Image from 'next/image';
 import Script from 'next/script';
 import { notFound } from 'next/navigation';
-import { Github, ArrowLeft, Calendar, Tag, ExternalLink } from 'lucide-react';
+import { Github, ArrowLeft, Calendar, Tag, ExternalLink, Share2, ArrowRight } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import { projectService } from '@/services/projects';
@@ -158,7 +158,7 @@ export default async function ProjectDetailsPage({ params }: { params: Promise<{
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-20">
           <div className="lg:col-span-2 space-y-16">
             <div className="space-y-8">
-              <h2 className="text-3xl font-black italic border-l-4 border-blue-500 pl-6">SPECIFICATIONS.</h2>
+              <h2 className="text-3xl font-black italic border-l-4 border-blue-500 pl-6 uppercase tracking-wider">Details.</h2>
               {project.desc.split('\n\n').map((para, i) => (
                 <p key={i} className="text-zinc-400 text-xl leading-relaxed font-medium">{para}</p>
               ))}
@@ -183,7 +183,7 @@ export default async function ProjectDetailsPage({ params }: { params: Promise<{
           <aside className="space-y-10">
             <Card className="border-blue-500/10 bg-blue-500/5 shadow-2xl">
               <CardHeader>
-                <CardTitle className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-400">Project Metadata</CardTitle>
+                <CardTitle className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-400">About this Project</CardTitle>
               </CardHeader>
               <CardContent className="space-y-8">
                 <div className="flex items-center gap-5">
@@ -191,7 +191,7 @@ export default async function ProjectDetailsPage({ params }: { params: Promise<{
                     <Calendar size={22} />
                   </div>
                   <div>
-                    <p className="text-[10px] text-zinc-500 uppercase font-black tracking-widest mb-1">Deployment Date</p>
+                    <p className="text-[10px] text-zinc-500 uppercase font-black tracking-widest mb-1">Created on</p>
                     <p className="font-bold text-white text-lg">{formatDate(project.createdAt)}</p>
                   </div>
                 </div>
@@ -210,7 +210,7 @@ export default async function ProjectDetailsPage({ params }: { params: Promise<{
                   {project.demo ? (
                     <a href={project.demo} target="_blank" rel="noreferrer" className="block">
                       <Button className="w-full gap-3 py-6 rounded-2xl font-black italic shadow-xl shadow-blue-600/20" size="lg">
-                        INSTANTIATE DEMO <ExternalLink size={20} />
+                        VIEW LIVE <ExternalLink size={20} />
                       </Button>
                     </a>
                   ) : (
@@ -246,6 +246,21 @@ export default async function ProjectDetailsPage({ params }: { params: Promise<{
                       </p>
                     </div>
                   )}
+
+                  <Link href={`/projects/${project.id}/flow`} className="block pt-4">
+                    <button className="w-full p-6 rounded-2xl bg-gradient-to-br from-blue-600/10 to-emerald-600/10 border border-white/5 hover:border-blue-500/30 transition-all flex items-center justify-between group">
+                      <div className="flex items-center gap-4">
+                        <div className="p-3 rounded-xl bg-blue-500/20 text-blue-400 group-hover:scale-110 transition-transform">
+                          <Share2 size={20} />
+                        </div>
+                        <div className="text-left">
+                          <p className="text-[10px] text-zinc-500 uppercase font-black tracking-widest mb-1">How it works</p>
+                          <p className="font-bold text-white text-lg italic tracking-tight uppercase">Explore Logic Map</p>
+                        </div>
+                      </div>
+                      <ArrowRight size={20} className="text-zinc-500 group-hover:text-blue-400 transform group-hover:translate-x-1 transition-all" />
+                    </button>
+                  </Link>
                 </div>
               </CardContent>
             </Card>

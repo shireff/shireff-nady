@@ -36,25 +36,25 @@ export default function VerificationPage() {
 
     const sections = [
         {
-            title: "Architectural Integrity",
+            title: "How I make decisions",
             icon: FileCheck,
             value: stats.totalADRs,
-            label: "Active ADRs Generated",
-            desc: "Architectural Decision Records derived automatically from production metadata, detailing trade-offs and tech choices."
+            label: "Technical Records",
+            desc: "These records show why I chose specific tools or patterns and the trade-offs I considered along the way."
         },
         {
-            title: "Project Distribution",
+            title: "Real-world projects",
             icon: Code2,
             value: projects.length,
-            label: "Verified Artifacts",
-            desc: "Claims are validated against actual deployments and source repositories across multiple domains."
+            label: "Verified Projects",
+            desc: "Every project here is backed by real code and live deployments you can actually see and test."
         },
         {
-            title: "Social Proof Trust",
+            title: "Verified feedback",
             icon: Linkedin,
             value: "100%",
-            label: "Verified Source Rate",
-            desc: "All endorsements are synchronized directly from LinkedIn with verified profile links."
+            label: "LinkedIn Verified",
+            desc: "All recommendations are pulled directly from my LinkedIn profile to ensure they are 100% genuine."
         }
     ];
 
@@ -66,14 +66,14 @@ export default function VerificationPage() {
                 <div className="mb-20 space-y-6">
                     <div className="flex items-center gap-3 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-[0.4em] w-fit">
                         <ShieldCheck size={12} />
-                        Verification Protocol v2.0
+                        Trust & Proof
                     </div>
                     <h1 className="text-5xl md:text-7xl font-black italic tracking-tighter text-white">
-                        EVIDENCE <br />
-                        <span className="text-zinc-600">DASHBOARD.</span>
+                        VERIFICATION <br />
+                        <span className="text-zinc-600">HUB.</span>
                     </h1>
                     <p className="max-w-xl text-zinc-500 font-medium text-lg italic">
-                        A transparency layer designed to provide verifiable proof for all technical and professional claims made within this portfolio.
+                        I believe in showing, not just telling. This page aggregates proof for my skills, decisions, and recommendations.
                     </p>
                 </div>
 
@@ -103,7 +103,7 @@ export default function VerificationPage() {
 
                 <div className="space-y-8">
                     <div className="flex items-center gap-4">
-                        <h3 className="text-xs font-black uppercase tracking-[0.4em] text-zinc-400">System Logs</h3>
+                        <h3 className="text-xs font-black uppercase tracking-[0.4em] text-zinc-400">System Status</h3>
                         <div className="h-[1px] flex-grow bg-white/5" />
                     </div>
 
@@ -117,11 +117,11 @@ export default function VerificationPage() {
                             <div className="flex items-center gap-6">
                                 <div className="flex items-center gap-2">
                                     <CheckCircle2 size={12} className="text-emerald-500" />
-                                    <span className="text-[10px] font-black uppercase tracking-widest text-zinc-500">API Health: OK</span>
+                                    <span className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Database: Connected</span>
                                 </div>
                                 <div className="flex items-center gap-2">
                                     <CheckCircle2 size={12} className="text-emerald-500" />
-                                    <span className="text-[10px] font-black uppercase tracking-widest text-zinc-500">ADR Engine: Dynamic</span>
+                                    <span className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Logic: Live</span>
                                 </div>
                             </div>
                         </div>

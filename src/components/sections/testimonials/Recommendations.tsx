@@ -44,23 +44,23 @@ export default function Recommendations() {
                         <div className="absolute inset-0 bg-blue-500/20 blur-xl rounded-full animate-pulse group-hover:bg-blue-500/40 transition-all" />
                         <ShieldCheck size={14} className="text-blue-400 relative z-10" />
                         <span className="text-blue-400 text-[10px] font-black uppercase tracking-[0.4em] relative z-10">
-                            Verified Source Protocol
+                            Verified Feedback
                         </span>
                         <div className="h-4 w-[1px] bg-blue-500/30 relative z-10" />
                         <span className="text-white text-[9px] font-black bg-blue-600 px-2 py-0.5 rounded italic relative z-10">PRO</span>
                     </motion.div>
-                    <h2 className="text-5xl md:text-7xl font-black italic tracking-tighter text-white">
-                        RECOMMENDATIONS
+                    <h2 className="text-5xl md:text-7xl font-black italic tracking-tighter text-white uppercase">
+                        Reviews.
                     </h2>
                     <p className="max-w-2xl text-zinc-500 font-medium text-lg leading-relaxed">
-                        Live synchronization with LinkedIn recommendations—acting as the single source of truth for engineering leadership and technical credibility.
+                        Real feedback from the people I&apos;ve built products with, pulled directly from LinkedIn.
                     </p>
                 </div>
 
                 {isLoading ? (
                     <div className="flex flex-col items-center justify-center py-20 gap-4">
                         <Loader2 className="animate-spin text-blue-500" size={40} />
-                        <p className="text-zinc-500 font-black uppercase tracking-widest text-xs">Synchronizing with LinkedIn API...</p>
+                        <p className="text-zinc-500 font-black uppercase tracking-widest text-xs">Getting feedback...</p>
                     </div>
                 ) : testimonials.length > 0 ? (
                     <>
@@ -91,10 +91,10 @@ export default function Recommendations() {
                                                         ))}
                                                     </div>
                                                     <div className="flex flex-col gap-1">
-                                                        <span className="text-[8px] font-black text-zinc-600 uppercase tracking-widest">Verified Endorsement</span>
+                                                        <span className="text-[8px] font-black text-zinc-600 uppercase tracking-widest">Feedback</span>
                                                         <div className="flex items-center gap-1.5 py-0.5 px-2 rounded-md bg-blue-500/5 border border-blue-500/10 w-fit">
                                                             <Linkedin size={8} className="text-blue-400" />
-                                                            <span className="text-[7px] font-black text-blue-400 uppercase tracking-[0.2em]">Synced from LinkedIn</span>
+                                                            <span className="text-[7px] font-black text-blue-400 uppercase tracking-[0.2em]">LinkedIn Verified</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -171,7 +171,7 @@ export default function Recommendations() {
                                     href="/recommendations"
                                     className="group relative inline-flex items-center gap-3 px-10 py-4 bg-white/5 border border-white/10 rounded-full hover:bg-blue-600 transition-all duration-500"
                                 >
-                                    <span className="text-xs font-black uppercase tracking-[0.3em] text-white">View All Recommendations</span>
+                                    <span className="text-xs font-black uppercase tracking-[0.3em] text-white">Read More</span>
                                     <Award className="w-4 h-4 text-blue-500 group-hover:text-white group-hover:rotate-12 transition-all" />
 
                                     {/* Badge for count */}
@@ -184,7 +184,7 @@ export default function Recommendations() {
                     </>
                 ) : (
                     <div className="text-center py-20 px-10 rounded-[40px] border border-dashed border-white/10 bg-white/5">
-                        <p className="text-zinc-500 font-bold uppercase tracking-widest text-sm">No synchronized recommendations detected.</p>
+                        <p className="text-zinc-500 font-bold uppercase tracking-widest text-sm">Nothing here yet!</p>
                     </div>
                 )}
 

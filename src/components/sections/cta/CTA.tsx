@@ -17,13 +17,13 @@ const CTA: React.FC = () => {
                 >
                     <Rocket size={64} className="mx-auto text-blue-400" />
                 </motion.div>
-                <h2 className="text-4xl md:text-6xl font-black italic">LET&apos;S BUILD THE FUTURE.</h2>
+                <h2 className="text-4xl md:text-6xl font-black italic">WANT TO WORK TOGETHER?</h2>
                 <p className="text-zinc-400 text-xl max-w-2xl mx-auto">
-                    Currently open for select freelance opportunities and full-time senior roles.
+                    I&apos;m always looking for interesting projects and new opportunities. Drop me a line!
                 </p>
                 <div className="flex justify-center gap-4">
                     <Link href="/contact">
-                        <Button size="lg" className="px-12 rounded-full font-bold">CONTACT ME</Button>
+                        <Button size="lg" className="px-12 rounded-full font-bold">GET IN TOUCH</Button>
                     </Link>
                 </div>
             </div>

@@ -43,9 +43,9 @@ export default function ContactForm() {
                             </div>
 
                             <div className="space-y-3">
-                                <h3 className="text-4xl font-black italic text-white uppercase tracking-tighter">Transmission Successful.</h3>
+                                <h3 className="text-4xl font-black italic text-white uppercase tracking-tighter">Message Sent!</h3>
                                 <p className="text-zinc-400 text-lg max-w-sm mx-auto">
-                                    Your signal has been received. Expect a response through your preferred node within 24 hours.
+                                    Thanks for reaching out! I&apos;ve received your message and will get back to you within 24 hours.
                                 </p>
                             </div>
 
@@ -54,7 +54,7 @@ export default function ContactForm() {
                                 onClick={() => window.location.reload()}
                                 className="rounded-full px-10 h-14 font-black italic tracking-widest uppercase text-xs"
                             >
-                                SEND ANOTHER SIGNAL
+                                SEND ANOTHER MESSAGE
                             </Button>
                         </motion.div>
                     ) : (
@@ -66,7 +66,7 @@ export default function ContactForm() {
                             className="space-y-8"
                         >
                             <div className="space-y-2">
-                                <label htmlFor="name" className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 pl-1">Identifer (Name)</label>
+                                <label htmlFor="name" className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 pl-1">Name</label>
                                 <input
                                     id="name"
                                     type="text"
@@ -80,7 +80,7 @@ export default function ContactForm() {
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <div className="space-y-2">
-                                    <label htmlFor="email" className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 pl-1">Electronic Mail</label>
+                                    <label htmlFor="email" className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 pl-1">Email</label>
                                     <input
                                         id="email"
                                         type="email"
@@ -92,7 +92,7 @@ export default function ContactForm() {
                                     <ValidationError prefix="Email" field="email" errors={state.errors} className="text-red-400 text-xs font-bold mt-1 pl-1" />
                                 </div>
                                 <div className="space-y-2">
-                                    <label htmlFor="phone" className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 pl-1">Signal Phone</label>
+                                    <label htmlFor="phone" className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 pl-1">Phone (Optional)</label>
                                     <input
                                         id="phone"
                                         type="tel"
@@ -105,7 +105,7 @@ export default function ContactForm() {
                             </div>
 
                             <div className="space-y-2">
-                                <label htmlFor="message" className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 pl-1">Payload (Message)</label>
+                                <label htmlFor="message" className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 pl-1">Message</label>
                                 <textarea
                                     id="message"
                                     name="message"
@@ -128,7 +128,7 @@ export default function ContactForm() {
                                         aria-live="assertive"
                                     >
                                         <AlertCircle size={20} className="shrink-0" />
-                                        <p>Transmission failed. Resolve the validation errors or reach out directly.</p>
+                                        <p>Something went wrong. Please check your info or reach out directly.</p>
                                     </motion.div>
                                 )}
                             </AnimatePresence>
@@ -141,7 +141,7 @@ export default function ContactForm() {
                                 className="w-full py-8 rounded-2xl font-black italic text-xl shadow-xl shadow-blue-600/20 gap-3 group overflow-hidden relative"
                             >
                                 <span className="relative z-10 flex items-center gap-3">
-                                    {state.submitting ? 'TRANSMITTING...' : 'START TRANSMISSION'}
+                                    {state.submitting ? 'SENDING...' : 'SEND MESSAGE'}
                                     {!state.submitting && <Send size={24} className="group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform" />}
                                 </span>
                                 <motion.div

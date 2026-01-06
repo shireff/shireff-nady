@@ -25,12 +25,11 @@ export default function ContactPage() {
           animate={{ opacity: 1, scale: 1 }}
           className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-[0.4em] mb-4"
         >
-          <MessageSquare size={16} /> SECURE COMMUNICATION
+          <MessageSquare size={16} /> GET IN TOUCH
         </motion.div>
         <h1 className="text-5xl md:text-9xl font-black italic tracking-tighter bg-gradient-to-b from-white to-zinc-800 bg-clip-text text-transparent text-center">HELLO.</h1>
         <p className="text-zinc-500 text-xl max-w-2xl mx-auto font-medium">
-          Ready to initiate your next architectural breakthrough.
-          Use the secure transmission form or reach out via direct link.
+          I'm always up for a chat about new projects, cool ideas, or how I can help your team. Drop me a line below!
         </p>
       </div>
 

@@ -5,9 +5,9 @@ import { motion } from 'framer-motion';
 import { Code2, Cpu, Globe } from 'lucide-react';
 
 const stats = [
-    { icon: Code2, title: 'Clean Architecture', desc: 'Maintainable, scalable, and modular codebases.' },
-    { icon: Cpu, title: 'High Performance', desc: 'Blazing fast load times and smooth interactions.' },
-    { icon: Globe, title: 'Global Reach', desc: 'Accessible, SEO-optimized, and multilingual support.' }
+    { icon: Code2, title: 'Quality Code', desc: 'Code that is easy to read, grow, and maintain.' },
+    { icon: Cpu, title: 'High Speed', desc: 'Built for quick loading and a smooth user experience.' },
+    { icon: Globe, title: 'For Everyone', desc: 'Accessible, friendly, and built for a global audience.' }
 ];
 
 const Stats: React.FC = () => {

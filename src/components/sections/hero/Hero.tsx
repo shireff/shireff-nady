@@ -50,17 +50,14 @@ const Hero: React.FC<HeroProps> = ({
                     </motion.div>
 
                     <div className="space-y-6">
-                        <motion.h1
-                            initial={{ opacity: 0, y: 40 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.7, delay: 0.1 }}
+                        <h1
                             className="text-6xl md:text-8xl lg:text-9xl font-black italic tracking-tighter leading-[0.85] uppercase"
                         >
-                            Engineering <br />
+                            Building <br />
                             <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-emerald-400 bg-clip-text text-transparent">
-                                Digital <br /> Excellence
+                                Great <br /> Softwares
                             </span>
-                        </motion.h1>
+                        </h1>
 
                         <motion.p
                             initial={{ opacity: 0, y: 20 }}
@@ -68,8 +65,7 @@ const Hero: React.FC<HeroProps> = ({
                             transition={{ duration: 0.6, delay: 0.2 }}
                             className="text-zinc-400 text-xl md:text-2xl max-w-2xl font-medium leading-relaxed mx-auto lg:mx-0"
                         >
-                            Architecting high-performance web systems with meticulous
-                            visual design and state-of-the-art engineering.
+                            I build fast, reliable web apps with clean design and attention to detail.
                         </motion.p>
                     </div>
 
@@ -82,12 +78,12 @@ const Hero: React.FC<HeroProps> = ({
                     >
                         <Link href="/projects">
                             <Button size="lg" className="h-16 px-10 gap-3 rounded-full font-black italic text-lg shadow-2xl shadow-blue-500/20 group">
-                                EXPLORE LAB <ArrowRight size={22} className="group-hover:translate-x-1 transition-transform" />
+                                VIEW MY WORK <ArrowRight size={22} className="group-hover:translate-x-1 transition-transform" />
                             </Button>
                         </Link>
                         <Link href="/contact">
                             <Button variant="glass" size="lg" className="h-16 px-10 rounded-full font-black italic text-lg border-white/5 hover:bg-white/10">
-                                CONNECT
+                                CONTACT
                             </Button>
                         </Link>
                         <a
@@ -97,7 +93,7 @@ const Hero: React.FC<HeroProps> = ({
                         >
                             <Button variant="outline" size="lg" className="h-16 px-10 rounded-full font-black italic text-lg border-white/10 hover:bg-white/5 flex items-center gap-2">
                                 <Download size={20} />
-                                DOWNLOAD CV
+                                MY RESUME
                             </Button>
                         </a>
                     </motion.div>

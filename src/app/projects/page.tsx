@@ -65,9 +65,9 @@ export default async function ProjectsPage() {
       />
 
       <div className="space-y-4 text-center max-w-3xl mx-auto">
-        <h1 className="text-4xl md:text-7xl font-black tracking-tight">PROJECTS.</h1>
+        <h1 className="text-4xl md:text-7xl font-black tracking-tight italic uppercase">Projects.</h1>
         <p className="text-zinc-400 text-lg">
-          A collection of digital instruments designed and built to solve complex problems.
+          A selection of projects I've built, ranging from complex SaaS platforms to unique web experiments.
         </p>
       </div>
 

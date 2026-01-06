@@ -30,11 +30,11 @@ export default async function ComparisonsPage() {
         <div
           className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-[0.4em] mb-4 shadow-[0_0_20px_rgba(59,130,246,0.2)]"
         >
-          <Cpu size={16} /> EVOLUTIONARY BENCHMARKS
+          <Cpu size={16} /> TECH EVOLUTION
         </div>
-        <h1 className="text-5xl md:text-9xl font-black italic tracking-tighter bg-gradient-to-b from-white to-zinc-800 bg-clip-text text-transparent">COMPARE.</h1>
+        <h1 className="text-5xl md:text-9xl font-black italic tracking-tighter bg-gradient-to-b from-white to-zinc-800 bg-clip-text text-transparent italic uppercase">Before & After.</h1>
         <p className="text-zinc-500 text-xl max-w-2xl mx-auto font-medium">
-          A side-by-side technical evaluation of legacy system migrations and architectural enhancements.
+          A look at how I&apos;ve improved existing systems and the results of those changes.
         </p>
       </div>
 
@@ -53,8 +53,8 @@ export default async function ComparisonsPage() {
 
         {!hasContent && (
           <GlassEmptyState
-            title="No snapshots detected"
-            description="Our repository currently contains no architectural evolution snapshots for this sector."
+            title="Nothing here yet"
+            description="I'm still putting together my latest project evolution reports. Check back soon!"
             icon={Database}
           />
         )}

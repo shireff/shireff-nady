@@ -44,23 +44,23 @@ export default function RecommendationsPage() {
                                 animate={{ opacity: 1, x: 0 }}
                                 className="px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-[0.4em] w-fit"
                             >
-                                Social Proof Protocol
+                                Feedback & Praises
                             </motion.div>
                             <h1 className="text-5xl md:text-8xl font-black italic tracking-tighter text-white">
                                 RECOMMENDATIONS
                             </h1>
                             <p className="max-w-xl text-zinc-500 font-medium text-lg italic">
-                                A curated collection of endorsements from industry leaders, colleagues, and mentors.
+                                A few words from the people I&apos;ve worked with and helped over the years.
                             </p>
                         </div>
 
                         {!isLoading && (
                             <div className="bg-white/[0.03] border border-white/5 px-8 py-6 rounded-[32px] backdrop-blur-xl">
                                 <div className="text-3xl font-black text-white italic tracking-tighter mb-1">
-                                    {testimonials.length} ITEMS
+                                    {testimonials.length} REVIEWS
                                 </div>
                                 <div className="text-[10px] text-blue-500 font-black uppercase tracking-[0.3em]">
-                                    Verified LinkedIn Database
+                                    LinkedIn Verified
                                 </div>
                             </div>
                         )}
@@ -73,7 +73,7 @@ export default function RecommendationsPage() {
                             <Loader2 className="animate-spin text-blue-600" size={64} />
                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-blue-500/20 blur-xl animate-pulse" />
                         </div>
-                        <p className="text-zinc-500 font-black uppercase tracking-[0.5em] text-[10px] animate-pulse">Establishing Secure Node Connection...</p>
+                        <p className="text-zinc-500 font-black uppercase tracking-[0.5em] text-[10px] animate-pulse">Loading feedback...</p>
                     </div>
                 ) : testimonials.length > 0 ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -185,8 +185,8 @@ export default function RecommendationsPage() {
                 ) : (
                     <div className="text-center py-40 rounded-[64px] border border-dashed border-white/10 bg-white/[0.01]">
                         <RefreshCw size={48} className="mx-auto text-zinc-800 mb-6" />
-                        <h3 className="text-xl font-black text-zinc-600 uppercase tracking-widest">Verification Pending</h3>
-                        <p className="text-zinc-700 font-bold uppercase tracking-widest text-[10px] mt-2">Initialize LinkedIn Protocol to fetch endorsements</p>
+                        <h3 className="text-xl font-black text-zinc-600 uppercase tracking-widest">Nothing here yet</h3>
+                        <p className="text-zinc-700 font-bold uppercase tracking-widest text-[10px] mt-2">I&apos;m currently pulling my latest recommendations from LinkedIn!</p>
                     </div>
                 )}
             </div>

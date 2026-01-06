@@ -92,14 +92,13 @@ export default function Skills({ projects = [] }: { projects?: Project[] }) {
             className="space-y-4"
           >
             <h2 className="text-4xl md:text-6xl font-black italic tracking-tighter uppercase leading-none">
-              Technical <br />
+              My Tech <br />
               <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-emerald-400 bg-clip-text text-transparent">
-                Architecture.
+                Stack.
               </span>
             </h2>
             <p className="text-zinc-500 text-base md:text-lg max-w-xl">
-              High-density breakdown of my technical stack, with direct links to
-              verified production implementations.
+              A breakdown of the tools and technologies I use to bring projects to life, backed by real examples.
             </p>
           </motion.div>
         </div>
@@ -138,7 +137,7 @@ export default function Skills({ projects = [] }: { projects?: Project[] }) {
                         <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 p-3 bg-zinc-900 border border-white/10 rounded-xl opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 pointer-events-none z-50 w-48 shadow-2xl">
                           <div className="flex items-center gap-2 mb-2 pb-2 border-b border-white/5">
                             <LinkIcon size={10} className="text-blue-500" />
-                            <span className="text-[8px] font-black uppercase tracking-widest text-white">Project Evidence</span>
+                            <span className="text-[8px] font-black uppercase tracking-widest text-white">Used In</span>
                           </div>
                           <div className="space-y-1.5">
                             {skill.linkedProjects.map(p => (

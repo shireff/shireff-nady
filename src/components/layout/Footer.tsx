@@ -11,7 +11,7 @@ export default function Footer() {
               SHIREFF.
             </h2>
             <p className="text-zinc-500 text-lg leading-relaxed max-w-sm">
-              Engineering high-performance digital systems with meticulous visual design and state-of-the-art architectures.
+              I build fast, beautiful web apps with clean code and a focus on the details that matter.
             </p>
             <div className="flex gap-4">
               <a href="https://github.com/shireff" target='_blank' aria-label="GitHub Profile" className="p-2 glass-card hover:bg-white/10 text-zinc-400 hover:text-white transition-all">

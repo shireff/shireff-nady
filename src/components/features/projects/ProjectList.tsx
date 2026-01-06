@@ -222,10 +222,10 @@ export default function ProjectList({ initialProjects, initialPagination }: Proj
                 ) : (
                     <div className="col-span-full py-20">
                         <GlassEmptyState
-                            title="No projects found"
-                            description={`We couldn't find any digital instruments matching your current search.`}
+                            title="I couldn&apos;t find anything"
+                            description={`There are no projects that match your current search.`}
                             icon={Filter}
-                            actionLabel="Reset Parameters"
+                            actionLabel="Clear Filters"
                             onAction={() => {
                                 setSearchTerm("");
                                 setSelectedCategory("All");

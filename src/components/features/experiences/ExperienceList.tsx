@@ -15,8 +15,8 @@ export default function ExperienceList({ experiences }: ExperienceListProps) {
         return (
             <div className="py-20">
                 <GlassEmptyState
-                    title="History in Progress"
-                    description="Our professional trajectory data is currently being synchronized with the primary database."
+                    title="Still loading..."
+                    description="I'm just getting my work history ready for you. It should only take a moment!"
                     icon={Briefcase}
                 />
             </div>
