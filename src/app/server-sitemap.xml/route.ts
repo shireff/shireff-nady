@@ -90,13 +90,30 @@ export async function GET(request: Request) {
       changefreq: 'monthly',
       priority: 0.7,
     },
-    // --- Image Gallery Page (Hidden but Indexed) ---
     {
       loc: `${baseUrl}/image-gallery`,
       lastmod: new Date().toISOString(),
       changefreq: 'weekly',
       priority: 0.8,
       images: personalImages,
+    },
+    {
+      loc: `${baseUrl}/recommendations`,
+      lastmod: new Date().toISOString(),
+      changefreq: 'weekly',
+      priority: 0.8,
+    },
+    {
+      loc: `${baseUrl}/verification`,
+      lastmod: new Date().toISOString(),
+      changefreq: 'monthly',
+      priority: 0.7,
+    },
+    {
+      loc: `${baseUrl}/contact-hub`,
+      lastmod: new Date().toISOString(),
+      changefreq: 'monthly',
+      priority: 0.5,
     },
   ];
 
@@ -105,7 +122,7 @@ export async function GET(request: Request) {
     const absUrl = getAbsoluteImageUrl(project.img, baseUrl);
     const urlObj = safeUrl(absUrl);
     
-    // Explicitly define entry with a broader type to allow 'images' manipulation
+    // 1. Core Project Page
     const entry: ISitemapField = {
       loc: `${baseUrl}/projects/${project.id}`,
       lastmod: project.createdAt ? new Date(project.createdAt).toISOString() : new Date().toISOString(),
@@ -121,6 +138,14 @@ export async function GET(request: Request) {
     }
 
     fields.push(entry);
+
+    // 2. Project Flow Page
+    fields.push({
+      loc: `${baseUrl}/projects/${project.id}/flow`,
+      lastmod: project.createdAt ? new Date(project.createdAt).toISOString() : new Date().toISOString(),
+      changefreq: 'monthly',
+      priority: 0.6,
+    });
   }
 
   return getServerSideSitemap(fields);

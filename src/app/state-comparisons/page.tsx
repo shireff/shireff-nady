@@ -11,6 +11,17 @@ import GlassEmptyState from '@/components/ui/GlassEmptyState';
 // ISR
 export const revalidate = 3600;
 
+import { Metadata } from 'next';
+import { siteConfig } from '@/config/site';
+
+export const metadata: Metadata = {
+  title: `State Comparisons | ${siteConfig.name} - Portfolio`,
+  description: `A collection of technical evolutions and before-after improvements in system architecture and performance by ${siteConfig.name}.`,
+  alternates: {
+    canonical: `${siteConfig.url}/state-comparisons`,
+  }
+};
+
 export default async function ComparisonsPage() {
   let comparisons: StateComparison[] = [];
 

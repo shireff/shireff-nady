@@ -6,6 +6,31 @@ import ProjectVisualFlow from '@/components/features/projects/ProjectVisualFlow'
 import Link from 'next/link';
 import { ArrowLeft, Share2 } from 'lucide-react';
 import Button from '@/components/ui/Button';
+import { Metadata } from 'next';
+import { siteConfig } from '@/config/site';
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+    const { id } = await params;
+    try {
+        const project = await projectService.getById(id);
+        if (!project) return { title: 'Project Flow Not Found' };
+
+        return {
+            title: `Architecture Flow: ${project.title} | ${siteConfig.name}`,
+            description: `Explore the architectural decisions, logic map, and technical flow of ${project.title}. Built by ${siteConfig.name}.`,
+            alternates: {
+                canonical: `${siteConfig.url}/projects/${id}/flow`,
+            },
+            openGraph: {
+                title: `Logic Map: ${project.title}`,
+                description: `Deep dive into the architecture of ${project.title}`,
+                images: project.img ? [project.img] : [`${siteConfig.url}/og-image.jpg`],
+            }
+        };
+    } catch (error) {
+        return { title: 'Project Architecture Flow' };
+    }
+}
 
 export default async function ProjectFlowPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
