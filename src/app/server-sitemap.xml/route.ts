@@ -1,6 +1,8 @@
 import { getServerSideSitemap, ISitemapField } from 'next-sitemap';
 import { projectService } from '@/services/projects';
-import { Project } from '@/types';
+import { comparisonService } from '@/services/comparisons';
+import { siteConfig } from '@/config/site';
+import { Project, StateComparison } from '@/types';
 
 export const dynamic = 'force-dynamic';
 
@@ -28,42 +30,50 @@ function safeUrl(urlStr: string | null): URL | undefined {
 }
 
 export async function GET(request: Request) {
-  const baseUrl = 'https://shireff-nady.vercel.app';
+  const baseUrl = siteConfig.url;
   let projects: Project[] = [];
+  let comparisons: StateComparison[] = [];
 
   try {
-    const response = await projectService.getAll();
-    projects = response.data;
+    const [projectsRes, comparisonsRes] = await Promise.all([
+      projectService.getAll(),
+      comparisonService.getAll({ isActive: true })
+    ]);
+    projects = projectsRes.data || [];
+    comparisons = comparisonsRes || [];
   } catch (error) {
-    console.error('Sitemap Error: Failed to fetch projects', error);
+    console.error('Sitemap Error: Failed to fetch data', error);
   }
 
-  // 1. Personal Images
-  // Ensure we use URL objects for 'loc' to satisfy next-sitemap strict types if required
-  // and explicit string paths for clarity.
-  const personalImageUrls = [
-    { url: `${baseUrl}/personal/shireff-1.jpg`, title: 'Shireff Nady - Front-End Engineer' },
-    { url: `${baseUrl}/personal/shireff-2.jpg`, title: 'Shireff Nady - Web Developer' },
-    { url: `${baseUrl}/personal/shireff-3.jpg`, title: 'Shireff - Senior Front-End Engineer' },
-    { url: `${baseUrl}/personal/shireff-4.jpg`, title: 'Shireff Nady - React Specialist' },
-    { url: `${baseUrl}/personal/shireff-5.jpg`, title: 'Shireff Nady - Full Stack Developer' },
-  ];
-
-  const personalImages = personalImageUrls
+  // 1. Personal Images from siteConfig
+  const personalImages = siteConfig.personalImages
     .map((img) => ({
-      loc: safeUrl(img.url),
+      loc: safeUrl(getAbsoluteImageUrl(img.url, baseUrl)),
       title: img.title
     }))
     .filter((img): img is { loc: URL; title: string } => !!img.loc);
 
+  // 2. Project Images (Top 10 for general indexing)
+  const topProjectImages = projects
+    .filter(p => !!p.img)
+    .slice(0, 10)
+    .map(p => ({
+      loc: safeUrl(getAbsoluteImageUrl(p.img, baseUrl)),
+      title: `${p.title} - Project Evolution`
+    }))
+    .filter((img): img is { loc: URL; title: string } => !!img.loc);
+
+  // 3. Combined Gallery Images
+  const galleryImages = [...personalImages, ...topProjectImages];
+
   const fields: ISitemapField[] = [
-    // --- Homepage with attached Personal Images ---
+    // --- Homepage with all key images attached ---
     {
       loc: `${baseUrl}/`,
       lastmod: new Date().toISOString(),
       changefreq: 'daily',
       priority: 1.0,
-      images: personalImages, // Typescript accepts this if ISitemapField expects URL in loc
+      images: galleryImages,
     },
     // --- Static Core Pages ---
     {
@@ -87,15 +97,19 @@ export async function GET(request: Request) {
     {
       loc: `${baseUrl}/state-comparisons`,
       lastmod: new Date().toISOString(),
-      changefreq: 'monthly',
-      priority: 0.7,
+      changefreq: 'weekly',
+      priority: 0.8,
+      images: comparisons.flatMap(c => [
+        { loc: safeUrl(getAbsoluteImageUrl(c.beforeImg, baseUrl)), title: `${c.title} - Before` },
+        { loc: safeUrl(getAbsoluteImageUrl(c.afterImg, baseUrl)), title: `${c.title} - After` }
+      ]).filter((img): img is { loc: URL; title: string } => !!img.loc)
     },
     {
       loc: `${baseUrl}/image-gallery`,
       lastmod: new Date().toISOString(),
       changefreq: 'weekly',
-      priority: 0.8,
-      images: personalImages,
+      priority: 0.9,
+      images: galleryImages,
     },
     {
       loc: `${baseUrl}/recommendations`,

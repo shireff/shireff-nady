@@ -22,11 +22,31 @@ export const siteConfig = {
     resume: "https://drive.google.com/file/d/1R4OSPHV8ADIz1qNSaSDMQCIs6fZv85T3/view?usp=sharing",
   },
   personalImages: [
-    { url: "/personal/shireff-1.jpg", title: "Shireff Nady - Front-End Engineer" },
-    { url: "/personal/shireff-2.jpg", title: "Shireff Nady - Web Developer" },
-    { url: "/personal/shireff-3.jpg", title: "Shireff - Senior Front-End Engineer" },
-    { url: "/personal/shireff-4.jpg", title: "Shireff Nady - React Specialist" },
-    { url: "/personal/shireff-5.jpg", title: "Shireff Nady - Full Stack Developer" },
+    {
+      url: '/personal/shireff-1.jpg',
+      title: 'Shireff Nady - Professional Portfolio Photo 1',
+      alt: 'Shireff Nady professional headshot and portfolio photo showcasing web development expertise',
+    },
+    {
+      url: '/personal/shireff-2.jpg',
+      title: 'Shireff Nady - Professional Portfolio Photo 2',
+      alt: 'Shireff Nady software engineer and full-stack developer portrait',
+    },
+    {
+      url: '/personal/shireff-3.jpg',
+      title: 'Shireff Nady - Professional Portfolio Photo 3',
+      alt: 'Shireff Nady web developer and software engineer professional photo',
+    },
+    {
+      url: '/personal/shireff-4.jpg',
+      title: 'Shireff Nady - Professional Portfolio Photo 4',
+      alt: 'Shireff Nady full-stack developer and software architect portrait',
+    },
+    {
+      url: '/personal/shireff-5.jpg',
+      title: 'Shireff Nady - Professional Portfolio Photo 5',
+      alt: 'Shireff Nady professional developer and technology consultant photo',
+    },
   ],
 };
 

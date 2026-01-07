@@ -11,6 +11,7 @@ import Skills from '@/components/sections/Skills';
 import FeaturedProjects from '@/components/sections/projects/FeaturedProjects';
 import Recommendations from '@/components/sections/testimonials/Recommendations';
 import CTA from '@/components/sections/cta/CTA';
+import HiddenGallery from '@/components/sections/HiddenGallery';
 
 const DEFAULT_HERO_IMAGE = "https://media.licdn.com/dms/image/v2/D4E03AQHI2emfkXdeXQ/profile-displayphoto-shrink_800_800/B4EZaI2FxCHMAc-/0/1746052604728?e=1767830400&v=beta&t=-l4A36ias3qpuV4uIKc7q7V1vcZqMwuIceuT8hkYwag";
 
@@ -51,12 +52,40 @@ export default async function Home() {
     }
   };
 
+  // Structured data for images to help Google Images
+  const imageGallerySchema = {
+    "@context": "https://schema.org",
+    "@type": "ImageGallery",
+    "name": `${siteConfig.name} Professional Gallery`,
+    "description": `Professional photos and project screenshots of ${siteConfig.name}`,
+    "url": siteConfig.url,
+    "image": [
+      ...siteConfig.personalImages.map(img => ({
+        "@type": "ImageObject",
+        "url": img.url.startsWith('http') ? img.url : `${siteConfig.url}${img.url}`,
+        "caption": img.title,
+        "name": img.title
+      })),
+      ...projects.filter(p => p.img).slice(0, 10).map(p => ({
+        "@type": "ImageObject",
+        "url": p.img?.startsWith('http') ? p.img : `${siteConfig.url}${p.img}`,
+        "caption": p.title,
+        "name": p.title
+      }))
+    ]
+  };
+
   return (
     <div className="space-y-32 pb-24">
       <Script
         id="webpage-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webpageSchema) }}
+      />
+      <Script
+        id="image-gallery-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(imageGallerySchema) }}
       />
 
       <Hero
@@ -73,6 +102,9 @@ export default async function Home() {
       <Recommendations />
 
       <CTA />
+
+      {/* Hidden SEO Gallery for Google Indexing */}
+      <HiddenGallery projects={projects} />
     </div>
   );
 }
