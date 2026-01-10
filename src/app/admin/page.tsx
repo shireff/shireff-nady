@@ -24,6 +24,7 @@ import ProjectForm from './components/ProjectForm';
 import ExperienceForm from './components/ExperienceForm';
 import ComparisonForm from './components/ComparisonForm';
 import SettingsForm from './components/SettingsForm';
+import TestimonialForm from './components/TestimonialForm';
 
 // Services & Types
 import { authService } from '@/services/auth';
@@ -61,6 +62,8 @@ export default function AdminDashboard() {
     id: string | null;
     type: Tab | null;
   }>({ isOpen: false, id: null, type: null });
+
+  const [refreshKey, setRefreshKey] = useState(0);
 
   const router = useRouter();
 
@@ -145,7 +148,7 @@ export default function AdminDashboard() {
           )}
 
           {activeTab === 'testimonials' && (
-            <TestimonialsTab />
+            <TestimonialsTab key={refreshKey} />
           )}
 
           {activeTab === 'settings' && (
@@ -180,6 +183,16 @@ export default function AdminDashboard() {
           <ComparisonForm
             initialData={modalState.editingData}
             onSuccess={() => setModalState({ ...modalState, isOpen: false })}
+            onCancel={() => setModalState({ ...modalState, isOpen: false })}
+          />
+        )}
+        {modalState.type === 'testimonials' && (
+          <TestimonialForm
+            initialData={modalState.editingData}
+            onSuccess={() => {
+              setModalState({ ...modalState, isOpen: false });
+              setRefreshKey(prev => prev + 1);
+            }}
             onCancel={() => setModalState({ ...modalState, isOpen: false })}
           />
         )}

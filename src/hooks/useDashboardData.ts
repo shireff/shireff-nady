@@ -28,7 +28,7 @@ export function useDashboardData() {
 
     try {
       const [projResponse, exp, comp] = await Promise.all([
-        projectService.getAll(),
+        projectService.getAll({ limit: 1000 }),
         experienceService.getAll(),
         comparisonService.getAll(),
       ]);

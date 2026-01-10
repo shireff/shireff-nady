@@ -21,5 +21,19 @@ export const testimonialService = {
   sync: async (): Promise<{ count: number }> => {
     const response = await api.post('/recommendations/sync');
     return response.data;
+  },
+
+  create: async (data: Partial<Testimonial>): Promise<Testimonial> => {
+    const response = await api.post('/recommendations', data);
+    return response.data.data || response.data;
+  },
+
+  update: async (id: string, data: Partial<Testimonial>): Promise<Testimonial> => {
+    const response = await api.put(`/recommendations/${id}`, data);
+    return response.data.data || response.data;
+  },
+
+  delete: async (id: string): Promise<void> => {
+    await api.delete(`/recommendations/${id}`);
   }
 };
