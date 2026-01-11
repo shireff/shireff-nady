@@ -49,21 +49,213 @@ export default function DiagramContainer({ data, projectId }: DiagramContainerPr
 
     // Initialization: Layout
     useEffect(() => {
-        if (!data?.tables) return;
+        if (!data?.tables || data.tables.length === 0) return;
 
-        // Auto-Layout Algorithm (Grid)
-        // In a real app we might use dagre or elkjs for optimized layout
-        const cols = Math.ceil(Math.sqrt(data.tables.length));
-        const xSpacing = 350;
-        const ySpacing = 300;
+        // Constants
+        const TABLE_WIDTH = 300;
+        const X_SPACING = 380;
+        const Y_SPACING = 300;
 
-        const initialTables = data.tables.map((table, index) => ({
-            ...table,
-            x: (index % cols) * xSpacing + 100,
-            y: Math.floor(index / cols) * ySpacing + 100
-        }));
+        // 1. Build Graph & Connectivity
+        const tableMap = new Map(data.tables.map(t => [t.name, t]));
+        const adj = new Map<string, string[]>(); // Directed
+        const undirectedAdj = new Map<string, string[]>(); // Undirected for components
 
-        setTables(initialTables);
+        data.tables.forEach(t => {
+            adj.set(t.name, []);
+            undirectedAdj.set(t.name, []);
+        });
+
+        // Build adjacency
+        const validTables = new Set(data.tables.map(t => t.name));
+        data.relationships.forEach(rel => {
+            if (validTables.has(rel.fromTable) && validTables.has(rel.toTable)) {
+                adj.get(rel.fromTable)?.push(rel.toTable);
+                undirectedAdj.get(rel.fromTable)?.push(rel.toTable);
+                undirectedAdj.get(rel.toTable)?.push(rel.fromTable);
+            }
+        });
+
+        // 2. Identify Components (BFS)
+        const visited = new Set<string>();
+        const components: string[][] = [];
+
+        for (const table of data.tables) {
+            if (!visited.has(table.name)) {
+                const component: string[] = [];
+                const q = [table.name];
+                visited.add(table.name); // Mark start node as visited immediately
+
+                while (q.length > 0) {
+                    const u = q.shift()!;
+                    component.push(u);
+                    const neighbors = undirectedAdj.get(u) || [];
+                    for (const v of neighbors) {
+                        if (!visited.has(v)) {
+                            visited.add(v);
+                            q.push(v);
+                        }
+                    }
+                }
+                components.push(component);
+            }
+        }
+
+        // Sort: Largest first (Main Graph)
+        components.sort((a, b) => b.length - a.length);
+
+        // Helper: Hierarchical Layout for a component
+        const layoutComponent = (nodes: string[], startX: number, startY: number) => {
+            const nodesSet = new Set(nodes);
+            const localResults: { name: string; x: number; y: number }[] = [];
+
+            // Calculate In-Degrees within Component using Directed edges
+            const localInDegree = new Map<string, number>();
+            nodes.forEach(n => localInDegree.set(n, 0));
+
+            data.relationships.forEach(rel => {
+                if (nodesSet.has(rel.fromTable) && nodesSet.has(rel.toTable)) {
+                    localInDegree.set(rel.toTable, (localInDegree.get(rel.toTable) || 0) + 1);
+                }
+            });
+
+            // Find Roots (In-Degree 0)
+            let roots = nodes.filter(n => localInDegree.get(n) === 0);
+            if (roots.length === 0 && nodes.length > 0) {
+                // Cycle or no clear root: pick min in-degree or just first
+                roots = [nodes[0]];
+            }
+
+            // Assign Levels (BFS)
+            const levels = new Map<string, number>();
+            const visitedInLayout = new Set<string>();
+            const queue = [...roots];
+
+            roots.forEach(r => {
+                levels.set(r, 0);
+                visitedInLayout.add(r);
+            });
+
+            // Process hierarchy
+            while (queue.length > 0) {
+                const u = queue.shift()!;
+                const currentLevel = levels.get(u)!;
+
+                const children = adj.get(u)?.filter(n => nodesSet.has(n)) || [];
+                for (const v of children) {
+                    if (!visitedInLayout.has(v)) {
+                        visitedInLayout.add(v);
+                        levels.set(v, currentLevel + 1);
+                        queue.push(v);
+                    }
+                }
+            }
+
+            // Handle unvisited nodes (cycles/disconnected parts that are "connected" in undirected but not reachable via directed from chosen root)
+            nodes.forEach(n => {
+                if (!visitedInLayout.has(n)) levels.set(n, 0);
+            });
+
+            // Group by Level
+            const levelGroups = new Map<number, string[]>();
+            nodes.forEach(n => {
+                const lvl = levels.get(n) || 0;
+                if (!levelGroups.has(lvl)) levelGroups.set(lvl, []);
+                levelGroups.get(lvl)!.push(n);
+            });
+
+            // Position Nodes
+            let maxW = 0;
+            let maxH = 0;
+            const sortedLevels = Array.from(levelGroups.keys()).sort((a, b) => a - b);
+
+            // Calculate max width for centering
+            sortedLevels.forEach(lvl => {
+                const count = levelGroups.get(lvl)!.length;
+                maxW = Math.max(maxW, count * X_SPACING);
+            });
+
+            sortedLevels.forEach(lvl => {
+                const rowNodes = levelGroups.get(lvl)!;
+                const rowWidth = rowNodes.length * X_SPACING;
+                const rowStartX = startX + (maxW - rowWidth) / 2; // Center row
+
+                rowNodes.forEach((nodeName, idx) => {
+                    localResults.push({
+                        name: nodeName,
+                        x: rowStartX + idx * X_SPACING,
+                        y: startY + lvl * Y_SPACING
+                    });
+                });
+                maxH = Math.max(maxH, (lvl + 1) * Y_SPACING);
+            });
+
+            return { positions: localResults, width: maxW, height: maxH };
+        };
+
+        // 3. Orchestrate Global Layout
+        const finalPositions: PositionedTable[] = [];
+        const mainComponent = components[0] || [];
+        const otherComponents = components.slice(1);
+
+        // A. Layout Main Graph
+        const mainLayout = layoutComponent(mainComponent, 0, 0);
+        mainLayout.positions.forEach(p => {
+            // Center Main Graph somewhat
+            finalPositions.push({ ...tableMap.get(p.name)!, x: p.x + 50, y: p.y + 100 });
+        });
+
+        // B. Layout Peripheral (Isolated & Small Islands)
+        let peripheralY = mainLayout.height + 250; // Gap below main graph
+        const PERIPHERAL_START_X = 50;
+        const PERIPHERAL_COLS = 5;
+
+        let islandX = PERIPHERAL_START_X;
+        let islandY = peripheralY;
+
+        // Separate truly isolated (size 1) from small connected clusters
+        const isolatedNodes: string[] = [];
+        const smallIslands: string[][] = [];
+
+        otherComponents.forEach(c => {
+            if (c.length === 1) isolatedNodes.push(c[0]);
+            else smallIslands.push(c);
+        });
+
+        // Place Small Islands first
+        smallIslands.forEach(island => {
+            const result = layoutComponent(island, islandX, islandY);
+            result.positions.forEach(p => {
+                finalPositions.push({ ...tableMap.get(p.name)!, x: p.x, y: p.y });
+            });
+            // Move formatted cursor
+            islandX += result.width + 100;
+            if (islandX > 1500) { // Wrap if too wide
+                islandX = PERIPHERAL_START_X;
+                islandY += result.height + 150;
+            }
+        });
+
+        // Adjust Y for isolated grid if we added islands
+        if (smallIslands.length > 0) {
+            // Find max Y from islands (approx from current islandY because exact maxY is harder without tracking)
+            // But good enough approximation:
+            islandY += 200;
+        }
+
+        // Place Isolated Nodes (Grid)
+        isolatedNodes.forEach((nodeName, idx) => {
+            const row = Math.floor(idx / PERIPHERAL_COLS);
+            const col = idx % PERIPHERAL_COLS;
+
+            finalPositions.push({
+                ...tableMap.get(nodeName)!,
+                x: PERIPHERAL_START_X + col * (TABLE_WIDTH + 50),
+                y: islandY + row * 250 // Slightly tighter Y for grid
+            });
+        });
+
+        setTables(finalPositions);
     }, [data]);
 
     // Global Mouse Handlers for Dragging
