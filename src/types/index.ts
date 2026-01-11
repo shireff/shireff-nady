@@ -8,6 +8,7 @@ export interface Project {
   git?: string;
   tags?: string[]; // Kept for internal compatibility
   isFeatured?: boolean;
+  hasDatabaseDiagram?: boolean;
   createdAt: string;
 }
 

@@ -3,7 +3,7 @@ import ProjectDetailHero from '@/components/features/projects/ProjectDetailHero'
 import Image from 'next/image';
 import Script from 'next/script';
 import { notFound } from 'next/navigation';
-import { Github, ArrowLeft, Calendar, Tag, ExternalLink, Share2, ArrowRight } from 'lucide-react';
+import { Github, ArrowLeft, Calendar, Tag, ExternalLink, Share2, ArrowRight, Database } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import { projectService } from '@/services/projects';
@@ -261,6 +261,23 @@ export default async function ProjectDetailsPage({ params }: { params: Promise<{
                       <ArrowRight size={20} className="text-zinc-500 group-hover:text-blue-400 transform group-hover:translate-x-1 transition-all" />
                     </button>
                   </Link>
+
+                  {project.hasDatabaseDiagram && (
+                    <Link href={`/projects/${project.id}/database-diagram`} className="block pt-4">
+                      <button className="w-full p-6 rounded-2xl bg-gradient-to-br from-purple-600/10 to-pink-600/10 border border-glass-border hover:border-purple-500/30 transition-all flex items-center justify-between group">
+                        <div className="flex items-center gap-4">
+                          <div className="p-3 rounded-xl bg-purple-500/20 text-purple-400 group-hover:scale-110 transition-transform">
+                            <Database size={20} />
+                          </div>
+                          <div className="text-left">
+                            <p className="text-[10px] text-zinc-500 uppercase font-black tracking-widest mb-1">Architecture</p>
+                            <p className="font-bold text-foreground text-lg italic tracking-tighter uppercase">View Database Diagram</p>
+                          </div>
+                        </div>
+                        <ArrowRight size={20} className="text-zinc-500 group-hover:text-purple-400 transform group-hover:translate-x-1 transition-all" />
+                      </button>
+                    </Link>
+                  )}
                 </div>
               </CardContent>
             </Card>
