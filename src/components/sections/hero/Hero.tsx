@@ -102,9 +102,7 @@ const Hero: React.FC<HeroProps> = ({
                 {/* RIGHT: Visual Element */}
                 <div className="relative flex justify-center items-center order-1 lg:order-2">
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
-                        animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                        transition={{ duration: 1, ease: 'circOut' }}
+                        initial={{ opacity: 1, scale: 1, rotate: 0 }}
                         className="relative z-10"
                     >
                         {/* Outer Glow Halo */}
@@ -118,14 +116,7 @@ const Hero: React.FC<HeroProps> = ({
                                 className="w-full h-full rounded-full glass-card-premium p-4 md:p-6 shadow-[0_0_50px_rgba(59,130,246,0.3)] overflow-hidden"
                             >
                                 <div className="w-full h-full rounded-full overflow-hidden border-2 border-white/10 group bg-zinc-900/50 flex items-center justify-center relative">
-                                    {isImageLoading && (
-                                        <div className="absolute inset-0 z-20 flex items-center justify-center bg-zinc-900">
-                                            <div className="w-full h-full animate-pulse bg-gradient-to-br from-blue-500/10 to-emerald-500/10" />
-                                            <div className="absolute inset-0 flex items-center justify-center">
-                                                <div className="w-12 h-12 border-4 border-blue-500/30 border-t-blue-500 rounded-full animate-spin" />
-                                            </div>
-                                        </div>
-                                    )}
+                                    {/* Removed skeleton to allow immediate image appearance */}
                                     <Image
                                         key={heroImage}
                                         src={heroImage}
@@ -136,7 +127,7 @@ const Hero: React.FC<HeroProps> = ({
                                         unoptimized={heroImage.includes('licdn.com')}
                                         onLoad={() => setIsImageLoading(false)}
                                         onError={handleImageError}
-                                        className={`object-cover transition-all duration-700 scale-110 group-hover:scale-100 ${isImageLoading ? 'opacity-0' : 'opacity-100 grayscale hover:grayscale-0'}`}
+                                        className={`object-cover transition-all duration-500 scale-110 group-hover:scale-100 opacity-100 grayscale hover:grayscale-0`}
                                     />
                                 </div>
                             </motion.div>
