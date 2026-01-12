@@ -6,7 +6,7 @@ import { authService } from '@/services/auth';
 import Icon from '@/components/atomic/atoms/Icon';
 import { cn } from '@/lib/utils';
 
-type Tab = 'overview' | 'projects' | 'experiences' | 'comparisons' | 'testimonials' | 'settings';
+type Tab = 'overview' | 'projects' | 'experiences' | 'comparisons' | 'testimonials' | 'settings' | 'notifications';
 
 interface SidebarProps {
     activeTab: Tab;
@@ -22,6 +22,7 @@ const DashboardSidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) =
         { id: 'experiences', name: 'Experiences', icon: 'Briefcase' },
         { id: 'comparisons', name: 'Comparisons', icon: 'Split' },
         { id: 'testimonials', name: 'Testimonials', icon: 'Award' },
+        { id: 'notifications', name: 'Notifications', icon: 'Bell' },
         { id: 'settings', name: 'Settings', icon: 'Settings' },
     ];
 

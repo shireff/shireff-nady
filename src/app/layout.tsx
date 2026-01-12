@@ -10,6 +10,7 @@ import { siteConfig } from "@/config/site";
 import { StoreProvider } from "@/store/Provider";
 import { ThemeProvider } from "@/components/Provider/ThemeProvider";
 import NotificationManager from "@/components/ui/NotificationManager";
+import { NotificationPrompt } from "@/components/features/notifications/NotificationPrompt";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -312,6 +313,7 @@ export default function RootLayout({
             </main>
             <Footer />
             <AIHelper />
+            <NotificationPrompt />
           </ThemeProvider>
         </StoreProvider>
       </body>

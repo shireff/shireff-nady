@@ -7,7 +7,7 @@ interface AdminFilters {
 }
 
 interface AdminState {
-  activeTab: 'overview' | 'projects' | 'experiences' | 'comparisons' | 'testimonials' | 'settings';
+  activeTab: 'overview' | 'projects' | 'experiences' | 'comparisons' | 'testimonials' | 'settings' | 'notifications';
   filters: AdminFilters;
   selectedIds: string[];
 }

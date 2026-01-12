@@ -18,6 +18,7 @@ import ProjectsTab from './components/ProjectsTab';
 import ExperiencesTab from './components/ExperiencesTab';
 import ComparisonsTab from './components/ComparisonsTab';
 import TestimonialsTab from './components/TestimonialsTab';
+import NotificationsTab from './components/NotificationsTab';
 
 // Form Components
 import ProjectForm from './components/ProjectForm';
@@ -30,7 +31,7 @@ import TestimonialForm from './components/TestimonialForm';
 import { authService } from '@/services/auth';
 import { Project, Experience, StateComparison } from '@/types';
 
-type Tab = 'overview' | 'projects' | 'experiences' | 'comparisons' | 'testimonials' | 'settings';
+type Tab = 'overview' | 'projects' | 'experiences' | 'comparisons' | 'testimonials' | 'settings' | 'notifications';
 
 // Redux
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
@@ -107,7 +108,7 @@ export default function AdminDashboard() {
             <h1 className="text-5xl font-black italic tracking-tighter capitalize mb-2">{activeTab}</h1>
             <p className="text-zinc-500 font-medium uppercase tracking-[0.2em] text-[10px]">Managing your digital asset infrastructure</p>
           </div>
-          {activeTab !== 'overview' && activeTab !== 'settings' && (
+          {activeTab !== 'overview' && activeTab !== 'settings' && activeTab !== 'notifications' && (
             <Button
               size="lg"
               className="gap-2 px-8 rounded-full font-bold shadow-xl shadow-blue-600/20"
@@ -149,6 +150,10 @@ export default function AdminDashboard() {
 
           {activeTab === 'testimonials' && (
             <TestimonialsTab key={refreshKey} />
+          )}
+
+          {activeTab === 'notifications' && (
+            <NotificationsTab />
           )}
 
           {activeTab === 'settings' && (
