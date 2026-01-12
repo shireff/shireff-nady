@@ -136,6 +136,7 @@ export default function RecommendationsPage() {
                                                                 src={test.avatar.replace(/^http:\/\//, 'https://')}
                                                                 alt={test.name}
                                                                 fill
+                                                                unoptimized={test.avatar.includes('licdn.com')}
                                                                 className="object-cover group-hover:scale-110 transition-transform duration-700"
                                                                 sizes="64px"
                                                             />

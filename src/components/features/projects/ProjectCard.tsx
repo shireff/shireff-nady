@@ -43,6 +43,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                                     alt={project.title}
                                     fill
                                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                    unoptimized={project.img.includes('licdn.com')}
                                     className={`object-cover transition-all duration-700 group-hover:scale-110 ${isLoading ? 'opacity-0 scale-105' : 'opacity-100 scale-100'}`}
                                     onLoad={() => setIsLoading(false)}
                                 />

@@ -33,6 +33,7 @@ const ImageWithLoader: React.FC<{ src: string, alt: string }> = ({ src, alt }) =
                 alt={alt}
                 fill
                 sizes="56px"
+                unoptimized={src.includes('licdn.com')}
                 className={`object-cover transition-all duration-500 ${isLoading ? 'opacity-0 scale-110' : 'opacity-100 scale-100'}`}
                 onLoad={() => setIsLoading(false)}
             />

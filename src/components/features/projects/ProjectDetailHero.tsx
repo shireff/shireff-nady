@@ -26,6 +26,7 @@ export default function ProjectDetailHero({ src, alt }: ProjectDetailHeroProps) 
                 alt={alt}
                 fill
                 priority
+                unoptimized={src.includes('licdn.com')}
                 className={`object-cover transition-all duration-1000 ${isLoading ? 'opacity-0 scale-105' : 'opacity-100 scale-100'}`}
                 sizes="100vw"
                 onLoad={() => setIsLoading(false)}

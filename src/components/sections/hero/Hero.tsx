@@ -133,6 +133,7 @@ const Hero: React.FC<HeroProps> = ({
                                         fill
                                         sizes="(max-width: 1024px) 100vw, 50vw"
                                         priority
+                                        unoptimized={heroImage.includes('licdn.com')}
                                         onLoad={() => setIsImageLoading(false)}
                                         onError={handleImageError}
                                         className={`object-cover transition-all duration-700 scale-110 group-hover:scale-100 ${isImageLoading ? 'opacity-0' : 'opacity-100 grayscale hover:grayscale-0'}`}

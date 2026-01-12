@@ -2,18 +2,9 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import {
-    BarChart3,
-    Code2,
-    Briefcase,
-    Split,
-    Settings,
-    Eye,
-    LogOut,
-    ChevronRight,
-    Award
-} from 'lucide-react';
 import { authService } from '@/services/auth';
+import Icon from '@/components/atomic/atoms/Icon';
+import { cn } from '@/lib/utils';
 
 type Tab = 'overview' | 'projects' | 'experiences' | 'comparisons' | 'testimonials' | 'settings';
 
@@ -26,12 +17,12 @@ const DashboardSidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) =
     const router = useRouter();
 
     const navItems = [
-        { id: 'overview', name: 'Overview', icon: BarChart3 },
-        { id: 'projects', name: 'Projects', icon: Code2 },
-        { id: 'experiences', name: 'Experiences', icon: Briefcase },
-        { id: 'comparisons', name: 'Comparisons', icon: Split },
-        { id: 'testimonials', name: 'Testimonials', icon: Award },
-        { id: 'settings', name: 'Settings', icon: Settings },
+        { id: 'overview', name: 'Overview', icon: 'BarChart3' },
+        { id: 'projects', name: 'Projects', icon: 'Code2' },
+        { id: 'experiences', name: 'Experiences', icon: 'Briefcase' },
+        { id: 'comparisons', name: 'Comparisons', icon: 'Split' },
+        { id: 'testimonials', name: 'Testimonials', icon: 'Award' },
+        { id: 'settings', name: 'Settings', icon: 'Settings' },
     ];
 
     return (
@@ -44,16 +35,30 @@ const DashboardSidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) =
                 <button
                     key={item.id}
                     onClick={() => setActiveTab(item.id as Tab)}
-                    className={`w-full flex items-center justify-between px-6 py-4 rounded-2xl transition-all group ${activeTab === item.id
-                        ? 'bg-blue-600 text-white shadow-2xl shadow-blue-600/40'
-                        : 'text-zinc-500 hover:bg-white/5 hover:text-white border border-transparent hover:border-white/5'
-                        }`}
+                    className={cn(
+                        "w-full flex items-center justify-between px-6 py-4 rounded-2xl transition-all group",
+                        activeTab === item.id
+                            ? 'bg-blue-600 text-white shadow-2xl shadow-blue-600/40'
+                            : 'text-zinc-500 hover:bg-white/5 hover:text-white border border-transparent hover:border-white/5'
+                    )}
                 >
                     <div className="flex items-center gap-4">
-                        <item.icon size={20} />
+                        <Icon
+                            name={item.icon as any}
+                            size="sm"
+                            variant={activeTab === item.id ? 'foreground' : 'muted'}
+                            className={cn(activeTab === item.id && "text-white")}
+                        />
                         <span className="font-bold uppercase tracking-widest text-xs">{item.name}</span>
                     </div>
-                    <ChevronRight size={16} className={`transition-transform ${activeTab === item.id ? 'translate-x-1' : 'opacity-0 group-hover:opacity-100 group-hover:translate-x-1'}`} />
+                    <Icon
+                        name="ChevronRight"
+                        size="xs"
+                        className={cn(
+                            "transition-transform",
+                            activeTab === item.id ? 'translate-x-1 opacity-100' : 'opacity-0 group-hover:opacity-100 group-hover:translate-x-1'
+                        )}
+                    />
                 </button>
             ))}
             <div className="pt-8 mt-8 border-t border-white/5 space-y-2">
@@ -61,14 +66,14 @@ const DashboardSidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) =
                     onClick={() => router.push('/')}
                     className="w-full flex items-center gap-4 px-6 py-4 rounded-2xl text-zinc-500 hover:bg-white/5 hover:text-white transition-all border border-transparent hover:border-white/5"
                 >
-                    <Eye size={20} />
+                    <Icon name="Eye" size="sm" variant="muted" />
                     <span className="font-bold uppercase tracking-widest text-xs">View Site</span>
                 </button>
                 <button
                     onClick={() => { authService.logout(); router.push('/admin/login'); }}
                     className="w-full flex items-center gap-4 px-6 py-4 rounded-2xl text-red-400 hover:bg-red-400/5 transition-all border border-transparent hover:border-red-400/10"
                 >
-                    <LogOut size={20} />
+                    <Icon name="LogOut" size="sm" className="text-red-400" />
                     <span className="font-bold uppercase tracking-widest text-xs">Logout Session</span>
                 </button>
             </div>

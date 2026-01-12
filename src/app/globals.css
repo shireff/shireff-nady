@@ -7,17 +7,6 @@
   --color-glass-bg: var(--glass-bg);
   --color-glass-border: var(--glass-border);
   --color-glass-bg-hover: var(--glass-bg-hover);
-  
-  --shadow-premium: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
-  --shadow-glass-l1: 0 4px 12px 0 var(--glass-shadow-color);
-  --shadow-glass-l2: 0 8px 32px 0 var(--glass-shadow-color);
-  --shadow-glass-l3: 0 16px 48px 0 var(--glass-shadow-color);
-  
-  --radius-premium: 24px;
-  --radius-soft: 32px;
-  
-  --blur-std: 12px;
-  --blur-premium: 20px;
 }
 
 :root {

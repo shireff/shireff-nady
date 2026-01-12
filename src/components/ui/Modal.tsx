@@ -1,13 +1,14 @@
 'use client';
 
 import React from 'react';
+import * as Dialog from '@radix-ui/react-dialog';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import Icon from '@/components/atomic/atoms/Icon';
 
 /**
- * Enhanced Modal component following Headless UI patterns.
- * Designed for easy migration to @radix-ui/react-dialog.
+ * Refactored Modal component using Radix UI for A11Y.
+ * Preserves custom glassmorphism and Framer Motion animations.
  */
 interface ModalProps {
   isOpen: boolean;
@@ -27,7 +28,6 @@ export default function Modal({
   size = 'md'
 }: ModalProps) {
 
-  // Size mapping using theme tokens
   const sizes = {
     md: 'max-w-2xl',
     lg: 'max-w-4xl',
@@ -35,56 +35,59 @@ export default function Modal({
   };
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <>
-          {/* Overlay - Accessible Backdrop */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm"
-            aria-hidden="true"
-          />
+    <Dialog.Root open={isOpen} onOpenChange={(open) => !open && onClose()}>
+      <AnimatePresence>
+        {isOpen && (
+          <Dialog.Portal forceMount>
+            {/* Overlay */}
+            <Dialog.Overlay asChild>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm"
+              />
+            </Dialog.Overlay>
 
-          {/* Content Container */}
-          <div className="fixed inset-0 z-[101] flex items-center justify-center p-4 pointer-events-none">
-            <motion.div
-              role="dialog"
-              aria-modal="true"
-              aria-labelledby="modal-title"
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className={cn(
-                "pointer-events-auto relative w-full glass-card p-0 overflow-hidden shadow-glass-l3 bg-background/50",
-                sizes[size],
-                className
-              )}
-            >
-              {/* Header */}
-              <div className="flex items-center justify-between p-6 border-b border-glass-border">
-                <h3 id="modal-title" className="text-xl font-bold tracking-tight text-foreground">
-                  {title}
-                </h3>
-                <button
-                  onClick={onClose}
-                  className="p-2 rounded-lg hover:bg-glass-bg-hover transition-all text-muted-foreground hover:text-foreground active:scale-90"
-                  aria-label="Close modal"
+            {/* Content Container */}
+            <div className="fixed inset-0 z-[101] flex items-center justify-center p-4">
+              <Dialog.Content asChild>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                  transition={{ type: 'spring', duration: 0.5, bounce: 0.3 }}
+                  className={cn(
+                    "relative w-full glass-card p-0 overflow-hidden shadow-glass-l3 bg-background/50",
+                    sizes[size],
+                    className
+                  )}
                 >
-                  <Icon name="X" size={20} variant="muted" />
-                </button>
-              </div>
+                  {/* Header */}
+                  <div className="flex items-center justify-between p-6 border-b border-glass-border">
+                    <Dialog.Title className="text-xl font-bold tracking-tight text-foreground">
+                      {title}
+                    </Dialog.Title>
+                    <Dialog.Close asChild>
+                      <button
+                        className="p-2 rounded-lg hover:bg-glass-bg-hover transition-all text-muted-foreground hover:text-foreground active:scale-90"
+                        aria-label="Close modal"
+                      >
+                        <Icon name="X" size="sm" variant="muted" />
+                      </button>
+                    </Dialog.Close>
+                  </div>
 
-              {/* Body */}
-              <div className="p-6 max-h-[80vh] overflow-y-auto custom-scrollbar">
-                {children}
-              </div>
-            </motion.div>
-          </div>
-        </>
-      )}
-    </AnimatePresence>
+                  {/* Body */}
+                  <div className="p-6 max-h-[80vh] overflow-y-auto custom-scrollbar">
+                    {children}
+                  </div>
+                </motion.div>
+              </Dialog.Content>
+            </div>
+          </Dialog.Portal>
+        )}
+      </AnimatePresence>
+    </Dialog.Root>
   );
 }

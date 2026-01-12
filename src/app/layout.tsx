@@ -8,6 +8,7 @@ import AIHelper from "@/components/ui/AIHelper";
 
 import { siteConfig } from "@/config/site";
 import { StoreProvider } from "@/store/Provider";
+import { ThemeProvider } from "@/components/Provider/ThemeProvider";
 import NotificationManager from "@/components/ui/NotificationManager";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -259,9 +260,8 @@ export default function RootLayout({
 
 
   return (
-    <html lang="en" className="dark">
+    <html lang="en" suppressHydrationWarning>
       <head>
-
         <Script
           id="person-schema"
           type="application/ld+json"
@@ -304,13 +304,15 @@ export default function RootLayout({
 
         <div className="noise-overlay" />
         <StoreProvider>
-          <NotificationManager />
-          <Navbar />
-          <main className="flex-grow pt-20">
-            {children}
-          </main>
-          <Footer />
-          <AIHelper />
+          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+            <NotificationManager />
+            <Navbar />
+            <main className="flex-grow pt-20">
+              {children}
+            </main>
+            <Footer />
+            <AIHelper />
+          </ThemeProvider>
         </StoreProvider>
       </body>
     </html>
