@@ -1,0 +1,75 @@
+Frontend Structure Reference
+============================
+
+Root Files:
+-----------
+.env                                  - Environment variables
+.gitignore                             - Git ignoring rules
+components.json                       - UI component configuration
+eslint.config.mjs                     - ESLint configuration
+google-indexing-credentials.json      - Google Indexing API credentials
+index-images.sh                       - Script for indexing images
+indexnow-payload.json                 - IndexNow API payload
+next.config.ts                        - Next.js configuration
+next-env.d.ts                         - Next.js TypeScript environment
+next-sitemap.config.js                - Sitemap generation configuration
+package.json                          - Project dependencies and scripts
+package-lock.json                     - Locked dependencies
+postcss.config.mjs                    - PostCSS configuration
+README.md                             - Project documentation
+tailwind.config.ts                    - Tailwind CSS configuration
+tsconfig.json                         - TypeScript configuration
+verify-indexing-setup.sh              - Script to verify indexing setup
+
+Folders:
+--------
+public/                               - Static assets (images, icons, etc.)
+src/                                  - Source code
+
+src/ Structure:
+---------------
+actions/                              - Server actions
+    revalidate.ts                     - Cache revalidation logic
+app/                                  - Next.js App Router pages and layouts
+    admin/                            - Admin dashboard
+        components/                   - Admin-specific components
+        login/                        - Admin login page
+        layout.tsx                    - Admin layout
+        page.tsx                      - Admin main page
+    api/                              - API route handlers
+        admin/                        - Admin API endpoints
+        ai-helper/                    - AI helper API
+        home/                         - Home data API
+    contact/                          - Contact page
+    contact-hub/                      - Contact hub page
+    experiences/                      - Experiences page
+    image-gallery/                    - Image gallery page
+    projects/                         - Projects listing and details
+    recommendations/                  - Recommendations page
+    server-sitemap.xml/               - Dynamic sitemap route
+    state-comparisons/                - Tech state comparisons page
+    verification/                     - Verification page
+    layout.tsx                        - Root layout
+    page.tsx                          - Homepage
+    globals.css                       - Global styles
+components/                           - Reusable components
+    atomic/                           - Atomic design components (atoms, molecules)
+    features/                         - Feature-specific components (e.g., projects, diagram)
+    layout/                           - Layout components (Navbar, Footer)
+    sections/                         - Page sections
+    ui/                               - Base UI components (Button, Card, etc.)
+config/                               - Configuration files
+    site.ts                           - Site metadata and settings
+data/                                 - Static data
+    settings.json                     - Application settings
+hooks/                                - Custom React hooks
+lib/                                  - Library code and utilities
+    adr-generator.ts                  - ADR generation logic
+    aiHelper.ts                       - AI assistant logic
+    utils.ts                          - General utilities
+mocks/                                - Mock data for testing/development
+services/                             - Data fetching and API services
+store/                                - Redux state management
+    slices/                           - Redux slices (admin, ai, auth, etc.)
+types/                                - TypeScript type definitions
+proxy.ts                              - Proxy configuration for local development
