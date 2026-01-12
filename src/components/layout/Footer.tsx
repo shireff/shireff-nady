@@ -44,6 +44,14 @@ export default function Footer() {
           <div className="flex items-center gap-4 text-zinc-500 text-sm">
             <span>© {new Date().getFullYear()} Shireff. All rights reserved.</span>
             <div className="h-3 w-[1px] bg-white/10" />
+            <Link
+              href="/image-gallery"
+              className="sr-only"
+              aria-hidden="false"
+              tabIndex={-1}
+            >
+              Assets
+            </Link>
             <Link href="/verification" className="flex items-center gap-2 hover:text-blue-400 transition-all text-[10px] font-black uppercase tracking-widest">
               <ShieldCheck size={12} className="text-blue-500" />
               Evidence-Based Portfolio
