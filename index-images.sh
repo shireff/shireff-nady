@@ -14,11 +14,11 @@ SITE_URL="https://shireff-nady.vercel.app"
 
 # Image URLs to index
 IMAGES=(
-  "${SITE_URL}/personal/shireff-1.jpg"
-  "${SITE_URL}/personal/shireff-2.jpg"
-  "${SITE_URL}/personal/shireff-3.jpg"
-  "${SITE_URL}/personal/shireff-4.jpg"
-  "${SITE_URL}/personal/shireff-5.jpg"
+  "${SITE_URL}/personal/shireff-1.webp"
+  "${SITE_URL}/personal/shireff-2.webp"
+  "${SITE_URL}/personal/shireff-3.webp"
+  "${SITE_URL}/personal/shireff-4.webp"
+  "${SITE_URL}/personal/shireff-5.webp"
 )
 
 echo "📋 Configuration:"

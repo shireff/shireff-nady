@@ -295,11 +295,11 @@ export default function RootLayout({
             borderWidth: '0'
           }}
         >
-          <img src="/personal/shireff-1.jpg" alt="Shireff Nady - Front-End Engineer" width="800" height="800" />
-          <img src="/personal/shireff-2.jpg" alt="Shireff Nady - Web Developer" width="800" height="800" />
-          <img src="/personal/shireff-3.jpg" alt="Shireff - Senior Front-End Engineer" width="800" height="800" />
-          <img src="/personal/shireff-4.jpg" alt="Shireff Nady - React Specialist" width="800" height="800" />
-          <img src="/personal/shireff-5.jpg" alt="Shireff Nady - Full Stack Developer" width="800" height="800" />
+          <img src="/personal/shireff-1.webp" alt="Shireff Nady - Front-End Engineer" width="800" height="800" />
+          <img src="/personal/shireff-2.webp" alt="Shireff Nady - Web Developer" width="800" height="800" />
+          <img src="/personal/shireff-3.webp" alt="Shireff - Senior Front-End Engineer" width="800" height="800" />
+          <img src="/personal/shireff-4.webp" alt="Shireff Nady - React Specialist" width="800" height="800" />
+          <img src="/personal/shireff-5.webp" alt="Shireff Nady - Full Stack Developer" width="800" height="800" />
         </div>
 
         <div className="noise-overlay" />

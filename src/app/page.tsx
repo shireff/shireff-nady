@@ -13,7 +13,7 @@ import Recommendations from '@/components/sections/testimonials/Recommendations'
 import CTA from '@/components/sections/cta/CTA';
 import HiddenGallery from '@/components/sections/HiddenGallery';
 
-const DEFAULT_HERO_IMAGE = "https://media.licdn.com/dms/image/v2/D4E03AQHI2emfkXdeXQ/profile-displayphoto-shrink_800_800/B4EZaI2FxCHMAc-/0/1746052604728?e=1767830400&v=beta&t=-l4A36ias3qpuV4uIKc7q7V1vcZqMwuIceuT8hkYwag";
+const DEFAULT_HERO_IMAGE = siteConfig.links.heroImageUrl;
 
 // Revalidate every hour
 export const revalidate = 3600;

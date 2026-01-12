@@ -49,13 +49,30 @@ export default {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
-  			}
+  			},
+        glass: {
+          bg: 'var(--glass-bg)',
+          border: 'var(--glass-border)',
+          'bg-hover': 'var(--glass-bg-hover)',
+        }
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
-  			sm: 'calc(var(--radius) - 4px)'
-  		}
+  			sm: 'calc(var(--radius) - 4px)',
+        premium: 'var(--radius-premium)',
+        soft: 'var(--radius-soft)',
+  		},
+      boxShadow: {
+        'glass-l1': 'var(--shadow-glass-l1)',
+        'glass-l2': 'var(--shadow-glass-l2)',
+        'glass-l3': 'var(--shadow-glass-l3)',
+        'premium': 'var(--shadow-premium)',
+      },
+      backdropBlur: {
+        std: 'var(--blur-std)',
+        premium: 'var(--blur-premium)',
+      }
   	}
   },
   plugins: [require("tailwindcss-animate")],

@@ -20,6 +20,7 @@ export const siteConfig = {
     github: "https://github.com/shireff",
     linkedin: "https://www.linkedin.com/in/shireffnady",
     whatsapp: "https://wa.me/201274068946",
+    heroImageUrl: "https://res.cloudinary.com/dhz0pkov6/image/upload/v1768223813/portfolio/photo_5992549228963630140_y_f89mhv.jpg",
     resume:
       "https://drive.google.com/file/d/10BiinrGfzactg5MyC903WwryfY30Igb3/view?usp=sharing",
     // resume: "https://drive.google.com/file/d/1R4OSPHV8ADIz1qNSaSDMQCIs6fZv85T3/view?usp=sharing",

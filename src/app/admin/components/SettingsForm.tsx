@@ -8,8 +8,9 @@ import { revalidateHome } from '@/actions/revalidate';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Settings, Save, RotateCcw, CheckCircle, AlertCircle, Search, Zap, Globe } from 'lucide-react';
 import ImageUpload from '@/components/ui/ImageUpload';
+import { siteConfig } from '@/config/site';
 
-const DEFAULT_HERO_IMAGE = "https://media.licdn.com/dms/image/v2/D4E03AQHI2emfkXdeXQ/profile-displayphoto-shrink_800_800/B4EZaI2FxCHMAc-/0/1746052604728?e=1767830400&v=beta&t=-l4A36ias3qpuV4uIKc7q7V1vcZqMwuIceuT8hkYwag";
+const DEFAULT_HERO_IMAGE = siteConfig.links.heroImageUrl;
 
 export default function SettingsForm() {
   const [heroUrl, setHeroUrl] = useState('');

@@ -37,11 +37,11 @@ export async function POST(request: Request) {
 
     // List of personal images to index
     const personalImages = [
-      '/personal/shireff-1.jpg',
-      '/personal/shireff-2.jpg',
-      '/personal/shireff-3.jpg',
-      '/personal/shireff-4.jpg',
-      '/personal/shireff-5.jpg',
+      '/personal/shireff-1.webp',
+      '/personal/shireff-2.webp',
+      '/personal/shireff-3.webp',
+      '/personal/shireff-4.webp',
+      '/personal/shireff-5.webp',
     ];
 
     // Combine all URLs (pages, projects, and images)
