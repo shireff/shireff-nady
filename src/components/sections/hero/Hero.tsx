@@ -60,9 +60,7 @@ const Hero: React.FC<HeroProps> = ({
                         </h1>
 
                         <motion.p
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.2 }}
+                            initial={{ opacity: 1, scale: 1, rotate: 0 }}
                             className="text-zinc-400 text-xl md:text-2xl max-w-2xl font-medium leading-relaxed mx-auto lg:mx-0"
                         >
                             I build fast, reliable web apps with clean design and attention to detail.
@@ -71,9 +69,7 @@ const Hero: React.FC<HeroProps> = ({
 
                     <motion.div
 
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.3 }}
+                        initial={{ opacity: 1, scale: 1, rotate: 0 }}
                         className="flex flex-wrap justify-center lg:justify-start gap-4 pt-4"
                     >
                         <Link href="/projects">
