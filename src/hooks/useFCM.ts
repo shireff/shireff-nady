@@ -84,14 +84,14 @@ export const useFCM = () => {
       const browser = /Chrome/i.test(userAgent) ? "Chrome" : /Firefox/i.test(userAgent) ? "Firefox" : /Safari/i.test(userAgent) ? "Safari" : "unknown";
       const platform = window.navigator.platform;
 
-      console.log("📱 Registering FCM token:", fcmToken);
-      const response = await notificationService.registerToken({
+      console.log("📱 Registering FCM token");
+      await notificationService.registerToken({
         token: fcmToken,
         deviceType,
         browser,
         platform,
       });
-      console.log("✅ Token registered successfully:", response);
+      console.log("✅ Token registered successfully");
     } catch (error) {
       console.error("❌ Error saving token to backend:", error);
     }
