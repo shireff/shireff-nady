@@ -103,10 +103,16 @@ export const useFCM = () => {
         console.log("Message received in foreground: ", payload);
         // Handle foreground message (e.g. show a toast)
         if (Notification.permission === "granted") {
-           new Notification(payload.notification?.title || "New Notification", {
+           const notification = new Notification(payload.notification?.title || "New Notification", {
              body: payload.notification?.body,
              icon: "/fav/android-icon-192x192.png",
            });
+           
+           // Open website when notification is clicked
+           notification.onclick = () => {
+             window.open("https://shireff-nady.vercel.app/", "_blank");
+             notification.close();
+           };
         }
       });
       return () => unsubscribe();
