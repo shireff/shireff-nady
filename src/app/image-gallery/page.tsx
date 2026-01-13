@@ -71,8 +71,9 @@ export default function ImageGalleryPage() {
             <div
                 aria-hidden="true"
                 className="absolute inset-0 z-[-1] opacity-[0.01] pointer-events-none overflow-hidden"
-                style={{ height: '1px', width: '1px' }}
+                style={{ height: '200px', width: '200px' }}
             >
+
                 <h1>{siteConfig.author.name} Professional Portfolio Images</h1>
                 <p>
                     Professional photography and portfolio images of {siteConfig.author.name}, showcasing
@@ -86,11 +87,13 @@ export default function ImageGalleryPage() {
                             src={image.url}
                             alt={image.alt}
                             title={image.title}
-                            loading="eager" // Load these for indexing
+                            loading="eager"
                             width={1200}
                             height={1200}
+                            style={{ position: 'absolute', top: 0, left: 0 }}
                             itemProp="contentUrl"
                         />
+
                         <figcaption itemProp="caption">{image.title}</figcaption>
                         <meta itemProp="name" content={image.title} />
                         <meta itemProp="description" content={image.alt} />
@@ -114,15 +117,13 @@ export default function ImageGalleryPage() {
                 <div className="relative z-10 p-8 md:p-12 max-w-2xl mx-auto text-center space-y-8 bg-white/5 backdrop-blur-2xl border border-white/10 rounded-[2rem] shadow-2xl">
                     <div className="space-y-3">
                         <h1 className="text-4xl md:text-6xl font-black italic text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 drop-shadow-sm">
-                            Portfolio Assets
+                            SEO Image Index
                         </h1>
                         <div className="h-1.5 w-24 mx-auto bg-gradient-to-r from-blue-500 to-purple-500 rounded-full" />
                     </div>
 
                     <p className="text-base md:text-lg text-gray-400 leading-relaxed font-light">
-                        This repository directory contains indexed professional assets for{' '}
-                        <span className="text-white font-medium">{siteConfig.author.name}</span>.
-                        The content here is optimized for search visibility.
+                        This page is designed for <strong>SEO indexing only</strong>. Images are indexed for search engines and not intended for browsing.
                     </p>
 
                     <div className="flex flex-wrap justify-center gap-4">
@@ -133,33 +134,6 @@ export default function ImageGalleryPage() {
                             <span className="relative z-10">Back to Portfolio</span>
                             <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                         </a>
-                    </div>
-                </div>
-
-                {/* 3. Tiny Thumbnail Gallery for Google Visibility (Bottom) */}
-                <div className="mt-12 md:mt-16 z-10 max-w-4xl w-full px-4">
-                    <h2 className="text-xs uppercase tracking-[0.3em] text-gray-500 font-bold mb-6 text-center">
-                        Indexed Visual Assets
-                    </h2>
-                    <div className="grid grid-cols-5 md:grid-cols-10 gap-2 md:gap-3 justify-center opacity-40 hover:opacity-100 transition-opacity duration-500">
-                        {siteConfig.personalImages.map((image, idx) => (
-                            <div
-                                key={`thumb-${idx}`}
-                                className="aspect-square relative rounded-md overflow-hidden bg-white/5 border border-white/10 group cursor-default"
-                            >
-                                <img
-                                    src={image.url}
-                                    alt={image.alt}
-                                    title={image.title}
-                                    className="object-cover w-full h-full filter grayscale group-hover:grayscale-0 transition-all duration-300 scale-110 group-hover:scale-100"
-                                    loading="lazy"
-                                />
-                                {/* Tooltip on hover */}
-                                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-1">
-                                    <span className="text-[6px] text-white text-center leading-tight">VIEW</span>
-                                </div>
-                            </div>
-                        ))}
                     </div>
                 </div>
             </div>
