@@ -13,7 +13,7 @@ export default function ContactForm() {
     return (
         <div className="relative">
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-[2.5rem] blur opacity-20 -z-10" />
-            <Card className="p-8 md:p-12 border-white/5 bg-[#030712]/50 backdrop-blur-2xl rounded-[2rem] shadow-2xl h-full min-h-[600px] flex flex-col justify-center">
+            <Card className="p-6 sm:p-8 md:p-12 border-white/5 bg-[#030712]/50 backdrop-blur-2xl rounded-[2rem] shadow-2xl h-full min-h-[500px] md:min-h-[600px] flex flex-col justify-center">
 
                 <AnimatePresence mode="wait">
                     {state.succeeded ? (
@@ -31,9 +31,9 @@ export default function ContactForm() {
                                     initial={{ scale: 0 }}
                                     animate={{ scale: 1 }}
                                     transition={{ type: "spring", damping: 12, stiffness: 200 }}
-                                    className="w-28 h-28 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-400 border border-emerald-500/20 shadow-[0_0_40px_rgba(16,185,129,0.1)]"
+                                    className="w-24 h-24 md:w-28 md:h-28 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-400 border border-emerald-500/20 shadow-[0_0_40px_rgba(16,185,129,0.1)]"
                                 >
-                                    <CheckCircle size={56} />
+                                    <CheckCircle size={48} className="md:w-14 md:h-14" />
                                 </motion.div>
                                 <motion.div
                                     animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
@@ -43,8 +43,8 @@ export default function ContactForm() {
                             </div>
 
                             <div className="space-y-3">
-                                <h3 className="text-4xl font-black italic text-white uppercase tracking-tighter">Message Sent!</h3>
-                                <p className="text-zinc-400 text-lg max-w-sm mx-auto">
+                                <h3 className="text-3xl md:text-4xl font-black italic text-white uppercase tracking-tighter">Message Sent!</h3>
+                                <p className="text-zinc-400 text-base md:text-lg max-w-sm mx-auto">
                                     Thanks for reaching out! I&apos;ve received your message and will get back to you within 24 hours.
                                 </p>
                             </div>
@@ -52,7 +52,7 @@ export default function ContactForm() {
                             <Button
                                 variant="glass"
                                 onClick={() => window.location.reload()}
-                                className="rounded-full px-10 h-14 font-black italic tracking-widest uppercase text-xs"
+                                className="rounded-full px-8 md:px-10 h-12 md:h-14 font-black italic tracking-widest uppercase text-xs"
                             >
                                 SEND ANOTHER MESSAGE
                             </Button>
@@ -63,7 +63,7 @@ export default function ContactForm() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             onSubmit={handleSubmit}
-                            className="space-y-8"
+                            className="space-y-6 md:space-y-8"
                         >
                             <div className="space-y-2">
                                 <label htmlFor="name" className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 pl-1">Name</label>
@@ -72,13 +72,13 @@ export default function ContactForm() {
                                     type="text"
                                     name="name"
                                     required
-                                    className="w-full glass-input py-4 text-lg focus:ring-2 ring-blue-500/20 transition-all outline-none"
+                                    className="w-full glass-input py-3 md:py-4 text-base md:text-lg focus:ring-2 ring-blue-500/20 transition-all outline-none"
                                     placeholder="Enter your full name"
                                 />
                                 <ValidationError prefix="Name" field="name" errors={state.errors} className="text-red-400 text-xs font-bold mt-1 pl-1" />
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
                                 <div className="space-y-2">
                                     <label htmlFor="email" className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 pl-1">Email</label>
                                     <input
@@ -86,7 +86,7 @@ export default function ContactForm() {
                                         type="email"
                                         name="email"
                                         required
-                                        className="w-full glass-input py-4 text-lg focus:ring-2 ring-blue-500/20 transition-all outline-none"
+                                        className="w-full glass-input py-3 md:py-4 text-base md:text-lg focus:ring-2 ring-blue-500/20 transition-all outline-none"
                                         placeholder="name@company.com"
                                     />
                                     <ValidationError prefix="Email" field="email" errors={state.errors} className="text-red-400 text-xs font-bold mt-1 pl-1" />
@@ -97,7 +97,7 @@ export default function ContactForm() {
                                         id="phone"
                                         type="tel"
                                         name="phone"
-                                        className="w-full glass-input py-4 text-lg focus:ring-2 ring-blue-500/20 transition-all outline-none"
+                                        className="w-full glass-input py-3 md:py-4 text-base md:text-lg focus:ring-2 ring-blue-500/20 transition-all outline-none"
                                         placeholder="+123..."
                                     />
                                     <ValidationError prefix="Phone" field="phone" errors={state.errors} className="text-red-400 text-xs font-bold mt-1 pl-1" />
@@ -111,7 +111,7 @@ export default function ContactForm() {
                                     name="message"
                                     required
                                     rows={5}
-                                    className="w-full glass-input py-4 text-lg min-h-[150px] focus:ring-2 ring-blue-500/20 transition-all outline-none"
+                                    className="w-full glass-input py-3 md:py-4 text-base md:text-lg min-h-[120px] md:min-h-[150px] focus:ring-2 ring-blue-500/20 transition-all outline-none"
                                     placeholder="Describe your project vision..."
                                 />
                                 <ValidationError prefix="Message" field="message" errors={state.errors} className="text-red-400 text-xs font-bold mt-1 pl-1" />
@@ -138,7 +138,7 @@ export default function ContactForm() {
                                 size="lg"
                                 disabled={state.submitting}
                                 isLoading={state.submitting}
-                                className="w-full py-8 rounded-2xl font-black italic text-xl shadow-xl shadow-blue-600/20 gap-3 group overflow-hidden relative"
+                                className="w-full py-6 md:py-8 rounded-2xl font-black italic text-lg md:text-xl shadow-xl shadow-blue-600/20 gap-3 group overflow-hidden relative"
                             >
                                 <span className="relative z-10 flex items-center gap-3">
                                     {state.submitting ? 'SENDING...' : 'SEND MESSAGE'}

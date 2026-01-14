@@ -17,7 +17,7 @@ import AvailabilityCard from './components/AvailabilityCard';
 
 export default function ContactPage() {
   return (
-    <div className="max-w-7xl mx-auto px-6 py-20 space-y-20">
+    <div className="max-w-7xl mx-auto px-4 md:px-6 py-10 md:py-20 space-y-12 md:space-y-20">
       {/* Header */}
       <div className="text-center space-y-6">
         <motion.div
@@ -27,18 +27,18 @@ export default function ContactPage() {
         >
           <MessageSquare size={16} /> GET IN TOUCH
         </motion.div>
-        <h1 className="text-5xl md:text-9xl font-black italic tracking-tighter bg-gradient-to-b from-white to-zinc-800 bg-clip-text text-transparent text-center">HELLO.</h1>
-        <p className="text-zinc-500 text-xl max-w-2xl mx-auto font-medium">
+        <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-black italic tracking-tighter bg-gradient-to-b from-white to-zinc-800 bg-clip-text text-transparent text-center">HELLO.</h1>
+        <p className="text-zinc-500 text-lg md:text-xl max-w-2xl mx-auto font-medium">
           I'm always up for a chat about new projects, cool ideas, or how I can help your team. Drop me a line below!
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
         {/* Left Column: Direct Inlets */}
         <div className="space-y-8">
           <ContactChannels />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             <AvailabilityCard />
             {/* <ContactQRCode /> */}
           </div>

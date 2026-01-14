@@ -28,32 +28,32 @@ export default function Recommendations() {
     }, []);
 
     return (
-        <section className="relative py-32 overflow-hidden bg-background">
+        <section className="relative py-16 md:py-32 overflow-hidden bg-background">
             {/* Background Decor */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-blue-500/20 to-transparent" />
             <div className="absolute -top-[20%] -left-[10%] w-[40%] h-[60%] bg-blue-500/5 blur-[120px] rounded-full" />
 
             <div className="max-w-7xl mx-auto px-6 relative z-10">
-                <div className="flex flex-col items-center text-center mb-24 space-y-6">
+                <div className="flex flex-col items-center text-center mb-12 md:mb-24 space-y-6">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
-                        className="flex items-center gap-3 px-6 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 backdrop-blur-md relative group"
+                        className="flex flex-wrap justify-center items-center gap-2 md:gap-3 px-4 md:px-6 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 backdrop-blur-md relative group max-w-full"
                     >
                         <div className="absolute inset-0 bg-blue-500/20 blur-xl rounded-full animate-pulse group-hover:bg-blue-500/40 transition-all" />
-                        <ShieldCheck size={14} className="text-blue-400 relative z-10" />
-                        <span className="text-blue-400 text-[10px] font-black uppercase tracking-[0.4em] relative z-10">
+                        <ShieldCheck size={12} className="text-blue-400 relative z-10 md:w-3.5 md:h-3.5" />
+                        <span className="text-blue-400 text-[8px] md:text-[10px] font-black uppercase tracking-[0.2em] md:tracking-[0.4em] relative z-10 text-center">
                             Verified Feedback
                         </span>
-                        <div className="h-4 w-[1px] bg-blue-500/30 relative z-10" />
-                        <span className="text-white text-[9px] font-black bg-blue-600 px-2 py-0.5 rounded italic relative z-10">PRO</span>
+                        <div className="hidden sm:block h-4 w-[1px] bg-blue-500/30 relative z-10" />
+                        <span className="text-white text-[8px] md:text-[9px] font-black bg-blue-600 px-1.5 py-0.5 rounded italic relative z-10">PRO</span>
                     </motion.div>
-                    <h2 className="text-5xl md:text-7xl font-black italic tracking-tighter text-foreground uppercase leading-none">
-                        Reviews.
+                    <h2 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-black italic tracking-tighter text-foreground uppercase leading-none break-words">
+                        RECOMMENDATIONS.
                     </h2>
-                    <p className="max-w-2xl text-zinc-500 font-medium text-lg leading-relaxed">
-                        Real feedback from the people I&apos;ve built products with, pulled directly from LinkedIn.
+                    <p className="max-w-2xl text-zinc-500 font-medium text-sm md:text-lg leading-relaxed px-4">
+                        Real feedback from the people I&apos;ve built products with, directly from LinkedIn.
                     </p>
                 </div>
 
@@ -64,7 +64,7 @@ export default function Recommendations() {
                     </div>
                 ) : testimonials.length > 0 ? (
                     <>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                             <AnimatePresence>
                                 {testimonials.slice(0, 3).map((test, i) => (
                                     <motion.div
@@ -76,14 +76,14 @@ export default function Recommendations() {
                                         className="relative group h-full"
                                     >
                                         {/* Premium Card Container */}
-                                        <div className="h-full glass-card-premium p-10 border-glass-border backdrop-blur-3xl group-hover:border-blue-500/40 transition-all duration-700 relative flex flex-col overflow-hidden rounded-[32px]">
+                                        <div className="h-full glass-card-premium p-6 md:p-10 border-glass-border backdrop-blur-3xl group-hover:border-blue-500/40 transition-all duration-700 relative flex flex-col overflow-hidden rounded-[32px]">
 
                                             {/* Decorative Background Elements */}
                                             <div className="absolute -top-12 -right-12 w-32 h-32 bg-blue-600/10 blur-3xl rounded-full group-hover:bg-blue-600/20 transition-all duration-700" />
                                             <div className="absolute -bottom-12 -left-12 w-32 h-32 bg-indigo-600/10 blur-3xl rounded-full group-hover:bg-indigo-600/20 transition-all duration-700" />
 
                                             {/* Top Bar with Stars & Quote */}
-                                            <div className="flex justify-between items-start mb-10">
+                                            <div className="flex justify-between items-start mb-8 md:mb-10">
                                                 <div className="flex flex-col items-start gap-1 mt-4">
                                                     <div className="flex gap-1">
                                                         {[...Array(5)].map((_, starI) => (
@@ -92,31 +92,31 @@ export default function Recommendations() {
                                                     </div>
                                                     <div className="flex flex-col gap-1">
                                                         <span className="text-[8px] font-black text-zinc-600 uppercase tracking-widest">Feedback</span>
-                                                        <div className="flex items-center gap-1.5 py-0.5 px-2 rounded-md bg-blue-500/5 border border-blue-500/10 w-fit">
-                                                            <Linkedin size={8} className="text-blue-400" />
-                                                            <span className="text-[7px] font-black text-blue-400 uppercase tracking-[0.2em]">LinkedIn Verified</span>
+                                                        <div className="flex items-center gap-1.5 py-0.5 px-2 rounded-md bg-blue-500/5 border border-blue-500/10 w-fit max-w-full">
+                                                            <Linkedin size={8} className="text-blue-400 shrink-0" />
+                                                            <span className="text-[7px] font-black text-blue-400 uppercase tracking-[0.2em] break-all sm:break-normal">LinkedIn Verified</span>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="bg-glass-bg p-4 rounded-2xl group-hover:bg-blue-600 transition-all duration-500 shadow-xl shadow-glass-l2">
-                                                    <Quote size={24} className="text-blue-500 group-hover:text-white fill-current/10" />
+                                                <div className="bg-glass-bg p-3 md:p-4 rounded-2xl group-hover:bg-blue-600 transition-all duration-500 shadow-xl shadow-glass-l2 shrink-0">
+                                                    <Quote size={20} className="text-blue-500 group-hover:text-white fill-current/10 md:w-6 md:h-6" />
                                                 </div>
                                             </div>
 
                                             {/* Content */}
                                             <div className="flex-grow relative z-10">
-                                                <p className="text-zinc-500 dark:text-zinc-300 text-lg leading-relaxed font-medium mb-10 italic line-clamp-5 group-hover:text-foreground transition-colors">
+                                                <p className="text-zinc-500 dark:text-zinc-300 text-sm md:text-lg leading-relaxed font-medium mb-8 md:mb-10 italic line-clamp-5 group-hover:text-foreground transition-colors">
                                                     &ldquo;{test.content}&rdquo;
                                                 </p>
                                             </div>
 
                                             {/* Footer with Avatar & Info */}
-                                            <div className="pt-8 border-t border-glass-border flex items-center justify-between mt-auto">
-                                                <div className="flex items-center gap-5">
+                                            <div className="pt-8 border-t border-glass-border flex items-center justify-between mt-auto gap-2">
+                                                <div className="flex items-center gap-3 md:gap-5 min-w-0">
                                                     {/* Avatar with Glow */}
-                                                    <div className="relative">
+                                                    <div className="relative shrink-0">
                                                         <div className="absolute inset-0 bg-blue-500/40 blur-xl rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                                                        <div className="w-16 h-16 rounded-3xl bg-glass-bg border border-glass-border flex items-center justify-center text-zinc-400 overflow-hidden relative z-10">
+                                                        <div className="w-12 h-12 md:w-16 md:h-16 rounded-3xl bg-glass-bg border border-glass-border flex items-center justify-center text-zinc-400 overflow-hidden relative z-10">
                                                             {test.avatar ? (
                                                                 <Image
                                                                     src={test.avatar.replace(/^http:\/\//, 'https://')}
@@ -131,16 +131,16 @@ export default function Recommendations() {
                                                         </div>
                                                     </div>
 
-                                                    <div className="space-y-1">
-                                                        <h4 className="font-black text-foreground text-sm uppercase tracking-wider line-clamp-1 group-hover:text-blue-500 transition-colors">
+                                                    <div className="space-y-1 min-w-0">
+                                                        <h4 className="font-black text-foreground text-xs md:text-sm uppercase tracking-wider line-clamp-1 group-hover:text-blue-500 transition-colors truncate">
                                                             {test.name}
                                                         </h4>
-                                                        <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest leading-tight line-clamp-1">
+                                                        <p className="text-[9px] md:text-[10px] text-zinc-500 font-bold uppercase tracking-widest leading-tight line-clamp-1 truncate">
                                                             {test.role}
                                                         </p>
                                                         <div className="flex items-center gap-2 mt-1">
-                                                            <div className="w-1 h-1 rounded-full bg-blue-500" />
-                                                            <span className="text-[9px] text-zinc-600 font-black uppercase tracking-widest">
+                                                            <div className="w-1 h-1 rounded-full bg-blue-500 shrink-0" />
+                                                            <span className="text-[8px] md:text-[9px] text-zinc-600 font-black uppercase tracking-widest truncate">
                                                                 {test.relationship}
                                                             </span>
                                                         </div>
@@ -151,9 +151,9 @@ export default function Recommendations() {
                                                     href={test.linkedinUrl}
                                                     target="_blank"
                                                     rel="noreferrer"
-                                                    className="p-3 rounded-2xl bg-glass-bg border border-glass-border text-zinc-500 hover:text-white hover:bg-blue-600 hover:border-blue-400 transition-all group/link"
+                                                    className="p-2 md:p-3 rounded-2xl bg-glass-bg border border-glass-border text-zinc-500 hover:text-white hover:bg-blue-600 hover:border-blue-400 transition-all group/link shrink-0"
                                                 >
-                                                    <Linkedin size={20} className="group-hover/link:scale-110 transition-transform" />
+                                                    <Linkedin size={16} className="group-hover/link:scale-110 transition-transform md:w-5 md:h-5" />
                                                 </a>
                                             </div>
                                         </div>
@@ -166,13 +166,13 @@ export default function Recommendations() {
                             <motion.div
                                 initial={{ opacity: 0 }}
                                 whileInView={{ opacity: 1 }}
-                                className="mt-16 flex justify-center"
+                                className="mt-12 md:mt-16 flex justify-center"
                             >
                                 <Link
                                     href="/recommendations"
-                                    className="group relative inline-flex items-center gap-3 px-10 py-4 bg-glass-bg border border-glass-border rounded-full hover:bg-blue-600 transition-all duration-500"
+                                    className="group relative inline-flex items-center gap-3 px-8 md:px-10 py-3 md:py-4 bg-glass-bg border border-glass-border rounded-full hover:bg-blue-600 transition-all duration-500"
                                 >
-                                    <span className="text-xs font-black uppercase tracking-[0.3em] text-foreground group-hover:text-white">Read More</span>
+                                    <span className="text-[10px] md:text-xs font-black uppercase tracking-[0.3em] text-foreground group-hover:text-white">Read More</span>
                                     <Award className="w-4 h-4 text-blue-500 group-hover:text-white group-hover:rotate-12 transition-all" />
 
                                     {/* Badge for count */}
@@ -184,8 +184,12 @@ export default function Recommendations() {
                         )}
                     </>
                 ) : (
-                    <div className="text-center py-20 px-10 rounded-[40px] border border-dashed border-glass-border bg-glass-bg">
-                        <p className="text-zinc-500 font-bold uppercase tracking-widest text-sm">Nothing here yet!</p>
+                    <div className="text-center py-12 md:py-20 px-6 md:px-10 rounded-[20px] md:rounded-[40px] border border-dashed border-glass-border bg-glass-bg/50 backdrop-blur-sm mx-auto max-w-sm md:max-w-none">
+                        <div className="w-16 h-16 mx-auto bg-glass-bg rounded-2xl flex items-center justify-center mb-4 border border-glass-border">
+                            <Quote size={24} className="text-zinc-600 opacity-50" />
+                        </div>
+                        <p className="text-zinc-500 font-bold uppercase tracking-widest text-xs md:text-sm">No reviews yet</p>
+                        <p className="text-zinc-600 text-xs mt-2 max-w-[200px] mx-auto">Be the first to share your experience!</p>
                     </div>
                 )}
 

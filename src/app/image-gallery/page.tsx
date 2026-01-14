@@ -114,22 +114,22 @@ export default function ImageGalleryPage() {
                 <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-[128px] pointer-events-none animate-pulse" />
                 <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-[128px] pointer-events-none animate-pulse" style={{ animationDelay: '2s' }} />
 
-                <div className="relative z-10 p-8 md:p-12 max-w-2xl mx-auto text-center space-y-8 bg-white/5 backdrop-blur-2xl border border-white/10 rounded-[2rem] shadow-2xl">
+                <div className="relative z-10 p-6 md:p-12 max-w-2xl mx-auto text-center space-y-6 md:space-y-8 bg-white/5 backdrop-blur-2xl border border-white/10 rounded-[2rem] shadow-2xl">
                     <div className="space-y-3">
-                        <h1 className="text-4xl md:text-6xl font-black italic text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 drop-shadow-sm">
+                        <h1 className="text-3xl md:text-6xl font-black italic text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 drop-shadow-sm">
                             SEO Image Index
                         </h1>
                         <div className="h-1.5 w-24 mx-auto bg-gradient-to-r from-blue-500 to-purple-500 rounded-full" />
                     </div>
 
-                    <p className="text-base md:text-lg text-gray-400 leading-relaxed font-light">
+                    <p className="text-sm md:text-lg text-gray-400 leading-relaxed font-light">
                         This page is designed for <strong>SEO indexing only</strong>. Images are indexed for search engines and not intended for browsing.
                     </p>
 
                     <div className="flex flex-wrap justify-center gap-4">
                         <a
                             href="/"
-                            className="group relative inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-white/10 hover:bg-white/15 text-white font-semibold rounded-2xl transition-all duration-300 border border-white/10 hover:border-white/20 hover:scale-[1.02] active:scale-95 overflow-hidden"
+                            className="group relative inline-flex items-center justify-center gap-2 px-6 md:px-8 py-3 md:py-3.5 bg-white/10 hover:bg-white/15 text-white font-semibold rounded-2xl transition-all duration-300 border border-white/10 hover:border-white/20 hover:scale-[1.02] active:scale-95 overflow-hidden text-sm md:text-base"
                         >
                             <span className="relative z-10">Back to Portfolio</span>
                             <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

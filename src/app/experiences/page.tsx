@@ -48,7 +48,7 @@ export default async function ExperiencesPage() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-6 py-20 space-y-20">
+    <div className="max-w-5xl mx-auto px-6 py-10 md:py-20 space-y-12 md:space-y-20">
       <Script
         id="profile-schema"
         type="application/ld+json"
@@ -56,8 +56,8 @@ export default async function ExperiencesPage() {
       />
 
       <div className="text-center space-y-6">
-        <h1 className="text-5xl md:text-8xl font-black italic tracking-tighter bg-gradient-to-b from-white to-zinc-800 bg-clip-text text-transparent underline decoration-blue-500/50 underline-offset-8 uppercase">My Career.</h1>
-        <p className="text-zinc-400 text-xl max-w-2xl mx-auto">A look at the places I've worked and the things I've built along the way.</p>
+        <h1 className="text-4xl sm:text-5xl md:text-8xl font-black italic tracking-tighter bg-gradient-to-b from-white to-zinc-800 bg-clip-text text-transparent underline decoration-blue-500/50 underline-offset-8 uppercase">My Career.</h1>
+        <p className="text-zinc-400 text-lg md:text-xl max-w-2xl mx-auto">A look at the places I've worked and the things I've built along the way.</p>
       </div>
 
       <ExperienceList experiences={experiences} />
