@@ -108,7 +108,7 @@ export async function GET(request: Request) {
       loc: `${baseUrl}/image-gallery`,
       lastmod: new Date().toISOString(),
       changefreq: 'weekly',
-      priority: 0.9,
+      priority: 0.4,
       images: galleryImages,
     },
     {

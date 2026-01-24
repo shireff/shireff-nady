@@ -11,6 +11,7 @@ import { StoreProvider } from "@/store/Provider";
 import { ThemeProvider } from "@/components/Provider/ThemeProvider";
 import NotificationManager from "@/components/ui/NotificationManager";
 import { NotificationPrompt } from "@/components/features/notifications/NotificationPrompt";
+import { getMimeType } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -142,14 +143,14 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: `${siteConfig.author.name} Portfolio - Front-End Developer`,
-        type: "image/jpeg",
+        type: getMimeType(siteConfig.ogImage),
       },
       ...siteConfig.personalImages.map(img => ({
         url: `${siteConfig.url}${img.url}`,
         width: 800,
         height: 800,
         alt: img.title,
-        type: "image/jpeg",
+        type: getMimeType(img.url),
       }))
     ],
   },

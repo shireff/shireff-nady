@@ -76,6 +76,7 @@ export function normalizeCategory(category: string): string {
   return trimmed.charAt(0).toUpperCase() + trimmed.slice(1);
 }
 
+
 export function getUniqueCategories(projects: { category: string }[]): string[] {
   const categories = new Set<string>();
   projects.forEach(p => {
@@ -85,3 +86,33 @@ export function getUniqueCategories(projects: { category: string }[]): string[] 
   });
   return Array.from(categories).sort();
 }
+
+/**
+ * Detects the MIME type based on the file extension from a URL.
+ * Defaults to 'image/jpeg' if unknown.
+ * Used for Open Graph and SEO metadata to ensure protocol compliance.
+ */
+export function getMimeType(url: string): string {
+  if (!url) return 'image/jpeg';
+  
+  const extension = url.split('.').pop()?.toLowerCase();
+  
+  switch (extension) {
+    case 'jpg':
+    case 'jpeg':
+      return 'image/jpeg';
+    case 'png':
+      return 'image/png';
+    case 'webp':
+      return 'image/webp';
+    case 'gif':
+      return 'image/gif';
+    case 'svg':
+      return 'image/svg+xml';
+    case 'avif':
+      return 'image/avif';
+    default:
+      return 'image/jpeg'; // Fallback to most common standard
+  }
+}
+

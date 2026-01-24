@@ -30,7 +30,7 @@ module.exports = {
         changefreq: 'weekly',
       },
       '/image-gallery': {
-        priority: 0.85,
+        priority: 0.4,
         changefreq: 'weekly',
       },
       '/experiences': {
