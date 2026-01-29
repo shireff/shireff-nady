@@ -1,14 +1,55 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, CheckCircle, AlertCircle } from 'lucide-react';
-import { useForm, ValidationError } from "@formspree/react";
 import Button from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
+import { contactService } from '@/services/contact';
 
 export default function ContactForm() {
-    const [state, handleSubmit] = useForm("xqkrawrb");
+    const [isLoading, setIsLoading] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (isSuccess) {
+            const timer = setTimeout(() => {
+                setIsSuccess(false);
+            }, 8000);
+            return () => clearTimeout(timer);
+        }
+    }, [isSuccess]);
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setIsLoading(true);
+        setError(null);
+
+        const formData = new FormData(e.currentTarget);
+        const data = {
+            name: formData.get('name') as string,
+            email: formData.get('email') as string,
+            phone: formData.get('phone') as string,
+            message: formData.get('message') as string,
+        };
+
+        try {
+            const response = await contactService.send(data);
+            if (response.success) {
+                setIsSuccess(true);
+            } else {
+                setError(response.message || 'Failed to send message');
+            }
+        } catch (err: any) {
+            console.error('Contact form error:', err);
+            // Extract error message safely from Axios error response if available
+            const errorMessage = err.response?.data?.message || err.message || 'Something went wrong. Please check your connection and try again.';
+            setError(errorMessage);
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     return (
         <div className="relative">
@@ -16,7 +57,7 @@ export default function ContactForm() {
             <Card className="p-6 sm:p-8 md:p-12 border-white/5 bg-[#030712]/50 backdrop-blur-2xl rounded-[2rem] shadow-2xl h-full min-h-[500px] md:min-h-[600px] flex flex-col justify-center">
 
                 <AnimatePresence mode="wait">
-                    {state.succeeded ? (
+                    {isSuccess ? (
                         <motion.div
                             key="success"
                             initial={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -75,7 +116,6 @@ export default function ContactForm() {
                                     className="w-full glass-input py-3 md:py-4 text-base md:text-lg focus:ring-2 ring-blue-500/20 transition-all outline-none"
                                     placeholder="Enter your full name"
                                 />
-                                <ValidationError prefix="Name" field="name" errors={state.errors} className="text-red-400 text-xs font-bold mt-1 pl-1" />
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
@@ -89,7 +129,6 @@ export default function ContactForm() {
                                         className="w-full glass-input py-3 md:py-4 text-base md:text-lg focus:ring-2 ring-blue-500/20 transition-all outline-none"
                                         placeholder="name@company.com"
                                     />
-                                    <ValidationError prefix="Email" field="email" errors={state.errors} className="text-red-400 text-xs font-bold mt-1 pl-1" />
                                 </div>
                                 <div className="space-y-2">
                                     <label htmlFor="phone" className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 pl-1">Phone (Optional)</label>
@@ -100,7 +139,6 @@ export default function ContactForm() {
                                         className="w-full glass-input py-3 md:py-4 text-base md:text-lg focus:ring-2 ring-blue-500/20 transition-all outline-none"
                                         placeholder="+123..."
                                     />
-                                    <ValidationError prefix="Phone" field="phone" errors={state.errors} className="text-red-400 text-xs font-bold mt-1 pl-1" />
                                 </div>
                             </div>
 
@@ -114,11 +152,10 @@ export default function ContactForm() {
                                     className="w-full glass-input py-3 md:py-4 text-base md:text-lg min-h-[120px] md:min-h-[150px] focus:ring-2 ring-blue-500/20 transition-all outline-none"
                                     placeholder="Describe your project vision..."
                                 />
-                                <ValidationError prefix="Message" field="message" errors={state.errors} className="text-red-400 text-xs font-bold mt-1 pl-1" />
                             </div>
 
                             <AnimatePresence>
-                                {state.errors && !state.succeeded && (
+                                {error && (
                                     <motion.div
                                         initial={{ opacity: 0, height: 0 }}
                                         animate={{ opacity: 1, height: 'auto' }}
@@ -128,7 +165,7 @@ export default function ContactForm() {
                                         aria-live="assertive"
                                     >
                                         <AlertCircle size={20} className="shrink-0" />
-                                        <p>Something went wrong. Please check your info or reach out directly.</p>
+                                        <p>{error}</p>
                                     </motion.div>
                                 )}
                             </AnimatePresence>
@@ -136,19 +173,19 @@ export default function ContactForm() {
                             <Button
                                 type="submit"
                                 size="lg"
-                                disabled={state.submitting}
-                                isLoading={state.submitting}
+                                disabled={isLoading}
+                                isLoading={isLoading}
                                 className="w-full py-6 md:py-8 rounded-2xl font-black italic text-lg md:text-xl shadow-xl shadow-blue-600/20 gap-3 group overflow-hidden relative"
                             >
                                 <span className="relative z-10 flex items-center gap-3">
-                                    {state.submitting ? 'SENDING...' : 'SEND MESSAGE'}
-                                    {!state.submitting && <Send size={24} className="group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform" />}
+                                    {isLoading ? 'SENDING...' : 'SEND MESSAGE'}
+                                    {!isLoading && <Send size={24} className="group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform" />}
                                 </span>
                                 <motion.div
                                     className="absolute inset-0 bg-gradient-to-r from-blue-600 to-emerald-600"
                                     initial={false}
-                                    animate={state.submitting ? { x: ['-100%', '100%'] } : { x: 0 }}
-                                    transition={state.submitting ? { duration: 1.5, repeat: Infinity, ease: "linear" } : { duration: 0 }}
+                                    animate={isLoading ? { x: ['-100%', '100%'] } : { x: 0 }}
+                                    transition={isLoading ? { duration: 1.5, repeat: Infinity, ease: "linear" } : { duration: 0 }}
                                 />
                             </Button>
                         </motion.form>
@@ -158,3 +195,4 @@ export default function ContactForm() {
         </div>
     );
 }
+
