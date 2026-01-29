@@ -1,15 +1,9 @@
 'use client';
 
-import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, MessageSquare, Send, CheckCircle, Smartphone, AlertCircle } from 'lucide-react';
-import { useForm, ValidationError } from "@formspree/react";
-import Button from '@/components/ui/Button';
-import { Card } from '@/components/ui/Card';
-import ContactQRCode from '@/components/features/contact/ContactQRCode';
+import { motion } from 'framer-motion';
+import { MessageSquare } from 'lucide-react';
 
 
-import { siteConfig } from '@/config/site';
 
 import ContactForm from './components/ContactForm';
 import ContactChannels from './components/ContactChannels';
