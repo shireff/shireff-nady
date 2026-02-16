@@ -19,10 +19,12 @@ export function useProjects(options: UseProjectsOptions = {}) {
     category ? `/projects?category=${category}` : '/projects',
     async () => {
       const response = await projectService.getAll();
+      // response is ProjectsResponse with data property
+      const projects = response.data || [];
       if (category) {
-        return response.filter(p => p.category === category);
+        return projects.filter(p => p.category === category);
       }
-      return response;
+      return projects;
     },
     {
       revalidateOnFocus,
