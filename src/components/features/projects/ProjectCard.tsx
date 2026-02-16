@@ -9,6 +9,7 @@ import { Card, CardContent } from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { Project } from '@/types';
 import { normalizeCategory } from '@/lib/utils';
+import { generateBlurDataURL, shouldUnoptimizeImage, getImageSizes, getImagePriority, getImageLoading } from '@/lib/imageUtils';
 
 interface ProjectCardProps {
     project: Project;
@@ -40,10 +41,14 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                                 )}
                                 <Image
                                     src={project.img}
-                                    alt={project.title}
+                                    alt={`${project.title} - ${project.category} project`}
                                     fill
-                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                    unoptimized={project.img.includes('licdn.com')}
+                                    sizes={getImageSizes('card')}
+                                    priority={getImagePriority(index)}
+                                    loading={getImageLoading(index)}
+                                    placeholder="blur"
+                                    blurDataURL={generateBlurDataURL(project.img)}
+                                    unoptimized={shouldUnoptimizeImage(project.img)}
                                     className={`object-cover transition-all duration-700 group-hover:scale-110 ${isLoading ? 'opacity-0 scale-105' : 'opacity-100 scale-100'}`}
                                     onLoad={() => setIsLoading(false)}
                                 />

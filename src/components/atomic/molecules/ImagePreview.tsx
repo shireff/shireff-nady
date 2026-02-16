@@ -3,6 +3,7 @@
 import React from 'react';
 import { X as XIcon } from 'lucide-react';
 import Image from 'next/image';
+import { generateBlurDataURL, getImageSizes } from '@/lib/imageUtils';
 
 interface ImagePreviewProps {
     url: string;
@@ -14,9 +15,11 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({ url, onRemove }) => {
         <div className="relative aspect-video rounded-xl overflow-hidden border border-white/10 shadow-xl group/preview">
             <Image
                 src={url}
-                alt="Preview"
+                alt="Image preview"
                 fill
-                sizes="(max-width: 768px) 100vw, 300px"
+                sizes={getImageSizes('card')}
+                placeholder="blur"
+                blurDataURL={generateBlurDataURL(url)}
                 className="object-cover transition-all duration-700 group-hover/preview:scale-105"
             />
             <div className="absolute inset-0 bg-black/80 opacity-0 group-hover/preview:opacity-100 transition-all duration-300 flex items-center justify-center flex-col gap-3">

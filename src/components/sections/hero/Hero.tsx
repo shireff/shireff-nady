@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Rocket, Download } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import { siteConfig } from '@/config/site';
+import { generateBlurDataURL, shouldUnoptimizeImage, getImageSizes } from '@/lib/imageUtils';
 
 interface HeroProps {
     initialHeroImage: string;
@@ -116,11 +117,13 @@ const Hero: React.FC<HeroProps> = ({
                                     <Image
                                         key={heroImage}
                                         src={heroImage}
-                                        alt={siteConfig.name}
+                                        alt={`${siteConfig.name} - Front-End Developer`}
                                         fill
-                                        sizes="(max-width: 1024px) 100vw, 50vw"
+                                        sizes={getImageSizes('hero')}
                                         priority
-                                        unoptimized={heroImage.includes('licdn.com')}
+                                        placeholder="blur"
+                                        blurDataURL={generateBlurDataURL(heroImage)}
+                                        unoptimized={shouldUnoptimizeImage(heroImage)}
                                         onLoad={() => setIsImageLoading(false)}
                                         onError={handleImageError}
                                         className={`object-cover transition-all duration-500 scale-110 group-hover:scale-100 opacity-100 grayscale hover:grayscale-0`}

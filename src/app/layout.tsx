@@ -9,6 +9,7 @@ import AIHelper from "@/components/ui/AIHelper";
 import { siteConfig } from "@/config/site";
 import { StoreProvider } from "@/store/Provider";
 import { ThemeProvider } from "@/components/Provider/ThemeProvider";
+import SWRProvider from "@/components/Provider/SWRProvider";
 import NotificationManager from "@/components/ui/NotificationManager";
 import { NotificationPrompt } from "@/components/features/notifications/NotificationPrompt";
 import { getMimeType } from "@/lib/utils";
@@ -306,16 +307,18 @@ export default function RootLayout({
 
         <div className="noise-overlay" />
         <StoreProvider>
-          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-            <NotificationManager />
-            <Navbar />
-            <main className="flex-grow pt-20">
-              {children}
-            </main>
-            <Footer />
-            <AIHelper />
-            <NotificationPrompt />
-          </ThemeProvider>
+          <SWRProvider>
+            <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+              <NotificationManager />
+              <Navbar />
+              <main className="flex-grow pt-20">
+                {children}
+              </main>
+              <Footer />
+              <AIHelper />
+              <NotificationPrompt />
+            </ThemeProvider>
+          </SWRProvider>
         </StoreProvider>
       </body>
     </html>

@@ -6,6 +6,7 @@ import { Quote, Linkedin, Star, ShieldCheck, Award, Loader2, ArrowLeft } from 'l
 import Image from 'next/image';
 import Link from 'next/link';
 import { testimonialService, Testimonial } from '@/services/testimonials';
+import { generateBlurDataURL, shouldUnoptimizeImage, getImageSizes } from '@/lib/imageUtils';
 
 export default function RecommendationsPage() {
     const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
@@ -134,11 +135,13 @@ export default function RecommendationsPage() {
                                                         {test.avatar ? (
                                                             <Image
                                                                 src={test.avatar.replace(/^http:\/\//, 'https://')}
-                                                                alt={test.name}
+                                                                alt={`${test.name} - ${test.role} recommendation`}
                                                                 fill
-                                                                unoptimized={test.avatar.includes('licdn.com')}
+                                                                sizes={getImageSizes('thumbnail')}
+                                                                placeholder="blur"
+                                                                blurDataURL={generateBlurDataURL(test.avatar)}
+                                                                unoptimized={shouldUnoptimizeImage(test.avatar)}
                                                                 className="object-cover group-hover:scale-110 transition-transform duration-700"
-                                                                sizes="64px"
                                                             />
                                                         ) : (
                                                             <span className="font-black text-lg">{test.name.charAt(0)}</span>

@@ -6,6 +6,7 @@ import { Quote, Linkedin, Star, ShieldCheck, Award, Loader2 } from 'lucide-react
 import Image from 'next/image';
 import Link from 'next/link';
 import { testimonialService, Testimonial } from '@/services/testimonials';
+import { generateBlurDataURL, shouldUnoptimizeImage, getImageSizes } from '@/lib/imageUtils';
 
 export default function Recommendations() {
     const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
@@ -120,9 +121,12 @@ export default function Recommendations() {
                                                             {test.avatar ? (
                                                                 <Image
                                                                     src={test.avatar.replace(/^http:\/\//, 'https://')}
-                                                                    alt={test.name}
+                                                                    alt={`${test.name} - ${test.role} at ${test.company || 'LinkedIn'}`}
                                                                     fill
-                                                                    unoptimized={test.avatar.includes('licdn.com')}
+                                                                    sizes={getImageSizes('thumbnail')}
+                                                                    placeholder="blur"
+                                                                    blurDataURL={generateBlurDataURL(test.avatar)}
+                                                                    unoptimized={shouldUnoptimizeImage(test.avatar)}
                                                                     className="object-cover group-hover:scale-110 transition-transform duration-700"
                                                                 />
                                                             ) : (

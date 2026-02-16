@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
+import { generateBlurDataURL, getImageSizes } from '@/lib/imageUtils';
 
 interface ComparisonSliderProps {
   beforeImage: string;
@@ -49,9 +50,11 @@ export default function ComparisonSlider({ beforeImage, afterImage }: Comparison
       {/* After Image (Background) */}
       <Image
         src={afterImage}
-        alt="After"
+        alt="After comparison"
         fill
-        sizes="100vw"
+        sizes={getImageSizes('detail')}
+        placeholder="blur"
+        blurDataURL={generateBlurDataURL(afterImage)}
         className="absolute inset-0 h-full w-full object-cover"
       />
 
@@ -62,9 +65,11 @@ export default function ComparisonSlider({ beforeImage, afterImage }: Comparison
       >
         <Image
           src={beforeImage}
-          alt="Before"
+          alt="Before comparison"
           fill
-          sizes="100vw"
+          sizes={getImageSizes('detail')}
+          placeholder="blur"
+          blurDataURL={generateBlurDataURL(beforeImage)}
           className="absolute inset-0 h-full w-full object-cover"
         />
       </div>

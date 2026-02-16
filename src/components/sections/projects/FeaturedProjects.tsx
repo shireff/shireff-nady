@@ -9,6 +9,7 @@ import Button from '@/components/ui/Button';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Project } from '@/types';
 import ProjectSkeleton from '@/components/features/projects/ProjectSkeleton';
+import { generateBlurDataURL, shouldUnoptimizeImage, getImageSizes, getImagePriority, getImageLoading } from '@/lib/imageUtils';
 
 interface FeaturedProjectsProps {
     projects: Project[];
@@ -48,9 +49,14 @@ const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ projects, isLoading
                                             {project.img ? (
                                                 <Image
                                                     src={project.img}
-                                                    alt={project.title}
+                                                    alt={`${project.title} - ${project.category} project`}
                                                     fill
-                                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                                    sizes={getImageSizes('card')}
+                                                    priority={getImagePriority(i, true)}
+                                                    loading={getImageLoading(i, true)}
+                                                    placeholder="blur"
+                                                    blurDataURL={generateBlurDataURL(project.img)}
+                                                    unoptimized={shouldUnoptimizeImage(project.img)}
                                                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                                                 />
                                             ) : (

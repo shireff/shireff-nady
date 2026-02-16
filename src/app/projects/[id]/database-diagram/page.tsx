@@ -1,6 +1,22 @@
 import React from 'react';
-import DatabaseDiagramViewer from '@/components/features/DatabaseDiagramViewer';
+import dynamic from 'next/dynamic';
 import { notFound } from 'next/navigation';
+
+// Dynamic import for DatabaseDiagramViewer with loading state
+const DatabaseDiagramViewer = dynamic(
+    () => import('@/components/features/DatabaseDiagramViewer'),
+    {
+        loading: () => (
+            <div className="h-screen w-full bg-[#0f172a] flex items-center justify-center">
+                <div className="flex flex-col items-center gap-4">
+                    <div className="w-12 h-12 border-4 border-blue-500/20 border-t-blue-500 rounded-full animate-spin" />
+                    <p className="text-slate-400 text-sm">Loading diagram...</p>
+                </div>
+            </div>
+        ),
+        ssr: false // Disable SSR for this heavy component
+    }
+);
 
 // Allow 5 minutes cache or revalidate on demand
 export const revalidate = 300;

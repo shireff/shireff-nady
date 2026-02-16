@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import { generateBlurDataURL, shouldUnoptimizeImage, getImageSizes } from '@/lib/imageUtils';
 
 interface ProjectDetailHeroProps {
     src: string;
@@ -26,9 +27,11 @@ export default function ProjectDetailHero({ src, alt }: ProjectDetailHeroProps) 
                 alt={alt}
                 fill
                 priority
-                unoptimized={src.includes('licdn.com')}
+                sizes={getImageSizes('detail')}
+                placeholder="blur"
+                blurDataURL={generateBlurDataURL(src)}
+                unoptimized={shouldUnoptimizeImage(src)}
                 className={`object-cover transition-all duration-1000 ${isLoading ? 'opacity-0 scale-105' : 'opacity-100 scale-100'}`}
-                sizes="100vw"
                 onLoad={() => setIsLoading(false)}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent z-20 transition-colors duration-500" />
