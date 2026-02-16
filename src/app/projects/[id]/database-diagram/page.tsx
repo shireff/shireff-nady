@@ -13,8 +13,7 @@ const DatabaseDiagramViewer = dynamic(
                     <p className="text-slate-400 text-sm">Loading diagram...</p>
                 </div>
             </div>
-        ),
-        ssr: false // Disable SSR for this heavy component
+        )
     }
 );
 
