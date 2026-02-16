@@ -11,6 +11,7 @@ export default function ContactForm() {
     const [isLoading, setIsLoading] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
     useEffect(() => {
         if (isSuccess) {
@@ -25,6 +26,7 @@ export default function ContactForm() {
         e.preventDefault();
         setIsLoading(true);
         setError(null);
+        setFieldErrors({});
 
         const formData = new FormData(e.currentTarget);
         const data = {
@@ -38,14 +40,29 @@ export default function ContactForm() {
             const response = await contactService.send(data);
             if (response.success) {
                 setIsSuccess(true);
+                // Reset form
+                e.currentTarget.reset();
             } else {
                 setError(response.message || 'Failed to send message');
             }
         } catch (err: any) {
             console.error('Contact form error:', err);
-            // Extract error message safely from Axios error response if available
-            const errorMessage = err.response?.data?.message || err.message || 'Something went wrong. Please check your connection and try again.';
-            setError(errorMessage);
+            
+            // Check if it's a validation error
+            if (err.response?.data?.errors && Array.isArray(err.response.data.errors)) {
+                const errors: Record<string, string> = {};
+                err.response.data.errors.forEach((error: any) => {
+                    if (error.path) {
+                        errors[error.path] = error.msg;
+                    }
+                });
+                setFieldErrors(errors);
+                setError('Please fix the errors below');
+            } else {
+                // General error
+                const errorMessage = err.response?.data?.message || err.message || 'Something went wrong. Please check your connection and try again.';
+                setError(errorMessage);
+            }
         } finally {
             setIsLoading(false);
         }
@@ -113,9 +130,21 @@ export default function ContactForm() {
                                     type="text"
                                     name="name"
                                     required
-                                    className="w-full glass-input py-3 md:py-4 text-base md:text-lg focus:ring-2 ring-blue-500/20 transition-all outline-none"
+                                    className={`w-full glass-input py-3 md:py-4 text-base md:text-lg focus:ring-2 transition-all outline-none ${
+                                        fieldErrors.name ? 'ring-2 ring-red-500/50 border-red-500/50' : 'ring-blue-500/20'
+                                    }`}
                                     placeholder="Enter your full name"
                                 />
+                                {fieldErrors.name && (
+                                    <motion.p
+                                        initial={{ opacity: 0, y: -10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        className="text-red-400 text-xs font-bold flex items-center gap-2 pl-1"
+                                    >
+                                        <AlertCircle size={14} />
+                                        {fieldErrors.name}
+                                    </motion.p>
+                                )}
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
@@ -126,9 +155,21 @@ export default function ContactForm() {
                                         type="email"
                                         name="email"
                                         required
-                                        className="w-full glass-input py-3 md:py-4 text-base md:text-lg focus:ring-2 ring-blue-500/20 transition-all outline-none"
+                                        className={`w-full glass-input py-3 md:py-4 text-base md:text-lg focus:ring-2 transition-all outline-none ${
+                                            fieldErrors.email ? 'ring-2 ring-red-500/50 border-red-500/50' : 'ring-blue-500/20'
+                                        }`}
                                         placeholder="name@company.com"
                                     />
+                                    {fieldErrors.email && (
+                                        <motion.p
+                                            initial={{ opacity: 0, y: -10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            className="text-red-400 text-xs font-bold flex items-center gap-2 pl-1"
+                                        >
+                                            <AlertCircle size={14} />
+                                            {fieldErrors.email}
+                                        </motion.p>
+                                    )}
                                 </div>
                                 <div className="space-y-2">
                                     <label htmlFor="phone" className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 pl-1">Phone (Optional)</label>
@@ -136,9 +177,21 @@ export default function ContactForm() {
                                         id="phone"
                                         type="tel"
                                         name="phone"
-                                        className="w-full glass-input py-3 md:py-4 text-base md:text-lg focus:ring-2 ring-blue-500/20 transition-all outline-none"
+                                        className={`w-full glass-input py-3 md:py-4 text-base md:text-lg focus:ring-2 transition-all outline-none ${
+                                            fieldErrors.phone ? 'ring-2 ring-red-500/50 border-red-500/50' : 'ring-blue-500/20'
+                                        }`}
                                         placeholder="+123..."
                                     />
+                                    {fieldErrors.phone && (
+                                        <motion.p
+                                            initial={{ opacity: 0, y: -10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            className="text-red-400 text-xs font-bold flex items-center gap-2 pl-1"
+                                        >
+                                            <AlertCircle size={14} />
+                                            {fieldErrors.phone}
+                                        </motion.p>
+                                    )}
                                 </div>
                             </div>
 
@@ -149,9 +202,21 @@ export default function ContactForm() {
                                     name="message"
                                     required
                                     rows={5}
-                                    className="w-full glass-input py-3 md:py-4 text-base md:text-lg min-h-[120px] md:min-h-[150px] focus:ring-2 ring-blue-500/20 transition-all outline-none"
+                                    className={`w-full glass-input py-3 md:py-4 text-base md:text-lg min-h-[120px] md:min-h-[150px] focus:ring-2 transition-all outline-none ${
+                                        fieldErrors.message ? 'ring-2 ring-red-500/50 border-red-500/50' : 'ring-blue-500/20'
+                                    }`}
                                     placeholder="Describe your project vision..."
                                 />
+                                {fieldErrors.message && (
+                                    <motion.p
+                                        initial={{ opacity: 0, y: -10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        className="text-red-400 text-xs font-bold flex items-center gap-2 pl-1"
+                                    >
+                                        <AlertCircle size={14} />
+                                        {fieldErrors.message}
+                                    </motion.p>
+                                )}
                             </div>
 
                             <AnimatePresence>
