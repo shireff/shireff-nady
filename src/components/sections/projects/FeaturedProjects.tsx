@@ -43,7 +43,7 @@ const FeaturedProjects: React.FC<FeaturedProjectsProps> = ({ projects, isLoading
                                 transition={{ delay: i * 0.1 }}
                                 viewport={{ once: true }}
                             >
-                                <Card className="h-full group hover:border-blue-500/50">
+                                <Card className="h-full group hover:border-blue-500/50 rounded-[32px]">
                                     <CardContent className="p-0">
                                         <div className="relative aspect-video overflow-hidden rounded-lg mb-6">
                                             {project.img ? (

@@ -18,7 +18,7 @@ const Stats: React.FC = () => {
                     <motion.div
                         key={i}
                         whileHover={{ scale: 1.05, translateY: -5 }}
-                        className="glass-card p-8 space-y-4 border-white/5 hover:border-blue-500/30 shadow-2xl"
+                        className="glass-card p-8 space-y-4 border-white/5 hover:border-blue-500/30 shadow-2xl rounded-[32px]"
                     >
                         <feature.icon className="text-blue-400" size={32} />
                         <h3 className="text-xl font-bold">{feature.title}</h3>

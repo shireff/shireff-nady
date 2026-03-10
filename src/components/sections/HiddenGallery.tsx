@@ -30,10 +30,10 @@ const HiddenGallery = ({ projects = [] }: HiddenGalleryProps) => {
                 border: 0,
             }}
         >
-            <h2>Portfolio Image Gallery - Shireff Nady</h2>
+            <h2>Portfolio Image Gallery - {siteConfig.author.name}</h2>
             <p>
                 A collection of professional photos and project screenshots showcasing the work
-                and expertise of Shireff Nady.
+                and expertise of {siteConfig.author.name}.
             </p>
 
             <div className="gallery-container">

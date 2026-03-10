@@ -1,10 +1,11 @@
+import { siteConfig } from '@/config/site';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Contact | Shireff Nady - Portfolio',
-    description: 'Get in touch with Shireff Nady for front-end development projects, consulting, or technical collaborations.',
+    title: `Contact | ${siteConfig.name} - Portfolio`,
+    description: `Get in touch with ${siteConfig.author.name} for front-end development projects, consulting, or technical collaborations.`,
     alternates: {
-        canonical: 'https://www.shireff.dev/contact',
+        canonical: `${siteConfig.url}/contact`,
     }
 };
 

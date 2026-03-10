@@ -73,58 +73,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  keywords: [
-    "Shireff",
-    "Shireff Nady",
-    "Shireff Nady Front End",
-    "Front-End Developer",
-    "Web Developer",
-    "Full Stack Developer",
-    "HTML5",
-    "CSS3",
-    "JavaScript",
-    "TypeScript",
-    "React.js",
-    "React Developer",
-    "Next.js",
-    "Next.js Developer",
-    "Redux",
-    "Redux Toolkit",
-    "State Management",
-    "Bootstrap",
-    "Tailwind CSS",
-    "Responsive Design",
-    "Mobile-First Design",
-    "Git",
-    "GitHub",
-    "Version Control",
-    "jQuery",
-    "AJAX",
-    "REST API",
-    "JSON",
-    "Cypress",
-    "Unit Testing",
-    "E2E Testing",
-    "Integration Testing",
-    "Test-Driven Development",
-    "Node.js",
-    "Express.js",
-    "Web Performance",
-    "SEO Optimization",
-    "Accessibility",
-    "WCAG",
-    "Progressive Web Apps",
-    "PWA",
-    "Single Page Applications",
-    "SPA",
-    "Web Components",
-    "Modern Web Development",
-    "Frontend Architecture",
-    "UI/UX Development",
-    "Portfolio",
-    "Egypt Developer",
-    "Freelance Developer",
-  ],
+  keywords: siteConfig.seo.keywords,
   alternates: {
     canonical: "./",
   },
@@ -137,7 +86,8 @@ export const metadata: Metadata = {
     url: siteConfig.url,
     siteName: `${siteConfig.name} | Front-End Developer`,
     type: "website",
-    locale: "en_US",
+    locale: siteConfig.locale,
+    alternateLocale: siteConfig.alternateLocale,
     images: [
       {
         url: siteConfig.ogImage,
@@ -188,8 +138,8 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Person",
     "name": siteConfig.author.name,
-    "alternateName": "Shireff",
-    "jobTitle": siteConfig.author.name.includes("Developer") ? siteConfig.author.name : "Front-End Developer",
+    "alternateName": siteConfig.author.alternateName,
+    "jobTitle": siteConfig.seo.structuredData.jobTitle,
     "description": siteConfig.description,
     "url": siteConfig.url,
     "image": [
@@ -205,15 +155,25 @@ export default function RootLayout({
     ],
     "worksFor": {
       "@type": "Organization",
-      "name": "Freelance / Open Source"
+      "name": siteConfig.seo.structuredData.organization
     },
-    "knowsAbout": [
-      "HTML5", "CSS3", "JavaScript", "TypeScript", "React.js", "Next.js", "Redux", "Tailwind CSS", "Node.js", "Express.js", "SEO Optimization", "Web Performance", "Responsive Design", "Accessibility", "Testing"
+    "knowsAbout": siteConfig.seo.structuredData.knowsAbout,
+    "knowsLanguage": siteConfig.seo.structuredData.knowsLanguage.map(lang => ({
+      "@type": "Language",
+      "name": lang.name,
+      "alternateName": lang.code
+    })),
+    "hasCredential": [
+      {
+        "@type": "EducationalOccupationalCredential",
+        "credentialCategory": "Professional Experience",
+        "name": `${siteConfig.seo.structuredData.experienceYears}+ Years of Web Development Experience`
+      }
     ],
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "EG",
-      "addressLocality": "Egypt"
+      "addressLocality": siteConfig.author.location
     }
   };
 
@@ -222,12 +182,12 @@ export default function RootLayout({
     "@type": "WebSite",
     "name": `${siteConfig.name} - Front-End Developer Portfolio`,
     "url": siteConfig.url,
-    "description": "Professional portfolio showcasing web development projects, skills, and experience of Shireff Nady.",
+    "description": siteConfig.description,
     "author": {
       "@type": "Person",
       "name": siteConfig.author.name
     },
-    "inLanguage": "en-US",
+    "inLanguage": siteConfig.languages.primary,
     "copyrightYear": new Date().getFullYear(),
     "potentialAction": {
       "@type": "SearchAction",
@@ -240,31 +200,41 @@ export default function RootLayout({
   };
 
   const professionalServiceSchema = {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": `${siteConfig.name} - Web Development Services`,
-    "description": "Professional front-end development services specializing in React, Next.js, and modern web technologies.",
-    "url": siteConfig.url,
-    "image": siteConfig.ogImage,
-    "priceRange": "$$",
-    "address": {
-      "@type": "PostalAddress",
-      "addressCountry": "EG"
-    },
-    "areaServed": {
-      "@type": "Place",
-      "name": "Worldwide"
-    },
-    "availableLanguage": ["English", "Arabic"],
-    "serviceType": [
-      "Web Development", "Front-End Development", "React Development", "Next.js Development", "UI/UX Implementation", "Web Performance Optimization", "SEO Optimization"
-    ]
-  };
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": `${siteConfig.name} - Web Development Services`,
+      "description": siteConfig.description,
+      "url": siteConfig.url,
+      "image": siteConfig.ogImage,
+      "priceRange": siteConfig.seo.structuredData.priceRange,
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "EG"
+      },
+      "areaServed": {
+        "@type": "Place",
+        "name": siteConfig.seo.structuredData.areaServed
+      },
+      "availableLanguage": siteConfig.seo.structuredData.knowsLanguage.map(lang => lang.name),
+      "serviceType": siteConfig.seo.structuredData.serviceTypes
+    };
 
 
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Language Alternatives for SEO */}
+        {siteConfig.languages.hrefLang.map((lang) => (
+          <link key={lang.lang} rel="alternate" hrefLang={lang.lang} href={lang.url} />
+        ))}
+        
+        {/* DNS Prefetch & Preconnect for Performance */}
+        <link rel="preconnect" href="https://res.cloudinary.com" />
+        <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        
+        {/* Structured Data Schemas */}
         <Script
           id="person-schema"
           type="application/ld+json"

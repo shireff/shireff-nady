@@ -74,7 +74,7 @@ export default function ComparisonForm({ initialData, onSuccess, onCancel }: Com
 
       // Trigger indexing for the state-comparisons page
       try {
-        const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://shireff-nady.vercel.app';
+        const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.shireff.dev';
         indexingService.indexUrl(`${baseUrl}/state-comparisons`).catch(console.error);
       } catch (e) {
         console.error('Failed to trigger indexing:', e);

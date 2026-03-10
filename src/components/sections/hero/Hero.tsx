@@ -147,14 +147,14 @@ const Hero: React.FC<HeroProps> = ({
                             <motion.div
                                 animate={{ y: [0, 10, 0] }}
                                 transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-                                className="absolute top-[10%] -right-4 md:-right-8 px-4 py-2 glass-card-premium border-blue-500/30 shadow-xl"
+                                className="absolute top-[10%] -right-4 md:-right-8 px-4 py-2 glass-card-premium border-blue-500/30 shadow-xl rounded-[32px]"
                             >
                                 <span className="text-[10px] font-black tracking-widest text-blue-400 uppercase">React & Next Dev</span>
                             </motion.div>
                             <motion.div
                                 animate={{ y: [0, -10, 0] }}
                                 transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-                                className="absolute bottom-[20%] -left-4 md:-left-8 px-4 py-2 glass-card-premium border-emerald-500/30 shadow-xl"
+                                className="absolute bottom-[20%] -left-4 md:-left-8 px-4 py-2 glass-card-premium border-emerald-500/30 shadow-xl rounded-[32px]"
                             >
                                 <span className="text-[10px] font-black tracking-widest text-emerald-400 uppercase">UI/UX Architect</span>
                             </motion.div>

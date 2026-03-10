@@ -31,9 +31,9 @@ export default async function ExperiencesPage() {
     "@type": "ProfilePage",
     "mainEntity": {
       "@type": "Person",
-      "name": "Shireff Nady",
-      "jobTitle": "Front-End Developer",
-      "description": "Shireff Nady's professional journey as a developer.",
+      "name": siteConfig.author.name,
+      "jobTitle": siteConfig.seo.structuredData.jobTitle,
+      "description": `${siteConfig.author.name}'s professional journey as a developer.`,
       "hasOccupation": experiences.map(exp => ({
         "@type": "OrganizationRole",
         "roleName": exp.position,

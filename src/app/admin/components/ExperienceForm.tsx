@@ -71,7 +71,7 @@ export default function ExperienceForm({ initialData, onSuccess, onCancel }: Exp
 
       // Trigger indexing for the experiences page
       try {
-        const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://shireff-nady.vercel.app';
+        const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.shireff.dev';
         indexingService.indexUrl(`${baseUrl}/experiences`).catch(console.error);
       } catch (e) {
         console.error('Failed to trigger indexing:', e);

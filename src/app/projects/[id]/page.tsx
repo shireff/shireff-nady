@@ -168,7 +168,7 @@ export default async function ProjectDetailsPage({ params }: { params: Promise<{
               <h2 className="text-2xl font-black italic border-l-4 border-blue-500 pl-6 uppercase tracking-wider text-zinc-300">Technology Stack</h2>
               <div className="flex flex-wrap gap-4">
                 {(project.tags && project.tags.length > 0 ? project.tags : getDefaultTags(project.category)).map(tag => (
-                  <div key={tag} className="glass-card px-6 py-3 flex items-center gap-3 text-foreground border-glass-border shadow-xl hover:border-blue-500/30 transition-all">
+                  <div key={tag} className="glass-card px-6 py-3 flex items-center gap-3 text-foreground border-glass-border shadow-xl hover:border-blue-500/30 transition-all rounded-[32px]">
                     <div className="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
                     <span className="font-bold uppercase tracking-widest text-xs tracking-tighter">{tag}</span>
                   </div>
@@ -181,7 +181,7 @@ export default async function ProjectDetailsPage({ params }: { params: Promise<{
           </div>
 
           <aside className="space-y-10">
-            <Card className="border-blue-500/10 bg-blue-500/5 shadow-2xl">
+            <Card className="border-blue-500/10 bg-blue-500/5 shadow-2xl rounded-[32px]">
               <CardHeader>
                 <CardTitle className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-400">About this Project</CardTitle>
               </CardHeader>

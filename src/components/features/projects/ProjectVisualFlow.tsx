@@ -56,7 +56,7 @@ function DecisionHeatmapBox({ adr, index }: { adr: ADR; index: number }) {
             viewport={{ once: true, margin: "-50px" }}
             className="relative"
         >
-            <div className="glass-card-premium p-8 border-glass-border relative group overflow-hidden">
+            <div className="glass-card-premium p-8 border-glass-border relative group overflow-hidden rounded-[32px]">
                 {/* Heat Background Glow */}
                 <div
                     className="absolute -top-24 -left-24 w-64 h-64 blur-[100px] rounded-full opacity-20 group-hover:opacity-30 transition-opacity"

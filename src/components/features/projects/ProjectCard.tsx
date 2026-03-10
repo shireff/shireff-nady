@@ -26,7 +26,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
             transition={{ delay: index * 0.05 }}
             whileHover={{ translateY: -8 }}
         >
-            <Card className="h-full group hover:border-blue-500/30 transition-all duration-500 flex flex-col">
+            <Card className="h-full group hover:border-blue-500/30 transition-all duration-500 flex flex-col rounded-[32px]">
                 <CardContent className="p-0 flex flex-col h-full">
                     <div className="relative aspect-video overflow-hidden rounded-lg mb-6">
                         {project.img ? (

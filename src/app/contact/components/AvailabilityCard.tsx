@@ -5,7 +5,7 @@ import { siteConfig } from '@/config/site';
 
 export default function AvailabilityCard() {
     return (
-        <div className="glass-card p-6 md:p-10 border-white/5 space-y-6">
+        <div className="glass-card p-6 md:p-10 border-white/5 space-y-6 rounded-[32px]">
             <h3 className="text-xl font-black italic uppercase tracking-widest text-zinc-300">Availability</h3>
             <div className="grid grid-cols-2 gap-4 sm:gap-6">
                 <div>

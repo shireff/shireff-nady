@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { useFCM } from "@/hooks/useFCM";
 
 export default function NotificationTestPage() {

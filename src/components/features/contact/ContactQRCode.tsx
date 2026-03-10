@@ -10,7 +10,7 @@ interface ContactQRCodeProps {
 }
 
 const ContactQRCode: React.FC<ContactQRCodeProps> = ({
-    baseUrl = 'https://shireff-nady.vercel.app'
+    baseUrl = 'https://www.shireff.dev'
 }) => {
     // The QR code points to a specialized hub page for scanned users
     const hubUrl = `${baseUrl}/contact-hub`;

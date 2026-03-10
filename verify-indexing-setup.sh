@@ -14,7 +14,7 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 # Base URL
-BASE_URL="https://shireff-nady.vercel.app"
+BASE_URL="https://www.shireff.dev"
 
 echo "📍 Testing: $BASE_URL"
 echo ""

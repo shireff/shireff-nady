@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { Mail, Smartphone } from 'lucide-react';
 import { siteConfig } from '@/config/site';
 
@@ -19,7 +18,7 @@ export default function ContactChannels() {
                     rel="noreferrer"
                     className="block group"
                 >
-                    <div className="glass-card p-5 sm:p-6 md:p-8 flex items-center gap-4 sm:gap-6 border-white/5 group-hover:border-emerald-500/30 transition-all bg-emerald-500/5 group-hover:bg-emerald-500/10">
+                    <div className="glass-card p-5 sm:p-6 md:p-8 flex items-center gap-4 sm:gap-6 border-white/5 group-hover:border-emerald-500/30 transition-all bg-emerald-500/5 group-hover:bg-emerald-500/10 rounded-[32px]">
                         <div className="p-3 md:p-4 rounded-2xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/20 shrink-0">
                             <Smartphone size={24} className="md:w-8 md:h-8" />
                         </div>
@@ -31,7 +30,7 @@ export default function ContactChannels() {
                 </a>
 
                 <a href={`mailto:${siteConfig.author.email}`} className="block group">
-                    <div className="glass-card p-5 sm:p-6 md:p-8 flex items-center gap-4 sm:gap-6 border-white/5 group-hover:border-blue-500/30 transition-all bg-blue-500/5 group-hover:bg-blue-500/10">
+                    <div className="glass-card p-5 sm:p-6 md:p-8 flex items-center gap-4 sm:gap-6 border-white/5 group-hover:border-blue-500/30 transition-all bg-blue-500/5 group-hover:bg-blue-500/10 rounded-[32px]">
                         <div className="p-3 md:p-4 rounded-2xl bg-blue-500/20 text-blue-400 border border-blue-500/20 shrink-0">
                             <Mail size={24} className="md:w-8 md:h-8" />
                         </div>

@@ -9,7 +9,7 @@ import Button from '@/components/ui/Button';
 const CTA: React.FC = () => {
     return (
         <section className="px-6">
-            <div className="max-w-7xl mx-auto glass-card p-8 md:p-24 text-center space-y-8 relative overflow-hidden group">
+            <div className="max-w-7xl mx-auto glass-card p-8 md:p-24 text-center space-y-8 relative overflow-hidden group rounded-[32px]">
                 <div className="absolute inset-0 bg-blue-600/5 -z-10 group-hover:bg-blue-600/10 transition-colors" />
                 <motion.div
                     animate={{ y: [0, -10, 0] }}

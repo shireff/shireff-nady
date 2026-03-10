@@ -50,7 +50,7 @@ export default function ProjectADR({ project }: ProjectADRProps) {
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: index * 0.1 }}
-                                    className="glass-card-premium p-8 border-glass-border space-y-6 relative overflow-hidden group/adr"
+                                    className="glass-card-premium p-8 border-glass-border space-y-6 relative overflow-hidden group/adr rounded-[32px]"
                                 >
                                     <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/10 blur-3xl rounded-full" />
 

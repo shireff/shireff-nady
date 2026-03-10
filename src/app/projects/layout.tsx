@@ -1,8 +1,9 @@
+import { siteConfig } from '@/config/site';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Shireff Nady - Projects | Front-End Developer',
-    description: 'Explore a curated collection of web applications, SaaS platforms, and digital solutions built by Shireff Nady using React, Next.js, TypeScript, and modern web technologies.',
+    title: `${siteConfig.name} - Projects | Front-End Developer`,
+    description: `Explore a curated collection of web applications, SaaS platforms, and digital solutions built by ${siteConfig.author.name} using React, Next.js, TypeScript, and modern web technologies.`,
     keywords: [
         'portfolio projects',
         'web development projects',
@@ -12,33 +13,33 @@ export const metadata: Metadata = {
         'front-end projects',
         'JavaScript applications',
         'TypeScript projects',
-        'Shireff Nady projects',
+        `${siteConfig.author.name} projects`,
     ],
     openGraph: {
-        title: 'Shireff Nady - Projects | Front-End Developer',
+        title: `${siteConfig.name} - Projects | Front-End Developer`,
         description: 'A showcase of high-performance web applications and digital instruments built with modern technologies.',
-        url: 'https://www.shireff.dev/projects',
-        siteName: 'Shireff Nady | Front-End Developer',
+        url: `${siteConfig.url}/projects`,
+        siteName: `${siteConfig.name} | Front-End Developer`,
         type: 'website',
-        locale: 'en_US',
+        locale: siteConfig.locale,
         images: [
             {
-                url: 'https://www.shireff.dev/og-image.jpg',
+                url: siteConfig.ogImage,
                 width: 1200,
                 height: 630,
-                alt: 'Shireff Nady Projects Portfolio',
+                alt: `${siteConfig.author.name} Projects Portfolio`,
             },
         ],
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Projects Portfolio - Shireff Nady',
+        title: `Projects Portfolio - ${siteConfig.name}`,
         description: 'Explore web applications and SaaS platforms built with React, Next.js, and TypeScript.',
-        images: ['https://www.shireff.dev/og-image.jpg'],
-        creator: '@shireffnady',
+        images: [siteConfig.ogImage],
+        creator: siteConfig.author.twitter,
     },
     alternates: {
-        canonical: 'https://www.shireff.dev/projects',
+        canonical: `${siteConfig.url}/projects`,
     },
     robots: {
         index: true,

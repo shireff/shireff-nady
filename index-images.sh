@@ -10,7 +10,7 @@ echo ""
 # Configuration
 INDEXNOW_KEY="e5eb264d20da45edbdf55411fdf361bc"
 HOST="shireff-nady.vercel.app"
-SITE_URL="https://shireff-nady.vercel.app"
+SITE_URL="https://www.shireff.dev"
 
 # Image URLs to index
 IMAGES=(

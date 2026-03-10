@@ -3,15 +3,15 @@ import { siteConfig } from '@/config/site';
 
 export const metadata: Metadata = {
     title: `Recommendations | ${siteConfig.name} - Portfolio`,
-    description: `Read professional recommendations and feedback for Shireff Nady, highlighting expertise in front-end development and software engineering.`,
+    description: `Read professional recommendations and feedback for ${siteConfig.author.name}, highlighting expertise in front-end development and software engineering.`,
     alternates: {
         canonical: `${siteConfig.url}/recommendations`,
     },
     openGraph: {
         title: `Recommendations | ${siteConfig.name}`,
-        description: `Read professional recommendations and feedback for Shireff Nady.`,
+        description: `Read professional recommendations and feedback for ${siteConfig.author.name}.`,
         url: `${siteConfig.url}/recommendations`,
-        images: [`${siteConfig.url}/og-image.jpg`],
+        images: [siteConfig.ogImage],
     }
 };
 

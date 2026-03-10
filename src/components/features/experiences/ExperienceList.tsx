@@ -24,7 +24,7 @@ export default function ExperienceList({ experiences }: ExperienceListProps) {
     }
 
     return (
-        <div className="relative space-y-12 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-[1px] before:bg-gradient-to-b before:from-transparent before:via-zinc-800 before:to-transparent">
+        <div className="relative space-y-12 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-[1px] before:bg-gradient-to-b before:from-transparent before:via-zinc-800 before:to-transparent ">
             {experiences.map((exp) => (
                 <motion.div
                     key={exp.id}

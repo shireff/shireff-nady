@@ -130,7 +130,7 @@ export default function ProjectForm({ initialData, existingProjects = [], onSucc
 
       // Trigger search engine indexing for the new/updated project
       try {
-        const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://shireff-nady.vercel.app';
+        const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.shireff.dev';
         indexingService.indexUrl(`${baseUrl}/projects/${result.id}`).catch(console.error);
       } catch (e) {
         console.error('Failed to trigger indexing:', e);

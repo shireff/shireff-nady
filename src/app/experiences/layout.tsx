@@ -1,10 +1,11 @@
+import { siteConfig } from '@/config/site';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Shireff Nady - Professional Experience | Career Timeline',
-    description: 'Explore Shireff Nady\'s professional journey, work experience, and career milestones in front-end development and web technologies.',
+    title: `${siteConfig.name} - Professional Experience | Career Timeline`,
+    description: `Explore ${siteConfig.author.name}'s professional journey, work experience, and career milestones in front-end development and web technologies.`,
     keywords: [
-        'Shireff Nady experience',
+        `${siteConfig.author.name} experience`,
         'front-end developer career',
         'professional experience',
         'work history',
@@ -13,30 +14,30 @@ export const metadata: Metadata = {
         'web development career',
     ],
     openGraph: {
-        title: 'Shireff Nady - Professional Experience | Career Timeline',
-        description: 'Discover the professional journey and career milestones of front-end developer Shireff Nady.',
-        url: 'https://www.shireff.dev/experiences',
-        siteName: 'Shireff Nady | Front-End Developer',
+        title: `${siteConfig.name} - Professional Experience | Career Timeline`,
+        description: `Discover the professional journey and career milestones of front-end developer ${siteConfig.author.name}.`,
+        url: `${siteConfig.url}/experiences`,
+        siteName: `${siteConfig.name} | Front-End Developer`,
         type: 'profile',
-        locale: 'en_US',
+        locale: siteConfig.locale,
         images: [
             {
-                url: 'https://www.shireff.dev/og-image.jpg',
+                url: siteConfig.ogImage,
                 width: 1200,
                 height: 630,
-                alt: 'Shireff Nady Professional Experience',
+                alt: `${siteConfig.author.name} Professional Experience`,
             },
         ],
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Professional Experience - Shireff Nady',
+        title: `Professional Experience - ${siteConfig.name}`,
         description: 'Career timeline and professional milestones in front-end development.',
-        images: ['https://www.shireff.dev/og-image.jpg'],
-        creator: '@shireffnady',
+        images: [siteConfig.ogImage],
+        creator: siteConfig.author.twitter,
     },
     alternates: {
-        canonical: 'https://www.shireff.dev/experiences',
+        canonical: `${siteConfig.url}/experiences`,
     },
     robots: {
         index: true,

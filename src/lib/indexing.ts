@@ -67,7 +67,7 @@ export async function notifyGoogle(url: string, type: 'URL_UPDATED' | 'URL_DELET
  */
 export async function notifyIndexNow(urls: string[]): Promise<IndexingResult[]> {
   console.log(`🔹 Trying to notify IndexNow for ${urls.length} URLs`);
-  const siteUrl = process.env.SITE_URL || 'https://shireff-nady.vercel.app';
+  const siteUrl = process.env.SITE_URL || 'https://www.shireff.dev';
   const apiKey = process.env.INDEXNOW_KEY;
 
   if (!apiKey) {
@@ -77,10 +77,11 @@ export async function notifyIndexNow(urls: string[]): Promise<IndexingResult[]> 
 
   try {
     // IndexNow often prefers a POST request with multiple URLs
+    const host = new URL(siteUrl).hostname;
     const payload = {
-      host: "shireff-nady.vercel.app",
+      host: host,
       key: apiKey,
-      keyLocation: "https://www.shireff.dev/e5eb264d20da45edbdf55411fdf361bc.txt",
+      keyLocation: `${siteUrl}/${apiKey}.txt`,
       urlList: urls,
     };
     

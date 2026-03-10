@@ -40,17 +40,17 @@ export default async function ProjectsPage() {
   const collectionSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    "name": "Projects Portfolio - Shireff Nady",
-    "description": "A showcase of high-performance web applications, SaaS platforms, and digital instruments built by Shireff Nady.",
-    "url": "https://www.shireff.dev/projects",
+    "name": `Projects Portfolio - ${siteConfig.author.name}`,
+    "description": `A showcase of high-performance web applications, SaaS platforms, and digital instruments built by ${siteConfig.author.name}.`,
+    "url": `${siteConfig.url}/projects`,
     "publisher": {
       "@type": "Person",
-      "name": "Shireff Nady"
+      "name": siteConfig.author.name
     },
     "hasPart": projects.map(p => ({
       "@type": "SoftwareApplication",
       "name": p.title,
-      "url": `https://www.shireff.dev/projects/${p.id}`,
+      "url": `${siteConfig.url}/projects/${p.id}`,
       "description": p.desc,
       "image": p.img
     }))

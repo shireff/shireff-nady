@@ -13,7 +13,7 @@ export async function POST(request: Request) {
     // However, since this is a private internal tool, we rely on the environment variables
     // and potentially a shared secret if needed.
 
-    const baseUrl = process.env.SITE_URL || 'https://shireff-nady.vercel.app';
+    const baseUrl = process.env.SITE_URL || 'https://www.shireff.dev';
     
     // Fetch all projects to include their dynamic routes
     let projects: Project[] = [];

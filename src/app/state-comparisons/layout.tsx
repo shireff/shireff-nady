@@ -1,10 +1,11 @@
+import { siteConfig } from '@/config/site';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'State Comparisons | Shireff Nady - Portfolio',
-    description: 'A technical side-by-side evaluation of migrations, architectural enhancements, and development benchmarks by Shireff Nady.',
+    title: `State Comparisons | ${siteConfig.name} - Portfolio`,
+    description: `A technical side-by-side evaluation of migrations, architectural enhancements, and development benchmarks by ${siteConfig.author.name}.`,
     alternates: {
-        canonical: 'https://www.shireff.dev/state-comparisons',
+        canonical: `${siteConfig.url}/state-comparisons`,
     }
 };
 
