@@ -110,7 +110,7 @@ export const useFCM = () => {
            
            // Open website when notification is clicked
            notification.onclick = () => {
-             window.open("https://shireff-nady.vercel.app/", "_blank");
+             window.open("https://www.shireff.dev/", "_blank");
              notification.close();
            };
         }

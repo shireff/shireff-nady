@@ -17,13 +17,13 @@ export const metadata: Metadata = {
     openGraph: {
         title: 'Shireff Nady - Projects | Front-End Developer',
         description: 'A showcase of high-performance web applications and digital instruments built with modern technologies.',
-        url: 'https://shireff-nady.vercel.app/projects',
+        url: 'https://www.shireff.dev/projects',
         siteName: 'Shireff Nady | Front-End Developer',
         type: 'website',
         locale: 'en_US',
         images: [
             {
-                url: 'https://shireff-nady.vercel.app/og-image.jpg',
+                url: 'https://www.shireff.dev/og-image.jpg',
                 width: 1200,
                 height: 630,
                 alt: 'Shireff Nady Projects Portfolio',
@@ -34,11 +34,11 @@ export const metadata: Metadata = {
         card: 'summary_large_image',
         title: 'Projects Portfolio - Shireff Nady',
         description: 'Explore web applications and SaaS platforms built with React, Next.js, and TypeScript.',
-        images: ['https://shireff-nady.vercel.app/og-image.jpg'],
+        images: ['https://www.shireff.dev/og-image.jpg'],
         creator: '@shireffnady',
     },
     alternates: {
-        canonical: 'https://shireff-nady.vercel.app/projects',
+        canonical: 'https://www.shireff.dev/projects',
     },
     robots: {
         index: true,

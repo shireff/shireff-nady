@@ -15,13 +15,13 @@ export const metadata: Metadata = {
     openGraph: {
         title: 'Shireff Nady - Professional Experience | Career Timeline',
         description: 'Discover the professional journey and career milestones of front-end developer Shireff Nady.',
-        url: 'https://shireff-nady.vercel.app/experiences',
+        url: 'https://www.shireff.dev/experiences',
         siteName: 'Shireff Nady | Front-End Developer',
         type: 'profile',
         locale: 'en_US',
         images: [
             {
-                url: 'https://shireff-nady.vercel.app/og-image.jpg',
+                url: 'https://www.shireff.dev/og-image.jpg',
                 width: 1200,
                 height: 630,
                 alt: 'Shireff Nady Professional Experience',
@@ -32,11 +32,11 @@ export const metadata: Metadata = {
         card: 'summary_large_image',
         title: 'Professional Experience - Shireff Nady',
         description: 'Career timeline and professional milestones in front-end development.',
-        images: ['https://shireff-nady.vercel.app/og-image.jpg'],
+        images: ['https://www.shireff.dev/og-image.jpg'],
         creator: '@shireffnady',
     },
     alternates: {
-        canonical: 'https://shireff-nady.vercel.app/experiences',
+        canonical: 'https://www.shireff.dev/experiences',
     },
     robots: {
         index: true,

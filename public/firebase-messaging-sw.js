@@ -19,7 +19,7 @@ messaging.onBackgroundMessage((payload) => {
     body: payload.notification.body,
     icon: "/fav/android-icon-192x192.png",
     data: {
-      url: "https://shireff-nady.vercel.app/"
+      url: "https://www.shireff.dev/"
     }
   };
 
@@ -31,7 +31,7 @@ self.addEventListener('notificationclick', (event) => {
   console.log('[firebase-messaging-sw.js] Notification clicked');
   event.notification.close();
 
-  const urlToOpen = event.notification.data?.url || "https://shireff-nady.vercel.app/";
+  const urlToOpen = event.notification.data?.url || "https://www.shireff.dev/";
 
   event.waitUntil(
     clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {

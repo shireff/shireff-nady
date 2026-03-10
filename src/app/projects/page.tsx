@@ -42,7 +42,7 @@ export default async function ProjectsPage() {
     "@type": "CollectionPage",
     "name": "Projects Portfolio - Shireff Nady",
     "description": "A showcase of high-performance web applications, SaaS platforms, and digital instruments built by Shireff Nady.",
-    "url": "https://shireff-nady.vercel.app/projects",
+    "url": "https://www.shireff.dev/projects",
     "publisher": {
       "@type": "Person",
       "name": "Shireff Nady"
@@ -50,7 +50,7 @@ export default async function ProjectsPage() {
     "hasPart": projects.map(p => ({
       "@type": "SoftwareApplication",
       "name": p.title,
-      "url": `https://shireff-nady.vercel.app/projects/${p.id}`,
+      "url": `https://www.shireff.dev/projects/${p.id}`,
       "description": p.desc,
       "image": p.img
     }))

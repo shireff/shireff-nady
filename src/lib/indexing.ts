@@ -80,7 +80,7 @@ export async function notifyIndexNow(urls: string[]): Promise<IndexingResult[]> 
     const payload = {
       host: "shireff-nady.vercel.app",
       key: apiKey,
-      keyLocation: "https://shireff-nady.vercel.app/e5eb264d20da45edbdf55411fdf361bc.txt",
+      keyLocation: "https://www.shireff.dev/e5eb264d20da45edbdf55411fdf361bc.txt",
       urlList: urls,
     };
     

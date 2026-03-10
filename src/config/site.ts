@@ -4,7 +4,7 @@ export const siteConfig = {
   description:
     "Shireff Nady is a skilled front-end developer specializing in HTML5, CSS3, Tailwind CSS, JavaScript, TypeScript, React.js, Next.js, and modern web technologies.",
   url: "https://shireff-nady.vercel.app",
-  ogImage: "https://shireff-nady.vercel.app/og-image.jpg",
+  ogImage: "https://www.shireff.dev/og-image.jpg",
   author: {
     name: "Shireff Nady",
     email: "shireffn369@gmail.com",
