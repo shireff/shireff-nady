@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: process.env.SITE_URL || 'https://shireff-nady.vercel.app',
+  siteUrl: process.env.SITE_URL || 'https://shireff.dev',
   generateRobotsTxt: true,
   generateIndexSitemap: true,
   sitemapSize: 5000,
@@ -88,7 +88,7 @@ module.exports = {
       },
     ],
     additionalSitemaps: [
-      'https://shireff-nady.vercel.app/server-sitemap.xml',
+      `${process.env.SITE_URL || 'https://shireff.dev'}/server-sitemap.xml`,
     ],
   },
 };
