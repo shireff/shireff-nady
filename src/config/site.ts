@@ -214,28 +214,28 @@ export const siteConfig = {
   personalImages: [
     {
       url: "/personal/shireff-1.webp",
-      title: "Shireff Nady Full-Stack Developer Professional Portrait",
-      alt: "Official professional headshot of Shireff Nady, a Full-Stack Developer and Web Development Expert specializing in React and Next.js",
+      title: "Shireff Nady Full-Stack Developer Professional Portrait | شريف نادي مطور فرونت اند",
+      alt: "Official professional headshot of Shireff Nady (شريف نادي), a Full-Stack Developer and Web Development Expert specializing in React and Next.js",
     },
     {
       url: "/personal/shireff-2.webp",
-      title: "Shireff Nady Software Engineer Web Development Portfolio",
-      alt: "Shireff Nady software engineer portrait showcasing professional presence for tech consultancy and development",
+      title: "Shireff Nady Software Engineer Web Development Portfolio | شريف نادي مهندس برمجيات",
+      alt: "Shireff Nady (شريف نادي) software engineer portrait showcasing professional presence for tech consultancy and development",
     },
     {
       url: "/personal/shireff-3.webp",
-      title: "Shireff Nady Frontend Expert",
-      alt: "Professional photo of Shireff Nady, an experienced Frontend Expert focusing on modern web technologies and UI/UX",
+      title: "Shireff Nady Frontend Expert | شريف نادي مطور واجهات امامية",
+      alt: "Professional photo of Shireff Nady (شريف نادي), an experienced Frontend Expert focusing on modern web technologies and UI/UX",
     },
     {
       url: "/personal/shireff-4.webp",
-      title: "Shireff Nady React and Next.js Developer Official Photo",
-      alt: "Shireff Nady, specialized in React and Next.js development, posing for a professional portfolio image",
+      title: "Shireff Nady React and Next.js Developer Official Photo | شريف نادي مطور ريأكت",
+      alt: "Shireff Nady (شريف نادي), specialized in React and Next.js development, posing for a professional portfolio image",
     },
     {
       url: "/personal/shireff-5.webp",
-      title: "Shireff Nady Modern Web Architecture Specialist Portrait",
-      alt: "Portrait of Shireff Nady, a specialist in modern web architecture and full-stack software engineering",
+      title: "Shireff Nady Modern Web Architecture Specialist Portrait | شريف نادي مطور مواقع",
+      alt: "Portrait of Shireff Nady (شريف نادي), a specialist in modern web architecture and full-stack software engineering",
     },
   ],
 };

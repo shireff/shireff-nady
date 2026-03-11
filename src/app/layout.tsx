@@ -137,11 +137,27 @@ export default function RootLayout({
   const personSchema = {
     "@context": "https://schema.org",
     "@type": "Person",
+    "@id": `${siteConfig.url}/#person`,
     "name": siteConfig.author.name,
-    "alternateName": siteConfig.author.alternateName,
-    "jobTitle": siteConfig.seo.structuredData.jobTitle,
+    "alternateName": [
+      ...siteConfig.author.alternateName,
+      // Extract name variations from keywords
+      ...siteConfig.seo.keywords.filter(k => 
+        k.includes('Shireff') || k.includes('شريف')
+      ).slice(0, 30)
+    ],
+    "givenName": "Shireff",
+    "familyName": "Nady",
+    "jobTitle": [
+      siteConfig.seo.structuredData.jobTitle,
+      // Extract job titles from keywords
+      ...siteConfig.seo.keywords.filter(k => 
+        k.includes('Developer') || k.includes('Engineer') || k.includes('مطور') || k.includes('مبرمج') || k.includes('مهندس')
+      ).slice(0, 30)
+    ],
     "description": siteConfig.description,
     "url": siteConfig.url,
+    "mainEntityOfPage": siteConfig.url,
     "image": [
       siteConfig.ogImage,
       ...siteConfig.personalImages.map(img => `${siteConfig.url}${img.url}`)
@@ -151,7 +167,8 @@ export default function RootLayout({
     "sameAs": [
       siteConfig.author.linkedin,
       siteConfig.author.github,
-      siteConfig.links.twitter
+      siteConfig.links.twitter,
+      siteConfig.url
     ],
     "worksFor": {
       "@type": "Organization",
@@ -174,21 +191,45 @@ export default function RootLayout({
       "@type": "PostalAddress",
       "addressCountry": "EG",
       "addressLocality": siteConfig.author.location
+    },
+    "nationality": {
+      "@type": "Country",
+      "name": "Egypt"
+    },
+    "homeLocation": {
+      "@type": "Place",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "EG"
+      }
     }
   };
 
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": `${siteConfig.name} - Front-End Developer Portfolio`,
+    "@id": `${siteConfig.url}/#website`,
+    "name": siteConfig.name,
+    "alternateName": ["Shireff", "Shireff Portfolio", "Shireff Dev"],
     "url": siteConfig.url,
     "description": siteConfig.description,
     "author": {
       "@type": "Person",
+      "@id": `${siteConfig.url}/#person`,
+      "name": siteConfig.author.name
+    },
+    "publisher": {
+      "@type": "Person",
+      "@id": `${siteConfig.url}/#person`,
       "name": siteConfig.author.name
     },
     "inLanguage": siteConfig.languages.primary,
     "copyrightYear": new Date().getFullYear(),
+    "copyrightHolder": {
+      "@type": "Person",
+      "@id": `${siteConfig.url}/#person`,
+      "name": siteConfig.author.name
+    },
     "potentialAction": {
       "@type": "SearchAction",
       "target": {
@@ -202,11 +243,18 @@ export default function RootLayout({
   const professionalServiceSchema = {
       "@context": "https://schema.org",
       "@type": "ProfessionalService",
+      "@id": `${siteConfig.url}/#service`,
       "name": `${siteConfig.name} - Web Development Services`,
+      "alternateName": "Shireff Web Development",
       "description": siteConfig.description,
       "url": siteConfig.url,
       "image": siteConfig.ogImage,
       "priceRange": siteConfig.seo.structuredData.priceRange,
+      "provider": {
+        "@type": "Person",
+        "@id": `${siteConfig.url}/#person`,
+        "name": siteConfig.author.name
+      },
       "address": {
         "@type": "PostalAddress",
         "addressCountry": "EG"
@@ -216,8 +264,50 @@ export default function RootLayout({
         "name": siteConfig.seo.structuredData.areaServed
       },
       "availableLanguage": siteConfig.seo.structuredData.knowsLanguage.map(lang => lang.name),
-      "serviceType": siteConfig.seo.structuredData.serviceTypes
+      "serviceType": siteConfig.seo.structuredData.serviceTypes,
+      "sameAs": [
+        siteConfig.author.linkedin,
+        siteConfig.author.github,
+        siteConfig.links.twitter
+      ]
     };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": siteConfig.url
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Projects",
+        "item": `${siteConfig.url}/projects`
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Experience",
+        "item": `${siteConfig.url}/experiences`
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "Recommendations",
+        "item": `${siteConfig.url}/recommendations`
+      },
+      {
+        "@type": "ListItem",
+        "position": 5,
+        "name": "Contact",
+        "item": `${siteConfig.url}/contact`
+      }
+    ]
+  };
 
 
   return (
@@ -250,6 +340,11 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(professionalServiceSchema) }}
         />
+        <Script
+          id="breadcrumb-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        />
       </head>
       <body className={`${inter.className} min-h-screen flex flex-col`}>
         {/* Semantic Image Injection for SEO - Visually Hidden */}
@@ -268,11 +363,25 @@ export default function RootLayout({
             borderWidth: '0'
           }}
         >
-          <img src="/personal/shireff-1.webp" alt="Shireff Nady - Front-End Engineer" width="800" height="800" />
-          <img src="/personal/shireff-2.webp" alt="Shireff Nady - Web Developer" width="800" height="800" />
-          <img src="/personal/shireff-3.webp" alt="Shireff - Senior Front-End Engineer" width="800" height="800" />
-          <img src="/personal/shireff-4.webp" alt="Shireff Nady - React Specialist" width="800" height="800" />
-          <img src="/personal/shireff-5.webp" alt="Shireff Nady - Full Stack Developer" width="800" height="800" />
+          {/* Images with multilingual alt text for SEO */}
+          {siteConfig.personalImages.map((img, i) => (
+            <img key={i} src={img.url} alt={img.alt} width="800" height="800" />
+          ))}
+          
+          {/* Hidden semantic keywords for multilingual SEO */}
+          <div lang="en">
+            <h2>{siteConfig.author.name} - Professional Web Developer</h2>
+            <p>
+              {siteConfig.seo.keywords.filter(k => !k.includes('شريف') && !k.includes('مطور') && !k.includes('مبرمج')).slice(0, 50).join(', ')}.
+            </p>
+          </div>
+          
+          <div lang="ar" dir="rtl">
+            <h2>شريف نادي - مطور ويب محترف</h2>
+            <p>
+              {siteConfig.seo.keywords.filter(k => k.includes('شريف') || k.includes('مطور') || k.includes('مبرمج')).join('، ')}.
+            </p>
+          </div>
         </div>
 
         <div className="noise-overlay" />

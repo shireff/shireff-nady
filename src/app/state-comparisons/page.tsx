@@ -1,4 +1,5 @@
 import React from 'react';
+import Script from 'next/script';
 import { Cpu, Database } from 'lucide-react';
 import { comparisonService } from '@/services/comparisons';
 import { StateComparison } from '@/types';
@@ -35,8 +36,42 @@ export default async function ComparisonsPage() {
   const techComparisons = MOCK_TECH_COMPARISONS;
   const hasContent = comparisons.length > 0 || techComparisons.length > 0;
 
+  const comparisonPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${siteConfig.url}/state-comparisons#collection`,
+    "name": `Technical Evolution & State Comparisons - ${siteConfig.author.name}`,
+    "description": `A collection of technical evolutions and before-after improvements in system architecture and performance by ${siteConfig.name}.`,
+    "url": `${siteConfig.url}/state-comparisons`,
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": `${siteConfig.url}/#website`
+    },
+    "author": {
+      "@type": "Person",
+      "@id": `${siteConfig.url}/#person`,
+      "name": siteConfig.author.name
+    },
+    "about": {
+      "@type": "Person",
+      "@id": `${siteConfig.url}/#person`,
+      "name": siteConfig.author.name
+    }
+  };
+
   return (
     <div className="max-w-6xl mx-auto px-6 py-20 space-y-32">
+      <Script
+        id="comparison-page-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(comparisonPageSchema) }}
+      />
+
+      {/* Hidden SEO keywords */}
+      <div className="sr-only" aria-hidden="true">
+        <h2>{siteConfig.seo.keywords.filter(k => k.includes('Optimization') || k.includes('Performance')).join(', ')}</h2>
+      </div>
+
       <div className="text-center space-y-8">
         <div
           className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-[0.4em] mb-4 shadow-[0_0_20px_rgba(59,130,246,0.2)]"

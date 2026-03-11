@@ -52,13 +52,24 @@ export default async function ImageGalleryPage() {
     const imageSchema = {
         '@context': 'https://schema.org',
         '@type': 'ImageGallery',
+        '@id': `${siteConfig.url}/image-gallery#gallery`,
         name: `${siteConfig.author.name} Portfolio Image Gallery`,
         description: `Professional portfolio images of ${siteConfig.author.name} - Full-Stack Developer`,
         url: `${siteConfig.url}/image-gallery`,
         author: {
             '@type': 'Person',
+            '@id': `${siteConfig.url}/#person`,
             name: siteConfig.author.name,
             url: siteConfig.url,
+        },
+        creator: {
+            '@type': 'Person',
+            '@id': `${siteConfig.url}/#person`,
+            name: siteConfig.author.name,
+        },
+        isPartOf: {
+            '@type': 'WebSite',
+            '@id': `${siteConfig.url}/#website`
         },
         image: siteConfig.personalImages.map(img => ({
             '@type': 'ImageObject',
@@ -66,6 +77,16 @@ export default async function ImageGalleryPage() {
             caption: img.title,
             description: img.alt,
             contentUrl: `${siteConfig.url}${img.url}`,
+            author: {
+                '@type': 'Person',
+                '@id': `${siteConfig.url}/#person`,
+                name: siteConfig.author.name,
+            },
+            creator: {
+                '@type': 'Person',
+                '@id': `${siteConfig.url}/#person`,
+                name: siteConfig.author.name,
+            }
         })),
     };
 

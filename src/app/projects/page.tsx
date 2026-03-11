@@ -12,7 +12,7 @@ export const revalidate = 60; // Revalidate every minute
 
 export const metadata: Metadata = {
   title: `Projects | ${siteConfig.name} - Portfolio`,
-  description: siteConfig.description,
+  description: `${siteConfig.description} - Explore projects by ${siteConfig.seo.keywords.filter(k => k.includes('Developer') || k.includes('مطور')).slice(0, 5).join(', ')}`,
   alternates: {
     canonical: `${siteConfig.url}/projects`,
   }
@@ -40,11 +40,22 @@ export default async function ProjectsPage() {
   const collectionSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
+    "@id": `${siteConfig.url}/projects#collection`,
     "name": `Projects Portfolio - ${siteConfig.author.name}`,
     "description": `A showcase of high-performance web applications, SaaS platforms, and digital instruments built by ${siteConfig.author.name}.`,
     "url": `${siteConfig.url}/projects`,
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": `${siteConfig.url}/#website`
+    },
+    "author": {
+      "@type": "Person",
+      "@id": `${siteConfig.url}/#person`,
+      "name": siteConfig.author.name
+    },
     "publisher": {
       "@type": "Person",
+      "@id": `${siteConfig.url}/#person`,
       "name": siteConfig.author.name
     },
     "hasPart": projects.map(p => ({
@@ -52,7 +63,12 @@ export default async function ProjectsPage() {
       "name": p.title,
       "url": `${siteConfig.url}/projects/${p.id}`,
       "description": p.desc,
-      "image": p.img
+      "image": p.img,
+      "author": {
+        "@type": "Person",
+        "@id": `${siteConfig.url}/#person`,
+        "name": siteConfig.author.name
+      }
     }))
   };
 
@@ -63,6 +79,11 @@ export default async function ProjectsPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
       />
+
+      {/* Hidden SEO keywords */}
+      <div className="sr-only" aria-hidden="true">
+        <h2>{siteConfig.seo.keywords.filter(k => k.includes('Portfolio') || k.includes('Project') || k.includes('بورتفوليو')).join(', ')}</h2>
+      </div>
 
       <div className="space-y-4 text-center max-w-3xl mx-auto">
         <h1 className="text-4xl md:text-7xl font-black tracking-tight italic uppercase">Projects.</h1>

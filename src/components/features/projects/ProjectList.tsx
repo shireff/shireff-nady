@@ -1,16 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
-import { motion } from "framer-motion";
-import { Search, Filter, Github, ExternalLink } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/Card";
-import Button from "@/components/ui/Button";
+import { useState, useEffect, useCallback } from "react";
+import { Filter } from "lucide-react";
 import GlassEmptyState from "@/components/ui/GlassEmptyState";
 import Pagination from "@/components/ui/Pagination";
 import { Project, PaginationMeta } from "@/types";
-import Link from "next/link";
 import Script from "next/script";
-import { normalizeCategory, getUniqueCategories, KNOWN_CATEGORIES, CATEGORY_SEARCH_TERMS } from "@/lib/utils";
+import { getUniqueCategories, KNOWN_CATEGORIES, CATEGORY_SEARCH_TERMS } from "@/lib/utils";
 import { projectService } from "@/services/projects";
 
 interface ProjectListProps {
@@ -54,7 +50,7 @@ export default function ProjectList({ initialProjects, initialPagination }: Proj
 
         // Merge dynamic categories from current page with known ones
         const cats = getUniqueCategories(initialProjects);
-        setDynamicCategories(prev => Array.from(new Set([...KNOWN_CATEGORIES, ...cats])).sort());
+        setDynamicCategories(Array.from(new Set([...KNOWN_CATEGORIES, ...cats])).sort());
 
         const tags = Array.from(
             new Set(initialProjects.flatMap((p) => p.tags || []))
@@ -99,7 +95,7 @@ export default function ProjectList({ initialProjects, initialPagination }: Proj
 
             // Optionally update dynamic categories if new ones are found, but keep known ones
             const newCats = getUniqueCategories(response.data);
-            setDynamicCategories(prev => Array.from(new Set([...prev, ...newCats])).sort());
+            setDynamicCategories(current => Array.from(new Set([...current, ...newCats])).sort());
 
         } catch (error) {
             console.error("Failed to fetch projects", error);
@@ -108,28 +104,7 @@ export default function ProjectList({ initialProjects, initialPagination }: Proj
         }
     }, [dispatch]);
 
-    // Debounce search
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            // Only fetch if different from initial load state to prevent double fetch on mount
-            // However, since we are uncontrolled for mounting, let's just use strict dependency logic
-            // We'll skip the very first fetch if it matches initial state, but it's complex to track.
-            // Simpler: Just fetch when these change.
-
-            // To avoid double-fetching on mount (since initialProjects is already there),
-            // we can check if states differ from defaults. 
-            const isInitialState = pagination.page === 1 && searchTerm === "" && selectedCategory === "All";
-
-            // BUT: if user clicks "Page 2", page is 2.
-            // If user types search, search is "foo".
-
-            // Problem: On mount, this effect runs. We want to use initialProjects.
-            // We can use a ref to track mount.
-        }, 500);
-        return () => clearTimeout(timer);
-    }, [searchTerm, selectedCategory]);
-
-    // Actually, properly implementing the effect:
+    // Track mount state to avoid double-fetching on initial load
     const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {
@@ -137,14 +112,8 @@ export default function ProjectList({ initialProjects, initialPagination }: Proj
             setIsMounted(true);
             return;
         }
-        // Reset page to 1 if filters change
-        // We need to distinguish between Page Change and Filter Change
         fetchProjects(pagination.page, searchTerm, selectedCategory);
     }, [pagination.page]);
-    // Wait, if I put pagination.page in dependency, setPagination trigger re-run?
-    // fetchProjects updates pagination.page (sometimes).
-
-    // Let's separate "Page Change" and "Filter Change".
 
     const handlePageChange = (newPage: number) => {
         fetchProjects(newPage, searchTerm, selectedCategory);

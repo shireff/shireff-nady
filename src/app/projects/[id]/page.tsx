@@ -93,6 +93,7 @@ export default async function ProjectDetailsPage({ params }: { params: Promise<{
   const projectSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+    "@id": `${siteConfig.url}/projects/${project.id}#software`,
     "name": project.title,
     "description": project.desc,
     "image": project.img || siteConfig.ogImage,
@@ -102,7 +103,24 @@ export default async function ProjectDetailsPage({ params }: { params: Promise<{
     ...(project.git && { "codeRepository": project.git }),
     "author": {
       "@type": "Person",
+      "@id": `${siteConfig.url}/#person`,
       "name": siteConfig.author.name
+    },
+    "creator": {
+      "@type": "Person",
+      "@id": `${siteConfig.url}/#person`,
+      "name": siteConfig.author.name
+    },
+    "publisher": {
+      "@type": "Person",
+      "@id": `${siteConfig.url}/#person`,
+      "name": siteConfig.author.name
+    },
+    "dateCreated": project.createdAt,
+    "inLanguage": "en",
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": `${siteConfig.url}/#website`
     },
     "offers": {
       "@type": "Offer",

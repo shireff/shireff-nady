@@ -29,11 +29,14 @@ export default async function ExperiencesPage() {
   const profileSchema = {
     "@context": "https://schema.org",
     "@type": "ProfilePage",
+    "@id": `${siteConfig.url}/experiences#profile`,
     "mainEntity": {
       "@type": "Person",
+      "@id": `${siteConfig.url}/#person`,
       "name": siteConfig.author.name,
       "jobTitle": siteConfig.seo.structuredData.jobTitle,
       "description": `${siteConfig.author.name}'s professional journey as a developer.`,
+      "url": siteConfig.url,
       "hasOccupation": experiences.map(exp => ({
         "@type": "OrganizationRole",
         "roleName": exp.position,
@@ -44,6 +47,10 @@ export default async function ExperiencesPage() {
         "description": exp.description.join(' '),
         "skills": exp.technologies
       }))
+    },
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": `${siteConfig.url}/#website`
     }
   };
 
@@ -54,6 +61,11 @@ export default async function ExperiencesPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(profileSchema) }}
       />
+
+      {/* Hidden SEO keywords */}
+      <div className="sr-only" aria-hidden="true">
+        <h2>{siteConfig.seo.keywords.filter(k => k.includes('Experience') || k.includes('Career')).join(', ')}</h2>
+      </div>
 
       <div className="text-center space-y-6">
         <h1 className="text-4xl sm:text-5xl md:text-8xl font-black italic tracking-tighter bg-gradient-to-b from-white to-zinc-800 bg-clip-text text-transparent underline decoration-blue-500/50 underline-offset-8 uppercase">My Career.</h1>

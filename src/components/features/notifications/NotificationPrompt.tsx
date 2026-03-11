@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useFCM } from "@/hooks/useFCM";
 import { Bell, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -27,40 +27,40 @@ export const NotificationPrompt = () => {
                 initial={{ opacity: 0, y: 50, scale: 0.9 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 50, scale: 0.9 }}
-                className="fixed bottom-6 right-6 z-50 max-w-sm w-full"
+                className="fixed bottom-4 right-4 left-4 sm:left-auto sm:bottom-6 sm:right-6 z-50 max-w-sm w-full sm:w-auto"
             >
-                <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl p-6 overflow-hidden relative">
+                <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl p-4 sm:p-6 overflow-hidden relative">
                     <button
                         onClick={() => setShowPrompt(false)}
-                        className="absolute top-4 right-4 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 transition-colors"
+                        className="absolute top-3 right-3 sm:top-4 sm:right-4 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 transition-colors"
                     >
-                        <X size={20} />
+                        <X size={18} className="sm:w-5 sm:h-5" />
                     </button>
 
-                    <div className="flex items-start gap-4">
-                        <div className="bg-blue-100 dark:bg-blue-900/30 p-3 rounded-full text-blue-600 dark:text-blue-400">
-                            <Bell size={24} />
+                    <div className="flex items-start gap-3 sm:gap-4">
+                        <div className="bg-blue-100 dark:bg-blue-900/30 p-2 sm:p-3 rounded-full text-blue-600 dark:text-blue-400 flex-shrink-0">
+                            <Bell size={20} className="sm:w-6 sm:h-6" />
                         </div>
-                        <div className="flex-1">
-                            <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-1">
+                        <div className="flex-1 pr-6 sm:pr-0">
+                            <h3 className="text-base sm:text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-1">
                                 Stay updated!
                             </h3>
-                            <p className="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed mb-4">
+                            <p className="text-zinc-600 dark:text-zinc-400 text-xs sm:text-sm leading-relaxed mb-3 sm:mb-4">
                                 Enable push notifications to receive daily reminders and important updates directly on your device.
                             </p>
-                            <div className="flex gap-3">
+                            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
                                 <button
                                     onClick={async () => {
                                         await requestPermission();
                                         setShowPrompt(false);
                                     }}
-                                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors shadow-lg shadow-blue-500/20"
+                                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors shadow-lg shadow-blue-500/20 w-full sm:w-auto"
                                 >
                                     Enable Notifications
                                 </button>
                                 <button
                                     onClick={() => setShowPrompt(false)}
-                                    className="bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                                    className="bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors w-full sm:w-auto"
                                 >
                                     Maybe Later
                                 </button>

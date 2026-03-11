@@ -43,34 +43,69 @@ export default async function Home() {
   const webpageSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": `${siteConfig.name} - Home`,
+    "@id": `${siteConfig.url}/#webpage`,
+    "name": siteConfig.name,
     "url": siteConfig.url,
     "description": `Welcome to the official portfolio of ${siteConfig.name}, a Senior Front-End Developer specialized in digital excellence.`,
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": `${siteConfig.url}/#website`,
+      "name": siteConfig.name
+    },
+    "about": {
+      "@type": "Person",
+      "@id": `${siteConfig.url}/#person`,
+      "name": siteConfig.name
+    },
     "author": {
       "@type": "Person",
+      "@id": `${siteConfig.url}/#person`,
       "name": siteConfig.name
-    }
+    },
+    "primaryImageOfPage": {
+      "@type": "ImageObject",
+      "url": heroImageUrl,
+      "width": 1200,
+      "height": 630
+    },
+    "inLanguage": "en"
   };
 
   // Structured data for images to help Google Images
   const imageGallerySchema = {
     "@context": "https://schema.org",
     "@type": "ImageGallery",
+    "@id": `${siteConfig.url}/#imagegallery`,
     "name": `${siteConfig.name} Professional Gallery`,
     "description": `Professional photos and project screenshots of ${siteConfig.name}`,
     "url": siteConfig.url,
+    "author": {
+      "@type": "Person",
+      "@id": `${siteConfig.url}/#person`,
+      "name": siteConfig.name
+    },
     "image": [
       ...siteConfig.personalImages.map(img => ({
         "@type": "ImageObject",
         "url": img.url.startsWith('http') ? img.url : `${siteConfig.url}${img.url}`,
         "caption": img.title,
-        "name": img.title
+        "name": img.title,
+        "author": {
+          "@type": "Person",
+          "@id": `${siteConfig.url}/#person`,
+          "name": siteConfig.name
+        }
       })),
       ...projects.filter(p => p.img).slice(0, 10).map(p => ({
         "@type": "ImageObject",
         "url": p.img?.startsWith('http') ? p.img : `${siteConfig.url}${p.img}`,
         "caption": p.title,
-        "name": p.title
+        "name": p.title,
+        "author": {
+          "@type": "Person",
+          "@id": `${siteConfig.url}/#person`,
+          "name": siteConfig.name
+        }
       }))
     ]
   };
