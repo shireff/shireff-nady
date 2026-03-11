@@ -49,9 +49,10 @@ export async function GET(request: Request) {
   const personalImages = siteConfig.personalImages
     .map((img) => ({
       loc: safeUrl(getAbsoluteImageUrl(img.url, baseUrl)),
-      title: img.title
+      title: img.title,
+      caption: img.alt
     }))
-    .filter((img): img is { loc: URL; title: string } => !!img.loc);
+    .filter((img): img is { loc: URL; title: string; caption: string } => !!img.loc);
 
   // 2. Project Images (Top 10 for general indexing)
   const topProjectImages = projects
@@ -59,9 +60,10 @@ export async function GET(request: Request) {
     .slice(0, 10)
     .map(p => ({
       loc: safeUrl(getAbsoluteImageUrl(p.img, baseUrl)),
-      title: `${p.title} - Project Evolution`
+      title: `${p.title} - Project Evolution`,
+      caption: p.desc ? p.desc.substring(0, 150) : p.title
     }))
-    .filter((img): img is { loc: URL; title: string } => !!img.loc);
+    .filter((img): img is { loc: URL; title: string; caption: string } => !!img.loc);
 
   // 3. Combined Gallery Images
   const galleryImages = [...personalImages, ...topProjectImages];
@@ -99,10 +101,29 @@ export async function GET(request: Request) {
       lastmod: new Date().toISOString(),
       changefreq: 'weekly',
       priority: 0.8,
-      images: comparisons.flatMap(c => [
-        { loc: safeUrl(getAbsoluteImageUrl(c.beforeImg, baseUrl)), title: `${c.title} - Before` },
-        { loc: safeUrl(getAbsoluteImageUrl(c.afterImg, baseUrl)), title: `${c.title} - After` }
-      ]).filter((img): img is { loc: URL; title: string } => !!img.loc)
+      images: comparisons.flatMap(c => {
+        const beforeUrl = safeUrl(getAbsoluteImageUrl(c.beforeImg, baseUrl));
+        const afterUrl = safeUrl(getAbsoluteImageUrl(c.afterImg, baseUrl));
+        const images = [];
+        
+        if (beforeUrl) {
+          images.push({ 
+            loc: beforeUrl, 
+            title: `${c.title} - Before`,
+            caption: `Before state of ${c.title}`
+          });
+        }
+        
+        if (afterUrl) {
+          images.push({ 
+            loc: afterUrl, 
+            title: `${c.title} - After`,
+            caption: `After state of ${c.title}`
+          });
+        }
+        
+        return images;
+      }).filter((img): img is { loc: URL; title: string; caption: string } => !!img.loc)
     },
     {
       loc: `${baseUrl}/image-gallery`,
@@ -148,6 +169,7 @@ export async function GET(request: Request) {
       entry.images = [{
         loc: urlObj,
         title: project.title || 'Project Detail',
+        caption: project.desc ? project.desc.substring(0, 150) : project.title,
       }];
     }
 
@@ -160,6 +182,16 @@ export async function GET(request: Request) {
       changefreq: 'monthly',
       priority: 0.6,
     });
+
+    // 3. Database Diagram Page (if exists)
+    if (project.hasDatabaseDiagram) {
+      fields.push({
+        loc: `${baseUrl}/projects/${project.id}/database-diagram`,
+        lastmod: project.createdAt ? new Date(project.createdAt).toISOString() : new Date().toISOString(),
+        changefreq: 'monthly',
+        priority: 0.6,
+      });
+    }
   }
 
   return getServerSideSitemap(fields);
