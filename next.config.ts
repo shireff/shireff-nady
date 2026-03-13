@@ -18,6 +18,23 @@ const nextConfig: NextConfig = {
       }
     ],
   },
+  
+  // Redirect non-www to www
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'shireff.dev',
+          },
+        ],
+        destination: 'https://www.shireff.dev/:path*',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

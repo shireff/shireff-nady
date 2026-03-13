@@ -75,7 +75,7 @@ export const metadata: Metadata = {
   },
   keywords: siteConfig.seo.keywords,
   alternates: {
-    canonical: "./",
+    canonical: siteConfig.url,
   },
   verification: {
     google: "QajwK8zAMPQjckKLANrD_5YFHjDsCJRns24cWmLSMsE",
