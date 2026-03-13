@@ -19,6 +19,9 @@ Allow: /personal/*
 Disallow: /admin
 Disallow: /api
 
+# Host (for Yandex only - Google ignores this)
+Host: https://www.shireff.dev
+
 # Sitemaps
 Sitemap: https://www.shireff.dev/sitemap.xml
 Sitemap: https://www.shireff.dev/server-sitemap.xml
