@@ -66,7 +66,11 @@ export default async function Home() {
       "@type": "ImageObject",
       "url": heroImageUrl,
       "width": 1200,
-      "height": 630
+      "height": 630,
+      "creditText": siteConfig.author.name,
+      "copyrightNotice": `Copyright (c) 2026 ${siteConfig.author.name}. All rights reserved.`,
+      "license": `${siteConfig.url}/verification`,
+      "acquireLicensePage": `${siteConfig.url}/contact`
     },
     "inLanguage": "en"
   };
@@ -90,6 +94,10 @@ export default async function Home() {
         "url": img.url.startsWith('http') ? img.url : `${siteConfig.url}${img.url}`,
         "caption": img.title,
         "name": img.title,
+        "creditText": siteConfig.author.name,
+        "copyrightNotice": `Copyright (c) 2026 ${siteConfig.author.name}. All rights reserved.`,
+        "license": `${siteConfig.url}/verification`,
+        "acquireLicensePage": `${siteConfig.url}/contact`,
         "author": {
           "@type": "Person",
           "@id": `${siteConfig.url}/#person`,
@@ -101,6 +109,10 @@ export default async function Home() {
         "url": p.img?.startsWith('http') ? p.img : `${siteConfig.url}${p.img}`,
         "caption": p.title,
         "name": p.title,
+        "creditText": siteConfig.author.name,
+        "copyrightNotice": `Copyright (c) 2026 ${siteConfig.author.name}. All rights reserved.`,
+        "license": `${siteConfig.url}/verification`,
+        "acquireLicensePage": `${siteConfig.url}/contact`,
         "author": {
           "@type": "Person",
           "@id": `${siteConfig.url}/#person`,

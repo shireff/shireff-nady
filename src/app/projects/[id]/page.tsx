@@ -96,7 +96,14 @@ export default async function ProjectDetailsPage({ params }: { params: Promise<{
     "@id": `${siteConfig.url}/projects/${project.id}#software`,
     "name": project.title,
     "description": project.desc,
-    "image": project.img || siteConfig.ogImage,
+    "image": {
+      "@type": "ImageObject",
+      "url": project.img || siteConfig.ogImage,
+      "creditText": siteConfig.author.name,
+      "copyrightNotice": `Copyright (c) 2026 ${siteConfig.author.name}. All rights reserved.`,
+      "license": `${siteConfig.url}/verification`,
+      "acquireLicensePage": `${siteConfig.url}/contact`
+    },
     "applicationCategory": project.category,
     "operatingSystem": "Web",
     "url": `${siteConfig.url}/projects/${project.id}`,

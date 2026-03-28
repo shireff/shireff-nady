@@ -77,6 +77,10 @@ export default async function ImageGalleryPage() {
             caption: img.title,
             description: img.alt,
             contentUrl: `${siteConfig.url}${img.url}`,
+            creditText: siteConfig.author.name,
+            copyrightNotice: `Copyright (c) 2026 ${siteConfig.author.name}. All rights reserved.`,
+            license: `${siteConfig.url}/verification`,
+            acquireLicensePage: `${siteConfig.url}/contact`,
             author: {
                 '@type': 'Person',
                 '@id': `${siteConfig.url}/#person`,

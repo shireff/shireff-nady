@@ -63,7 +63,14 @@ export default async function ProjectsPage() {
       "name": p.title,
       "url": `${siteConfig.url}/projects/${p.id}`,
       "description": p.desc,
-      "image": p.img,
+      "image": {
+        "@type": "ImageObject",
+        "url": p.img,
+        "creditText": siteConfig.author.name,
+        "copyrightNotice": `Copyright (c) 2026 ${siteConfig.author.name}. All rights reserved.`,
+        "license": `${siteConfig.url}/verification`,
+        "acquireLicensePage": `${siteConfig.url}/contact`
+      },
       "author": {
         "@type": "Person",
         "@id": `${siteConfig.url}/#person`,

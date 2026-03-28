@@ -50,9 +50,10 @@ export async function GET(request: Request) {
     .map((img) => ({
       loc: safeUrl(getAbsoluteImageUrl(img.url, baseUrl)),
       title: img.title,
-      caption: img.alt
+      caption: img.alt,
+      license: safeUrl(`${baseUrl}/verification`)
     }))
-    .filter((img): img is { loc: URL; title: string; caption: string } => !!img.loc);
+    .filter((img): img is { loc: URL; title: string; caption: string; license: URL } => !!img.loc && !!img.license);
 
   // 2. Project Images (Top 10 for general indexing)
   const topProjectImages = projects
@@ -61,9 +62,10 @@ export async function GET(request: Request) {
     .map(p => ({
       loc: safeUrl(getAbsoluteImageUrl(p.img, baseUrl)),
       title: `${p.title} - Project Evolution`,
-      caption: p.desc ? p.desc.substring(0, 150) : p.title
+      caption: p.desc ? p.desc.substring(0, 150) : p.title,
+      license: safeUrl(`${baseUrl}/verification`)
     }))
-    .filter((img): img is { loc: URL; title: string; caption: string } => !!img.loc);
+    .filter((img): img is { loc: URL; title: string; caption: string; license: URL } => !!img.loc && !!img.license);
 
   // 3. Combined Gallery Images
   const galleryImages = [...personalImages, ...topProjectImages];
@@ -110,7 +112,8 @@ export async function GET(request: Request) {
           images.push({ 
             loc: beforeUrl, 
             title: `${c.title} - Before`,
-            caption: `Before state of ${c.title}`
+            caption: `Before state of ${c.title}`,
+            license: safeUrl(`${baseUrl}/verification`)!
           });
         }
         
@@ -118,12 +121,13 @@ export async function GET(request: Request) {
           images.push({ 
             loc: afterUrl, 
             title: `${c.title} - After`,
-            caption: `After state of ${c.title}`
+            caption: `After state of ${c.title}`,
+            license: safeUrl(`${baseUrl}/verification`)!
           });
         }
         
         return images;
-      }).filter((img): img is { loc: URL; title: string; caption: string } => !!img.loc)
+      }).filter((img): img is { loc: URL; title: string; caption: string; license: URL } => !!img.loc && !!img.license)
     },
     {
       loc: `${baseUrl}/image-gallery`,
@@ -170,6 +174,7 @@ export async function GET(request: Request) {
         loc: urlObj,
         title: project.title || 'Project Detail',
         caption: project.desc ? project.desc.substring(0, 150) : project.title,
+        license: safeUrl(`${baseUrl}/verification`)!
       }];
     }
 

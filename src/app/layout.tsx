@@ -164,8 +164,23 @@ export default function RootLayout({
     "url": siteConfig.url,
     "mainEntityOfPage": siteConfig.url,
     "image": [
-      siteConfig.ogImage,
-      ...siteConfig.personalImages.map(img => `${siteConfig.url}${img.url}`)
+      {
+        "@type": "ImageObject",
+        "url": siteConfig.ogImage,
+        "creditText": siteConfig.author.name,
+        "copyrightNotice": `Copyright (c) 2026 ${siteConfig.author.name}. All rights reserved.`,
+        "license": `${siteConfig.url}/verification`,
+        "acquireLicensePage": `${siteConfig.url}/contact`
+      },
+      ...siteConfig.personalImages.map(img => ({
+        "@type": "ImageObject",
+        "url": `${siteConfig.url}${img.url}`,
+        "caption": img.title,
+        "creditText": siteConfig.author.name,
+        "copyrightNotice": `Copyright (c) 2026 ${siteConfig.author.name}. All rights reserved.`,
+        "license": `${siteConfig.url}/verification`,
+        "acquireLicensePage": `${siteConfig.url}/contact`
+      }))
     ],
     "email": siteConfig.author.email,
     "telephone": siteConfig.author.phone,
@@ -253,7 +268,14 @@ export default function RootLayout({
       "alternateName": "Shireff Web Development",
       "description": siteConfig.description,
       "url": siteConfig.url,
-      "image": siteConfig.ogImage,
+      "image": {
+        "@type": "ImageObject",
+        "url": siteConfig.ogImage,
+        "creditText": siteConfig.author.name,
+        "copyrightNotice": `Copyright (c) 2026 ${siteConfig.author.name}. All rights reserved.`,
+        "license": `${siteConfig.url}/verification`,
+        "acquireLicensePage": `${siteConfig.url}/contact`
+      },
       "priceRange": siteConfig.seo.structuredData.priceRange,
       "provider": {
         "@type": "Person",
