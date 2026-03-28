@@ -19,9 +19,16 @@ const nextConfig: NextConfig = {
     ],
   },
   
-  // Redirect non-www to www
+  // Redirect config
   async redirects() {
     return [
+      // 1. Redirect /index to /
+      {
+        source: '/index',
+        destination: '/',
+        permanent: true,
+      },
+      // 2. Redirect non-www to www
       {
         source: '/:path*',
         has: [

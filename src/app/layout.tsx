@@ -75,7 +75,12 @@ export const metadata: Metadata = {
   },
   keywords: siteConfig.seo.keywords,
   alternates: {
-    canonical: siteConfig.url,
+    // Canonical will be handled naturally by Next.js or per-page to avoid 
+    // pointing all subpages to the homepage which was causing indexing issues.
+    languages: {
+       'en-US': '/',
+       'ar-EG': '/',
+    },
   },
   verification: {
     google: "QajwK8zAMPQjckKLANrD_5YFHjDsCJRns24cWmLSMsE",
