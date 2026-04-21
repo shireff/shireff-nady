@@ -1,0 +1,25 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://api.shireff.dev",
+      "service-desc": [
+        {
+          "href": "https://api.shireff.dev/health",
+          "type": "application/json"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://www.shireff.dev/api/docs",
+          "type": "text/html"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://api.shireff.dev/health",
+          "type": "application/json"
+        }
+      ]
+    }
+  ]
+}

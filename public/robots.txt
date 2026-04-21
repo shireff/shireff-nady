@@ -19,6 +19,40 @@ Allow: /personal/*
 Disallow: /admin
 Disallow: /api
 
+# AI Crawlers - Allow indexing, disallow training
+User-agent: GPTBot
+Allow: /
+Disallow: /admin
+Disallow: /api
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /admin
+Disallow: /api
+
+User-agent: Claude-Web
+Allow: /
+Disallow: /admin
+Disallow: /api
+
+User-agent: anthropic-ai
+Allow: /
+Disallow: /admin
+Disallow: /api
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /admin
+Disallow: /api
+
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /admin
+Disallow: /api
+
+# Content Signals - AI usage preferences
+Content-Signal: ai-train=no, search=yes, ai-input=yes
+
 # Host (for Yandex only - Google ignores this)
 Host: https://www.shireff.dev
 

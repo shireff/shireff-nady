@@ -1,0 +1,25 @@
+{
+  "skills": [
+    {
+      "name": "get-projects",
+      "type": "api",
+      "description": "Retrieve portfolio projects with details like title, description, tech stack, and links",
+      "url": "https://api.shireff.dev/api/projects",
+      "method": "GET"
+    },
+    {
+      "name": "get-experiences",
+      "type": "api",
+      "description": "Retrieve work experience history including company, role, duration, and responsibilities",
+      "url": "https://api.shireff.dev/api/experiences",
+      "method": "GET"
+    },
+    {
+      "name": "contact",
+      "type": "api",
+      "description": "Send a contact message to Shireff Nady",
+      "url": "https://api.shireff.dev/api/contact",
+      "method": "POST"
+    }
+  ]
+}

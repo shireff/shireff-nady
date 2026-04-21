@@ -1,0 +1,19 @@
+{
+  "serverInfo": {
+    "name": "Shireff Nady Portfolio",
+    "version": "1.0.0",
+    "description": "Portfolio website for Shireff Nady - Full Stack Developer. Exposes projects, experiences, and contact information."
+  },
+  "transport": {
+    "type": "http",
+    "endpoint": "https://api.shireff.dev/mcp"
+  },
+  "capabilities": {
+    "tools": true,
+    "resources": true,
+    "prompts": false
+  },
+  "contact": {
+    "url": "https://www.shireff.dev"
+  }
+}
