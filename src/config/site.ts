@@ -46,7 +46,7 @@ export const siteConfig = {
       "Shireff Nady Next.js",
       "Shireff Portfolio",
       "Shireff Nady Portfolio",
-      
+
       // Name Variations - Arabic
       "شريف",
       "شريف نادي",
@@ -64,7 +64,7 @@ export const siteConfig = {
       "شريف ريأكت",
       "شريف نادي ريأكت",
       "شريف نادى ريأكت",
-      
+
       // Job Titles - English
       "Front-End Developer Egypt",
       "Frontend Developer Egypt",
@@ -78,7 +78,7 @@ export const siteConfig = {
       "Full Stack Developer Egypt",
       "Software Engineer Egypt",
       "Web Engineer Egypt",
-      
+
       // Job Titles - Arabic
       "مطور فرونت اند",
       "مطور واجهات امامية",
@@ -91,7 +91,7 @@ export const siteConfig = {
       "مهندس برمجيات",
       "مطور فرونت اند مصر",
       "مطور ويب مصر",
-      
+
       // Technologies
       "React Developer",
       "React.js Developer",
@@ -104,7 +104,7 @@ export const siteConfig = {
       "Tailwind CSS Developer",
       "Redux Developer",
       "Redux Toolkit",
-      
+
       // Skills & Services
       "Responsive Web Design",
       "Modern Web Development",
@@ -120,7 +120,7 @@ export const siteConfig = {
       "Static Site Generation",
       "REST API Development",
       "API Integration",
-      
+
       // Location Based
       "Egypt Developer",
       "Egyptian Developer",
@@ -130,7 +130,7 @@ export const siteConfig = {
       "مطور مصري",
       "مبرمج مصري",
       "فريلانسر مصر",
-      
+
       // Portfolio & Projects
       "Web Developer Portfolio",
       "Frontend Portfolio",
@@ -138,7 +138,7 @@ export const siteConfig = {
       "Developer Portfolio Egypt",
       "معرض اعمال مطور",
       "بورتفوليو مطور",
-      
+
       // Long-tail Keywords
       "Hire React Developer Egypt",
       "Hire Frontend Developer",
@@ -206,20 +206,23 @@ export const siteConfig = {
     github: "https://github.com/shireff",
     linkedin: "https://www.linkedin.com/in/shireffnady",
     whatsapp: "https://wa.me/201274068946",
-    heroImageUrl: "https://res.cloudinary.com/dhz0pkov6/image/upload/v1768223813/portfolio/photo_5992549228963630140_y_f89mhv.jpg",
+    heroImageUrl:
+      "https://res.cloudinary.com/dhz0pkov6/image/upload/v1768223813/portfolio/photo_5992549228963630140_y_f89mhv.jpg",
     resume:
-      "https://drive.google.com/file/d/10BiinrGfzactg5MyC903WwryfY30Igb3/view?usp=sharing",
+      "https://drive.google.com/file/d/1kRCsCkCNjPjrZ_636vgJPr5HGXWuzbLq/view?usp=sharing",
     // resume: "https://drive.google.com/file/d/1R4OSPHV8ADIz1qNSaSDMQCIs6fZv85T3/view?usp=sharing",
   },
   personalImages: [
     {
       url: "/personal/shireff-1.webp",
-      title: "Shireff Nady Full-Stack Developer Professional Portrait | شريف نادي مطور فرونت اند",
+      title:
+        "Shireff Nady Full-Stack Developer Professional Portrait | شريف نادي مطور فرونت اند",
       alt: "Official professional headshot of Shireff Nady (شريف نادي), a Full-Stack Developer and Web Development Expert specializing in React and Next.js",
     },
     {
       url: "/personal/shireff-2.webp",
-      title: "Shireff Nady Software Engineer Web Development Portfolio | شريف نادي مهندس برمجيات",
+      title:
+        "Shireff Nady Software Engineer Web Development Portfolio | شريف نادي مهندس برمجيات",
       alt: "Shireff Nady (شريف نادي) software engineer portrait showcasing professional presence for tech consultancy and development",
     },
     {
@@ -229,12 +232,14 @@ export const siteConfig = {
     },
     {
       url: "/personal/shireff-4.webp",
-      title: "Shireff Nady React and Next.js Developer Official Photo | شريف نادي مطور ريأكت",
+      title:
+        "Shireff Nady React and Next.js Developer Official Photo | شريف نادي مطور ريأكت",
       alt: "Shireff Nady (شريف نادي), specialized in React and Next.js development, posing for a professional portfolio image",
     },
     {
       url: "/personal/shireff-5.webp",
-      title: "Shireff Nady Modern Web Architecture Specialist Portrait | شريف نادي مطور مواقع",
+      title:
+        "Shireff Nady Modern Web Architecture Specialist Portrait | شريف نادي مطور مواقع",
       alt: "Portrait of Shireff Nady (شريف نادي), a specialist in modern web architecture and full-stack software engineering",
     },
   ],

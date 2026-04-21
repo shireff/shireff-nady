@@ -1,4 +1,7 @@
-# *
+# Content Signals - AI usage preferences (must appear before User-agent blocks)
+Content-Signal: ai-train=no, search=yes, ai-input=yes
+
+# Default
 User-agent: *
 Allow: /
 Allow: /personal/*
@@ -50,10 +53,7 @@ Allow: /
 Disallow: /admin
 Disallow: /api
 
-# Content Signals - AI usage preferences
-Content-Signal: ai-train=no, search=yes, ai-input=yes
-
-# Host (for Yandex only - Google ignores this)
+# Host (for Yandex only)
 Host: https://www.shireff.dev
 
 # Sitemaps
