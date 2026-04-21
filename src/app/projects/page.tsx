@@ -1,10 +1,7 @@
 import React from "react";
 import Script from "next/script";
-import { headers } from "next/headers";
-import { NextResponse } from "next/server";
 import ProjectList from "@/components/features/projects/ProjectList";
 import { projectService } from "@/services/projects";
-import { generateMarkdown } from "@/lib/markdown-generator";
 
 import { Metadata } from "next";
 
@@ -25,19 +22,6 @@ export const metadata: Metadata = {
 };
 
 export default async function ProjectsPage() {
-  const headersList = await headers();
-  const accept = headersList.get("accept") ?? "";
-  if (accept.includes("text/markdown")) {
-    const md = await generateMarkdown("/projects");
-    return new NextResponse(md, {
-      headers: {
-        "Content-Type": "text/markdown; charset=utf-8",
-        "x-markdown-tokens": String(Math.ceil(md.length / 4)),
-        Vary: "Accept",
-      },
-    }) as unknown as React.ReactElement;
-  }
-
   let projects: import("@/types").Project[] = [];
   let pagination: import("@/types").PaginationMeta | undefined;
 

@@ -58,8 +58,35 @@ const nextConfig: NextConfig = {
   },
 
   // Rewrite: serve markdown when Accept header contains text/markdown
-  // Note: Next.js rewrites don't support header matching, so agents should
-  // call /api/markdown?path=/ directly, or use the Link header alternate rel.
+  async rewrites() {
+    return [
+      {
+        source: "/",
+        has: [{ type: "header", key: "accept", value: ".*text/markdown.*" }],
+        destination: "/api/markdown?path=/",
+      },
+      {
+        source: "/projects",
+        has: [{ type: "header", key: "accept", value: ".*text/markdown.*" }],
+        destination: "/api/markdown?path=/projects",
+      },
+      {
+        source: "/experiences",
+        has: [{ type: "header", key: "accept", value: ".*text/markdown.*" }],
+        destination: "/api/markdown?path=/experiences",
+      },
+      {
+        source: "/recommendations",
+        has: [{ type: "header", key: "accept", value: ".*text/markdown.*" }],
+        destination: "/api/markdown?path=/recommendations",
+      },
+      {
+        source: "/contact",
+        has: [{ type: "header", key: "accept", value: ".*text/markdown.*" }],
+        destination: "/api/markdown?path=/contact",
+      },
+    ];
+  },
 
   // Redirect config
   async redirects() {
