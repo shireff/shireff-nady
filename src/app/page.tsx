@@ -1,17 +1,20 @@
-import React from 'react';
-import Script from 'next/script';
-import { projectService } from '@/services/projects';
-import { settingsService } from '@/services/settings';
-import { siteConfig } from '@/config/site';
+import React from "react";
+import Script from "next/script";
+import { headers } from "next/headers";
+import { NextResponse } from "next/server";
+import { projectService } from "@/services/projects";
+import { settingsService } from "@/services/settings";
+import { siteConfig } from "@/config/site";
+import { generateMarkdown } from "@/lib/markdown-generator";
 
 // Sections
-import Hero from '@/components/sections/hero/Hero';
-import Stats from '@/components/sections/stats/Stats';
-import Skills from '@/components/sections/Skills';
-import FeaturedProjects from '@/components/sections/projects/FeaturedProjects';
-import Recommendations from '@/components/sections/testimonials/Recommendations';
-import CTA from '@/components/sections/cta/CTA';
-import HiddenGallery from '@/components/sections/HiddenGallery';
+import Hero from "@/components/sections/hero/Hero";
+import Stats from "@/components/sections/stats/Stats";
+import Skills from "@/components/sections/Skills";
+import FeaturedProjects from "@/components/sections/projects/FeaturedProjects";
+import Recommendations from "@/components/sections/testimonials/Recommendations";
+import CTA from "@/components/sections/cta/CTA";
+import HiddenGallery from "@/components/sections/HiddenGallery";
 
 const DEFAULT_HERO_IMAGE = siteConfig.links.heroImageUrl;
 
@@ -19,13 +22,27 @@ const DEFAULT_HERO_IMAGE = siteConfig.links.heroImageUrl;
 export const revalidate = 3600;
 
 export default async function Home() {
-  let projects: import('@/types').Project[] = [];
+  // Markdown content negotiation for AI agents
+  const headersList = await headers();
+  const accept = headersList.get("accept") ?? "";
+  if (accept.includes("text/markdown")) {
+    const md = await generateMarkdown("/");
+    return new NextResponse(md, {
+      headers: {
+        "Content-Type": "text/markdown; charset=utf-8",
+        "x-markdown-tokens": String(Math.ceil(md.length / 4)),
+        Vary: "Accept",
+      },
+    }) as unknown as React.ReactElement;
+  }
+
+  let projects: import("@/types").Project[] = [];
   let heroImageUrl = DEFAULT_HERO_IMAGE;
 
   try {
     const [projectsResponse, homeSettings] = await Promise.all([
       projectService.getAll(),
-      settingsService.getHomeImage()
+      settingsService.getHomeImage(),
     ]);
 
     projects = projectsResponse?.data || [];
@@ -38,41 +55,41 @@ export default async function Home() {
     console.error("Failed to fetch home data:", error);
   }
 
-  const featuredProjects = projects.filter(p => p.isFeatured);
+  const featuredProjects = projects.filter((p) => p.isFeatured);
 
   const webpageSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
     "@id": `${siteConfig.url}/#webpage`,
-    "name": siteConfig.name,
-    "url": siteConfig.url,
-    "description": `Welcome to the official portfolio of ${siteConfig.name}, a Senior Front-End Developer specialized in digital excellence.`,
-    "isPartOf": {
+    name: siteConfig.name,
+    url: siteConfig.url,
+    description: `Welcome to the official portfolio of ${siteConfig.name}, a Senior Front-End Developer specialized in digital excellence.`,
+    isPartOf: {
       "@type": "WebSite",
       "@id": `${siteConfig.url}/#website`,
-      "name": siteConfig.name
+      name: siteConfig.name,
     },
-    "about": {
+    about: {
       "@type": "Person",
       "@id": `${siteConfig.url}/#person`,
-      "name": siteConfig.name
+      name: siteConfig.name,
     },
-    "author": {
+    author: {
       "@type": "Person",
       "@id": `${siteConfig.url}/#person`,
-      "name": siteConfig.name
+      name: siteConfig.name,
     },
-    "primaryImageOfPage": {
+    primaryImageOfPage: {
       "@type": "ImageObject",
-      "url": heroImageUrl,
-      "width": 1200,
-      "height": 630,
-      "creditText": siteConfig.author.name,
-      "copyrightNotice": `Copyright (c) 2026 ${siteConfig.author.name}. All rights reserved.`,
-      "license": `${siteConfig.url}/verification`,
-      "acquireLicensePage": `${siteConfig.url}/contact`
+      url: heroImageUrl,
+      width: 1200,
+      height: 630,
+      creditText: siteConfig.author.name,
+      copyrightNotice: `Copyright (c) 2026 ${siteConfig.author.name}. All rights reserved.`,
+      license: `${siteConfig.url}/verification`,
+      acquireLicensePage: `${siteConfig.url}/contact`,
     },
-    "inLanguage": "en"
+    inLanguage: "en",
   };
 
   // Structured data for images to help Google Images
@@ -80,46 +97,51 @@ export default async function Home() {
     "@context": "https://schema.org",
     "@type": "ImageGallery",
     "@id": `${siteConfig.url}/#imagegallery`,
-    "name": `${siteConfig.name} Professional Gallery`,
-    "description": `Professional photos and project screenshots of ${siteConfig.name}`,
-    "url": siteConfig.url,
-    "author": {
+    name: `${siteConfig.name} Professional Gallery`,
+    description: `Professional photos and project screenshots of ${siteConfig.name}`,
+    url: siteConfig.url,
+    author: {
       "@type": "Person",
       "@id": `${siteConfig.url}/#person`,
-      "name": siteConfig.name
+      name: siteConfig.name,
     },
-    "image": [
-      ...siteConfig.personalImages.map(img => ({
+    image: [
+      ...siteConfig.personalImages.map((img) => ({
         "@type": "ImageObject",
-        "url": img.url.startsWith('http') ? img.url : `${siteConfig.url}${img.url}`,
-        "caption": img.title,
-        "name": img.title,
-        "creditText": siteConfig.author.name,
-        "copyrightNotice": `Copyright (c) 2026 ${siteConfig.author.name}. All rights reserved.`,
-        "license": `${siteConfig.url}/verification`,
-        "acquireLicensePage": `${siteConfig.url}/contact`,
-        "author": {
+        url: img.url.startsWith("http")
+          ? img.url
+          : `${siteConfig.url}${img.url}`,
+        caption: img.title,
+        name: img.title,
+        creditText: siteConfig.author.name,
+        copyrightNotice: `Copyright (c) 2026 ${siteConfig.author.name}. All rights reserved.`,
+        license: `${siteConfig.url}/verification`,
+        acquireLicensePage: `${siteConfig.url}/contact`,
+        author: {
           "@type": "Person",
           "@id": `${siteConfig.url}/#person`,
-          "name": siteConfig.name
-        }
+          name: siteConfig.name,
+        },
       })),
-      ...projects.filter(p => p.img).slice(0, 10).map(p => ({
-        "@type": "ImageObject",
-        "url": p.img?.startsWith('http') ? p.img : `${siteConfig.url}${p.img}`,
-        "caption": p.title,
-        "name": p.title,
-        "creditText": siteConfig.author.name,
-        "copyrightNotice": `Copyright (c) 2026 ${siteConfig.author.name}. All rights reserved.`,
-        "license": `${siteConfig.url}/verification`,
-        "acquireLicensePage": `${siteConfig.url}/contact`,
-        "author": {
-          "@type": "Person",
-          "@id": `${siteConfig.url}/#person`,
-          "name": siteConfig.name
-        }
-      }))
-    ]
+      ...projects
+        .filter((p) => p.img)
+        .slice(0, 10)
+        .map((p) => ({
+          "@type": "ImageObject",
+          url: p.img?.startsWith("http") ? p.img : `${siteConfig.url}${p.img}`,
+          caption: p.title,
+          name: p.title,
+          creditText: siteConfig.author.name,
+          copyrightNotice: `Copyright (c) 2026 ${siteConfig.author.name}. All rights reserved.`,
+          license: `${siteConfig.url}/verification`,
+          acquireLicensePage: `${siteConfig.url}/contact`,
+          author: {
+            "@type": "Person",
+            "@id": `${siteConfig.url}/#person`,
+            name: siteConfig.name,
+          },
+        })),
+    ],
   };
 
   return (

@@ -1,11 +1,14 @@
-import React from 'react';
-import Script from 'next/script';
-import ExperienceList from '@/components/features/experiences/ExperienceList';
-import { experienceService } from '@/services/experiences';
+import React from "react";
+import Script from "next/script";
+import { headers } from "next/headers";
+import { NextResponse } from "next/server";
+import ExperienceList from "@/components/features/experiences/ExperienceList";
+import { experienceService } from "@/services/experiences";
+import { generateMarkdown } from "@/lib/markdown-generator";
 
-import { Metadata } from 'next';
+import { Metadata } from "next";
 
-import { siteConfig } from '@/config/site';
+import { siteConfig } from "@/config/site";
 
 // Use ISR (Incremental Static Regeneration)
 export const revalidate = 3600; // Revalidate every hour
@@ -15,11 +18,24 @@ export const metadata: Metadata = {
   description: `A detailed timeline of ${siteConfig.name}’s professional journey, technical contributions, and career growth as a Front-End Developer.`,
   alternates: {
     canonical: `${siteConfig.url}/experiences`,
-  }
+  },
 };
 
 export default async function ExperiencesPage() {
-  let experiences: import('@/types').Experience[] = [];
+  const headersList = await headers();
+  const accept = headersList.get("accept") ?? "";
+  if (accept.includes("text/markdown")) {
+    const md = await generateMarkdown("/experiences");
+    return new NextResponse(md, {
+      headers: {
+        "Content-Type": "text/markdown; charset=utf-8",
+        "x-markdown-tokens": String(Math.ceil(md.length / 4)),
+        Vary: "Accept",
+      },
+    }) as unknown as React.ReactElement;
+  }
+
+  let experiences: import("@/types").Experience[] = [];
   try {
     experiences = await experienceService.getAll();
   } catch (error) {
@@ -30,28 +46,28 @@ export default async function ExperiencesPage() {
     "@context": "https://schema.org",
     "@type": "ProfilePage",
     "@id": `${siteConfig.url}/experiences#profile`,
-    "mainEntity": {
+    mainEntity: {
       "@type": "Person",
       "@id": `${siteConfig.url}/#person`,
-      "name": siteConfig.author.name,
-      "jobTitle": siteConfig.seo.structuredData.jobTitle,
-      "description": `${siteConfig.author.name}'s professional journey as a developer.`,
-      "url": siteConfig.url,
-      "hasOccupation": experiences.map(exp => ({
+      name: siteConfig.author.name,
+      jobTitle: siteConfig.seo.structuredData.jobTitle,
+      description: `${siteConfig.author.name}'s professional journey as a developer.`,
+      url: siteConfig.url,
+      hasOccupation: experiences.map((exp) => ({
         "@type": "OrganizationRole",
-        "roleName": exp.position,
-        "worksFor": {
+        roleName: exp.position,
+        worksFor: {
           "@type": "Organization",
-          "name": exp.company
+          name: exp.company,
         },
-        "description": exp.description.join(' '),
-        "skills": exp.technologies
-      }))
+        description: exp.description.join(" "),
+        skills: exp.technologies,
+      })),
     },
-    "isPartOf": {
+    isPartOf: {
       "@type": "WebSite",
-      "@id": `${siteConfig.url}/#website`
-    }
+      "@id": `${siteConfig.url}/#website`,
+    },
   };
 
   return (
@@ -64,12 +80,21 @@ export default async function ExperiencesPage() {
 
       {/* Hidden SEO keywords */}
       <div className="sr-only" aria-hidden="true">
-        <h2>{siteConfig.seo.keywords.filter(k => k.includes('Experience') || k.includes('Career')).join(', ')}</h2>
+        <h2>
+          {siteConfig.seo.keywords
+            .filter((k) => k.includes("Experience") || k.includes("Career"))
+            .join(", ")}
+        </h2>
       </div>
 
       <div className="text-center space-y-6">
-        <h1 className="text-4xl sm:text-5xl md:text-8xl font-black italic tracking-tighter bg-gradient-to-b from-white to-zinc-800 bg-clip-text text-transparent underline decoration-blue-500/50 underline-offset-8 uppercase">My Career.</h1>
-        <p className="text-zinc-400 text-lg md:text-xl max-w-2xl mx-auto">A look at the places I've worked and the things I've built along the way.</p>
+        <h1 className="text-4xl sm:text-5xl md:text-8xl font-black italic tracking-tighter bg-gradient-to-b from-white to-zinc-800 bg-clip-text text-transparent underline decoration-blue-500/50 underline-offset-8 uppercase">
+          My Career.
+        </h1>
+        <p className="text-zinc-400 text-lg md:text-xl max-w-2xl mx-auto">
+          A look at the places I've worked and the things I've built along the
+          way.
+        </p>
       </div>
 
       <ExperienceList experiences={experiences} />

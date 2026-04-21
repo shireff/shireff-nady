@@ -31,13 +31,35 @@ const nextConfig: NextConfig = {
               '</.well-known/api-catalog>; rel="api-catalog"',
               '</.well-known/mcp/server-card.json>; rel="mcp-server-card"',
               '</.well-known/agent-skills/index.json>; rel="agent-skills"',
-              '</api/docs>; rel="service-doc"',
+              '</api/markdown>; rel="alternate"; type="text/markdown"',
             ].join(", "),
+          },
+          {
+            key: "Vary",
+            value: "Accept",
+          },
+        ],
+      },
+      // Markdown route: allow agents to fetch directly
+      {
+        source: "/api/markdown",
+        headers: [
+          {
+            key: "Access-Control-Allow-Origin",
+            value: "*",
+          },
+          {
+            key: "Cache-Control",
+            value: "public, s-maxage=300, stale-while-revalidate=600",
           },
         ],
       },
     ];
   },
+
+  // Rewrite: serve markdown when Accept header contains text/markdown
+  // Note: Next.js rewrites don't support header matching, so agents should
+  // call /api/markdown?path=/ directly, or use the Link header alternate rel.
 
   // Redirect config
   async redirects() {
