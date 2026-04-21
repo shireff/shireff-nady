@@ -1,6 +1,5 @@
 import React from "react";
 import Script from "next/script";
-import { headers } from "next/headers";
 import ExperienceList from "@/components/features/experiences/ExperienceList";
 import { experienceService } from "@/services/experiences";
 
@@ -20,20 +19,6 @@ export const metadata: Metadata = {
 };
 
 export default async function ExperiencesPage() {
-  const headersList = await headers();
-  const accept = headersList.get("accept") ?? "";
-  if (accept.includes("text/markdown")) {
-    const { generateMarkdown } = await import("@/lib/markdown-generator");
-    const md = await generateMarkdown("/experiences");
-    return new Response(md, {
-      headers: {
-        "Content-Type": "text/markdown; charset=utf-8",
-        "x-markdown-tokens": String(Math.ceil(md.length / 4)),
-        Vary: "Accept",
-      },
-    }) as unknown as React.ReactElement;
-  }
-
   let experiences: import("@/types").Experience[] = [];
   try {
     experiences = await experienceService.getAll();

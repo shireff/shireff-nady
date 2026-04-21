@@ -1,6 +1,5 @@
 import React from "react";
 import Script from "next/script";
-import { headers } from "next/headers";
 import { projectService } from "@/services/projects";
 import { settingsService } from "@/services/settings";
 import { siteConfig } from "@/config/site";
@@ -20,20 +19,6 @@ const DEFAULT_HERO_IMAGE = siteConfig.links.heroImageUrl;
 export const revalidate = 3600;
 
 export default async function Home() {
-  const headersList = await headers();
-  const accept = headersList.get("accept") ?? "";
-  if (accept.includes("text/markdown")) {
-    const { generateMarkdown } = await import("@/lib/markdown-generator");
-    const md = await generateMarkdown("/");
-    return new Response(md, {
-      headers: {
-        "Content-Type": "text/markdown; charset=utf-8",
-        "x-markdown-tokens": String(Math.ceil(md.length / 4)),
-        Vary: "Accept",
-      },
-    }) as unknown as React.ReactElement;
-  }
-
   let projects: import("@/types").Project[] = [];
   let heroImageUrl = DEFAULT_HERO_IMAGE;
 

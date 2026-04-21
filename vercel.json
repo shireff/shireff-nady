@@ -1,0 +1,59 @@
+{
+  "rewrites": [
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "header",
+          "key": "accept",
+          "value": "(?:.*,)?text/markdown(?:,.*)?(?:;.*)?"
+        }
+      ],
+      "destination": "/api/markdown?path=/"
+    },
+    {
+      "source": "/projects",
+      "has": [
+        {
+          "type": "header",
+          "key": "accept",
+          "value": "(?:.*,)?text/markdown(?:,.*)?(?:;.*)?"
+        }
+      ],
+      "destination": "/api/markdown?path=/projects"
+    },
+    {
+      "source": "/experiences",
+      "has": [
+        {
+          "type": "header",
+          "key": "accept",
+          "value": "(?:.*,)?text/markdown(?:,.*)?(?:;.*)?"
+        }
+      ],
+      "destination": "/api/markdown?path=/experiences"
+    },
+    {
+      "source": "/recommendations",
+      "has": [
+        {
+          "type": "header",
+          "key": "accept",
+          "value": "(?:.*,)?text/markdown(?:,.*)?(?:;.*)?"
+        }
+      ],
+      "destination": "/api/markdown?path=/recommendations"
+    },
+    {
+      "source": "/contact",
+      "has": [
+        {
+          "type": "header",
+          "key": "accept",
+          "value": "(?:.*,)?text/markdown(?:,.*)?(?:;.*)?"
+        }
+      ],
+      "destination": "/api/markdown?path=/contact"
+    }
+  ]
+}
