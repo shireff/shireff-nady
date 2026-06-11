@@ -209,8 +209,7 @@ export const siteConfig = {
     heroImageUrl:
       "https://res.cloudinary.com/dhz0pkov6/image/upload/v1768223813/portfolio/photo_5992549228963630140_y_f89mhv.jpg",
     resume:
-      "https://drive.google.com/file/d/1kRCsCkCNjPjrZ_636vgJPr5HGXWuzbLq/view?usp=sharing",
-    // resume: "https://drive.google.com/file/d/1R4OSPHV8ADIz1qNSaSDMQCIs6fZv85T3/view?usp=sharing",
+      "https://drive.google.com/file/d/1w70UwCSqgb6EuiuF46PKdkubQoRWbeGm/view?usp=sharing",
   },
   personalImages: [
     {
